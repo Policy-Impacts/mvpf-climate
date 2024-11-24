@@ -1,0 +1,5 @@
+estimate,pe,se,t_stat,p_value,ci_lo,ci_hi,in_baseline,primary_estimate,selection,mvpf_effect,corr_direction,source
+daily_install_rate_increase,-10.6,1.167262,9.0810814,,,,1,1,,,1,Table 8 column (6)
+pass_through,.778,.063000001,,,,,1,1,,,1,Pless Van Benthem Table 2 column 2
+farmer_theta,-.31900001,.043000001,,,,,,,,,2,Way et. al. (Table S20)
+markup,.46000001,.090000004,,,,,1,1,,,1,Table 2 Panel A Dorsey

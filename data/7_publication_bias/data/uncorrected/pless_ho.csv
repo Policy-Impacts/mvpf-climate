@@ -1,0 +1,6 @@
+estimate,pe,se,t_stat,p_value,ci_lo,ci_hi,in_baseline,primary_estimate,selection,mvpf_effect,corr_direction,source
+price,-.53399998,.898,,,,,1,1,,,1,Table 6
+price_squared,.052999999,.098999999,,,,,1,1,,,1,Table 6
+pass_through,.778,.063000001,,,,,1,1,,,1,Table 2 column 2
+farmer_theta,-.31900001,.043000001,,,,,,,,,2,"Way et al. (2022), Table S20"
+markup,.46000001,.090000004,,,,,1,1,,,1,Table 2 Panel A Dorsey

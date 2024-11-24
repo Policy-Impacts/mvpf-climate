@@ -1,0 +1,2 @@
+estimate,pe,se,t_stat,p_value,ci_lo,ci_hi,in_baseline,primary_estimate,selection,mvpf_effect,corr_direction,source
+audit_impact,.011,.003,,,,,1,1,,,,Gillingham and Tsvetanov Table 5 Column 4

@@ -1,0 +1,123 @@
+estimate,pe,se,t_stat,p_value,ci_lo,ci_hi,pub_bias,expected_sign,program,extended,international,regulation,clusterid,baseline,extended_international,extended_regulation,international_regulation,complete_sample,abs_t_stat
+Audit completion indicator on treatment indicator,.011,.003,3.666666666666667,,,,1,1,audit_nudge,1,1,1,2,1,1,1,1,1,3.6666667
+"VMT remaining, eligible group",16027.6,161,99.55031055900622,,,,1,1,baaqmd,1,1,1,3,1,1,1,1,1,99.550308
+"Days of driving remaining, eligible group ",1394.2,9.509,146.6189925333894,,,,1,1,baaqmd,1,1,1,3,1,1,1,1,1,146.61899
+Experience exponent,.421,.063,6.682539682539682,,,,1,1,bev_state,1,1,1,4,1,1,1,1,1,6.6825395
+Effect of rebate on per capita BEV registration,.078,.027,2.888888888888889,,,,1,1,bev_state,1,1,1,4,1,1,1,1,1,2.8888888
+June-December Effect on vehicle MPG,.21,.04,5.25,,,,1,1,c4c_federal,1,1,1,11,1,1,1,1,1,5.25
+Percent subsidized on CARS eligibility,.2107,.0073,28.86301369863014,,,,1,1,c4c_texas,1,1,1,12,1,1,1,1,1,28.863014
+Fuel economy (MPG) on CARS eligibility,.6578000000000001,.0929,7.080731969860065,,,,1,1,c4c_texas,1,1,1,12,1,1,1,1,1,7.0807319
+ trend break following cap and trade on CO2,.297,.077,3.857142857142857,,,,1,1,ca_cnt,1,1,1,13,1,1,1,1,1,3.8571429
+trend break following cap and trade on PM2.5,.097,.048,2.020833333333333,,,,1,1,ca_cnt,1,1,1,13,1,1,1,1,1,2.0208333
+trend break following cap and trade on SOx,.037,.043,.8604651162790697,,,,1,1,ca_cnt,1,1,1,13,1,1,1,1,1,.86046511
+ trend break following cap and trade on NOx,.104,.05,2.08,,,,1,1,ca_cnt,1,1,1,13,1,1,1,1,1,2.0799999
+"Effect of Rebate Incentive on Energy Conservation: Long Run, Inland, 2006",.04,.018,2.222222222222222,,,,1,1,ca_electric,1,1,1,14,1,1,1,1,1,2.2222223
+"Effect of Rebate Incentive on Energy Conservation: Long Run, Inland, 2007",.048,.021,2.285714285714286,,,,1,1,ca_electric,1,1,1,14,1,1,1,1,1,2.2857144
+Effect of Rebate Incentive on Energy Conservation: Coastal,.001,.002,.5,,,,1,1,ca_electric,1,1,1,14,1,1,1,1,1,.5
+"Effect of Rebate Incentive on Energy Conservation: Long Run, Inland, 2008",.043,.022,1.954545454545455,,,,1,1,ca_electric,1,1,1,14,1,1,1,1,1,1.9545455
+Effect of Rebate Incentive on Energy Conservation: Inland,.042,.013,3.230769230769231,,,,1,1,ca_electric,1,1,1,14,1,1,1,1,1,3.2307692
+LATE of   CARE enrollment on gas consumption,1.909,.9198,2.075451185040226,,,,1,1,care,1,1,1,15,1,1,1,1,1,2.0754511
+Experience exponent,.421,.063,6.682539682539682,,,,1,1,cog_gas,1,1,1,16,1,1,1,1,1,6.6825395
+Demand elasticity of solar photovoltaics,.368,.239,1.539748953974895,,,,1,1,cog_gas,1,1,1,16,1,1,1,1,1,1.5397489
+Experience exponent,.319,.043,7.418604651162791,,,,1,1,ct_solar,1,1,1,17,1,1,1,1,1,7.4186049
+Demand elasticity of solar photovoltaics,.651,.2684,2.42548435171386,,,,1,1,ct_solar,1,1,1,17,1,1,1,1,1,2.4254844
+log share of Energy Star applicants on clothes washers * wt. avg. rebate amount,.395,.132,2.992424242424242,,,,1,1,cw_datta,1,1,1,18,1,1,1,1,1,2.9924242
+Price elasticity of gas consumption,.46,.23,2,,,,1,1,dk_gas,1,1,1,19,1,1,1,1,1,2
+Experience exponent,.421,.063,6.682539682539682,,,,1,1,dk_gas,1,1,1,19,1,1,1,1,1,6.6825395
+log share of Energy Star applicants on clothes washers * wt. avg. rebate amount,.604,.417,1.448441247002398,,,,1,1,dw_datta,1,1,1,21,1,1,1,1,1,1.4484413
+Effect of 1 spiff and $100 rebate on purchase indicator of energy star water heater,.219,.118,1.855932203389831,,,,1,1,es_incent,1,1,1,22,1,1,1,1,1,1.8559322
+"Monthly electricity consumption (kWH) on refrigerator replacement, qualified ",73.45,2.68,27.40671641791045,,,,1,1,esa_fridge,1,1,1,23,1,1,1,1,1,27.406717
+"Monthly electricity consumption (kWH) on refrigerator replacement, unqualified ",38.02,3.2,11.88125,,,,1,1,esa_fridge,1,1,1,23,1,1,1,1,1,11.88125
+log share of Energy Star applicants on refrigerators * wt. avg. rebate amount,.282,.15,1.88,,,,1,1,fridge_datta,1,1,1,26,1,1,1,1,1,1.88
+Experience exponent,.421,.063,6.682539682539682,,,,1,1,gelman_gas,1,1,1,28,1,1,1,1,1,6.6825395
+Demand elasticity of gasoline,.164,.024,6.833333333333333,,,,1,1,gelman_gas,1,1,1,28,1,1,1,1,1,6.8333335
+Experience exponent,.421,.063,6.682539682539682,,,,1,1,h_gas_01_06,1,1,1,29,1,1,1,1,1,6.6825395
+Demand elasticity of solar photovoltaics,.042,.007,6,,,,1,1,h_gas_01_06,1,1,1,29,1,1,1,1,1,6
+Impact of LEEP on logged monthly energy consumption ,.071,.02,3.55,,,,1,1,hancevic_rf,1,1,1,31,1,1,1,1,1,3.55
+treat_17,1.84,.43,4.279069767441861,,,,1,1,her_compiled,1,1,1,32,1,1,1,1,1,4.2790699
+treat_13,1.44,.51,2.823529411764706,,,,1,1,her_compiled,1,1,1,32,1,1,1,1,1,2.8235295
+treat_6,1.64,.33,4.969696969696969,,,,1,1,her_compiled,1,1,1,32,1,1,1,1,1,4.969697
+treat_7,2.48,.25,9.92,,,,1,1,her_compiled,1,1,1,32,1,1,1,1,1,9.9200001
+treat_4m,2.72,.18,15.11111111111111,,,,1,1,her_compiled,1,1,1,32,1,1,1,1,1,15.111111
+treat_4q,2.26,.21,10.76190476190476,,,,1,1,her_compiled,1,1,1,32,1,1,1,1,1,10.761905
+treat_16,3.14,.37,8.486486486486488,,,,1,1,her_compiled,1,1,1,32,1,1,1,1,1,8.4864864
+treat_8,3.32,.54,6.148148148148147,,,,1,1,her_compiled,1,1,1,32,1,1,1,1,1,6.1481481
+treat_3q,1.37,.19,7.210526315789474,,,,1,1,her_compiled,1,1,1,32,1,1,1,1,1,7.2105265
+treat_2,1.83,.2,9.15,,,,1,1,her_compiled,1,1,1,32,1,1,1,1,1,9.1499996
+treat_3b,1.4,.19,7.368421052631579,,,,1,1,her_compiled,1,1,1,32,1,1,1,1,1,7.3684211
+treat_5,2.7,.44,6.136363636363637,,,,1,1,her_compiled,1,1,1,32,1,1,1,1,1,6.1363635
+treat_15,1.89,.21,9,,,,1,1,her_compiled,1,1,1,32,1,1,1,1,1,9
+treat_9,1.63,.15,10.86666666666667,,,,1,1,her_compiled,1,1,1,32,1,1,1,1,1,10.866667
+treat_12,1.39,.34,4.088235294117647,,,,1,1,her_compiled,1,1,1,32,1,1,1,1,1,4.0882354
+treat_11q,1.49,.2,7.449999999999999,,,,1,1,her_compiled,1,1,1,32,1,1,1,1,1,7.4499998
+treat_11m,1.96,.14,14,,,,1,1,her_compiled,1,1,1,32,1,1,1,1,1,14
+Experience exponent,.421,.063,6.682539682539682,,,,1,1,hev_usa,1,1,1,33,1,1,1,1,1,6.6825395
+Log per capita sales on state tax incentive,.0485,.0292,1.660958904109589,,,,1,1,hev_usa,1,1,1,33,1,1,1,1,1,1.6609589
+Experience exponent,.421,.063,6.682539682539682,,,,1,1,hev_usa_i,1,1,1,34,1,1,1,1,1,6.6825395
+Log per capita sales on state sales tax waiver,.0239,.0246,.9715447154471545,,,,1,1,hev_usa_i,1,1,1,34,1,1,1,1,1,.97154474
+Experience exponent,.421,.063,6.682539682539682,,,,1,1,hev_usa_s,1,1,1,35,1,1,1,1,1,6.6825395
+Log per capita sales on sales tax waiver ,.374,.141,2.652482269503546,,,,1,1,hev_usa_s,1,1,1,35,1,1,1,1,1,2.6524823
+Wind power capacity additions on production incentive (cent/kWh),.00317,.001481308411215,2.14,,,,1,1,hitaj_ptc,1,1,1,37,1,1,1,1,1,2.1400001
+Experience exponent,.194,.041,4.73170731707317,,,,1,1,hitaj_ptc,1,1,1,37,1,1,1,1,1,4.7317071
+Total daily PV instillations per day on rebate rate ($/W),1.008,.111,9.081081081081081,,,,1,1,hughes_csi,1,1,1,38,1,1,1,1,1,9.0810814
+Experience exponent,.319,.043,7.418604651162791,,,,1,1,hughes_csi,1,1,1,38,1,1,1,1,1,7.4186049
+Experience exponent,.421,.063,6.682539682539682,,,,1,1,hybrid_cr,1,1,1,39,1,1,1,1,1,6.6825395
+"Sales change in % without incentives, 2003",19.75,.7219387755102046,27.35689045936394,,-20.91,-18.08,1,1,hybrid_cr,1,1,1,39,1,1,1,1,1,27.35689
+Experience exponent,.421,.063,6.682539682539682,,,,1,1,hybrid_de,1,1,1,40,1,1,1,1,1,6.6825395
+"Sales change in % without incentives, 2003",4.32,.1556122448979593,27.76131147540982,,-4.63,-4.02,1,1,hybrid_de,1,1,1,40,1,1,1,1,1,27.761311
+Regression coefficient of log total production on IHWAP treatment,.128,.0039,32.82051282051282,,,,1,1,ihwap,1,1,1,41,1,1,1,1,1,32.820515
+Regression coefficient of QTY Electric (MMBtu)  production on IHWAP treatment,.2676,.0156,17.15384615384615,,,,1,1,ihwap,1,1,1,41,1,1,1,1,1,17.153847
+Regression coefficient of QTY Natural Gas (MMBtu)  production on IHWAP treatment,1.2374,.0352,35.15340909090909,,,,1,1,ihwap,1,1,1,41,1,1,1,1,1,35.153408
+"Weatherization x high Treat, gas",.402,.151,2.662251655629139,,,,1,1,ihwap_hb,1,1,1,42,1,1,1,1,1,2.6622517
+"Baseline weatherization reduction, gas",1.623,.0982,16.52749490835031,,,,1,1,ihwap_hb,1,1,1,42,1,1,1,1,1,16.527494
+"weatharization x high treatment, gas ",.471,.0313,15.0479233226837,,,,1,1,ihwap_hb,1,1,1,42,1,1,1,1,1,15.047923
+"Weatherization x Low Treat, gas",.353,.136,2.595588235294117,,,,1,1,ihwap_lb,1,1,1,43,1,1,1,1,1,2.5955882
+Baseline weatherization reduction,.471,.0313,15.0479233226837,,,,1,1,ihwap_lb,1,1,1,43,1,1,1,1,1,15.047923
+"Baseline weatherization reduction, gas",1.623,.0982,16.52749490835031,,,,1,1,ihwap_lb,1,1,1,43,1,1,1,1,1,16.527494
+"Percent change in consumption of electricity from WAP, IV-FE",.166,.0633,2.622432859399684,,,,1,1,jet_fuel,1,1,1,45,1,1,1,1,1,2.6224329
+Experience exponent,.421,.063,6.682539682539682,,,,1,1,k_gas_15_22,1,1,1,46,1,1,1,1,1,6.6825395
+Demand elasticity of gas,.198,.053,3.735849056603774,,,,1,1,k_gas_15_22,1,1,1,46,1,1,1,1,1,3.7358491
+Elasticity of demand for gasoline,.295,.031,9.516129032258064,,,,1,1,levin_gas,1,1,1,48,1,1,1,1,1,9.5161295
+Experience exponent,.421,.063,6.682539682539682,,,,1,1,levin_gas,1,1,1,48,1,1,1,1,1,6.6825395
+Demand elasticity of gasoline,.323,.0828,3.900966183574879,,,,1,1,li_gas,1,1,1,49,1,1,1,1,1,3.9009662
+Experience exponent,.421,.063,6.682539682539682,,,,1,1,li_gas,1,1,1,49,1,1,1,1,1,6.6825395
+Demand elasticity of solar photovoltaics,.355,.117,3.034188034188034,,,,1,1,manzan_gas,1,1,1,50,1,1,1,1,1,3.034188
+Experience exponent,.421,.063,6.682539682539682,,,,1,1,manzan_gas,1,1,1,50,1,1,1,1,1,6.6825395
+Experience exponent,.194,.041,4.73170731707317,,,,1,1,metcalf_ptc,1,1,1,51,1,1,1,1,1,4.7317071
+Tobit Coefficient: Effect of unit increase on user cost of capital  on Capacity,1064.5,311.5,3.417335473515249,,,,1,1,metcalf_ptc,1,1,1,51,1,1,1,1,1,3.4173355
+EV elasticity of demand,2.1,.46,4.565217391304348,,,,1,1,muehl_efmp,1,1,1,52,1,1,1,1,1,4.5652175
+"average residual subsidy inclusive price on avg total subsidy,  DinD",.85,.15,5.666666666666667,,,,1,1,muehl_efmp,1,1,1,52,1,1,1,1,1,5.6666665
+Experience exponent,.421,.063,6.682539682539682,,,,1,1,muehl_efmp,1,1,1,52,1,1,1,1,1,6.6825395
+Experience exponent,.319,.043,7.418604651162791,,,,1,1,ne_solar,1,1,1,53,1,1,1,1,1,7.4186049
+IV Tobit effect of rebate on yearly count of newly installed res. systems,.472,.0826,5.714285714285714,,,,1,1,ne_solar,1,1,1,53,1,1,1,1,1,5.7142859
+IV of price on HO Installation Rate,.534,.898,.5946547884187082,,,,1,1,pless_ho,1,1,1,55,1,1,1,1,1,.5946548
+Experience exponent,.319,.043,7.418604651162791,,,,1,1,pless_ho,1,1,1,55,1,1,1,1,1,7.4186049
+IV of price squared on HO Installation Rate,.053,.099,.5353535353535354,,,,1,1,pless_ho,1,1,1,55,1,1,1,1,1,.53535354
+Experience exponent,.319,.043,7.418604651162791,,,,1,1,pless_tpo,1,1,1,56,1,1,1,1,1,7.4186049
+IV of price squared on HO Installation Rate,.241,.289,.8339100346020761,,,,1,1,pless_tpo,1,1,1,56,1,1,1,1,1,.83391005
+IV of price on HO Installation Rate,1.929,2.249,.8577145397954646,,,,1,1,pless_tpo,1,1,1,56,1,1,1,1,1,.85771453
+Effect of $100 rebate on purchase indicator of energy star water heater,.037,.013,2.846153846153846,,,,1,1,rebate_es,1,1,1,58,1,1,1,1,1,2.8461537
+Effect of retrofit on log electricity use,.302,.103,2.932038834951456,,,,1,1,retrofit_res,1,1,1,59,1,1,1,1,1,2.9320388
+"Logged nat gas production on RGGIxPost, CO2",.13,.11,1.181818181818182,,,,1,1,rggi,1,1,1,60,1,1,1,1,1,1.1818181
+"Logged total production on RGGIxPost , NOX",.19,.14,1.357142857142857,,,,1,1,rggi,1,1,1,60,1,1,1,1,1,1.3571428
+"Logged nat gas production on POxPost , SO2",1.14,.19,5.999999999999999,,,,1,1,rggi,1,1,1,60,1,1,1,1,1,6
+"Logged coal production on RGGIxPost , CO2",.79,.17,4.647058823529411,,,,1,1,rggi,1,1,1,60,1,1,1,1,1,4.647059
+"Logged coal production on RGGIxPost , SO2",.89,.39,2.282051282051282,,,,1,1,rggi,1,1,1,60,1,1,1,1,1,2.2820513
+"Logged nat gas production on POxPost , CO2",1.11,.16,6.937500000000001,,,,1,1,rggi,1,1,1,60,1,1,1,1,1,6.9375
+"Logged nat gas production on RGGIxPost, SO2",.15,.13,1.153846153846154,,,,1,1,rggi,1,1,1,60,1,1,1,1,1,1.1538461
+Share of land cropped post-auction ,.075,.007,10.71428571428571,,,,1,1,russo_crp,1,1,1,61,1,1,1,1,1,10.714286
+Experience exponent,.421,.063,6.682539682539682,,,,1,1,sent_ch_gas,1,1,1,62,1,1,1,1,1,6.6825395
+Demand elasticity of fuel ,.28,.053030303030303,5.28,,,,1,1,sent_ch_gas,1,1,1,62,1,1,1,1,1,5.2800002
+annual wind capacity additions on PTC ,28.15,12.06,2.334162520729685,,,,1,1,shirmali_ptc,1,1,1,63,1,1,1,1,1,2.3341625
+Experience exponent,.194,.041,4.73170731707317,,,,1,1,shirmali_ptc,1,1,1,63,1,1,1,1,1,4.7317071
+Experience exponent,.421,.063,6.682539682539682,,,,1,1,small_gas_lr,1,1,1,64,1,1,1,1,1,6.6825395
+Demand elasticity of solar photovoltaics,.334,.0451,7.405764966740577,,,,1,1,small_gas_lr,1,1,1,64,1,1,1,1,1,7.4057651
+Treatment Effect on average pre-incentive installed price (2014$/W),.64,.07,9.142857142857142,,,,1,1,solarize,1,1,1,66,1,1,1,1,1,9.1428576
+Experience exponent,.319,.043,7.418604651162791,,,,1,1,solarize,1,1,1,66,1,1,1,1,1,7.4186049
+"Treatment Effect on average pre-incentive installed price (2014$/W), randomized across CT",.15,.03,5,,,,1,1,solarize,1,1,1,66,1,1,1,1,1,5
+Experience exponent,.421,.063,6.682539682539682,,,,1,1,su_gas,1,1,1,67,1,1,1,1,1,6.6825395
+Demand elasticity of gasoline ,.397,.1575396825396825,2.52,,,,1,1,su_gas,1,1,1,67,1,1,1,1,1,2.52
+"Percent change in consumption of electricity from WAP, IV-FE",.1,.1,1,,,,1,1,wap,1,1,1,69,1,1,1,1,1,1
+"Percent change in consumption of gas from WAP, IV-FE",.21,.08,2.625,,,,1,1,wap,1,1,1,69,1,1,1,1,1,2.625
+"Percent change in consumption of electricity from WAP, IV-FE",.1,.1,1,,,,1,1,wap_nudge,1,1,1,71,1,1,1,1,1,1
+"Percent change in consumption of gas from WAP, IV-FE",.21,.08,2.625,,,,1,1,wap_nudge,1,1,1,71,1,1,1,1,1,2.625

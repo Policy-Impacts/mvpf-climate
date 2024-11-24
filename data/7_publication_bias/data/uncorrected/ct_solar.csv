@@ -1,0 +1,6 @@
+estimate,pe,se,t_stat,p_value,ci_lo,ci_hi,in_baseline,primary_estimate,selection,mvpf_effect,corr_direction,source
+hurdle_stage1,-.528,.2626,,,,,1,1,,,1,"Gillinham and Tsvetanov (2019) Table 6, column (3)"
+hurdle_stage2,-.123,.055399999,,,,,1,1,,,1,"Gillinham and Tsvetanov (2019) Table 6, column (4)"
+pass_through,.156,.045000002,,,,,1,1,,,1,Gillinham and Tsvetanov (2019) Table 8
+farmer_theta,-.31900001,.043000001,,,,,,,,,,Way et. al. (Table S20)
+markup,.46000001,.090000004,,,,,1,1,,,1,Table 2 Panel A (Dorsey)

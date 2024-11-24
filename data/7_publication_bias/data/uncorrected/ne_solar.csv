@@ -1,0 +1,5 @@
+estimate,pe,se,t_stat,p_value,ci_lo,ci_hi,in_baseline,primary_estimate,selection,mvpf_effect,corr_direction,source
+pass_through,.156,.045000002,,,,,1,1,,,1,Gillinham and Tsvetanov (2019) Table 8
+semie,-.472,.082599998,,,,,1,1,,,1,"Crago and Chernyakhovskiy 2017, Table 3,  column (3) "
+farmer_theta,-.31900001,.043000001,,,,,,,,,,"Way et al. (2022), Table S20"
+markup,.46000001,.090000004,,,,,1,1,,,1,Table 2 Panel A (Dorsey)

@@ -1,0 +1,3 @@
+estimate,pe,se,t_stat,p_value,ci_lo,ci_hi,in_baseline,primary_estimate,selection,mvpf_effect,corr_direction,source
+days_accelerated,1394.2,9.5089998,,,,,1,1,,,1,"Sandler, Table 2 column 1"
+miles_abated,16027.6,161,,,,,1,1,,,1,"Sandler, Table 2 column 1"

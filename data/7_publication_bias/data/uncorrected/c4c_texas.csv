@@ -1,0 +1,2 @@
+estimate,pe,se,t_stat,p_value,ci_lo,ci_hi,in_baseline,primary_estimate,selection,mvpf_effect,corr_direction,source
+mpg_diff,.65780002,.092900001,,,,,1,1,,,1,Table 3 Column 6

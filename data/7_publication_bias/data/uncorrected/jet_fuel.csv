@@ -1,0 +1,2 @@
+estimate,pe,se,t_stat,p_value,ci_lo,ci_hi,in_baseline,primary_estimate,selection,mvpf_effect,corr_direction,source
+e_demand_jet_fuel,-.16599999,.063299999,,,,,1,1,,,,"Fukui and Miyoshi (2017), Table 5 Column 9 Panel B Row 1"

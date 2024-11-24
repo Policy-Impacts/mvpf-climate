@@ -1,0 +1,4 @@
+estimate,pe,se,t_stat,p_value,ci_lo,ci_hi,in_baseline,primary_estimate,selection,mvpf_effect,corr_direction,source
+pct_qty,-.12800001,.0038999999,,,,,1,1,,,1,"Christensen et al. (2020), Table C.3"
+lev_qty_nat_gas,-1.2374001,.0352,,,,,1,1,,,1,"Christensen et al. (2020), Table C.3"
+lev_qty_electric,-.2676,.0156,,,,,1,1,,,1,"Christensen et al. (2020), Table C.3"

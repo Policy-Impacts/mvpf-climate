@@ -1,0 +1,1 @@
+Since GitHub does not allow empty folders, this txt file is just a placeholder. Once you run the replication package, this folder will be populated.

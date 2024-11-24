@@ -1,0 +1,25 @@
+
+threshold = 10;
+            input_data = strcat(filepath,'/data/uncorrected/policy_masterlist_symm.csv');
+            data = readtable(input_data);
+            names = data.estimate;
+            X = data.pe(:,1);
+            sigma = data.se(:,1);
+            keep_neg=1;
+            cluster_ID=data.clusterid(:,1);
+
+            
+            includeinestimation=logical(data.abs_t_stat<=threshold);
+
+LLH = @(Psi) VariationVarianceLogLikelihoodControls(Psi(1), Psi(2),...
+                    [1 Psi(3:end)]...
+                    ,cutoffs,symmetric, X(includeinestimation), sigma(includeinestimation),C(includeinestimation,:),numerical_integration,symmetric_p);
+
+cutoffs = [1.64];
+Psi = [0.183 1.29 10.54];
+LLH(Psi)
+
+
+Psi = [0.18036 1.304 10.573];
+
+LLH(Psi)

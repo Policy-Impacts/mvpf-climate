@@ -1,0 +1,4 @@
+estimate,pe,se,t_stat,p_value,ci_lo,ci_hi,in_baseline,primary_estimate,selection,mvpf_effect,corr_direction,source
+pass_through,.85000002,.15000001,,,,,1,1,,,2,"Muehlegger & Rapson (2022), Table 4"
+epsilon,2.0999999,.46000001,,,,,1,1,,,3,"Muehlegger & Rapson (2022), Table 6"
+farmer_theta,-.421,.063000001,,,,,,,,,4,Way et al. (2022)

@@ -1,0 +1,6 @@
+estimate,pe,se,t_stat,p_value,ci_lo,ci_hi,in_baseline,primary_estimate,selection,mvpf_effect,corr_direction,source
+LATE_coastal,-.0012000001,.0020000001,,,,,1,1,,,1,Ito (2015) Table 2 column (1)
+LATE_inland,-.041999999,.013,,,,,1,1,,,2,Ito (2015) Table 2 column (3)
+LATE_inland_06,-.039999999,.017999999,,,,,,,,,2,Ito (2015) Table 6
+LATE_inland_07,-.048,.021,,,,,,,,,2,Ito (2015) Table 6
+LATE_inland_08,-.043000001,.022,,,,,,,,,2,Ito (2015) Table 6

@@ -1,0 +1,15 @@
+estimate,pe,se,t_stat,p_value,ci_lo,ci_hi,in_baseline,primary_estimate,selection,mvpf_effect,corr_direction,source
+log_coal_CO2_prod_2018,-.79000002,.17,,,,,1,1,,,5,Chan & Morrow (2019): Table A.2 Column 2
+log_natgas_CO2_prod_2018,.13,.11,,,,,1,1,,,6,Chan & Morrow (2019): Table A.2 Column 3
+log_coal_CO2_leaker_2018,-.12,.059999999,,,,,1,1,,,7,Chan & Morrow (2019): Table A.2 Column 5
+log_natgas_CO2_leaker_2018,1.11,.16,,,,,1,1,,,8,Chan & Morrow (2019): Table A.2 Column 6
+log_coal_SO2_prod_2018,-.88999999,.38999999,,,,,1,1,,,5,Chan & Morrow (2019): Table A.3 Column 2
+log_natgas_SO2_prod_2018,-.15000001,.13,,,,,1,1,,,6,Chan & Morrow (2019): Table A.3 Column 3
+log_coal_SO2_leaker_2018,-.059999999,.079999998,,,,,1,1,,,7,Chan & Morrow (2019): Table A.3 Column 5
+log_natgas_SO2_leaker_2018,1.14,.19,,,,,1,1,,,8,Chan & Morrow (2019): Table A.3 Column 6
+log_total_NOx_prod_2018,-.19,.14,,,,,1,1,,,,
+log_total_NOx_leaker_2018,0,0,,,,,1,1,,,,
+log_coal_mwh_prod_2018,-.46000001,.1,,,,,1,1,,,,
+log_natgas_mwh_prod_2018,-.2,.11,,,,,1,1,,,,
+log_coal_mwh_leaker_2018,-.07,.090000004,,,,,1,1,,,,
+log_natgas_mwh_leaker_2018,1.17,.18000001,,,,,1,1,,,,

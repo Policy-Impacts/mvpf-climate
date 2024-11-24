@@ -1,0 +1,6 @@
+estimate,pe,se,t_stat,p_value,ci_lo,ci_hi,in_baseline,primary_estimate,selection,mvpf_effect,corr_direction,source
+price_disc,.63999999,.07,,,,,1,1,,,1,Table 7
+price_disc_spillover,.15000001,.029999999,,,,,1,1,,,1,Table 9
+installs,26.700001,0,,,,,1,1,,,1,Table 5
+spillover,2.1400001,0,,,,,1,1,,,1,Table 8
+farmer_theta,-.31900001,.043000001,,,,,,,,,,Way et. al. (Table S20)

@@ -1,0 +1,3 @@
+estimate,pe,se,t_stat,p_value,ci_lo,ci_hi,in_baseline,primary_estimate,selection,mvpf_effect,corr_direction,source
+e_demand_gas,-.368,.23899999,,,,,1,1,,,,Coglianese et al. 2017 Table 2 column (4)
+farmer_theta,-.421,.063000001,,,,,,,,,1,"Way et al. (2022), Table S22"

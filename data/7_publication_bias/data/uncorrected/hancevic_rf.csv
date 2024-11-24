@@ -1,0 +1,2 @@
+estimate,pe,se,t_stat,p_value,ci_lo,ci_hi,in_baseline,primary_estimate,selection,mvpf_effect,corr_direction,source
+retrofit_impact,.071000002,.02,,,,,1,1,,,,Hancevic and Sandoval table 9

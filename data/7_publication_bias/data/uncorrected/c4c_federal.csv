@@ -1,0 +1,2 @@
+estimate,pe,se,t_stat,p_value,ci_lo,ci_hi,in_baseline,primary_estimate,selection,mvpf_effect,corr_direction,source
+mpg_diff,.20999999,.039999999,,,,,1,1,,,1,"Li et al (2013), Table 5 Panel 2"

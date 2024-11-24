@@ -1,0 +1,3 @@
+estimate,pe,se,t_stat,p_value,ci_lo,ci_hi,in_baseline,primary_estimate,selection,mvpf_effect,corr_direction,source
+lpm,.0031699999,.0014813083,2.1400001,,,,1,1,,,1,"Hitaj 2013, Table 3 column 5"
+farmer_theta,-.19400001,.041000001,,,,,,,,,,Way et al. Table S19

@@ -1,0 +1,2 @@
+estimate,pe,se,t_stat,p_value,ci_lo,ci_hi,in_baseline,primary_estimate,selection,mvpf_effect,corr_direction,source
+e_supply_crude,.29499999,.037999999,,,,,1,1,,,,"Rao (2018), Table 4, Column (4) (After-tax price elasticity)"

@@ -1,0 +1,3 @@
+estimate,pe,se,t_stat,p_value,ci_lo,ci_hi,in_baseline,primary_estimate,selection,mvpf_effect,corr_direction,source
+elas,1.3,.38041332,-3.4173355,,,,1,1,,,1,"Metcalf 2010, page 27"
+farmer_theta,-.19400001,.041000001,,,,,,,,,,Way et al. Table S19
