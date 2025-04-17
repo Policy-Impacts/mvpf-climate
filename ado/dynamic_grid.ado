@@ -19,6 +19,11 @@ syntax anything, /// annual kwh
 	 grid_specify(string) /// either "yes" or "no"
 	 model(string) /// either "optimistic" "conservative" "frozen" "midpoint" or "static"
 	]
+	
+*Override US grid if we are running a robustness specification on new grid
+if "${change_grid}" != "" {
+	local geo = "${change_grid}"
+}
 
 	*Define locals based on emissions type
 if "`ef'" == "average" {

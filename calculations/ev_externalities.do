@@ -113,7 +113,11 @@ foreach v of local vmt_type_loop {
 
 			local kwh_used = (`ev_miles_traveled`age'' * `kwh_per_mile')
 
-			if "${ev_grid}" == ""{
+			if "${change_grid}" != "" {
+				global ev_grid = "${change_grid}"
+			}
+			
+			if "${ev_grid}" == "" | "${change_grid}" == "" {
 				global ev_grid US
 			}
 

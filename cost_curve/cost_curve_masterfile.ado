@@ -82,8 +82,14 @@ preserve
             local infile = subinstr("`enviro'","_div10","",.)
             local infile = subinstr("`infile'","_local","",.)
             local infile = subinstr("`infile'","_global","",.)
-
-            use "${assumptions}/timepaths/`infile'_externalities_time_path_scc`scc'_age`time_path_age'.dta", clear 
+			
+			if "${grid_chage}" == "" {
+				use "${assumptions}/timepaths/`infile'_externalities_time_path_scc`scc'_age`time_path_age'.dta", clear 
+			}
+			
+			if "${grid_change}" != "" {
+				use "${assumptions}/timepaths/`infile'_externalities_time_path_scc`scc'_age`time_path_age'_${grid_change}.dta", clear 
+			}
 
             if strpos("`enviro'","div10") >0 replace enviro_ext = enviro_ext/10
             if strpos("`enviro'","div10") >0 replace local_ext = local_ext/10

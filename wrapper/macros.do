@@ -401,6 +401,16 @@ if "${rerun_macros}" == "yes" {
 	qui do "${github}/calculations/gas_electricity_externalities"
 }
 
+*If we need to switch grids, override the US grid with the new grid*
+if "${change_grid}" != "" {
+	forvalues y = 2004(1)2021 {
+		foreach var in "wind" "solar" "portfolio" "uniform" {
+			global global_`var'_US_`y' = ${global_`var'_${change_grid}_`y'}
+			global local_`var'_US_`y' =  ${local_`var'_${change_grid}_`y'} 
+		}
+	}
+}
+
 if "${last_run_scc_save}" == "" | "${last_run_md_save}" == "" {
 	di in red "Rerunning `object_of_interest' because Macros Undefined."
 	qui do "${github}/calculations/gas_electricity_externalities"

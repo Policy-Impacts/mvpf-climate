@@ -19,6 +19,11 @@ syntax anything, /// annual kwh
 	 model(string) /// either "optimistic" "conservative" "frozen" or "midpoint"
 	]
 
+*Override US grid if we are running a robustness specification on new grid
+if "${change_grid}" != "" {
+	local geo = "${change_grid}"
+}
+
 if "`ef'" == "average" {
 	local ef_factor = "kwh"
 	local carbon_scale = "avg"
