@@ -323,7 +323,9 @@ else if ${scc} == 76{
 else if ${scc} == 337{
 	global discount_rate = 0.015
 }
-
+else if ${scc} == 1367{
+	global discount_rate = 0.02
+}
 *-----------------------------------------------------------------------
 * 2b - Social Cost of Carbon, Methane, and Nitrous Oxide.
 *-----------------------------------------------------------------------	

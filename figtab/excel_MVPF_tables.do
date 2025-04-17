@@ -158,7 +158,7 @@ else{
 }
 
 assert round(cost, 0.001) == round(program_cost + fisc_ext_sr + fisc_ext_lr, 0.001) if program != "bev_state_i" // see if this is fixed after the latest big run
-assert round(MVPF, 0.001) == round(WTP / cost, 0.001) if MVPF != 99999
+assert round(MVPF, 0.001) == round(WTP / cost, 0.001) if (MVPF != 99999 & MVPF != -99999)
 
 
 *********************************

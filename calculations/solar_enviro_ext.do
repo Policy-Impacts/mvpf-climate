@@ -1,5 +1,5 @@
 tempname solar_enviro_ext
-postfile `solar_enviro_ext' str18 policy year enviro_ext local_ext global_ext using "${assumptions}timepaths/solar_externalities_time_path_${scc_ind_name}_age25.dta", replace 
+postfile `solar_enviro_ext' str18 policy year enviro_ext local_ext global_ext using "${assumptions}/timepaths/solar_externalities_time_path_${scc_ind_name}_age25.dta", replace 
 
 local solar_lca_co2e = 40 / 1000000 // in g/kWh, so need to divide by 1e6 to get t/kWh
 
@@ -55,5 +55,5 @@ forvalues y = 2006(1)2045 {
 }
 
 postclose `solar_enviro_ext'	
-use "${assumptions}timepaths/solar_externalities_time_path_${scc_ind_name}_age25.dta", clear
-save "${assumptions}timepaths/solar_externalities_time_path_${scc_ind_name}_age25.dta", replace
+use "${assumptions}/timepaths/solar_externalities_time_path_${scc_ind_name}_age25.dta", clear
+save "${assumptions}/timepaths/solar_externalities_time_path_${scc_ind_name}_age25.dta", replace
