@@ -691,5 +691,73 @@ use `robustness_values', clear
 save "${code_files}/4_results/robustness", replace
 export excel using "${code_files}/4_results/robustness", replace
 
+*--------------------------------------------
+* 14 - Different Grids
+*--------------------------------------------
+* Create list of all programs to run.
+filelist, pattern("*.do") dir("${github}/policies/harmonized/") save(temp_filelist.txt) replace
+preserve
 
+	use temp_filelist.txt, clear
+	
+	levelsof(filename), local(file_loop)
+	foreach program of local file_loop {
+		
+		local program_entry = substr("`program'", 1, strlen("`program'") - 3)
+		local all_programs "`all_programs' `program_entry'" 
+		
+	}
+	
+	cap erase temp_filelist.txt
+	
+restore 
+/*
+*Run with CA grid
+	do "${github}/wrapper/metafile.do" ///
+		"current" /// 2020
+		"193" /// SCC
+		"yes" /// learning-by-doing
+		"no" /// savings
+		"yes" /// profits
+		"`all_programs'" /// programs to run
+		0 /// reps
+		"full_current_193_CA_grid" // nrun
+	
+	*Reset back to original
+	global change_grid = ""
+	global ev_grid = "US"
+*/
+*Run with EU grid
+	do "${github}/wrapper/metafile.do" ///
+		"current" /// 2020
+		"193" /// SCC
+		"yes" /// learning-by-doing
+		"no" /// savings
+		"yes" /// profits
+		"`all_programs'" /// programs to run
+		0 /// reps
+		"full_current_193_EU_grid" // nrun
+	
+	*Reset back to original
+	global change_grid = ""
+	global ev_grid = "US"
+	qui do "${github}/calculations/gas_electricity_externalities"
+	
+
+*--------------------------------------------
+* 15 - Different Natural Gas Rebound
+*--------------------------------------------
+global ng_rebound_robustness = "yes"
+
+	do "${github}/wrapper/metafile.do" ///
+		"current" /// 2020
+		"193" /// SCC
+		"yes" /// learning-by-doing
+		"no" /// savings
+		"yes" /// profits
+		"`all_programs'" /// programs to run
+		0 /// reps
+		"full_current_193_gas_rebound" // nrun
+
+global ng_rebound_robustness = "no"
 

@@ -41,6 +41,20 @@ else{
     global correction_modes = "uncorrected_vJK"
 }
 
+// For changing the grid
+if strpos("${nrun}" , "CA_grid") {
+    global change_grid = "CA"
+}
+
+if strpos("${nrun}" , "EU_grid") {
+    global change_grid = "EU"
+}
+
+if !strpos("${nrun}" , "_grid") {
+    global change_grid = ""
+}
+
+
 *****************************************************
 
 
@@ -205,7 +219,7 @@ foreach correction_mode of global correction_modes {
     * 0 - Macros
     *-----------------------------------------------------------------------
     noi di "SECTION 0: MACROS"
-    qui do "${github}/wrapper/macros.do" "no"
+    qui do "${github}/wrapper/macros.do" "yes"
 
     *-----------------------------------------------------------------------
     * 1 - Prepare causal estimates

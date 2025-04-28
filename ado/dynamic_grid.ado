@@ -25,6 +25,10 @@ if "${change_grid}" != "" {
 	local geo = "${change_grid}"
 }
 
+if "${change_grid}" == "EU" {
+	local geo = "US"
+}
+
 	*Define locals based on emissions type
 if "`ef'" == "average" {
 	local ef_factor = "kwh"

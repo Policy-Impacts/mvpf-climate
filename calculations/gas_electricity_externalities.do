@@ -179,6 +179,20 @@ forvalues y = 2004(1)2006 {
 	}
 }
 
+
+*Approximate grid in the EU
+*Average US CO2e emissions in 2020 (eGRID): 822.61 lb/MWh
+*Average EU CO2e emissions in 2020 (EEA): 227 g/kWh
+
+local EU_to_US = 227 / ((822.61 * 453.592)/1000)
+
+forvalues y = 2004(1)2021 {
+	foreach var in "wind" "solar" "portfolio" "uniform" {
+		global global_`var'_EU_`y' = ${global_`var'_US_`y'} * `EU_to_US'
+		global local_`var'_EU_`y' =  ${local_`var'_US_`y'} * `EU_to_US'
+	}
+}
+
 **********************************************************************
 *Get Cleanest and Dirtiest Regions (Using Marginal Rates)
 **********************************************************************

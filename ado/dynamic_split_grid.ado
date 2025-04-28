@@ -24,6 +24,10 @@ if "${change_grid}" != "" {
 	local geo = "${change_grid}"
 }
 
+if "${change_grid}" == "EU" {
+	local geo = "US"
+}
+
 if "`ef'" == "average" {
 	local ef_factor = "kwh"
 	local carbon_scale = "avg"
