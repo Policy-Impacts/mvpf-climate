@@ -50,6 +50,10 @@ if strpos("${nrun}" , "EU_grid") {
     global change_grid = "EU"
 }
 
+if strpos("${nrun}" , "MI_grid") {
+    global change_grid = "MI"
+}
+
 if !strpos("${nrun}" , "_grid") {
     global change_grid = ""
 }

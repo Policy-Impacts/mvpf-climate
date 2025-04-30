@@ -741,6 +741,21 @@ restore
 	*Reset back to original
 	global change_grid = ""
 	global ev_grid = "US"
+	
+*Run with MI grid
+	do "${github}/wrapper/metafile.do" ///
+		"current" /// 2020
+		"193" /// SCC
+		"yes" /// learning-by-doing
+		"no" /// savings
+		"yes" /// profits
+		"`all_programs'" /// programs to run
+		0 /// reps
+		"full_current_193_MI_grid" // nrun
+	
+	*Reset back to original
+	global change_grid = ""
+	global ev_grid = "US"
 	qui do "${github}/calculations/gas_electricity_externalities"
 	
 
