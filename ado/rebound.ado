@@ -61,6 +61,10 @@ local ng_supply_elas = 1.50 // same value used for above calculation
 local ng_demand_elas = -0.20 // Middle of range from https://www.nber.org/papers/w24295
 local ng_reb = 1/(1 - (`ng_demand_elas'/`ng_supply_elas'))
 
+if "${ng_rebound_robustness}" == "yes" {
+	local ng_reb = 0.8 // 20% rebound for robustness check
+}
+
 return scalar r = `reb'
 return scalar r_ng = `ng_reb'
 end

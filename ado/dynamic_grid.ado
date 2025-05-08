@@ -25,7 +25,7 @@ if "${change_grid}" != "" {
 	local geo = "${change_grid}"
 }
 
-if "${change_grid}" == "EU" {
+if "${change_grid}" == "EU" |  "${change_grid}" == "clean"  {
 	local geo = "US"
 }
 
@@ -60,6 +60,10 @@ if "`ef'" == "low" {
 	local type = "kwh"
 	local enviro_ext_2020 = ${local_`type'_`geo'_2020} + ${global_`type'_`geo'_2020}
 	local global_split = ${global_`type'_`geo'_2020} / `enviro_ext_2020'
+}
+
+if "${change_grid}" == "clean" {
+	local global_split = 0
 }
 
 *Define locals based on grid model

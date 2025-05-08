@@ -193,6 +193,16 @@ forvalues y = 2004(1)2021 {
 	}
 }
 
+*Create clean grid (zero) emissions
+
+forvalues y = 2004(1)2021 {
+	foreach var in "wind" "solar" "portfolio" "uniform" {
+		global global_`var'_clean_`y' = 0
+		global local_`var'_clean_`y' =  0
+	}
+}
+
+
 **********************************************************************
 *Get Cleanest and Dirtiest Regions (Using Marginal Rates)
 **********************************************************************
