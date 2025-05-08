@@ -33,13 +33,22 @@ preserve
             local cut_year 0 
         } 
         else if strpos("`enviro'","ev")>0 {
-
-            if "`ev_grid'" == ""{
+			
+			*If clean, override to 0 after it runs
+            if "`ev_grid'" == "" | "`ev_grid'" == "clean" {
                 local ev_grid = "US"
             }
             local type = subinstr("`enviro'","ev_","",.)
             local vmt_ind = round(`vmt', 3)
-            use "${assumptions}/timepaths/ev_externalities_time_path_scc`scc'_age`time_path_age'_vmt`vmt_ind'_grid`ev_grid'.dta", clear 
+            
+			if "${renewables_loop}" != "yes" {
+				use "${assumptions}/timepaths/ev_externalities_time_path_scc`scc'_age`time_path_age'_vmt`vmt_ind'_grid`ev_grid'.dta", clear 
+			}
+			
+			if "${renewables_loop}" == "yes" {
+				use "${assumptions}/timepaths/ev_externalities_time_path_scc`scc'_age`time_path_age'_vmt`vmt_ind'_grid`ev_grid'_${renewables_percent}.dta", clear 
+			}
+			
             if `start_year' <2011 di as error "Start year cannot be before 2011"
             assert `start_year'>2010
 
@@ -83,12 +92,17 @@ preserve
             local infile = subinstr("`infile'","_local","",.)
             local infile = subinstr("`infile'","_global","",.)
 			
-			if "${change_grid}" == "" {
+			*If it's clean grid, override to 0 after it runs
+			if ("${change_grid}" == "" | "${change_grid}" == "clean") & "${renewables_loop}" != "yes" {
 				use "${assumptions}/timepaths/`infile'_externalities_time_path_scc`scc'_age`time_path_age'.dta", clear 
 			}
 			
-			if "${change_grid}" != "" {
+			if "${change_grid}" != "" & "${change_grid}" != "clean" & "${renewables_loop}" != "yes" {
 				use "${assumptions}/timepaths/`infile'_externalities_time_path_scc`scc'_age`time_path_age'_${change_grid}.dta", clear 
+			}
+			
+			if "${renewables_loop}" == "yes" {
+				use "${assumptions}/timepaths/`infile'_externalities_time_path_scc`scc'_age`time_path_age'_${renewables_percent}.dta", clear 
 			}
 
             if strpos("`enviro'","div10") >0 replace enviro_ext = enviro_ext/10
@@ -252,7 +266,14 @@ preserve
     local dynamic_enviro = r(mean)
     if _N == 4 qui su v1 in 4
     if _N == 4 local dynamic_fe = r(mean)
-
+	
+	*Override emissions to 0 if grid is clean
+	if "${change_grid}" == "clean" {
+		
+		local dynamic_enviro = 0
+		
+	}
+	
     return local cost_mvpf `dynamic_cost'
     return local enviro_mvpf `dynamic_enviro'
     return local firm_mvpf `dynamic_profit'
