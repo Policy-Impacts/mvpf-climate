@@ -81,13 +81,5 @@ do "${github}/figtab/mvpf_plots.do" "subsidies" "2024-11-04_16-42-05__corrected_
 * Add -  MVPFs plot for Subsidies, multiple SCCs, no lbd, adding energy savings, no profit, cali grid, scc_1367
 *----------------------------------
 
-do "${github}/figtab/mvpf_plots_add.do" "subsidies" "Fig_name" "scc_193" "scc_337" "scc_76" "no_lbd" "e_savings" "no_profit" "cali_grid" "scc_1367"
-
-
-do "${github}/figtab/mvpf_plots_add.do" "subsidies" "Fig_name" "scc_193" "scc_337" "scc_76" "no_lbd" "e_savings" "no_profit" "" "scc_1367"
-
-do "${github}/figtab/mvpf_plots_add.do" "subsidies" "Fig_name" "scc_193" "no_lbd" "no_profit" "e_savings" "cali_grid" "zero_rebound" "scc_337" "scc_337_no_lbd" "scc_337_no_profit" "scc_76" "scc_76_no_lbd" "scc_76_no_profit"
-
-
-do "${github}/figtab/mvpf_plots_add.do" "subsidies" "Fig_name" "scc_193" "no_lbd" "no_profit" "e_savings" "cali_grid" "mi_grid"  "zero_rebound" "double_rebound" "scc_337" "scc_377_no_lbd" "scc_377_no_profit" "scc_377_e_savings" "scc_377_cali_grid" "scc_377_mi_grid" "scc_377_zero_rebound" "scc_377_double_rebound" "scc_76" "scc_76_no_lbd" "scc_76_no_profit" "scc_76_e_savings" "scc_76_cali_grid"  "scc_76_mi_grid" "scc_76_zero_rebound" "scc_76_double_rebound"
+do "${github}/figtab/mvpf_plots_add.do" "subsidies" "Fig_name" "scc_193" "no_lbd" "no_profit" "e_savings" "cali_grid" "mi_grid"  "zero_rebound" "double_rebound" "scc_337" "scc_337_no_lbd" "scc_337_no_profit" "scc_337_e_savings" "scc_337_cali_grid" "scc_337_mi_grid" "scc_337_zero_rebound" "scc_337_double_rebound" "scc_76" "scc_76_no_lbd" "scc_76_no_profit" "scc_76_e_savings" "scc_76_cali_grid"  "scc_76_mi_grid" "scc_76_zero_rebound" "scc_76_double_rebound"
 
