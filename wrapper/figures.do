@@ -37,7 +37,7 @@ do "${github}/figtab/waterfalls_rep.do" "pless_ho" "current" "2024-11-15_09-44-4
 * 4 -  Baseline MVPFs for Subsidies
 *----------------------------------
 
-do "${github}/figtab/mvpf_plots.do" "subsidies" "2024-11-15_09-44-45__full_current_193_nov" "Fig4_scc193" "193" "yes_cis"
+do "${github}/figtab/mvpf_plots.do" "subsidies" "2024-11-15_09-44-45__full_current_193_nov" "Fig4_scc193" "193" "no_cis"
 
 *-------------------------------------------
 * 5a -  MVPF plot for subsidies with $76 SCC
@@ -49,7 +49,15 @@ do "${github}/figtab/mvpf_plots.do" "subsidies" "2024-11-16_14-43-50__full_curre
 * 5b -  MVPF plot for subsidies with $337 SCC
 *--------------------------------------------
 
-do "${github}/figtab/mvpf_plots.do" "subsidies" "2024-11-16_15-20-07__full_current_337_nov" "Fig5b_scc337" "337" "yes_cis"
+do "${github}/figtab/mvpf_plots.do" "subsidies" "2024-11-16_15-20-07__full_current_337_nov" "Fig5b_scc337" "337" "yes_cis
+
+*----------------------------------
+* 5c -  MVPFs plot for Subsidies, multiple SCCs
+*----------------------------------
+
+do "${github}/figtab/mvpf_plots_add.do" "subsidies" "Fig_name" "2024-11-15_09-44-45__full_current_193_nov" "2024-11-16_15-20-07__full_current_337_nov" "2024-11-16_14-43-50__full_current_76_nov" "compare_scc"
+
+
 
 *--------------------
 * 6 -  HERs MVPF plot

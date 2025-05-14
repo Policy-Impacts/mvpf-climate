@@ -1,15 +1,16 @@
 cap log close
 clear all
 
-ssc install filelist
-ssc install maptile
-ssc install spmap 
-ssc install gtools
+// ssc install filelist
+// ssc install maptile
+// ssc install spmap 
+// ssc install gtools
+
 
 *------
 * Specs
 *------
-global rerun_data = "no"
+global rerun_data = "yes"
 global bootstraps = "no"
 global pub_bias = "no"
 
@@ -36,11 +37,11 @@ User-specific paths are:
 */
 
 *Replace the XX, YY, and XX with the relevant directories
-if ("`c(username)'" == "XX") {
-	global user = "C:/Users/XX"
-	global dropbox = "${user}/Documents/GitHub/mvpf-climate-replication/data"
-	global github = "${user}/Documents/GitHub/mvpf-climate-replication"
-	global user_name = "NAME"
+if ("`c(username)'" == "bcchen") {
+	global user = "C:/Users/bcchen"
+	global dropbox = "${user}/Documents/GitHub/mvpf-climate/data"
+	global github = "${user}/Documents/GitHub/mvpf-climate"
+	global user_name = "Beatrice"
 }
 
 noi di "Set user path to: ${user}"
@@ -79,12 +80,12 @@ if "${rerun_data}" == "yes" {
 		"yes" /// learning-by-doing
 		"no" /// savings
 		"yes" /// profits
-		"muehl_efmp" /// programs to run
+		"ct_solar federal_ev" /// programs to run
 		0 /// reps
 		"full_current_193" // nrun
 
 	*Run using $76 SCC
-	do "${github}/wrapper/metafile.do" ///
+	/*do "${github}/wrapper/metafile.do" ///
 		"current" /// 2020
 		"76" /// SCC
 		"yes" /// learning-by-doing
@@ -147,7 +148,7 @@ if "${rerun_data}" == "yes" {
 		"no" ///
 		"`all_programs'" /// programs to run
 		0 /// reps
-		"full_current_noprofits"
+		"full_current_noprofits" */
 }
 *---------------
 * 2 - Bootstrapping
@@ -202,7 +203,7 @@ if "${rerun_data}" == "no" {
 * 4 - Robustness
 *---------------
 
-do "${github}/wrapper/robustness.do"
+/*do "${github}/wrapper/robustness.do"
 
 *-----------------------
 * 5 - Figures and Tables
