@@ -27,7 +27,7 @@ local path_no_lbd = "${code_files}/4_results/2024-11-15_01-31-00__full_current_n
 local path_no_profit = "${code_files}/4_results/2024-11-15_02-01-52__full_current_noprofits_193_nov"
 local path_e_savings = "${code_files}/4_results/2024-11-15_01-32-09__full_current_savings_193_nov"
 local path_cali_grid = "${code_files}/4_results/2025-04-28_10-02-55__full_current_193_CA_grid"
-local path_mi_grid = "${code_files}/4_results/"
+local path_mi_grid = "${code_files}/4_results/2025-05-14_13-00-03__full_current_193_MI_grid"
 local path_zero_rebound = "${code_files}/4_results/2025-05-13_10-30-42__full_current_193_zero_rebound"
 local path_double_rebound = "${code_files}/4_results/2025-05-13_15-32-51__full_current_193_double_rebound"
 
@@ -160,7 +160,7 @@ if "`nm_mvpf_plot'" == "yes" {
 
 * Define scenarios to process based on command arguments
 local scenarios = ""
-foreach arg_num in 4 5 6 7 8 9 10 11 12 13 14 15 {
+foreach arg_num in 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 {
     if "``arg_num''" != "" {
         local scenarios "`scenarios' ``arg_num''"
     }
@@ -249,7 +249,7 @@ rename component_value MVPF_`primary_scenario'
 di as text _n "Sample of merged MVPF data:"
 list program MVPF_* in 1/5, abbreviate(40)
 
-e
+
 ************************************************************************
 /* Step #2: Prepare MVPF Data for Visualization */
 ************************************************************************
@@ -359,76 +359,97 @@ if "`run_subsidies'" == "yes" {
 /* Step #3d: Produce Scatter Plot. */
 ************************************************************************
 
-local scenarios "scc_193 no_lbd no_profit e_savings cali_grid scc_337 scc_337_no_lbd scc_337_no_profit scc_76 scc_76_no_lbd scc_76_no_profit"
-local symbols "circle X square triangle diamond circle X square circle X square circle X square"
-local colors "blue blue blue blue blue eltblue eltblue navy green orange red purple pink"
+local scenarios "scc_193 no_lbd no_profit e_savings cali_grid mi_grid zero_rebound double_rebound scc_337 scc_337_no_lbd scc_337_no_profit scc_337_e_savings scc_337_cali_grid scc_337_mi_grid scc_337_zero_rebound scc_337_double_rebound scc_76 scc_76_no_lbd scc_76_no_profit scc_76_e_savings scc_76_cali_grid scc_76_mi_grid scc_76_zero_rebound scc_76_double_rebound"
+local symbols "circle X square triangle diamond plus Oh Sh circle X square triangle diamond plus Oh Sh circle X square triangle diamond plus Oh Sh"
+local colors "navy navy navy navy navy navy navy navy green green green green green green green green orange orange orange orange orange orange orange orange"
 
 * Build marker properties dynamically for all scenarios
-forvalues i = 1/8 {
+forvalues i = 1/24 {
     local scenario : word `i' of `scenarios'
     local symbol : word `i' of `symbols'
     local color : word `i' of `colors'
     
     * Create the marker properties local for this scenario
-    local marker_props_`scenario' "msize(small) msymbol(`symbol') mcolor(`color') xaxis(1)"
+    local mp_`scenario' "msize(small) msymbol(`symbol') mcolor(`color') xaxis(1)"
 }
 
 * Start with the basic graph command
 local scatter_command "tw"
 
 * Add primary scenario to scatter command (this should always be included)
-local scatter_command "`scatter_command' (scatter yaxis MVPF_`primary_scenario', `marker_props_`primary_scenario'')"
+local scatter_command "`scatter_command' (scatter yaxis MVPF_`primary_scenario', `mp_`primary_scenario'')"
 
-local legend_order `"1 "SCC 193""'
 local legend_count = 1
 
-* Define all possible scenarios to check
-local all_scenarios "scc_76 scc_337 scc_1367 no_lbd e_savings no_profit cali_grid"
-
 * Loop through each scenario and add to graph command if it exists
-foreach scenario of local all_scenarios {
+foreach scenario of local scenarios {
     * Skip primary scenario as it's already added
     if "`scenario'" != "`primary_scenario'" {
         * Check if variable exists in dataset
         capture confirm variable MVPF_`scenario'
         if _rc == 0 {
             local legend_count = `legend_count' + 1
-            local scatter_command "`scatter_command' (scatter yaxis MVPF_`scenario', `marker_props_`scenario'')"
-            
-            * Build the legend order
-            if "`scenario'" == "scc_76" local scenario_label "SCC 76"
-            else if "`scenario'" == "scc_337" local scenario_label "SCC 337"
-            else if "`scenario'" == "scc_1367" local scenario_label "SCC 1367"
-            else if "`scenario'" == "no_lbd" local scenario_label "No LBD"
-            else if "`scenario'" == "e_savings" local scenario_label "Energy Savings"
-            else if "`scenario'" == "no_profit" local scenario_label "No Profit" 
-            else if "`scenario'" == "cali_grid" local scenario_label "California Grid"
-            else local scenario_label "`scenario'"
-            
-            local legend_order `"`legend_order' `legend_count' "`scenario_label'""'
+            local scatter_command "`scatter_command' (scatter yaxis MVPF_`scenario', `mp_`scenario'')"
         }
     }
 }
 
-* Group options logically into fewer categories
-local plot_region "plotregion(margin(l=0 b=0 t=0)) graphregion(color(white) margin(l=8))"
-local titles "title(MVPF with Different Specifications for Subsidies) ytitle("") xtitle(MVPF, axis(1) size(small))"
+* Add colored squares for the SCC values legend
+local scatter_command "`scatter_command' (scatter yaxis MVPF_scc_193 if _n < 0, msymbol(square) mcolor(navy) msize(vlarge))"
+local scatter_command "`scatter_command' (scatter yaxis MVPF_scc_193 if _n < 0, msymbol(square) mcolor(green) msize(vlarge))"
+local scatter_command "`scatter_command' (scatter yaxis MVPF_scc_193 if _n < 0, msymbol(square) mcolor(orange) msize(vlarge))"
 
-* Y-axis options
-local y_options "ylabel(`ylabel_min'(1)`ylabel_max', value labsize(tiny) angle(0) nogrid tlw(0.15) tlength(0))"
-local y_options "`y_options' yline(`yline_list', lcolor(black%30) lw(0.05) lpattern(dash)) yscale(range(`ylabel_min' `ylabel_max'))"
+* Add black-colored shapes for the specification legend
+local scatter_command "`scatter_command' (scatter yaxis MVPF_scc_193 if _n < 0, msymbol(circle) mcolor(black) msize(medium))"
+local scatter_command "`scatter_command' (scatter yaxis MVPF_scc_193 if _n < 0, msymbol(X) mcolor(black) msize(medium))"
+local scatter_command "`scatter_command' (scatter yaxis MVPF_scc_193 if _n < 0, msymbol(square) mcolor(black) msize(medium))"
+local scatter_command "`scatter_command' (scatter yaxis MVPF_scc_193 if _n < 0, msymbol(triangle) mcolor(black) msize(medium))"
+local scatter_command "`scatter_command' (scatter yaxis MVPF_scc_193 if _n < 0, msymbol(diamond) mcolor(black) msize(medium))"
+local scatter_command "`scatter_command' (scatter yaxis MVPF_scc_193 if _n < 0, msymbol(plus) mcolor(black) msize(medium))"
+local scatter_command "`scatter_command' (scatter yaxis MVPF_scc_193 if _n < 0, msymbol(Oh) mcolor(black) msize(medium))"
+local scatter_command "`scatter_command' (scatter yaxis MVPF_scc_193 if _n < 0, msymbol(Sh) mcolor(black) msize(medium))"
 
-* X-axis options
-local x_options "xscale(range(1.5 `subsidy_censor_value') axis(1) titlegap(+1.5)) xlab(0(1)`subsidy_censor_value', axis(1) nogrid)"
+* Create legend entries
+local color_start = `legend_count' + 1
+local shape_start = `legend_count' + 4
 
-* Create a loop for all the text labels - with proper handling of spaces
+* Build the order list to arrange items in rows
+* First row: SCC values (3 columns)
+local legend_order "`color_start' `=`color_start'+1' `=`color_start'+2'"
+
+* Second row: First 3 shapes
+local legend_order "`legend_order' `shape_start' `=`shape_start'+1' `=`shape_start'+2'"
+
+* Third row: Next 3 shapes
+local legend_order "`legend_order' `=`shape_start'+3' `=`shape_start'+4' `=`shape_start'+5'"
+
+* Fourth row: Last 2 shapes
+local legend_order "`legend_order' `=`shape_start'+6' `=`shape_start'+7'"
+
+* Build labels for each entry
+local legend_labels ""
+local legend_labels `"`legend_labels' label(`color_start' "SCC $193")"'
+local legend_labels `"`legend_labels' label(`=`color_start'+1' "SCC $337")"'
+local legend_labels `"`legend_labels' label(`=`color_start'+2' "SCC $76")"'
+local legend_labels `"`legend_labels' label(`shape_start' "Base")"'
+local legend_labels `"`legend_labels' label(`=`shape_start'+1' "No LBD")"'
+local legend_labels `"`legend_labels' label(`=`shape_start'+2' "No Profit")"'
+local legend_labels `"`legend_labels' label(`=`shape_start'+3' "Energy Savings")"'
+local legend_labels `"`legend_labels' label(`=`shape_start'+4' "CA Grid")"'
+local legend_labels `"`legend_labels' label(`=`shape_start'+5' "MW Grid")"'
+local legend_labels `"`legend_labels' label(`=`shape_start'+6' "Zero Rebound")"'
+local legend_labels `"`legend_labels' label(`=`shape_start'+7' "2x Rebound")"'
+
+* Combine legend options - use cols(3) to arrange in 3 columns
+local legend_options `"legend(order(`legend_order') `legend_labels' cols(3) position(12) size(small) forcesize rowgap(*.8) colgap(*1.5))"'
+
+* Create a loop for all the text labels
 local text_labels ""
 foreach category in WindProductionCredits ResidentialSolar ElectricVehicles ApplianceRebates VehicleRetirement HybridVehicles Weatherization {
     * Get position value for this category
     local pos_val = "``category'_xpos'"
     
     * Automatically insert spaces before capital letters
-    * This approach manually checks each character which is more reliable than regex
     local readable_label = ""
     local first_char = 1
     
@@ -452,16 +473,28 @@ foreach category in WindProductionCredits ResidentialSolar ElectricVehicles Appl
     
     local text_labels `"`text_labels' text(`pos_val' -2.5 "`readable_label'", size(vsmall))"'
 }
+* Add the Other Subsidies label  
+local text_labels `"`text_labels' text(`OtherSubsidies_xpos' -20 "Other Subsidies", size(vsmall))"'
 
-* Legend options - using legend_order which we know works
-local legend_options "legend(order(`legend_order') rows(2) position(bottom) size(small))"
+* Combine all options
+local plot_options "plotregion(margin(l=0 b=0 t=0)) graphregion(color(white) margin(l=8))"
+local plot_options "`plot_options' title()"
+local plot_options "`plot_options' ytitle("") xtitle(MVPF, axis(1) size(small))"
+local plot_options "`plot_options' ylabel(`ylabel_min'(1)`ylabel_max', value labsize(tiny) angle(0) nogrid tlw(0.15) tlength(0))"
+local plot_options "`plot_options' yline(`yline_list', lcolor(black%30) lw(0.05) lpattern(dash))"
+local plot_options "`plot_options' yscale(range(`ylabel_min' `ylabel_max'))"
+local plot_options "`plot_options' xscale(range(1.5 `subsidy_censor_value') axis(1) titlegap(+1.5))"
+local plot_options "`plot_options' xlab(0(1)`subsidy_censor_value', axis(1) nogrid)"
 
-* Combine all options into the scatter command
-local scatter_command "`scatter_command', `plot_region' `titles' `y_options' `x_options' `text_labels' `legend_options'"
+* Combine legend options
+local legend_options `"legend(order(`legend_order') `legend_labels' cols(3) position(6) size(vsmall))"'
+
+* Complete the scatter command
+local scatter_command "`scatter_command', `plot_options' `text_labels' `legend_options'"
 
 * Execute the graph command
 `scatter_command'
-
+e
 graph export "`output_path'/mvpf_comparison_`plot_name'.png", replace
 cap graph export "`output_path'/mvpf_comparison_`plot_name'.wmf", replace
 
