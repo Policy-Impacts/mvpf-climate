@@ -76,3 +76,15 @@ do "${github}/publication_bias/cdf_plot.do" 4.9 .98
 *-----------------------------------------------------
 
 do "${github}/figtab/mvpf_plots.do" "subsidies" "2024-11-04_16-42-05__corrected_ests_for_mvpf_plot" "App_Fig_12_scc193" "193" "no_cis" "pub_bias"
+
+*----------------------------------
+* Add -  MVPFs plot for Subsidies, multiple SCCs, no lbd, adding energy savings, no profit, cali grid, scc_1367
+*----------------------------------
+
+do "${github}/figtab/mvpf_plots_add.do" "subsidies" "Fig_name" "scc_193" "scc_337" "scc_76" "no_lbd" "e_savings" "no_profit" "cali_grid" "scc_1367"
+
+
+do "${github}/figtab/mvpf_plots_add.do" "subsidies" "Fig_name" "scc_193" "scc_337" "scc_76" "no_lbd" "e_savings" "no_profit" "" "scc_1367"
+
+do "${github}/figtab/mvpf_plots_add.do" "subsidies" "Fig_name" "scc_193" "no_lbd" "no_profit" "e_savings" "cali_grid" "zero_rebound" "scc_337" "scc_337_no_lbd" "scc_337_no_profit" "scc_76" "scc_76_no_lbd" "scc_76_no_profit"
+
