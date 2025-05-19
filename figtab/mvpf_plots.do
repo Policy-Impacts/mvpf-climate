@@ -279,6 +279,8 @@ drop dup
 	collapse (firstnm) *label* broad_category (mean) MVPF WTP_* extended international regulation table_order, by(program across_group_ordering in_group_ordering)		
 	sort across_group_ordering in_group_ordering
 	
+
+	
 ************************************************************************
 /* Step #3: Produce MVPF Plot for Subsidies. */
 ************************************************************************	
@@ -376,6 +378,59 @@ if "`run_subsidies'" == "yes" {
 
 		}
 	 
+if "`7'" == "categories_only" {
+    di "Stopping after category calculations - locals are available"
+    
+    * Get the SCC value from argument 4 and spec from argument 5
+    local scc_value = "`4'"
+    local spec = "`5'"
+    
+    * Save the category averages to a temporary file first
+    tempfile temp_cats
+    clear
+    set obs 0
+    gen category = ""
+    gen scc = .
+    gen scenario = ""
+    gen mvpf = .
+    
+    * Add records for this run
+    foreach g of local group_loop {
+        local n = _N + 1
+        set obs `n'
+        replace category = "`g'" in `n'
+        replace scc = `scc_value' in `n'
+        replace scenario = "`spec'" in `n'
+        replace mvpf = ``g'_MVPF' in `n'
+        di "Added `g' MVPF for SCC `scc_value', spec `spec': ``g'_MVPF'"
+    }
+    
+    save "`temp_cats'", replace
+    
+    * Now check if the main file exists and merge if it does
+    capture confirm file "category_averages.dta"
+    if _rc == 0 {
+        * File exists, load it and merge
+        use "category_averages.dta", clear
+        
+        * Get rid of any records that would be duplicated
+        drop if (scc == `scc_value' & scenario == "`spec'")
+        
+        * Append the new records
+        append using "`temp_cats'"
+        
+        save "category_averages.dta", replace
+        di "Updated category_averages.dta with new values"
+    }
+    else {
+        * File doesn't exist, just save the temp file as the main file
+        use "`temp_cats'", clear
+        save "category_averages.dta", replace
+        di "Created new category_averages.dta file"
+    }
+    
+    exit
+}
 		************************************************************************
 		/* Step #3c: Censoring and Edge Cases. */
 		************************************************************************
