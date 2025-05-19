@@ -16,7 +16,7 @@ foreach policy in `policies' {
 
 clear
 foreach policy in `policies' {
-	append using "${causal_draws_uncorrected}/${ts_causal_draws}/`policy'.dta", gen(`policy')
+	append using "${causal_draws}/${ts_causal_draws}/`policy'.dta", gen(`policy')
 }
 
 gen policy = " "
@@ -276,7 +276,7 @@ foreach policy in `policies' {
 	global `policy'_m_high = `r(r2)'
 	restore
 }
-
+save "${code_files}/3_bootstrap_draws/wind_bootstraps", replace
 
 *************************
 *Category CIs

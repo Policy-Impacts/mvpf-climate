@@ -19,7 +19,7 @@ local reps = `6'
 *--------------------------------------------
 * 2 - No Learning by Doing Policies
 *--------------------------------------------
-
+/*
 do "${github}/bootstrapping/no_lbd_bootstraps.do" `mode' `scc' `lbd' `value_savings' `value_profits' `reps'
 
 
@@ -43,7 +43,7 @@ do "${github}/bootstrapping/solar_bootstrapping_rep.do" `mode' `scc' `lbd' `valu
 
 do "${github}/bootstrapping/ev_bootstrapping_rep.do" `mode' `scc' `lbd' `value_savings' `value_profits' `reps'
 
-
+/*
 *--------------------------------------------
 * 6 - Hybrid Vehicle Policies
 *--------------------------------------------
