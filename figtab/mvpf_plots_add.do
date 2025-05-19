@@ -2,6 +2,39 @@
 /* Purpose: Produce MVPF Plots (w/ and w/o Bars) for All MVPF Types */
 ************************************************************************
 
+. * Add category lines to the existing plot using addplot
+* Install the gr_edit package
+ssc install addplot
+
+do "${github}/figtab/mvpf_plots.do" "subsidies" "2024-11-15_09-44-45__full_current_193_nov" "Fig4_scc193" "193" "scc_193" "" "categories_only"
+do "${github}/figtab/mvpf_plots.do" "subsidies" "2024-11-15_01-31-00__full_current_no_lbd_193_nov" "Fig4_scc193" "193" "no_lbd" "" "categories_only"
+do "${github}/figtab/mvpf_plots.do" "subsidies" "2024-11-15_02-01-52__full_current_noprofits_193_nov" "Fig4_scc193" "193" "no_profit" "" "categories_only"
+do "${github}/figtab/mvpf_plots.do" "subsidies" "2024-11-15_01-32-09__full_current_savings_193_nov" "Fig4_scc193" "193" "e_savings" "" "categories_only"
+do "${github}/figtab/mvpf_plots.do" "subsidies" "2025-04-28_10-02-55__full_current_193_CA_grid" "Fig4_scc193" "193" "cali_grid" "" "categories_only"
+do "${github}/figtab/mvpf_plots.do" "subsidies" "2025-05-14_13-00-03__full_current_193_MI_grid" "Fig4_scc193" "193" "mi_grid" "" "categories_only"
+do "${github}/figtab/mvpf_plots.do" "subsidies" "2025-05-13_10-30-42__full_current_193_zero_rebound" "Fig4_scc193" "193" "zero_rebound" "" "categories_only"
+do "${github}/figtab/mvpf_plots.do" "subsidies" "2025-05-13_15-32-51__full_current_193_double_rebound" "Fig4_scc193" "193" "double_rebound" "" "categories_only"
+
+* Generate category averages for SCC 76 and variations
+do "${github}/figtab/mvpf_plots.do" "subsidies" "2024-11-16_14-43-50__full_current_76_nov" "Fig5a_scc76" "76" "scc_76" "" "categories_only"
+do "${github}/figtab/mvpf_plots.do" "subsidies" "2025-05-12_10-16-37__full_current_no_lbd_76" "Fig5a_scc76" "76" "scc_76_no_lbd" "" "categories_only"
+do "${github}/figtab/mvpf_plots.do" "subsidies" "2025-05-12_14-55-09__full_current_noprofits_76" "Fig5a_scc76" "76" "scc_76_no_profit" "" "categories_only"
+do "${github}/figtab/mvpf_plots.do" "subsidies" "2025-05-14_11-16-30__full_current_savings_76" "Fig5a_scc76" "76" "scc_76_e_savings" "" "categories_only"
+do "${github}/figtab/mvpf_plots.do" "subsidies" "2025-05-14_01-15-05__full_current_76_CA_grid" "Fig5a_scc76" "76" "scc_76_cali_grid" "" "categories_only"
+do "${github}/figtab/mvpf_plots.do" "subsidies" "2025-05-13_23-48-41__full_current_76_MI_grid" "Fig5a_scc76" "76" "scc_76_mi_grid" "" "categories_only"
+do "${github}/figtab/mvpf_plots.do" "subsidies" "2025-05-13_19-40-13__full_current_76_zero_rebound" "Fig5a_scc76" "76" "scc_76_zero_rebound" "" "categories_only"
+do "${github}/figtab/mvpf_plots.do" "subsidies" "2025-05-13_22-11-19__full_current_76_double_rebound" "Fig5a_scc76" "76" "scc_76_double_rebound" "" "categories_only"
+
+* Generate category averages for SCC 337 and variations
+do "${github}/figtab/mvpf_plots.do" "subsidies" "2024-11-16_15-20-07__full_current_337_nov" "Fig5b_scc337" "337" "scc_337" "" "categories_only"
+do "${github}/figtab/mvpf_plots.do" "subsidies" "2025-05-12_10-00-24__full_current_no_lbd_337" "Fig5b_scc337" "337" "scc_337_no_lbd" "" "categories_only"
+do "${github}/figtab/mvpf_plots.do" "subsidies" "2025-05-12_11-02-47__full_current_noprofits_337" "Fig5b_scc337" "337" "scc_337_no_profit" "" "categories_only"
+do "${github}/figtab/mvpf_plots.do" "subsidies" "2025-05-14_10-08-21__full_current_savings_337" "Fig5b_scc337" "337" "scc_337_e_savings" "" "categories_only"
+do "${github}/figtab/mvpf_plots.do" "subsidies" "2025-05-14_01-58-31__full_current_337_CA_grid" "Fig5b_scc337" "337" "scc_337_cali_grid" "" "categories_only"
+do "${github}/figtab/mvpf_plots.do" "subsidies" "2025-05-14_00-32-09__full_current_337_MI_grid" "Fig5b_scc337" "337" "scc_337_mi_grid" "" "categories_only"
+do "${github}/figtab/mvpf_plots.do" "subsidies" "2025-05-13_17-00-23__full_current_337_zero_rebound" "Fig5b_scc337" "337" "scc_337_zero_rebound" "" "categories_only"
+do "${github}/figtab/mvpf_plots.do" "subsidies" "2025-05-13_17-43-31__full_current_337_double_rebound" "Fig5b_scc337" "337" "scc_337_double_rebound" "" "categories_only"
+
 ************************************************************************
 /* Step #0: Set Macros that Will NOT Change. */
 ************************************************************************
@@ -345,6 +378,7 @@ if "`run_subsidies'" == "yes" {
 			}
 
 		}
+		
 
 		************************************************************************
 		/* Step #3c: Censoring and Edge Cases. */
@@ -354,30 +388,49 @@ if "`run_subsidies'" == "yes" {
     replace `var' = `subsidy_censor_value' if `var' > `subsidy_censor_value' & `var' != .
     replace `var' = 0 if `var' < 0
 		}
+		
+* First, set the random number seed for reproducibility
+set seed 12345
 
+* Apply jitter to individual data points that have been capped to exactly 5
+foreach var of varlist MVPF_* {
+    * Generate jitter values from N(0.1, 0.1) for capped values
+    gen j_`var' = rnormal(0.1, 0.1) if `var' == `subsidy_censor_value' & `var' != .
+    
+    * Apply jitter but ensure we don't exceed a reasonable upper bound
+    replace `var' = min(`var' + j_`var', 5.3) if `var' == `subsidy_censor_value' & `var' != .
+    
+    * Clean up
+    drop j_`var'
+}
 ************************************************************************
 /* Step #3d: Produce Scatter Plot. */
 ************************************************************************
 
 local scenarios "scc_193 no_lbd no_profit e_savings cali_grid mi_grid zero_rebound double_rebound scc_337 scc_337_no_lbd scc_337_no_profit scc_337_e_savings scc_337_cali_grid scc_337_mi_grid scc_337_zero_rebound scc_337_double_rebound scc_76 scc_76_no_lbd scc_76_no_profit scc_76_e_savings scc_76_cali_grid scc_76_mi_grid scc_76_zero_rebound scc_76_double_rebound"
-local symbols "circle X square triangle diamond plus Oh Sh circle X square triangle diamond plus Oh Sh circle X square triangle diamond plus Oh Sh"
+local symbols "circle X square triangle diamond plus v v circle X square triangle diamond plus v v circle X square triangle diamond plus v v"
 local colors "navy navy navy navy navy navy navy navy green green green green green green green green orange orange orange orange orange orange orange orange"
+local sizes "vsmall small vsmall vsmall vsmall small small small vsmall small vsmall vsmall vsmall small small small vsmall small vsmall vsmall vsmall small small small"
+local orientations "0 0 0 0 0 0 180 0 0 0 0 0 0 0 180 0 0 0 0 0 0 0 180 0"
 
 * Build marker properties dynamically for all scenarios
 forvalues i = 1/24 {
     local scenario : word `i' of `scenarios'
     local symbol : word `i' of `symbols'
     local color : word `i' of `colors'
-    
+    local size : word `i' of `sizes'
+	local orient : word `i' of `orientations'
+
+
     * Create the marker properties local for this scenario
-    local mp_`scenario' "msize(small) msymbol(`symbol') mcolor(`color') xaxis(1)"
+    local mp_`scenario' "msize(`size') msymbol(`symbol') mcolor(`color') msangle(`orient') xaxis(1)"
 }
 
 * Start with the basic graph command
-local scatter_command "tw"
+local scatter_cmd_base "twoway"
 
 * Add primary scenario to scatter command (this should always be included)
-local scatter_command "`scatter_command' (scatter yaxis MVPF_`primary_scenario', `mp_`primary_scenario'')"
+local scatter_cmd_base "`scatter_cmd_base' (scatter yaxis MVPF_`primary_scenario', `mp_`primary_scenario'')"
 
 local legend_count = 1
 
@@ -389,25 +442,27 @@ foreach scenario of local scenarios {
         capture confirm variable MVPF_`scenario'
         if _rc == 0 {
             local legend_count = `legend_count' + 1
-            local scatter_command "`scatter_command' (scatter yaxis MVPF_`scenario', `mp_`scenario'')"
+            local scatter_cmd_base "`scatter_cmd_base' (scatter yaxis MVPF_`scenario', `mp_`scenario'')"
         }
     }
 }
 
-* Add colored squares for the SCC values legend
-local scatter_command "`scatter_command' (scatter yaxis MVPF_scc_193 if _n < 0, msymbol(square) mcolor(navy) msize(vlarge))"
-local scatter_command "`scatter_command' (scatter yaxis MVPF_scc_193 if _n < 0, msymbol(square) mcolor(green) msize(vlarge))"
-local scatter_command "`scatter_command' (scatter yaxis MVPF_scc_193 if _n < 0, msymbol(square) mcolor(orange) msize(vlarge))"
 
-* Add black-colored shapes for the specification legend
-local scatter_command "`scatter_command' (scatter yaxis MVPF_scc_193 if _n < 0, msymbol(circle) mcolor(black) msize(medium))"
-local scatter_command "`scatter_command' (scatter yaxis MVPF_scc_193 if _n < 0, msymbol(X) mcolor(black) msize(medium))"
-local scatter_command "`scatter_command' (scatter yaxis MVPF_scc_193 if _n < 0, msymbol(square) mcolor(black) msize(medium))"
-local scatter_command "`scatter_command' (scatter yaxis MVPF_scc_193 if _n < 0, msymbol(triangle) mcolor(black) msize(medium))"
-local scatter_command "`scatter_command' (scatter yaxis MVPF_scc_193 if _n < 0, msymbol(diamond) mcolor(black) msize(medium))"
-local scatter_command "`scatter_command' (scatter yaxis MVPF_scc_193 if _n < 0, msymbol(plus) mcolor(black) msize(medium))"
-local scatter_command "`scatter_command' (scatter yaxis MVPF_scc_193 if _n < 0, msymbol(Oh) mcolor(black) msize(medium))"
-local scatter_command "`scatter_command' (scatter yaxis MVPF_scc_193 if _n < 0, msymbol(Sh) mcolor(black) msize(medium))"
+
+* Add colored squares for the SCC values legend
+local scatter_cmd_base "`scatter_cmd_base' (scatter yaxis MVPF_scc_193 if _n < 0, msymbol(square) mcolor(navy) msize(medium))"
+local scatter_cmd_base "`scatter_cmd_base' (scatter yaxis MVPF_scc_193 if _n < 0, msymbol(square) mcolor(green) msize(medium))"
+local scatter_cmd_base "`scatter_cmd_base' (scatter yaxis MVPF_scc_193 if _n < 0, msymbol(square) mcolor(orange) msize(medium))"
+
+* Add black shapes for specs in legend
+local scatter_cmd_base "`scatter_cmd_base' (scatter yaxis MVPF_scc_193 if _n < 0, msymbol(circle) mcolor(black) msize(medium))"
+local scatter_cmd_base "`scatter_cmd_base' (scatter yaxis MVPF_scc_193 if _n < 0, msymbol(X) mcolor(black) msize(medium))"
+local scatter_cmd_base "`scatter_cmd_base' (scatter yaxis MVPF_scc_193 if _n < 0, msymbol(square) mcolor(black) msize(medium))"
+local scatter_cmd_base "`scatter_cmd_base' (scatter yaxis MVPF_scc_193 if _n < 0, msymbol(triangle) mcolor(black) msize(medium))"
+local scatter_cmd_base "`scatter_cmd_base' (scatter yaxis MVPF_scc_193 if _n < 0, msymbol(diamond) mcolor(black) msize(medium))"
+local scatter_cmd_base "`scatter_cmd_base' (scatter yaxis MVPF_scc_193 if _n < 0, msymbol(plus) mcolor(black) msize(medium))"
+local scatter_cmd_base "`scatter_cmd_base' (scatter yaxis MVPF_scc_193 if _n < 0, msymbol(v) mcolor(black) msize(medium) msangle(180))"
+local scatter_cmd_base "`scatter_cmd_base' (scatter yaxis MVPF_scc_193 if _n < 0, msymbol(v) mcolor(black) msize(medium))"
 
 * Create legend entries
 local color_start = `legend_count' + 1
@@ -476,26 +531,105 @@ foreach category in WindProductionCredits ResidentialSolar ElectricVehicles Appl
 * Add the Other Subsidies label  
 local text_labels `"`text_labels' text(`OtherSubsidies_xpos' -20 "Other Subsidies", size(vsmall))"'
 
-* Combine all options
+************************************************************************
+/* Step #3e: Adding Category Averages. */
+************************************************************************
+* Store category positions in globals
+di as text "Storing category positions as globals:"
+foreach cat in WindProductionCredits ResidentialSolar ElectricVehicles ApplianceRebates VehicleRetirement HybridVehicles Weatherization {
+    global `cat'_min = ``cat'_min'
+    global `cat'_max = ``cat'_max'
+    global `cat'_midpoint = (``cat'_min' + ``cat'_max') / 2
+    di as text "  `cat': min=${`cat'_min}, max=${`cat'_max}, midpoint=${`cat'_midpoint}"
+}
+
+* Combine plot options
 local plot_options "plotregion(margin(l=0 b=0 t=0)) graphregion(color(white) margin(l=8))"
 local plot_options "`plot_options' title()"
 local plot_options "`plot_options' ytitle("") xtitle(MVPF, axis(1) size(small))"
 local plot_options "`plot_options' ylabel(`ylabel_min'(1)`ylabel_max', value labsize(tiny) angle(0) nogrid tlw(0.15) tlength(0))"
 local plot_options "`plot_options' yline(`yline_list', lcolor(black%30) lw(0.05) lpattern(dash))"
 local plot_options "`plot_options' yscale(range(`ylabel_min' `ylabel_max'))"
-local plot_options "`plot_options' xscale(range(1.5 `subsidy_censor_value') axis(1) titlegap(+1.5))"
-local plot_options "`plot_options' xlab(0(1)`subsidy_censor_value', axis(1) nogrid)"
+local plot_options "`plot_options' xscale(range(1.5 5.3) axis(1) titlegap(+1.5))"
+local plot_options "`plot_options' xlab(0(1)5.3, axis(1) nogrid)"
 
 * Combine legend options
 local legend_options `"legend(order(`legend_order') `legend_labels' cols(3) position(6) size(vsmall))"'
 
-* Complete the scatter command
-local scatter_command "`scatter_command', `plot_options' `text_labels' `legend_options'"
+* Save the current dataset to a tempfile
+tempfile main_data
+save "`main_data'", replace
 
-* Execute the graph command
-`scatter_command'
-e
+* Load and process category averages
+capture confirm file "category_averages.dta"
+if _rc == 0 {
+    use "category_averages.dta", clear
+	
+gen j = rnormal(0.1, 0.1) if mvpf == `subsidy_censor_value' & mvpf != .
+replace mvpf = min(mvpf + j, 5.3) if mvpf == `subsidy_censor_value' & mvpf != .
+
+* Display which points were jittered for verification
+list category scenario mvpf j if j != . & j != 0
+
+* Clean up
+drop j
+
+* Create scenario_index only once, before the loops
+gen scenario_index = .
+local i 1
+foreach s in scc_193 no_lbd no_profit e_savings cali_grid mi_grid zero_rebound double_rebound scc_337 scc_337_no_lbd scc_337_no_profit scc_337_e_savings scc_337_cali_grid scc_337_mi_grid scc_337_zero_rebound scc_337_double_rebound scc_76 scc_76_no_lbd scc_76_no_profit scc_76_e_savings scc_76_cali_grid scc_76_mi_grid scc_76_zero_rebound scc_76_double_rebound {
+    replace scenario_index = `i' if scenario == "`s'"
+    local i = `i' + 1
+}
+
+* Build the category lines part
+local cat_lines ""
+foreach catg in WindProductionCredits ResidentialSolar ElectricVehicles ApplianceRebates VehicleRetirement HybridVehicles Weatherization {
+    levelsof scenario, local(scen_list)
+    foreach sc in `scen_list' {
+        count if category == "`catg'" & scenario == "`sc'"
+        if r(N) > 0 {
+            * Get MVPF value
+            sum mvpf if category == "`catg'" & scenario == "`sc'"
+            local mvpf = r(mean)
+            
+            * Get style info
+            sum scenario_index if scenario == "`sc'"
+            local idx = r(mean)
+            local sym : word `idx' of `symbols'
+            local col : word `idx' of `colors'
+            local sz : word `idx' of `sizes'
+			local orient: word `idx' of `orientations'
+            
+            * Get min/max from globals
+            local min = ${`catg'_min}
+            local max = ${`catg'_max}
+            local mid = (${`catg'_min} + ${`catg'_max}) / 2
+				if "`sz'" == "vsmall" local one_size_larger "medium"
+				else if "`sz'" == "small" local one_size_larger "large"
+            * Add to cat_lines
+            local cat_lines "`cat_lines' (pci `min' `mvpf' `max' `mvpf', color(`col') lwidth(vthin))"
+            local cat_lines "`cat_lines' (scatteri `mid' `mvpf', msymbol(`sym') mcolor(`col') msize(`one_size_larger') msangle(`orient'))"
+			}
+		}
+	}
+}
+
+
+* Go back to main dataset
+use "`main_data'", replace
+
+* Create a complete command with everything
+local full_command "`scatter_cmd_base' `cat_lines', `plot_options' `text_labels' `legend_options'"
+
+*display locals
+di "`cat_lines'"
+di "`scatter_cmd_base'"
+*`cat_lines', `plot_options' `text_labels' `legend_options'
+* Run the full command
+`full_command'
+
+* Export the graph
 graph export "`output_path'/mvpf_comparison_`plot_name'.png", replace
 cap graph export "`output_path'/mvpf_comparison_`plot_name'.wmf", replace
-
-
+}
