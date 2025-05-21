@@ -53,6 +53,10 @@ if "`anything'" == "non-marginal" {
 		local retrofit_lifespan = ${retrofit_lifespan}
 	restore
 	
+	if "${marginal_valuation_change}" == "yes" {
+		local marginal_valuation = 0
+	}
+	
 	if "`policy'" == "ihwap_nb" {
 		local retrofit_lifespan = 34
 	}
