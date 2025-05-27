@@ -30,6 +30,7 @@ global value_profits = "`5'"
 global programs_to_run "`6'"
 // No. of bootstrap replications
 global reps `7'
+
 // Name of this run/configuration (for output folder)
 global nrun = "`8'"
 // For running publication bias
@@ -52,6 +53,10 @@ if strpos("${nrun}" , "EU_grid") {
 
 if strpos("${nrun}" , "MI_grid") {
     global change_grid = "MI"
+}
+
+if strpos("${nrun}" , "clean_grid") {
+    global change_grid = "clean"
 }
 
 if !strpos("${nrun}" , "_grid") {
@@ -90,6 +95,10 @@ global EV_VMT_car_adjustment = 0.61544408 // From Zhao et al. 2023
 global EV_VMT_avg_adjustment = 0.63983246 // From Zhao et al. 2023; weighted average.
 // Should the numbers in Latex be updated?
 global latex = "no"
+
+if "${VMT_change_robustness}" == "yes" {
+	global EV_VMT_car_adjustment = 1
+}
 
 ***************************************************************************************
 

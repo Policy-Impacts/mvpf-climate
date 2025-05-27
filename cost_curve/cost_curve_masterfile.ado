@@ -34,12 +34,19 @@ preserve
         } 
         else if strpos("`enviro'","ev")>0 {
 			
-			*If clean, override to 0 after it runs
-            if "`ev_grid'" == "" | "`ev_grid'" == "clean" {
+            if "`ev_grid'" == "" {
                 local ev_grid = "US"
             }
             local type = subinstr("`enviro'","ev_","",.)
-            local vmt_ind = round(`vmt', 3)
+            
+			if `vmt' == 1 {
+				local vmt_ind = `vmt'
+			}
+			
+			else {
+				local vmt_ind = round(`vmt', 3)
+			}
+			
             
 			if "${renewables_loop}" != "yes" {
 				use "${assumptions}/timepaths/ev_externalities_time_path_scc`scc'_age`time_path_age'_vmt`vmt_ind'_grid`ev_grid'.dta", clear 
@@ -93,7 +100,7 @@ preserve
             local infile = subinstr("`infile'","_global","",.)
 			
 			*If it's clean grid, override to 0 after it runs
-			if ("${change_grid}" == "" | "${change_grid}" == "clean") & "${renewables_loop}" != "yes" {
+			if ("${change_grid}" == "" | "${change_grid}" == "clean") & "${renewables_loop}" != "yes" & "${solar_output_change}" != "yes" {
 				use "${assumptions}/timepaths/`infile'_externalities_time_path_scc`scc'_age`time_path_age'.dta", clear 
 			}
 			
@@ -103,6 +110,10 @@ preserve
 			
 			if "${renewables_loop}" == "yes" {
 				use "${assumptions}/timepaths/`infile'_externalities_time_path_scc`scc'_age`time_path_age'_${renewables_percent}.dta", clear 
+			}
+			
+			if "${solar_output_change}" == "yes" {
+				use "${assumptions}/timepaths/`infile'_externalities_time_path_scc`scc'_age`time_path_age'_output${output_scalar}.dta", clear 
 			}
 
             if strpos("`enviro'","div10") >0 replace enviro_ext = enviro_ext/10
@@ -268,11 +279,11 @@ preserve
     if _N == 4 local dynamic_fe = r(mean)
 	
 	*Override emissions to 0 if grid is clean
-	if "${change_grid}" == "clean" {
-		
-		local dynamic_enviro = 0
-		
-	}
+// 	if "${change_grid}" == "clean" {
+//		
+// 		local dynamic_enviro = 0
+//		
+// 	}
 	
     return local cost_mvpf `dynamic_cost'
     return local enviro_mvpf `dynamic_enviro'

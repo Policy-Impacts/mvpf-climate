@@ -110,6 +110,10 @@ levelsof estimate, local(estimates)
 	*Cost per Watt: https://www.nrel.gov/solar/market-research-analysis/solar-installed-system-cost.html
 	
 	local cost_per_watt_context = (((8.70 * 667.40) + (7.66 * (975.20-667.40)) + (5.40 * (1472.90 - 975.20))) / (1472.90)) * (${cpi_2008} / ${cpi_2022})
+	
+	if "${lifetime_change}" == "yes" {
+		local lifetime = `lifetime' * ${lifetime_scalar}
+	}
 
 	****************************************************
 	/* 3c. Policy Specific Assumptions */

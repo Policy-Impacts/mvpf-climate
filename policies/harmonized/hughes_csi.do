@@ -108,6 +108,10 @@ levelsof estimate, local(estimates)
 		local federal_subsidy = ${fed_sub_loop}
 	}
 
+	if "${lifetime_change}" == "yes" {
+		local lifetime = `lifetime' * ${lifetime_scalar}
+	}
+	
 	****************************************************
 	/* 3c. Policy Specific Assumptions */
 	****************************************************	

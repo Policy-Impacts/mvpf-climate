@@ -219,6 +219,11 @@ preserve
 	}
 		
 	local val_given = ${val_given}
+	
+	if "${vehicle_lifetime_change}" == "yes" {
+		global vehicle_car_lifetime = ${new_vehicle_lifetime}
+	}
+
 	local lifetime = ${vehicle_`veh_lifespan_type'_lifetime}
 restore
 
@@ -914,12 +919,12 @@ if "${lbd}" == "yes"{
 	}
 	else{
 		cost_curve_masterfile, demand_elas(`epsilon') discount_rate(`discount') farmer(`farmer_theta') fcr(`fixed_cost_frac') ///
-							   curr_prod(`marg_sales') cum_prod(`cum_sales') price(`net_msrp') enviro(ev_local) ///
+							   curr_prod(`marg_sales') cum_prod(`cum_sales') price(`net_msrp') enviro(ev_local) time_path_age(`lifetime') ///
 							   scc(${scc_import_check}) new_car(`lbd_cf') vmt(${EV_VMT_car_adjustment}) ev_grid(${ev_grid})
 		local dyn_enviro_local = `r(enviro_mvpf)'
 
 		cost_curve_masterfile, demand_elas(`epsilon') discount_rate(`discount') farmer(`farmer_theta') fcr(`fixed_cost_frac') ///
-							   curr_prod(`marg_sales') cum_prod(`cum_sales') price(`net_msrp') enviro(ev_global) ///
+							   curr_prod(`marg_sales') cum_prod(`cum_sales') price(`net_msrp') enviro(ev_global) time_path_age(`lifetime') ///
 							   scc(${scc_import_check}) new_car(`lbd_cf') vmt(${EV_VMT_car_adjustment}) ev_grid(${ev_grid})
 		local dyn_enviro_global_tot = `r(enviro_mvpf)'
 		local dyn_enviro_global = `dyn_enviro_global_tot' * ((1 - ${USShareFutureSSC}) + ${USShareFutureSSC} * (1 - ${USShareGovtFutureSCC}))

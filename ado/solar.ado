@@ -53,6 +53,14 @@ syntax [anything], ///
 		local lifetime = ${lifetime}
 	restore
 	
+	if "${solar_output_change}" == "yes" {
+		local annual_output = `annual_output' * ${output_scalar}
+	}
+	
+	if "${lifetime_change}" == "yes" {
+		local lifetime = `lifetime' * ${lifetime_scalar}
+	}
+	
 	local cost_per_watt = `pre_cost_per_watt' * (1 - `federal_subsidy')
 	local avg_state_rebate = `avg_state_rebate'
 	local avg_fed_rebate = `pre_cost_per_watt' * `federal_subsidy'
@@ -194,11 +202,11 @@ if "`p_name'" == "hughes_csi" {
 
 if "${lbd}" == "yes" {
 	if "${spec_type}" != "baseline" & "`replacement'" == "marginal" & "${grid_model}" != "sta" {
-		cost_curve_masterfile,  demand_elas(`epsilon') discount_rate(`discount') farmer(`farmer_theta') curr_prod(`marg_sales') cum_prod(`cum_sales') price(`prod_cost') enviro("solar_local") markup(`markup') passthrough(-`pass_through') subsidy_max(`subsidy_max') scc(${scc_import_check}) time_path_age(25)
+		cost_curve_masterfile,  demand_elas(`epsilon') discount_rate(`discount') farmer(`farmer_theta') curr_prod(`marg_sales') cum_prod(`cum_sales') price(`prod_cost') enviro("solar_local") markup(`markup') passthrough(-`pass_through') subsidy_max(`subsidy_max') scc(${scc_import_check}) time_path_age(`lifetime')
 		local enviro_mvpf_raw = `r(enviro_mvpf)' * `scale'
 		local env_cost_wtp_local = `enviro_mvpf_raw' * `program_cost'
 		
-		cost_curve_masterfile,  demand_elas(`epsilon') discount_rate(`discount') farmer(`farmer_theta') curr_prod(`marg_sales') cum_prod(`cum_sales') price(`prod_cost') enviro("solar_global") markup(`markup') passthrough(-`pass_through') subsidy_max(`subsidy_max') scc(${scc_import_check}) time_path_age(25)
+		cost_curve_masterfile,  demand_elas(`epsilon') discount_rate(`discount') farmer(`farmer_theta') curr_prod(`marg_sales') cum_prod(`cum_sales') price(`prod_cost') enviro("solar_global") markup(`markup') passthrough(-`pass_through') subsidy_max(`subsidy_max') scc(${scc_import_check}) time_path_age(`lifetime')
 		local env_cost_wtp_global = (`r(enviro_mvpf)' * `scale') * `program_cost'
 		local enviro_mvpf_raw = (`r(enviro_mvpf)' * `scale') + `enviro_mvpf_raw'
 

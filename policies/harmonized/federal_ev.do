@@ -199,6 +199,11 @@ preserve
 	}
 		
 	local val_given = ${val_given}
+	
+	if "${vehicle_lifetime_change}" == "yes" {
+		global vehicle_car_lifetime = ${new_vehicle_lifetime}
+	}
+		
 	local lifetime = ${vehicle_`veh_lifespan_type'_lifetime}
 restore
 

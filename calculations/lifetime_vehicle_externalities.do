@@ -28,6 +28,10 @@ foreach val of local levels {
 
 }
 
+if "${vehicle_lifetime_change}" == "yes" {
+	global vehicle_car_lifetime = ${new_vehicle_lifetime}
+}
+
 clear
 *************************************************
 /* 2. Calculate Several Counterfactual Vehicles. */

@@ -33,6 +33,10 @@ foreach v of local vmt_type_loop {
 			
 		}
 		
+		if "${vehicle_lifetime_change}" == "yes" {
+			global vehicle_car_lifetime = ${new_vehicle_lifetime}
+		}
+		
 		*************************************************
 		/* 1b. Pull in Data on Electric Vehicle Energy Consumption. */
 		*************************************************
