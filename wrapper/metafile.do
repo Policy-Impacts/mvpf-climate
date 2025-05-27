@@ -84,6 +84,11 @@ global make_waterfall = "no" // make waterfall chart?
 
 // Select hybrid counterfactual: muehl, new_avg, new_car, or fleet_avg
 global hev_cf muehl // muehl
+
+* For changing local assumption from clean car to new car for hybrids
+if "${car_change}" == "yes" {
+	global hev_cf = "new_car"
+}
 // Select BEV counterfactual: 
 global bev_cf clean_car // clean car
 // Select EV VMT assumpption: car or avg
@@ -235,7 +240,7 @@ foreach correction_mode of global correction_modes {
     * 0 - Macros
     *-----------------------------------------------------------------------
     noi di "SECTION 0: MACROS"
-    qui do "${github}/wrapper/macros.do" "yes"
+    qui do "${github}/wrapper/macros.do" "no"
 
     *-----------------------------------------------------------------------
     * 1 - Prepare causal estimates

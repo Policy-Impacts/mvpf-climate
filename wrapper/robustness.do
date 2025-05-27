@@ -263,7 +263,7 @@ run_program shirmali_ptc
 post `numbers' ("wind_lcoe_150_percent") ((${WTP_cc_hitaj_ptc} + ${WTP_cc_metcalf_ptc} + ${WTP_cc_shirmali_ptc}) / (${cost_hitaj_ptc} + ${cost_metcalf_ptc} + ${cost_shirmali_ptc}))
 
 
-*Scale LCOE by 100%
+*Scale LCOE by 200%
 global scalar = 2
 
 run_program hitaj_ptc
