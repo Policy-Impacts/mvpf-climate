@@ -74,7 +74,20 @@ local discount = ${discount_rate}
 		
 		
 }
+
+	if "${lifetime_change}" == "yes" {
 	
+		local lifetime = `lifetime' * ${lifetime_scalar}
+		
+		
+}
+
+	if "${no_cap_reduction}" == "yes" {
+	
+		local capacity_reduction = 0.00000000001
+		
+		
+}
 	*********************************
 	/* 2. Intermediate Calculations */
 	*********************************
