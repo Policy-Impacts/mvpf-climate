@@ -35,6 +35,7 @@ do "${github}/figtab/mvpf_plots.do" "subsidies" "2025-05-14_00-32-09__full_curre
 do "${github}/figtab/mvpf_plots.do" "subsidies" "2025-05-13_17-00-23__full_current_337_zero_rebound" "Fig5b_scc337" "337" "scc_337_zero_rebound" "" "categories_only"
 do "${github}/figtab/mvpf_plots.do" "subsidies" "2025-05-13_17-43-31__full_current_337_double_rebound" "Fig5b_scc337" "337" "scc_337_double_rebound" "" "categories_only"
 
+e
 ************************************************************************
 /* Step #0: Set Macros that Will NOT Change. */
 ************************************************************************
@@ -631,5 +632,5 @@ di "`scatter_cmd_base'"
 
 * Export the graph
 graph export "`output_path'/mvpf_comparison_`plot_name'.png", replace
-cap graph export "`output_path'/mvpf_comparison_`plot_name'.wmf", replace
+cap graph export "`output_path'/mvpf_comparison_`plot_name'.emf", replace
 }

@@ -51,7 +51,15 @@ if "`anything'" == "non-marginal" {
 		local marginal_valuation = ${val_given}
 		local prop_marginal = ${marginal_prop}
 		local retrofit_lifespan = ${retrofit_lifespan}
+		
+		if "${decre_weather_lifespan}" == "yes" {
+	"retrofit_lifespan" = 10
+}
 	restore
+	
+	if "${marginal_valuation_change}" == "yes" {
+		local marginal_valuation = 0
+	}
 	
 	if "`policy'" == "ihwap_nb" {
 		local retrofit_lifespan = 34
