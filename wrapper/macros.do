@@ -158,6 +158,11 @@ if "${rerun_macros}" == "yes" | "${vmt_rebound_elasticity}" == "" {
 	
 }
 
+if "${change_vmt_rebound}" == "yes" {
+	
+	"vmt_rebound_elasticity" = -0.000001 
+}
+
 *-----------------------------------------------------------------------
 * 1c - Save Preferred EV Price Elasticity (for Gas Tax Learning-by-Doing).
 *-----------------------------------------------------------------------

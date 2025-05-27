@@ -88,8 +88,15 @@ levelsof estimate, local(estimates)
 			global `val' = `r(mean)'
 		}
 	
+	if "${vehicle_mar_val_chng}" == "yes" {
+	
+		global marg_valuation = 0.5
+		
+}
+
 		local marginal_valuation = ${marg_valuation}
 		local prop_marginal = ${prop_marginal}
+		
 
 	restore 
 	

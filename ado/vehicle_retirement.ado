@@ -34,6 +34,17 @@ preserve
 
 restore
 	
+if "${vehicle_mar_val_chng}" == "yes" {
+	
+		local marg_valuation = 0.5
+		
+}
+
+if "${vehicle_age_incr}" == "yes" {
+	
+		local avg_c4c_scrap_age = 20
+		
+}
 ****************************************************
 /* 2. Calculate Rbd Effect.  */
 ****************************************************		
