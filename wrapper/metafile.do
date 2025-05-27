@@ -100,6 +100,9 @@ if "${VMT_change_robustness}" == "yes" {
 	global EV_VMT_car_adjustment = 1
 }
 
+if "${ev_car_change_robustness}" == "yes" {
+	global bev_cf = "new_car"
+}
 ***************************************************************************************
 
 
