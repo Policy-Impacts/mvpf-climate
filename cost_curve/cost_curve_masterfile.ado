@@ -100,7 +100,7 @@ preserve
             local infile = subinstr("`infile'","_global","",.)
 			
 			*If it's clean grid, override to 0 after it runs
-			if ("${change_grid}" == "" | "${change_grid}" == "clean") & "${renewables_loop}" != "yes" & "${solar_output_change}" != "yes" & "${wind_emissions_change}" != "yes" {
+			if ("${change_grid}" == "" | "${change_grid}" == "clean") & "${renewables_loop}" != "yes" & "${solar_output_change}" != "yes" & "${wind_emissions_change}" != "yes" & "${lifetime_change}" != "yes" & "${no_cap_reduction}" != "yes" {
 				use "${assumptions}/timepaths/`infile'_externalities_time_path_scc`scc'_age`time_path_age'.dta", clear 
 			}
 			
@@ -118,6 +118,14 @@ preserve
 			
 			if "${wind_emissions_change}" == "yes" {
 				use "${assumptions}/timepaths/`infile'_externalities_time_path_scc`scc'_age`time_path_age'_emissions_change${emissions_scalar}.dta", clear 
+			}
+			
+			if "${lifetime_change}" == "yes" {
+				use "${assumptions}/timepaths/`infile'_externalities_time_path_scc`scc'_age`time_path_age'_lifetime_change${lifetime_scalar}.dta", clear 
+			}
+			
+			if "${no_cap_reduction}" == "yes" {
+				use "${assumptions}/timepaths/`infile'_externalities_time_path_scc`scc'_age`time_path_age'_capacity_reduction0.dta", clear 
 			}
 			
             if strpos("`enviro'","div10") >0 replace enviro_ext = enviro_ext/10
