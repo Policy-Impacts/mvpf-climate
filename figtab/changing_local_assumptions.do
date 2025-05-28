@@ -75,7 +75,7 @@ global output_scalar = 0.75
 		"yes" /// profits
 		"ct_solar ne_solar pless_tpo pless_ho hughes_csi" /// programs to run
 		0 /// reps
-		"solar_output_increase_193" // nrun
+		"solar_output_decrease_193" // nrun
 		
 global solar_output_change = "no"
 global output_scalar = 1
@@ -167,6 +167,7 @@ global scalar = 0.5
 		"wind_current_lcoe_05_193" // nrun 
 		
 global lcoe_scaling = "no"
+global scalar = 1
 
 *Scale LCOE by 200%
 global lcoe_scaling = "yes"
@@ -183,6 +184,94 @@ global scalar = 2
 		"wind_current_lcoe_2_193" // nrun 
 
 global lcoe_scaling = "no"
+global scalar = 1
+
+// Increase and decrease manufacturing emisisons 
+
+global wind_emissions_change = "yes"
+global emissions_scalar = 2
+
+	do "${github}/wrapper/metafile.do" ///
+		"current" /// 2020
+		"193" /// SCC
+		"yes" /// learning-by-doing
+		"no" /// savings
+		"yes" /// profits
+		"hitaj_ptc metcalf_ptc shirmali_ptc" /// programs to run
+		0 /// reps
+		"wind_current_emissions_double_193" // nrun 
+		
+global wind_emissions_change = "no"
+global emissions_scalar = 1
+
+global wind_emissions_change = "yes"
+global emissions_scalar = 0.5
+
+	do "${github}/wrapper/metafile.do" ///
+		"current" /// 2020
+		"193" /// SCC
+		"yes" /// learning-by-doing
+		"no" /// savings
+		"yes" /// profits
+		"hitaj_ptc metcalf_ptc shirmali_ptc" /// programs to run
+		0 /// reps
+		"wind_current_emissions_half_193" // nrun 
+		
+global wind_emissions_change = "no"
+global emissions_scalar = 1
+
+// Change Lifetime of wind turbines (decrease by 5)
+
+global wind_lifetime_change = "yes"
+global lifetime_scalar = 0.8	
+	
+	do "${github}/wrapper/metafile.do" ///
+		"current" /// 2020
+		"193" /// SCC
+		"yes" /// learning-by-doing
+		"no" /// savings
+		"yes" /// profits
+		"hitaj_ptc metcalf_ptc shirmali_ptc"  /// programs to run
+		0 /// reps
+		"wind_current_lifetime_reduce_193" // nrun
+		
+global wind_lifetime_change = "no"
+global lifetime_scalar = 1
+
+// Change Lifetime of wind turbines (increase by 5)
+
+global wind_lifetime_change = "yes"
+global lifetime_scalar = 1.2	
+	
+	do "${github}/wrapper/metafile.do" ///
+		"current" /// 2020
+		"193" /// SCC
+		"yes" /// learning-by-doing
+		"no" /// savings
+		"yes" /// profits
+		"hitaj_ptc metcalf_ptc shirmali_ptc"  /// programs to run
+		0 /// reps
+		"wind_current_lifetime_increase_193" // nrun
+		
+global wind_lifetime_change = "no"
+global lifetime_scalar = 1	
+
+// Remove the Kay & Ricks capacity factor reduction	
+
+global no_cap_reduction = "yes"
+	
+	do "${github}/wrapper/metafile.do" ///
+		"current" /// 2020
+		"193" /// SCC
+		"yes" /// learning-by-doing
+		"no" /// savings
+		"yes" /// profits
+		"hitaj_ptc metcalf_ptc shirmali_ptc"  /// programs to run
+		0 /// reps
+		"wind_current_no_cap_factor_193" // nrun
+		
+global no_cap_reduction = "no"
+
 
 *-------------------------------------------------------------------------------
 *                            Weatherization

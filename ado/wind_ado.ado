@@ -75,7 +75,7 @@ local discount = ${discount_rate}
 		
 }
 
-	if "${lifetime_change}" == "yes" {
+	if "${wind_lifetime_change}" == "yes" {
 	
 		local lifetime = `lifetime' * ${lifetime_scalar}
 		
@@ -84,7 +84,7 @@ local discount = ${discount_rate}
 
 	if "${no_cap_reduction}" == "yes" {
 	
-		local capacity_reduction = 0.00000000001
+		local capacity_reduction = 0.0000000000001
 		
 		
 }
