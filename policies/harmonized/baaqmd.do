@@ -88,11 +88,6 @@ levelsof estimate, local(estimates)
 			global `val' = `r(mean)'
 		}
 	
-	if "${vehicle_mar_val_chng}" == "yes" {
-	
-		global marg_valuation = 0.5
-		
-}
 
 		local marginal_valuation = ${marg_valuation}
 		local prop_marginal = ${prop_marginal}
@@ -100,6 +95,17 @@ levelsof estimate, local(estimates)
 
 	restore 
 	
+	
+	if "${vehicle_mar_val_chng}" == "yes" {
+	
+		local marginal_valuation = 0.5
+		
+}
+
+if "${vehicle_mar_val_chng}" == "no" | "${vehicle_mar_val_chng}" == ""  {
+	
+		local marginal_valuation = 1
+}
     ****************************************************
     /* 3c. Policy Specific Assumptions */
     ****************************************************    
@@ -1160,7 +1166,7 @@ local fiscal_externality_tax = (`prop_marginal' * `tax_rev_loss')
 /* 9. WTP Calculations */
 *************************
 *Consumers
-local inframarginal = `adj_rebate'
+local inframarginal = `adj_rebate' * `marginal_valuation'
 
 local marginal =  0
 

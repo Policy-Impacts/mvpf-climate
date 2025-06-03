@@ -93,11 +93,11 @@ restore
 local lifetime = ${appliance_lifetimes} // 13, 15, or 18 yrs - Footnote 10
 
 if "${incr_appliance_lifetimes}" == "yes" {
-	"appliance_lifetimes" = 18
+	local lifetime = 25
 }
 
 if "${decr_appliance_lifetimes}" == "yes" {
-	"appliance_lifetimes" = 13
+	local lifetime = 5
 } 
 
 local marginal_valuation = ${val_given}

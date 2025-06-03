@@ -228,21 +228,16 @@ preserve
 		qui sum Estimate if Parameter == "`val'"
 		global `val' = `r(mean)'
 	}
-	
-if "${hybrid_lifetime_incr}" == "yes" {
-	
-		global vehicle_car_lifetime = 20
 		
-}
-
-if "${hybrid_lifetime_decr}" == "yes" {
-	
-		global vehicle_car_lifetime = 15
-		
-}		
 	local val_given = ${val_given}
+	
+	if "${vehicle_lifetime_change}" == "yes" {
+		global vehicle_car_lifetime = ${new_vehicle_lifetime}
+	}
+	
 	local lifetime = ${vehicle_`veh_lifespan_type'_lifetime}
 restore
+		
 
 ****************************************************
 /* 3d. HEV Battery Capacity Data */

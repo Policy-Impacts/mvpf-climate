@@ -8,7 +8,7 @@
 ****************************************************************************/
 
 *-------------------------------------------------------------------------------
-* 1 - Solar
+* 1 - Solar 4
 *-------------------------------------------------------------------------------
 
 *Lowering Lifetime by 5 years
@@ -75,14 +75,14 @@ global output_scalar = 0.75
 		"yes" /// profits
 		"ct_solar ne_solar pless_tpo pless_ho hughes_csi" /// programs to run
 		0 /// reps
-		"solar_output_increase_193" // nrun
+		"solar_output_decrease_193" // nrun
 		
 global solar_output_change = "no"
 global output_scalar = 1
 
 
 *-------------------------------------------------------------------------------
-* 2 - EVs
+*                           2 - EVs 3
 *-------------------------------------------------------------------------------
 *Change VMT Rebound to 1 (People drive EVs as much as national average)
 global VMT_change_robustness = "yes"
@@ -98,6 +98,19 @@ global VMT_change_robustness = "yes"
 		"ev_VMT_rebound_one_193" // nrun
 		
 global VMT_change_robustness = "no"
+
+* Change from clean car to new car
+global car_change_ev = "yes"		// changed in metafile and rerun macros
+		
+	do "${github}/wrapper/metafile.do" ///
+		"current" /// 2020
+		"193" /// SCC
+		"yes" /// learning-by-doing
+		"no" /// savings
+		"yes" /// profits
+		"federal_ev muehl_efmp bev_state" /// programs to run
+		0 /// reps
+global car_change_ev = "no"	
 
 *Change vehicle lifetime from 17 to 15 years
 global vehicle_lifetime_change = "yes"
@@ -134,7 +147,7 @@ global new_vehicle_lifetime = 17
 
 
 *-------------------------------------------------------------------------------
-*                            Wind
+*                            Wind 8
 *-------------------------------------------------------------------------------
 
 * use constant semi elasticity
@@ -167,6 +180,7 @@ global scalar = 0.5
 		"wind_current_lcoe_05_193" // nrun 
 		
 global lcoe_scaling = "no"
+global scalar = 1
 
 *Scale LCOE by 200%
 global lcoe_scaling = "yes"
@@ -183,9 +197,97 @@ global scalar = 2
 		"wind_current_lcoe_2_193" // nrun 
 
 global lcoe_scaling = "no"
+global scalar = 1
+
+// Increase and decrease manufacturing emisisons 
+
+global wind_emissions_change = "yes"
+global emissions_scalar = 2
+
+	do "${github}/wrapper/metafile.do" ///
+		"current" /// 2020
+		"193" /// SCC
+		"yes" /// learning-by-doing
+		"no" /// savings
+		"yes" /// profits
+		"hitaj_ptc metcalf_ptc shirmali_ptc" /// programs to run
+		0 /// reps
+		"wind_current_emissions_double_193" // nrun 
+		
+global wind_emissions_change = "no"
+global emissions_scalar = 1
+
+global wind_emissions_change = "yes"
+global emissions_scalar = 0.5
+
+	do "${github}/wrapper/metafile.do" ///
+		"current" /// 2020
+		"193" /// SCC
+		"yes" /// learning-by-doing
+		"no" /// savings
+		"yes" /// profits
+		"hitaj_ptc metcalf_ptc shirmali_ptc" /// programs to run
+		0 /// reps
+		"wind_current_emissions_half_193" // nrun 
+		
+global wind_emissions_change = "no"
+global emissions_scalar = 1
+
+// Change Lifetime of wind turbines (decrease by 5)
+
+global wind_lifetime_change = "yes"
+global lifetime_scalar = 0.8	
+	
+	do "${github}/wrapper/metafile.do" ///
+		"current" /// 2020
+		"193" /// SCC
+		"yes" /// learning-by-doing
+		"no" /// savings
+		"yes" /// profits
+		"hitaj_ptc metcalf_ptc shirmali_ptc"  /// programs to run
+		0 /// reps
+		"wind_current_lifetime_reduce_193" // nrun
+		
+global wind_lifetime_change = "no"
+global lifetime_scalar = 1
+
+// Change Lifetime of wind turbines (increase by 5)
+
+global wind_lifetime_change = "yes"
+global lifetime_scalar = 1.2	
+	
+	do "${github}/wrapper/metafile.do" ///
+		"current" /// 2020
+		"193" /// SCC
+		"yes" /// learning-by-doing
+		"no" /// savings
+		"yes" /// profits
+		"hitaj_ptc metcalf_ptc shirmali_ptc"  /// programs to run
+		0 /// reps
+		"wind_current_lifetime_increase_193" // nrun
+		
+global wind_lifetime_change = "no"
+global lifetime_scalar = 1	
+
+// Remove the Kay & Ricks capacity factor reduction	
+
+global no_cap_reduction = "yes"
+	
+	do "${github}/wrapper/metafile.do" ///
+		"current" /// 2020
+		"193" /// SCC
+		"yes" /// learning-by-doing
+		"no" /// savings
+		"yes" /// profits
+		"hitaj_ptc metcalf_ptc shirmali_ptc"  /// programs to run
+		0 /// reps
+		"wind_current_no_cap_factor_193" // nrun
+		
+global no_cap_reduction = "no"
+
 
 *-------------------------------------------------------------------------------
-*                            Weatherization
+*                            Weatherization 3
 *-------------------------------------------------------------------------------
 
 * increase percent of people who are marginal
@@ -236,7 +338,7 @@ global weather_mar_valuation_change = "yes"
 		global decre_weather_lifespan = "no"
 
 *-------------------------------------------------------------------------------
-*                            Hybrid Vehicles
+*                            Hybrid Vehicles 3
 *-------------------------------------------------------------------------------
 
 * change counter factual car to average new car
@@ -257,7 +359,9 @@ global car_change = "no"
 
 // Change Lifetime of New Car 15 and 20
 
-global hybrid_lifetime_incr = "yes"		// changed in policy dofiles
+global vehicle_lifetime_change = "yes"		// changed in macros, same as EVs
+global new_vehicle_lifetime = 20
+
 		
 	do "${github}/wrapper/metafile.do" ///
 		"current" /// 2020
@@ -269,9 +373,11 @@ global hybrid_lifetime_incr = "yes"		// changed in policy dofiles
 		0 /// reps
 		"hybrid_current_lifetime_incr_193" // nrun 		
 		
-global hybrid_lifetime_incr = "no"
+global vehicle_lifetime_change = "no"
 
-global hybrid_lifetime_decr = "yes"		// changed in policy dofiles
+global vehicle_lifetime_change = "yes"	
+global new_vehicle_lifetime = 15
+	
 		
 	do "${github}/wrapper/metafile.do" ///
 		"current" /// 2020
@@ -283,10 +389,12 @@ global hybrid_lifetime_decr = "yes"		// changed in policy dofiles
 		0 /// reps
 		"hybrid_current_lifetime_decr_193" // nrun 		
 		
-global hybrid_lifetime_decr = "no"
+global vehicle_lifetime_change = "no"
+global new_vehicle_lifetime = 17
+
 
 *-------------------------------------------------------------------------------
-*                            Appliances
+*                            Appliances 2
 *-------------------------------------------------------------------------------
 * increase lifetime assumptions
 
@@ -300,7 +408,7 @@ global incr_appliance_lifetimes = "yes"
 		"yes" /// profits
 		"rebate_es cw_datta c4a_fridge fridge_datta esa_fridge dw_datta c4a_dw c4a_cw" /// programs to run
 		0 /// reps
-		"appliance_current_lifetime_18_193" // nrun 
+		"appliance_current_lifetime_25_193" // nrun 
 		
 global incr_appliance_lifetimes = "no"
 
@@ -316,12 +424,12 @@ global decr_appliance_lifetimes = "yes"
 		"yes" /// profits
 		"rebate_es cw_datta c4a_fridge fridge_datta esa_fridge dw_datta c4a_dw c4a_cw" /// programs to run
 		0 /// reps
-		"appliance_current_lifetime_13_193" // nrun 
+		"appliance_current_lifetime_5_193" // nrun 
 		
 global decr_appliance_lifetimes = "no"
 		
 *-------------------------------------------------------------------------------
-*                            Vehicle Retirement
+*                            Vehicle Retirement 3
 *-------------------------------------------------------------------------------
 // decrease VMT rebound
 global change_vmt_rebound = "yes"

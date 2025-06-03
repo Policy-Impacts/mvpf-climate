@@ -15,6 +15,7 @@
 
 global rerun_macros "no"
 
+ 
 
 if "`1'" != ""{
 	global rerun_macros "`1'" // if running macros.do through metafile.do
@@ -68,6 +69,15 @@ if "${rerun_macros}" == ""{
 	di in red "Rerun macros wasn't defined, so now it's set to no"
 } 
 
+if "${vehicle_lifetime_change}" == "yes" | "${car_change_ev}" == "yes" | "${car_change}" == "yes" | "${change_vmt_rebound}" == "yes"{
+	global rerun_macros = "yes"
+}
+
+* Rerun macros after resetting globals from above to no, these are the specs following the 4 above.
+
+if "${constant_semie}" == "yes" | "${incr_appliance_lifetimes}" == "yes" | "${vehicle_mar_val_chng}" == "yes"{
+	global rerun_macros = "yes"
+}
 
 
 ***************************************************************************************************************
@@ -160,7 +170,7 @@ if "${rerun_macros}" == "yes" | "${vmt_rebound_elasticity}" == "" {
 
 if "${change_vmt_rebound}" == "yes" {
 	
-	"vmt_rebound_elasticity" = -0.000001 
+	global vmt_rebound_elasticity = -0.000001 
 }
 
 *-----------------------------------------------------------------------

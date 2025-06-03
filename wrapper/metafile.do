@@ -91,6 +91,12 @@ if "${car_change}" == "yes" {
 }
 // Select BEV counterfactual: 
 global bev_cf clean_car // clean car
+
+* For changing local assumption from clean car to new car for EVs
+
+if "${car_change_ev}" == "yes" {
+	global bev_cf = "new_car"
+}
 // Select EV VMT assumpption: car or avg
 global ev_VMT_assumption car
 // Including rebound effects?

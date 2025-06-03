@@ -40,11 +40,17 @@ if "${vehicle_mar_val_chng}" == "yes" {
 		
 }
 
+if "${vehicle_mar_val_chng}" == "no" | "${vehicle_mar_val_chng}" == ""  {
+	
+		local marg_valuation = 1
+}
+
 if "${vehicle_age_incr}" == "yes" {
 	
-		local avg_c4c_scrap_age = 20
+		local avg_c4c_scrap_age = 30
 		
 }
+
 ****************************************************
 /* 2. Calculate Rbd Effect.  */
 ****************************************************		
@@ -1087,7 +1093,7 @@ local wtp_soc_local = `delta_local' * `prop_marginal'
 local wtp_producers = ((`delta_profits' * (1 - ${gasoline_effective_corp_tax})) * -1) * `prop_marginal'
 
 local wtp_marginal = 0
-local wtp_inframarginal = (`federal_rebate' * (${cpi_`dollar_year'}/${cpi_${policy_year}}))
+local wtp_inframarginal = (`federal_rebate' * (${cpi_`dollar_year'}/${cpi_${policy_year}})) * `marg_valuation'
 
 local total_wtp = `wtp_marginal' + `wtp_inframarginal' + `wtp_producers' + `wtp_soc_local' + /// 
 				  (`wtp_soc_global' * (1 - (${USShareFutureSSC} * ${USShareGovtFutureSCC}))) + ///
