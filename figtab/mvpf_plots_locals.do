@@ -33,14 +33,14 @@ local output_path "${output_fig}/figures_appendix"
 
 local path_scc_193 = "${code_files}/4_results/2024-11-15_09-44-45__full_current_193_nov" // baseline
 * Wind Locals (8)
-local path_wind_no_cap_factor = "${code_files}/4_results/local_assumption_mvpf_plot_data/2025-06-02_22-12-16__wind_current_no_cap_factor_193"
-local path_wind_lifetime_increase = "${code_files}/4_results/local_assumption_mvpf_plot_data/2025-06-02_21-48-28__wind_current_lifetime_increase_193"
-local path_wind_lifetime_reduce = "${code_files}/4_results/local_assumption_mvpf_plot_data/2025-06-02_21-19-27__wind_current_lifetime_reduce_193"
-local path_wind_emissions_half = "${code_files}/4_results/local_assumption_mvpf_plot_data/2025-06-02_20-54-44__wind_current_emissions_half_193"
-local path_wind_emissions_double = "${code_files}/4_results/local_assumption_mvpf_plot_data/2025-06-02_20-24-36__wind_current_emissions_double_193"
-local path_wind_lcoe_2 = "${code_files}/4_results/local_assumption_mvpf_plot_data/2025-06-02_17-59-34__wind_current_lcoe_2_193"
-local path_wind_lcoe_05 = "${code_files}/4_results/local_assumption_mvpf_plot_data/2025-06-02_17-41-42__wind_current_lcoe_05_193"
-local path_wind_semie = "${code_files}/4_results/local_assumption_mvpf_plot_data/2025-06-02_17-19-14__wind_current_semie_193"
+local path_wind_no_cap_factor = "${code_files}/4_results/local_assumption_mvpf_plot_data/2025-06-09_15-57-36__wind_current_no_cap_factor_193" 
+local path_wind_lifetime_increase = "${code_files}/4_results/local_assumption_mvpf_plot_data/2025-06-09_15-13-01__wind_current_lifetime_increase_193" 
+local path_wind_lifetime_reduce = "${code_files}/4_results/local_assumption_mvpf_plot_data/2025-06-09_15-10-16__wind_current_lifetime_reduce_193" 
+local path_wind_emissions_half = "${code_files}/4_results/local_assumption_mvpf_plot_data/2025-06-09_15-07-33__wind_current_emissions_half_193" // check
+local path_wind_emissions_double = "${code_files}/4_results/local_assumption_mvpf_plot_data/2025-06-09_16-52-33__wind_current_emissions_double_193" // check
+local path_wind_lcoe_2 = "${code_files}/4_results/local_assumption_mvpf_plot_data/2025-06-09_15-02-02__wind_current_lcoe_2_193"
+local path_wind_lcoe_05 = "${code_files}/4_results/local_assumption_mvpf_plot_data/2025-06-09_14-59-23__wind_current_lcoe_05_193"
+local path_wind_semie = "${code_files}/4_results/local_assumption_mvpf_plot_data/2025-06-09_14-43-55__wind_current_semie_193"
 
 * Solar Locals (4)
 local path_solar_output_decrease = "${code_files}/4_results/local_assumption_mvpf_plot_data/2025-06-02_15-26-00__solar_output_decrease_193"
@@ -58,7 +58,7 @@ local path_ev_new_car = "${code_files}/4_results/local_assumption_mvpf_plot_data
 * Weatherization (3)
 local path_wea_lifetime_reduce = "${code_files}/4_results/local_assumption_mvpf_plot_data/2025-06-02_23-12-05__weather_current_decr_lifespan_193"
 local path_wea_mar_val_decr = "${code_files}/4_results/local_assumption_mvpf_plot_data/2025-06-02_22-52-13__weather_current_marginal_chng_193" // potential to remove wisc
-local path_wea_mar_per_decr = "${code_files}/4_results/local_assumption_mvpf_plot_data/2025-06-02_22-33-59__weather_current_marginal_per_193"
+local path_wea_mar_per_incr = "${code_files}/4_results/local_assumption_mvpf_plot_data/2025-06-02_22-33-59__weather_current_marginal_per_193"
 
 * Hybrids (3)
 local path_hybrid_lifetime_reduce = "${code_files}/4_results/local_assumption_mvpf_plot_data/2025-06-02_23-59-38__hybrid_current_lifetime_decr_193" // check
@@ -481,7 +481,7 @@ local scatter_cmd_base "`scatter_cmd_base' (scatter yaxis MVPF_scc_193 if _n < 0
 local shape_start = `legend_count' + 1
 
 * Build the order list for all shapes
-local legend_order "`shape_start' `=`shape_start'+1' `=`shape_start'+2' `=`shape_start'+3' `=`shape_start'+4' `=`shape_start'+5' `=`shape_start'+6' `=`shape_start'+7' `=`shape_start'+8' `=`shape_start'+9' `=`shape_start'+10' `=`shape_start'+11' `=`shape_start'+12' `=`shape_start'+13' `=`shape_start'+14' `=`shape_start'+15' `=`shape_start'+16'"
+local legend_order "`shape_start' `=`shape_start'+1' `=`shape_start'+2' `=`shape_start'+3' `=`shape_start'+4' `=`shape_start'+5' `=`shape_start'+6' `=`shape_start'+7' `=`shape_start'+8' `=`shape_start'+9' `=`shape_start'+10' `=`shape_start'+11' `=`shape_start'+12' `=`shape_start'+13' `=`shape_start'+14' `=`shape_start'+15' `=`shape_start'+16' `=`shape_start'+17'"
 
 local legend_labels ""
 local legend_labels `"`legend_labels' label(`shape_start' "Baseline")"'
@@ -490,13 +490,13 @@ local legend_labels `"`legend_labels' label(`=`shape_start'+2' "Wind: Emissions 
 local legend_labels `"`legend_labels' label(`=`shape_start'+3' "Wind: Emissions Double")"'
 local legend_labels `"`legend_labels' label(`=`shape_start'+4' "Wind: LCOE 2x")"'
 local legend_labels `"`legend_labels' label(`=`shape_start'+5' "Wind: LCOE 0.5x")"'
-local legend_labels `"`legend_labels' label(`=`shape_start'+6' "Wind: Semie")"'
+local legend_labels `"`legend_labels' label(`=`shape_start'+6' "Wind: Constant Semie Elasticity")"'
 local legend_labels `"`legend_labels' label(`=`shape_start'+7' "Solar: Output Decrease")"'
 local legend_labels `"`legend_labels' label(`=`shape_start'+8' "Solar: Output Increase")"'
 local legend_labels `"`legend_labels' label(`=`shape_start'+9' "EV: VMT Rebound as 1")"'
 local legend_labels `"`legend_labels' label(`=`shape_start'+10' "EV: New Car as Counterfactual")"'
 local legend_labels `"`legend_labels' label(`=`shape_start'+11' "Weather: Marginal Value Decrease")"'
-local legend_labels `"`legend_labels' label(`=`shape_start'+12' "Weather: Marginal Percent Decrease")"'
+local legend_labels `"`legend_labels' label(`=`shape_start'+12' "Weather: Marginal Percent Increase")"'
 local legend_labels `"`legend_labels' label(`=`shape_start'+13' "Hybrid: New Car as Counterfactual")"'
 local legend_labels `"`legend_labels' label(`=`shape_start'+14' "Vehicle: Marginal Valuation Decrease")"'
 local legend_labels `"`legend_labels' label(`=`shape_start'+15' "Vehicle: No Rebound")"'
