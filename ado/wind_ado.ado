@@ -84,7 +84,7 @@ local discount = ${discount_rate}
 
 	if "${no_cap_reduction}" == "yes" {
 	
-		local capacity_reduction = 0.00000000001
+		local capacity_reduction = 0
 		
 		
 }
