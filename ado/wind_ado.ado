@@ -48,6 +48,7 @@ local discount = ${discount_rate}
 			local `val' = `r(mean)'
 		}
 		
+
 		local lifetime = ${lifetime}
 		
 		local capacity_factor = ${capacity_factor} // capacity factor for wind. XX Can drop this parameter b/c MVPF is independent of it. 
@@ -67,6 +68,26 @@ local discount = ${discount_rate}
 	
 	restore
 	
+	if "${wind_emissions_change}" == "yes" {
+	
+		local wind_emissions = `wind_emissions' * ${emissions_scalar}
+		
+		
+}
+
+	if "${lifetime_change}" == "yes" {
+	
+		local lifetime = `lifetime' * ${lifetime_scalar}
+		
+		
+}
+
+	if "${no_cap_reduction}" == "yes" {
+	
+		local capacity_reduction = 0.00000000001
+		
+		
+}
 	*********************************
 	/* 2. Intermediate Calculations */
 	*********************************
