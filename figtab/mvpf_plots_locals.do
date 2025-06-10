@@ -36,7 +36,7 @@ local path_scc_193 = "${code_files}/4_results/2024-11-15_09-44-45__full_current_
 local path_wind_no_cap_factor = "${code_files}/4_results/local_assumption_mvpf_plot_data/2025-06-09_15-57-36__wind_current_no_cap_factor_193" 
 local path_wind_lifetime_increase = "${code_files}/4_results/local_assumption_mvpf_plot_data/2025-06-09_15-13-01__wind_current_lifetime_increase_193" 
 local path_wind_lifetime_reduce = "${code_files}/4_results/local_assumption_mvpf_plot_data/2025-06-09_15-10-16__wind_current_lifetime_reduce_193" 
-local path_wind_emissions_half = "${code_files}/4_results/local_assumption_mvpf_plot_data/2025-06-09_15-07-33__wind_current_emissions_half_193" // check
+local path_wind_emissions_half = "${code_files}/4_results/local_assumption_mvpf_plot_data/2025-06-09_17-18-47__wind_current_emissions_half_193" // check
 local path_wind_emissions_double = "${code_files}/4_results/local_assumption_mvpf_plot_data/2025-06-09_16-52-33__wind_current_emissions_double_193" // check
 local path_wind_lcoe_2 = "${code_files}/4_results/local_assumption_mvpf_plot_data/2025-06-09_15-02-02__wind_current_lcoe_2_193"
 local path_wind_lcoe_05 = "${code_files}/4_results/local_assumption_mvpf_plot_data/2025-06-09_14-59-23__wind_current_lcoe_05_193"
@@ -486,20 +486,20 @@ local legend_order "`shape_start' `=`shape_start'+1' `=`shape_start'+2' `=`shape
 local legend_labels ""
 local legend_labels `"`legend_labels' label(`shape_start' "Baseline")"'
 local legend_labels `"`legend_labels' label(`=`shape_start'+1' "Wind: No Capacity Factor Reduction")"'
-local legend_labels `"`legend_labels' label(`=`shape_start'+2' "Wind: Emissions Half")"'
-local legend_labels `"`legend_labels' label(`=`shape_start'+3' "Wind: Emissions Double")"'
+local legend_labels `"`legend_labels' label(`=`shape_start'+2' "Wind: Life-Cycle Emissions Half")"'
+local legend_labels `"`legend_labels' label(`=`shape_start'+3' "Wind: Life-Cycle Emissions Double")"'
 local legend_labels `"`legend_labels' label(`=`shape_start'+4' "Wind: LCOE 2x")"'
 local legend_labels `"`legend_labels' label(`=`shape_start'+5' "Wind: LCOE 0.5x")"'
 local legend_labels `"`legend_labels' label(`=`shape_start'+6' "Wind: Constant Semie Elasticity")"'
 local legend_labels `"`legend_labels' label(`=`shape_start'+7' "Solar: Output Decrease")"'
 local legend_labels `"`legend_labels' label(`=`shape_start'+8' "Solar: Output Increase")"'
-local legend_labels `"`legend_labels' label(`=`shape_start'+9' "EV: VMT Rebound as 1")"'
+local legend_labels `"`legend_labels' label(`=`shape_start'+9' "EV: Same VMT as Avg. Car")"'
 local legend_labels `"`legend_labels' label(`=`shape_start'+10' "EV: New Car as Counterfactual")"'
-local legend_labels `"`legend_labels' label(`=`shape_start'+11' "Weather: Marginal Value Decrease")"'
-local legend_labels `"`legend_labels' label(`=`shape_start'+12' "Weather: Marginal Percent Increase")"'
+local legend_labels `"`legend_labels' label(`=`shape_start'+11' "Weather: Subsidy Value Decrease")"'
+local legend_labels `"`legend_labels' label(`=`shape_start'+12' "Weather: 100% Marginal to Policy")"'
 local legend_labels `"`legend_labels' label(`=`shape_start'+13' "Hybrid: New Car as Counterfactual")"'
-local legend_labels `"`legend_labels' label(`=`shape_start'+14' "Vehicle: Marginal Valuation Decrease")"'
-local legend_labels `"`legend_labels' label(`=`shape_start'+15' "Vehicle: No Rebound")"'
+local legend_labels `"`legend_labels' label(`=`shape_start'+14' "Vehicle R: Marginal Valuation Decrease")"'
+local legend_labels `"`legend_labels' label(`=`shape_start'+15' "Vehicle R: Constant VMT")"'
 local legend_labels `"`legend_labels' label(`=`shape_start'+16' "Lifetime Increase")"'
 local legend_labels `"`legend_labels' label(`=`shape_start'+17' "Lifetime Decrease")"'
 
@@ -642,5 +642,5 @@ di "`scatter_cmd_base'"
 
 * Export the graph
 graph export "`output_path'/mvpf_comparison_`plot_name'.png", replace
-cap graph export "`output_path'/mvpf_comparison_`plot_name'.emf", replace
+cap graph export "`output_path'/mvpf_comparison_`plot_name'.wmf", replace
 }

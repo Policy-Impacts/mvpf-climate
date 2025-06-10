@@ -488,7 +488,6 @@ global US_windshare = 0.22 // In 2022, the US was responsible for 22% of wind ge
 global federal_subsidy = 0.26 // Solar ITC in 2020
 
 global harmonized_2010 = "no"
-global solar_markups = "no"
 
 *Solar pass-through
 global solar_passthrough = (0.778 + (1-0.156))/2 // Taking an average of Pless & CT Solar
