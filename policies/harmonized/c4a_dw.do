@@ -106,8 +106,8 @@ local marginal_valuation = ${val_given}
 /* 3c. Policy Specific Assumptions */
 ****************************************************	
 local avg_rebate = 84 // Table 2
-local shift_factor = 5
-local prop_inframarginal = 0.859
+local shift_factor = 5 // Accelerated purchase by 5 years: Houde & Aldy (2017)
+local prop_inframarginal = 0.859 // Houde & Aldy (2017)
 local ce_0 = 0.07 // Cost effectiveness estimate assuming 0% inframarginals (Table A.10, Online Appendix)
 	
 ****************************************************
@@ -242,7 +242,7 @@ local dishwasher_energy_savings = (((`first5_loss' * `energy_cost') + ((`first5_
 
 di in red "energy savings are `dishwasher_energy_savings'"
 
-local dishwasher_cost = 161.11772
+local dishwasher_cost = 161.11772 // ES manufacturer's suggested retail price of $764 from Table 3 of Houde & Aldy (2017)and a non-ES price of $624. $161.12 from taking the difference and inflation adjusting to 2020$ (we assume the values are in 2011$)
 
 local resource_cost = `dishwasher_cost' - `dishwasher_energy_savings'
 

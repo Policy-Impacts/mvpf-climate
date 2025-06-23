@@ -28,9 +28,6 @@ local static_grid = 0
 
 local want_rebound = 1
 
-local elec_dem_elas = -0.190144
-local elec_sup_elas = 0.7806420154513118
-
 local bev_cf = "${bev_cf}"
 local veh_lifespan_type = substr("${bev_cf}", strpos("${bev_cf}", "_") + 1, .)
 
@@ -96,7 +93,7 @@ levelsof estimate, local(estimates)
 	restore 
 }
 
-local farmer_theta = -0.421
+local farmer_theta = -0.421 // Way et al. (2022)
 
 ****************************************************
 /* 3. Set local assumptions unique to this policy */
@@ -441,7 +438,7 @@ preserve
 		qui sum subsidy_weighted_avg
 		local avg_fed_subsidy = r(mean)
 
-		local avg_state_subsidy = 604.27 // see NST-EST2023-POP spreadsheet
+		local avg_state_subsidy = 604.27 // see NST-EST2023-POP spreadsheet in data/1_assumptions/evs
 	}
 	if "${ev_fed_subsidy}" != ""{
 		if ${ev_fed_subsidy} != -1 {
@@ -456,7 +453,7 @@ restore
 ** Cost assumptions:
 * Program costs - US$, (Table 2) 
 if (`s_1' == 1 & `marg_mvpf' == 1) | (`non_marg_mvpf' == 1){
-	local rebate_cost = 3032
+	local rebate_cost = 3032 // From Table 2 of Clinton et al. (2019)
 }
 else if `s_0' == 1{
 	local rebate_cost = 0
@@ -488,7 +485,7 @@ if "`4'" != "baseline"{
 local semie_paper = `semie'
 local semie = `semie' / 1000 // this is the in-context semi-elasticity
 
-local net_elas_msrp = `elas_msrp' - `elas_avg_fed_subsidy' - 0.5 * `elas_avg_subsidy'
+local net_elas_msrp = `elas_msrp' - `elas_avg_fed_subsidy' - 0.5 * `elas_avg_subsidy' // we take the midpoint of the subsidy (0.5) to estimate the elasticity
 local epsilon = -`semie' * `net_elas_msrp'
 
 local net_msrp = `msrp' - `avg_subsidy' - `avg_fed_subsidy'
@@ -542,7 +539,7 @@ else if `non_marg_mvpf' == 1{
 
 local utility_fisc_ext = 0
 forvalues y = 1(1)`ub'{
-	local utility_fisc_ext = `utility_fisc_ext' + (`beh_response' * `ev_miles_traveled`y'' * `kwh_per_mile' * `util_gov_revenue') / ((1 + `discount')^(`y' - 1)) // gain in profit tax from highter utility profits + gain in gov revenue since 28% of utilities are publicly owned
+	local utility_fisc_ext = `utility_fisc_ext' + (`beh_response' * `ev_miles_traveled`y'' * `kwh_per_mile' * `util_gov_revenue') / ((1 + `discount')^(`y' - 1)) // gain in profit tax from highter utility profits + gain in gov revenue since 28% of utilities are publicly owned (EIA 2019)
 }
 
 if "`4'" == "baseline"{
@@ -616,9 +613,9 @@ if "${value_profits}" == "yes"{
 	}
 }
 
-** take out the corporate effective tax rate
+** take out the 21% corporate effective tax rate
 local total_wtp_prod_s = `wtp_prod_s'
-local wtp_prod_s = `total_wtp_prod_s' * (1 - 0.21)
+local wtp_prod_s = `total_wtp_prod_s' * (1 - 0.21) // 0.21 is the corporate average tax rate
 local gas_corp_fisc_e = `total_wtp_prod_s' * 0.21
 
 local profits_fisc_e = `gas_corp_fisc_e' - `utility_fisc_ext'
@@ -813,9 +810,9 @@ else{
 	local relevant_scc = ${sc_CO2_`dollar_year'}
 }
 
-local batt_emissions = 59.5 * `batt_cap' // for Latex
+local batt_emissions = 59.5 * `batt_cap' // for Latex, 59.5 from Winjobi et al. (2022)
 
-local batt_damages = `batt_emissions' * 0.001 * `relevant_scc'
+local batt_damages = `batt_emissions' * 0.001 * `relevant_scc' // unit conversion
 local batt_damages_n = (`batt_emissions' * 0.001 * `relevant_scc') / `net_msrp'
 
 local batt_man_ext = `batt_emissions' * 0.001 * `beh_response' * `relevant_scc' * ((1 - ${USShareFutureSSC}) + ${USShareFutureSSC} * (1 - ${USShareGovtFutureSCC}))
@@ -832,7 +829,8 @@ if "`4'" == "baseline"{
 
 if `want_rebound' == 1{
 	** rebound effect
-	local rbd_coeff = (1 / (1 - (`elec_dem_elas'/`elec_sup_elas')))
+	rebound ${rebound}
+	local rbd_coeff = `r(r)'
 	local wtp_soc_rbd =  -(1 - `rbd_coeff') * `wtp_yes_ev'
 	local wtp_soc_rbd_l = -(1 - `rbd_coeff') * `wtp_yes_ev_local'
 	local wtp_soc_rbd_global_tot = -(1 - `rbd_coeff') * `wtp_yes_ev_global_tot'
@@ -960,8 +958,8 @@ local WTP_cc = `WTP' + `cost_wtp' + `env_cost_wtp'
 */
 
 local WTP_USPres = `wtp_private' + `wtp_yes_ev_local' + `wtp_no_ice_local' + `env_cost_wtp_l' + `wtp_soc_rbd_l'
-local WTP_USFut = (${USShareFutureSSC} * (1 - ${USShareGovtFutureSCC})) * (`wtp_yes_ev_global_tot' + `wtp_no_ice_global_tot' + `env_cost_wtp_global_tot' + `wtp_soc_rbd_global_tot') + 0.1 * `cost_wtp'
-local WTP_RoW = (1 - ${USShareFutureSSC}) * (`wtp_yes_ev_global_tot' + `wtp_no_ice_global_tot' + `env_cost_wtp_global_tot' + `wtp_soc_rbd_global_tot') + 0.9 * `cost_wtp'
+local WTP_USFut = (${USShareFutureSSC} * (1 - ${USShareGovtFutureSCC})) * (`wtp_yes_ev_global_tot' + `wtp_no_ice_global_tot' + `env_cost_wtp_global_tot' + `wtp_soc_rbd_global_tot')
+local WTP_RoW = (1 - ${USShareFutureSSC}) * (`wtp_yes_ev_global_tot' + `wtp_no_ice_global_tot' + `env_cost_wtp_global_tot' + `wtp_soc_rbd_global_tot') + `cost_wtp'
 
 **************************
 /* 8. MVPF Calculations */
@@ -983,13 +981,13 @@ forvalues y = 1(1)`ub'{
 
 
 
-local purchase_price_diff = 8166 * (${cpi_2020} / ${cpi_2023}) // from vin diesel
+local purchase_price_diff = 8166 * (${cpi_2020} / ${cpi_2023}) // from Vincentric's 2024 Electric Vehicle Cost of Ownership Analysis
 
-local lifetime_gas_cost = ${clean_car_cf_gas_savings_2020} - ${clean_car_wtp_prod_s_2020} - 0.08 * ${clean_car_cf_gas_savings_2020} - ${clean_car_cf_gas_fisc_ext_2020}
+local lifetime_gas_cost = ${clean_car_cf_gas_savings_2020} - ${clean_car_wtp_prod_s_2020} - 0.08 * ${clean_car_cf_gas_savings_2020} - ${clean_car_cf_gas_fisc_ext_2020} // economy-wide 8% markup from De Loecker et al. (2020)
 
 local resource_cost = `purchase_price_diff' + `lifetime_energy_cost' - `lifetime_gas_cost'
 
-local q_carbon_yes_ev_mck = -${yes_ev_carbon_content_2020} - (59.5 * `batt_cap' * 0.001) - ${yes_ev_rbd_CO2_2020} // need to remove the rebound effect
+local q_carbon_yes_ev_mck = -${yes_ev_carbon_content_2020} - (59.5 * `batt_cap' * 0.001) - ${yes_ev_rbd_CO2_2020} // need to remove the rebound effect, 59.5 from Winjobi et al. (2022), unit conversion
 
 local q_carbon_no_ice_mck = ${clean_car_cf_carbon_2020}
 

@@ -94,7 +94,7 @@ levelsof estimate, local(estimates)
 		}
 		
 		local annual_output = ${output} / (`system_capacity' * 1000)
-		local federal_subsidy = 0.26
+		local federal_subsidy = 0.26 // 2020 ITC
 	restore
 
 	****************************************************
@@ -126,8 +126,8 @@ levelsof estimate, local(estimates)
 *********************************
 
 * learning by doing
-local cum_sales = (713918 * 1000)/`system_capacity' // 71391800 MW, as of 2020; 176,113.39 MW, as of 2014
-local marg_sales = (128050.40 * 1000)/`system_capacity' // 128050.40 MW, in 2020; 39,541.25 MW, in 2014
+local cum_sales = (713918 * 1000)/`system_capacity' // 71391800 MW, as of 2020; 176,113.39 MW, as of 2014 (IRENA, 2023)
+local marg_sales = (128050.40 * 1000)/`system_capacity' // 128050.40 MW, in 2020; 39,541.25 MW, in 2014 (IRENA, 2023)
 
 if `dollar_year' == ${policy_year} {
 	local cum_sales = (101645.45 * 1000)/`system_capacity'

@@ -68,7 +68,7 @@ global policy_year = ${today_year}
 local mpg_diff = 1 // A 1 MPG tightening of CAFE standards.
 
 local compliance_cost 			((13.25*0.439463) + (17.125*0.560537)) * (${cpi_2020}/${cpi_2011})
-// Weighting average car and truck compliance cost by 2020 production shares.
+// Weighting average car and truck compliance cost by 2020 production shares. Figures from paper.
 
 // For running vehicle retirement .ado file.
 global months_accelerated		0

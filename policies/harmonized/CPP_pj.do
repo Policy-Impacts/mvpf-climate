@@ -136,7 +136,7 @@ if "`mc_assumption'" == "high" {
 	local marginal_cost = 1 // cost of the next kwh during peak times from Rob - this is somewhere betwen 0.5 and 1
 }
 
-local vll = 4.292 // $/kWh - Value of Lost Load
+local vll = 4.292 // $/kWh - Value of Lost Load, from Brown & Muechlenbachs (2024)
 
 
 *********************************
@@ -157,7 +157,7 @@ if "${value_profits}" == "no" {
 	local profit_loss_public = 0
 }
 
-local epsilon = (`ATE' / 2.49)/3.50
+local epsilon = (`ATE' / 2.49)/3.50 // 2.49 kW from Fowlie et al. (2021)
 local semie = (`epsilon' / ${kwh_price_2020_US}) * (1/100) * -1
 
 *************************

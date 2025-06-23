@@ -326,7 +326,7 @@ di in red "consumer price is `consumer_price'"
 local jet_fuel_markup = `consumer_price'*`pct_markup'
 di in red "jet fuel markup is `jet_fuel_markup'"
 di in red "tax rate is `tax_rate'"
-local resource_cost = 0.92 * `consumer_price' - `jet_fuel_markup' - `tax_rate'
+local resource_cost = 0.92 * `consumer_price' - `jet_fuel_markup' - `tax_rate' //economy-wide 8% markup from De Loecker et al. (2020)
 di in red "resource cost is `resource_cost'"
 
 local resource_ce = -`resource_cost' / `q_carbon_mck'

@@ -738,7 +738,7 @@ if "${rerun_timepaths}" == "yes" {
 	}
 	
 	// Accounting for damages from battery production.
-	local ev_manufacturing_emissions = (59.5 / 1000) // Initially in kilograms per KWh, going to tons per KWh.
+	local ev_manufacturing_emissions = (59.5 / 1000) // Initially in kilograms per KWh, going to tons per KWh. 59.5 from Winjobi et al. (2022)
 	gen CO2_battery_production = .
 	
 	levelsof(year), local(year_loop)

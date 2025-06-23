@@ -142,12 +142,12 @@ local output_per_mw = (`hrs' * `capacity_factor' * 1000 * `credit_life') + (`hrs
 // Term 1 = Hours/Year x Capacity Factor (%) x (1000 KW / 1 MW) * 10 Years (Credit Lifetime); do the same but for remaining lifetime years but adjust by % drop in capacity factor.
 
 *Learning by Doing Assumptions
-local cum_sales = 742689 / `average_size' // 742,689 (2020) or 93,924 (2007), world numbers. Available in replication package of cited paper (lcoe_learning_data_wind).
-local marg_sales = 92490 / `average_size' // 92,490 for (2020) or 19,967 (2007) , world numbers. Available in replication package of cited paper (lcoe_learning_data_wind).
+local cum_sales = 742689 / `average_size' // 742,689 (2020) or 93,924 (2007), world numbers. Sources are cited in way_etal.xlsx in data/6_tables/tables_data
+local marg_sales = 92490 / `average_size' // 92,490 for (2020) or 19,967 (2007) , world numbers. Sources are cited in way_etal.xlsx in data/6_tables/tables_data
 
 if "${spec_type}" == "baseline" | "${spec_type}" == "baseline_gen" {
-	local cum_sales = 93924 / `average_size' // 742,689 (2020) or 93,924 (2007), world numbers. Available in replication package of cited paper (lcoe_learning_data_wind).
-	local marg_sales = 19967 / `average_size' // 92,490 for (2020) or 19,967 (2007) , world numbers. Available in replication package of cited paper (lcoe_learning_data_wind).
+	local cum_sales = 93924 / `average_size' // 742,689 (2020) or 93,924 (2007), world numbers. Sources are cited in way_etal.xlsx in data/6_tables/tables_data
+	local marg_sales = 19967 / `average_size' // 92,490 for (2020) or 19,967 (2007) , world numbers. Sources are cited in way_etal.xlsx in data/6_tables/tables_data
 	local lcoe = `avg_lcoe'
 }
 

@@ -114,7 +114,7 @@ local wtp_infr = `takeup_control' * `subsidy'
 local wtp_marg = `policy_impact' * ((-1 * `savings' * 52) + (-1 * `savings' * 52) / (1+`discount')) // Cookstoves save $2.28 per week for two years	
 	
 local wtp_soc = `policy_impact' * ((`carbon_per_cookstove' * `social_cost_CO2_2020') + ((`carbon_per_cookstove' * `social_cost_CO2_2021') / (1 + `discount'))) * (1 - (${USShareFutureSSC} * ${USShareGovtFutureSCC}))
-local alt_wtp_soc = `policy_impact' * ((`carbon_per_cookstove' * `social_cost_CO2_2020') + ((`carbon_per_cookstove' * `social_cost_CO2_2021') / (1 + `discount'))) * (1 - (${USShareFutureSSC} * 0.255))
+local alt_wtp_soc = `policy_impact' * ((`carbon_per_cookstove' * `social_cost_CO2_2020') + ((`carbon_per_cookstove' * `social_cost_CO2_2021') / (1 + `discount'))) * (1 - (${USShareFutureSSC} * 0.255)) // 25.5% US tax to GDP ratio in 2020
 
 local program_cost = `subsidy' * `takeup_treatment'
 

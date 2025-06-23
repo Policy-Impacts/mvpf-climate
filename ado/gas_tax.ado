@@ -15,14 +15,12 @@ local farmer_theta = `farmer_theta'
 
 local discount = ${discount_rate}
 
-local share_ev_market_US = 0.1 // 10% of dynamic cost benefits flow to American firms in the future, 90% to RoW.
-
 global value_local_damages = 								"yes"
 global non_marginal_constant_semi =							"no"
 global non_marginal_constant_e = 							"no"
 global gtcc_toggle											"${bev_cf}" // Need to incorporate to allow to vary.
 
-local ev_manufacturing_emissions = (59.5 / 1000) // Initially in kilograms per KWh, going to tons per KWh.
+local ev_manufacturing_emissions = (59.5 / 1000) // Initially in kilograms per KWh, going to tons per KWh. 59.5 from Winjobi et al. (2022)
 
 ****************************************************
 /* 1. Pull Price, Tax, and Markup Data for Relevant Year(s).  */
@@ -84,7 +82,7 @@ if `dollar_year' > 2011 & "${lbd}" == "yes" { // Earliest year with data for EV 
 		keep year subsidy_weighted_avg
 		keep if year == `dollar_year'
 			qui sum subsidy_weighted_avg	
-				local EV_subsidy = r(mean) + 604.27*(${cpi_`dollar_year'}/${cpi_2020}) // State Avg. Subsidy 2020
+				local EV_subsidy = r(mean) + 604.27*(${cpi_`dollar_year'}/${cpi_2020}) // State Avg. Subsidy 2020 from AFDC's database
 				
 		* Total Number of EVs Sold (`ev_sold')						
 		import excel "${policy_assumptions}", first clear sheet("ev_sales_annual")
@@ -120,10 +118,10 @@ if `dollar_year' > 2011 & "${lbd}" == "yes" { // Earliest year with data for EV 
 	**************************
 	/* 2c. Run Cost Curve  */
 	**************************	
-	cost_curve_masterfile, demand_elas(${gtcc_epsilon}) discount_rate(`discount') farmer(`farmer_theta') fcr(`fixed_cost_frac') curr_prod(`marg_sales') cum_prod(`cum_sales') price(`msrp') enviro(ev_local) subsidy_max(`EV_subsidy') scc(193) // markup()
+	cost_curve_masterfile, demand_elas(${gtcc_epsilon}) discount_rate(`discount') farmer(`farmer_theta') fcr(`fixed_cost_frac') curr_prod(`marg_sales') cum_prod(`cum_sales') price(`msrp') enviro(ev_local) subsidy_max(`EV_subsidy') scc(193) // 193 baseline from EPA 2023c
 		local dynamic_enviro_local = `r(enviro_mvpf)' * `dynamic_adjust'
 		
-	cost_curve_masterfile, demand_elas(${gtcc_epsilon}) discount_rate(`discount') farmer(`farmer_theta') fcr(`fixed_cost_frac') curr_prod(`marg_sales') cum_prod(`cum_sales') price(`msrp') enviro(ev_global) subsidy_max(`EV_subsidy') scc(193) // markup()
+	cost_curve_masterfile, demand_elas(${gtcc_epsilon}) discount_rate(`discount') farmer(`farmer_theta') fcr(`fixed_cost_frac') curr_prod(`marg_sales') cum_prod(`cum_sales') price(`msrp') enviro(ev_global) subsidy_max(`EV_subsidy') scc(193) // 193 baseline from EPA 2023c
 		local dynamic_enviro_global = `r(enviro_mvpf)' * `dynamic_adjust'
 		
 		local dynamic_cost = `r(cost_mvpf)' * `dynamic_adjust'
@@ -238,11 +236,11 @@ local WTP_USPres = `wtp_cons' + `wtp_prod' + `wtp_soc_gas_local' + `dynamic_envi
 
 local WTP_USFut = ((`wtp_soc_gas_global' + `dynamic_enviro_global' + `static_enviro_global') * ///
 				  (${USShareFutureSSC} - (${USShareFutureSSC} * ${USShareGovtFutureSCC}))) + ///
-			      (`dynamic_cost' * (`share_ev_market_US'))
+			      (`dynamic_cost')
 		
 
 local WTP_RoW = ((1-(${USShareFutureSSC})) * (`wtp_soc_gas_global' + `dynamic_enviro_global' + `static_enviro_global')) + ///
-				(`dynamic_cost' * (1 - `share_ev_market_US'))
+				(`dynamic_cost')
 
 **************************
 /* 5. Fiscal Externality and MVPF Calculations */
@@ -282,7 +280,7 @@ local MVPF_no_cc = `total_WTP_no_cc' / `total_cost_no_cc'
 ****************************************
 /* 6. Cost-Effectiveness Calculations */
 ****************************************
-local resource_cost = 0.92 * ${nominal_gas_price_2020} - ${nominal_gas_tax_2020} - ${nominal_gas_markup_2020}
+local resource_cost = 0.92 * ${nominal_gas_price_2020} - ${nominal_gas_tax_2020} - ${nominal_gas_markup_2020} //economy-wide 8% markup from De Loecker et al. (2020)
 
 local resource_ce = -`resource_cost' / `q_CO2_mck'
 
@@ -316,8 +314,8 @@ return scalar ev_dyn_gas_l = `dynamic_enviro_local'
 return scalar ev_dyn_gas_g = (`dynamic_enviro_global'*(1 - (${USShareFutureSSC} * ${USShareGovtFutureSCC})))
 	
 return scalar ev_sub_c = `dynamic_cost'
-return scalar ev_sub_c_row = (`dynamic_cost' * (1 - `share_ev_market_US'))
-return scalar ev_sub_c_us = (`dynamic_cost' * (`share_ev_market_US'))
+return scalar ev_sub_c_row = (`dynamic_cost')
+return scalar ev_sub_c_us = (`dynamic_cost')
 
 return scalar wtp_prod = `wtp_prod'
 return scalar wtp_prod_s = (-`markup' * (1 - ${gasoline_effective_corp_tax}) * `semi_e_demand_gas_tax')

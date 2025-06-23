@@ -100,7 +100,7 @@ local years_qualified = ln(1 - 266/(57/0.03)) / -ln(1.03) // From Table 3 and th
 local years_unqualified = ln(1 - 333/(57/0.03)) / -ln(1.03) // Same calculation as above
 
 local prop_marginal = 1 // We assume everyone is temporally changing their purchase decison
-local prop_qualified = 3715 / (3715 + 1261)
+local prop_qualified = 3715 / (3715 + 1261) // figures from paper
 
 ****************************************************
 /* 3d. Inflation Adjusted Values */

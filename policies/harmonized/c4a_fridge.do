@@ -105,8 +105,8 @@ local marginal_valuation = ${val_given}
 /* 3c. Policy Specific Assumptions */
 ****************************************************
 local avg_rebate = 128 // Table 2
-local shift_factor = 5
-local prop_inframarginal = 0.920
+local shift_factor = 5 //Accelerated purchase by 5 years: Houde & Aldy (2017)
+local prop_inframarginal = 0.920 // Houde and Aldy (2017)
 local ce_0 = 0.09 // Cost effectiveness estimate assuming 0% inframarginals (Table A.10, Online Appendix)
 
 ****************************************************
@@ -241,7 +241,7 @@ local fridge_energy_savings = (((`first5_loss' * `energy_cost') + ((`first5_loss
 
 di in red "energy savings are `fridge_energy_savings'"
 
-local fridge_cost = -184.13454 // difference betwen ES and non-ES fridge prices
+local fridge_cost = -184.13454 // ES manufacturer's suggested retail price of $1,778 from Table 3 of Houde & Aldy (2017)and a non-ES price of $1,938. -$184.13 from taking the difference and inflation adjusting to 2020$ (we assume the values are in 2011$)
 
 local resource_cost = `fridge_cost' - `fridge_energy_savings'
 

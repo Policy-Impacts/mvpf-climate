@@ -204,7 +204,7 @@ local ng_cost = 3.43 * 1.038 // Convert thousand cubic feet to mmbtu, conversion
 
 local water_heater_energy_savings = (`mmbtu_reduction_annual' * `ng_cost') + ((`mmbtu_reduction_annual' * `ng_cost') / `discount') * (1 - (1 / (1+`discount')^(`lifetime' - 1)))
 
-local water_heater_cost = 386.3243
+local water_heater_cost = 386.3243 // From Table 1, the average non-ES price is $520.10 and the average ES price is $862.75. Taking the difference and converting from 2012$ to 2020$, gives us $386.32
 
 local sticker_price = `water_heater_cost' + `adj_incentive'
 di in red "sticker price is `sticker_price'"

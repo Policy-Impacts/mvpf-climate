@@ -73,14 +73,15 @@ global additional_accidents 		no
 global normalize_env     			yes
 
 
-local change_carbon_tons = (0.008887 * 222 * ${cpi_2020})/${cpi_2001}
+local change_carbon_tons = (0.008887 * 222 * ${cpi_2020})/${cpi_2001} // 222 from paper
+
 
 local consumer_surplus = (${baseline_gas_consumption} * (`gallons_change')) * ${households_in_sample} * `change_carbon_tons' * ((`change_consumer_surplus')/(`change_consumer_surplus' + `change_producer_surplus')) * -1
 
 local producer_surplus = (${baseline_gas_consumption} * (`gallons_change')) * ${households_in_sample} * `change_carbon_tons' * (`change_producer_surplus'/(`change_consumer_surplus' + `change_producer_surplus')) * -1
 
 
-local per_mile_ext = ((${gas_ldv_ext_local_2020} - ${gas_ldv_ext_local_no_vmt_2020}) / ${gas_ldv_avg_mpg_2020}) * (1/0.52)
+local per_mile_ext = ((${gas_ldv_ext_local_2020} - ${gas_ldv_ext_local_no_vmt_2020}) / ${gas_ldv_avg_mpg_2020}) * (1/0.52) // accounts for VMT rebound effect Small & Van Dender (2007)
 
 local soc_local_p = (${baseline_gas_consumption} * (`gallons_change')) * ${households_in_sample} * ${gas_ldv_ext_local_no_vmt_2020}
 local soc_local_d = (${baseline_mileage} * (`vmt_change')) * ${households_in_sample} * `per_mile_ext'
@@ -138,5 +139,5 @@ global cost_`1' = ${program_cost_`1'} + ${fisc_ext_t_`1'} + ${fisc_ext_s_`1'} + 
 
 local phi = 0
 global CAFE_sc_`1' = (  ${fisc_ext_t_`1'} + ${fisc_ext_lr_`1'} - ${wtp_prod_`1'} - ${wtp_cons_`1'} + (`phi'*(${fisc_ext_t_`1'} + ${fisc_ext_lr_`1'}))) / ///
-					 ((${wtp_soc_g_`1'}) / (193 * (1 - (${USShareFutureSSC} * ${USShareGovtFutureSCC}))))
+					 ((${wtp_soc_g_`1'}) / (193 * (1 - (${USShareFutureSSC} * ${USShareGovtFutureSCC})))) // 193 from EPA 2023c
 				

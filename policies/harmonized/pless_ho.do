@@ -135,7 +135,7 @@ levelsof estimate, local(estimates)
 		local avg_fed_rebate = (`avg_state_rebate' + `pre_cost_per_watt') * `federal_subsidy'
 		
 		local cost_per_watt = `pre_cost_per_watt' - `avg_fed_rebate'
-		local pass_through = 0.778
+		local pass_through = 0.778 // 77.8% pass through from paper
 	}
 	
 	if "${spec_type}" == "baseline_gen" {
@@ -153,8 +153,8 @@ levelsof estimate, local(estimates)
 *********************************
 
 * learning by doing
-local cum_sales = (713918 * 1000)/`system_capacity' // 71391800 MW, as of 2020; 176,113.39 MW, as of 2014
-local marg_sales = (128050.40 * 1000)/`system_capacity' // 128050.40 MW, in 2020; 39,541.25 MW, in 2014
+local cum_sales = (713918 * 1000)/`system_capacity' // 71391800 MW, as of 2020; 176,113.39 MW, as of 2014 (IRENA, 2023)
+local marg_sales = (128050.40 * 1000)/`system_capacity' // 128050.40 MW, in 2020; 39,541.25 MW, in 2014 (IRENA, 2023)
 
 if `dollar_year' == ${policy_year} {
 	local cum_sales = (136572.14 * 1000)/`system_capacity'

@@ -60,15 +60,15 @@ if "`anything'" == "non-marginal" {
 	}
 	
 	if "`policy'" == "ihwap_nb" {
-		local retrofit_lifespan = 34
+		local retrofit_lifespan = 34 // Lifespan of 34 from Christensen, Francisco & Myers (2023)
 	}
 	
 	if "${decre_weather_lifespan}" == "yes" {
-		local retrofit_lifespan = 10
+		local retrofit_lifespan = 10 // Assumption for testing robustness
 	}
 	
 	if "${marginal_change}" == "yes" {
-		local prop_marginal = 1
+		local prop_marginal = 1  //Assumption for testing robustness
 	}
 	
 	if "${grid_california}" == "yes" {
@@ -86,7 +86,7 @@ if "`anything'" == "non-marginal" {
 	/* WTP Calculations */
 	*************************
 	
-	if "`policy'" == "wap_marketing" {
+	if "`policy'" == "wap_marketing" { //delete?
 		local prop_marginal = 1
 		local marginal_valuation = 0
 	}
@@ -157,7 +157,9 @@ if "`anything'" == "non-marginal" {
 	local fisc_ext_s = 0
 	
 	if "`policy'" == "wap_marketing" {
-		local fisc_ext_s = 5150 * `prop_marginal' * (${cpi_`dollar_year'}/${cpi_`inflation_year'})
+		local fisc_ext_s = 5150 * `prop_marginal' * (${cpi_`dollar_year'}/${cpi_`inflation_year'}) 
+		// Fowlie et al. (2018) find that the average cost of the energy upgrade per household was $5,150 in 2011 dollars
+
 	}
 
 	local fisc_ext_lr = -1 * (`global_pollutants' - `rebound_global') * ${USShareFutureSSC} * ${USShareGovtFutureSCC}
@@ -176,14 +178,14 @@ if "`anything'" == "non-marginal" {
 	/* 8. Cost-Effectiveness Calculations */
 	****************************************
 	local energy_cost = ${energy_cost}
-	local ng_cost = 3.43 * 1.038 // Convert thousand cubic feet to mmbtu, conversion factor form EIA, from ng_citygate tab in policy_category_assumptions_MASTER
+	local ng_cost = 3.43 * 1.038 // Convert thousand cubic feet to mmbtu, conversion factor from EIA, from ng_citygate tab in policy_category_assumptions_MASTER
 
 	local ihwap_energy_savings = ((`kwh_reduced' * `energy_cost') + `mmbtu_reduced' * `ng_cost') + (((`kwh_reduced' * `energy_cost') + `mmbtu_reduced' * `ng_cost') / `discount') * (1 - (1 / (1 + `discount')^(`retrofit_lifespan' - 1)))
 
 	local wap_cost = `program_cost'
 	
 	if "`policy'" == "retrofit_res"{
-		local wap_cost = `program_cost' / 0.6 
+		local wap_cost = `program_cost' / 0.6 // Liang et al. (2018)
 	}
 	local resource_cost = `wap_cost' - `ihwap_energy_savings'
 

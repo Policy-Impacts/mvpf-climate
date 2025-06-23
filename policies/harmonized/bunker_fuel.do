@@ -232,7 +232,7 @@ local wtp_producers = -(`consumer_price'*`pct_markup')*`semi_e_demand_bunker_tax
 
 di in red `consumer_price'
 di in red `consumer_price'*`pct_markup'
-di in red (`consumer_price'*`pct_markup'*0.21)/`consumer_price'
+di in red (`consumer_price'*`pct_markup'*0.21)/`consumer_price' // 0.21 is the corporate average tax rate
 di in red ((`consumer_price'*`pct_markup'*0.21))*`semi_e_demand_bunker_tax'
 di in red `fisc_ext_prod'
 

@@ -232,7 +232,7 @@ local clothes_washer_energy_savings = `annual_e_savings' + (`annual_e_savings' /
 
 di in red "energy savings are `clothes_washer_energy_savings'"
 
-local clothes_washer_cost = 448.82
+local clothes_washer_cost = 448.82 //ES manufacturer's suggested retail price of $1,033 from Table 3 of Houde & Aldy (2017)and a non-ES price of $643. $448.82 from taking the difference and inflation adjusting to 2020$ (we assume the values are in 2011$)
 
 local resource_cost = `clothes_washer_cost' - `clothes_washer_energy_savings'
 di in red "resource cost is `resource_cost'"

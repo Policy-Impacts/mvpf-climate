@@ -150,7 +150,6 @@ levelsof estimate, local(estimates)
 		local capacity_reduction = ${capacity_reduction}
 		local wind_emissions = ${wind_emissions}
 		local hrs = 8760 // hours per year
-		local corporate_disc = 0.0673
 	
 	restore
 	
@@ -195,30 +194,6 @@ local enviro_ext_global = (`global_pollutants' * `r') / `enviro_ext'
 
 local program_cost = (`hrs'*`capacity_factor') + ((`hrs'*`capacity_factor')/`discount') * (1 - (1/(1+`discount')^(`lifetime' - 1))) // $1 per MWh transfer
 
-*Cost Curve
-/*
-*Learning by Doing Assumptions
-local cum_sales = 742689 // 742689 2020 or 93924 2007, world numbers
-local marg_sales = 92490 // 92490 for 2020 or 2007 is 19967, world numbers
-
-local prod_cost = `annual_mwh' * `lifetime' * (`lcoe_2020' - `current_credit')
-
-local subsidy_max = `annual_mwh' * `lifetime' * `current_credit'
-
-cost_curve_masterfile,  demand_elas(`elas') discount_rate(`discount') farmer(`farmer_theta') curr_prod(`marg_sales') cum_prod(`cum_sales') price(`prod_cost') enviro("constant_`enviro_ext'") scc(${sc_CO2_2020}) subsidy_max(`subsidy_max')
-	
-	local env_cost_wtp_global = (`r(enviro_mvpf)' * `program_cost') * `enviro_ext_global'
-	local env_cost_wtp_local = (`r(enviro_mvpf)' * `program_cost') * (1 - `enviro_ext_global')
-	local enviro_mvpf_raw = `r(enviro_mvpf)' * 0
-
-	
-	local cost_mvpf = `r(cost_mvpf)' * 0
-	local cost_wtp = `r(cost_mvpf)' * `program_cost' * 0
-	local enviro_wtp = `env_cost_wtp_local' + `env_cost_wtp_global' * 0
-// 	local enviro_ext_global = `env_cost_wtp_global' / `enviro_wtp'
-	local enviro_ext_global = 0
-*/
-	
 * Total WTP
 local WTP = `wtp_private' + `wtp_society' - ((`val_global_pollutants' - `rebound_global' - `val_env_cost') * ${USShareFutureSSC} * ${USShareGovtFutureSCC})
 local WTP_cc = `WTP'

@@ -14,7 +14,7 @@ local dollar_year = `anything'
 local improved_fuel_economy = `mpg_improvement'
 local discount = ${discount_rate}
 
-global c4c_interest_rate				0.03
+global c4c_interest_rate				0.03  //Assumption about vehicle leasing rate
 global retirement_cf					new_avg
 
 		
@@ -36,7 +36,7 @@ restore
 	
 if "${vehicle_mar_val_chng}" == "yes" {
 	
-		local marg_valuation = 0.5
+		local marg_valuation = 0.5 // Assumption for robustness test
 		
 }
 
@@ -47,7 +47,7 @@ if "${vehicle_mar_val_chng}" == "no" | "${vehicle_mar_val_chng}" == ""  {
 
 if "${vehicle_age_incr}" == "yes" {
 	
-		local avg_c4c_scrap_age = 30
+		local avg_c4c_scrap_age = 30 // Assumption for robustness test
 		
 }
 
@@ -1130,8 +1130,8 @@ local WTP_RoW = (`wtp_soc_global' * (1 - ${USShareFutureSSC}))
 ****************************************
 /* 7. Cost-Effectiveness Calculations */
 ****************************************
-local used_sales_2020 = 39.3 // millions
-local new_sales_2020 = 14.2 // millions
+local used_sales_2020 = 39.3 // millions, sale numbers from Statista
+local new_sales_2020 = 14.2 // millions, sale numbers from Statista
 local used_price_2020 = 27409 // CarGurus
 local new_price_2020 = 39592 // KBB
 local car_price = (`used_price_2020' * `used_sales_2020' + `new_price_2020' * `new_sales_2020') / (`used_sales_2020' + `new_sales_2020') // average transaction cost
@@ -1141,7 +1141,7 @@ local leasing_cost = ${c4c_interest_rate} * (${months_accelerated} / 12) * `car_
 local cafe_cost = 89.66666666666667 * (${cpi_2020} / ${cpi_2014}) // engineering cost, per mpg
 local new_car_cost = `cafe_cost' * (`mpg_new' - `mpg_old')
 
-local lifetime_gas_cost = 0.92 * `savings_wo_rbd' - `taxes_wo_rbd' - `profits_wo_rbd' 
+local lifetime_gas_cost = 0.92 * `savings_wo_rbd' - `taxes_wo_rbd' - `profits_wo_rbd' //economy-wide 8% markup from De Loecker et al. (2020)
 
 local resource_cost =  `leasing_cost' + `new_car_cost' - `lifetime_gas_cost'
 local q_carbon_mck = `carbon_wo_rbd'

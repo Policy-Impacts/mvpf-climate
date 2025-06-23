@@ -142,10 +142,6 @@ local enviro_ext_global = ((`global_pollutants' * `r') - `lca_ext') / `enviro_ex
 * Private
 local wtp_cons = `pass_through' * `system_capacity' * 1000 // Proportion of $1 increase in rebate captured by consumers.
 
-local producer_price = `pre_cost_per_watt' + `avg_state_rebate' // the amount producers make (p + tau in the formula).
-local marginal_cost = `pre_cost_per_watt' - `markup' * `pre_cost_per_watt' // (c in the formula)
-local wtp_install = (1 + (-1 * (1 - `pass_through')) * (1 + `epsilon' * ((`producer_price'-`marginal_cost')/`producer_price'))) *  `system_capacity' * 1000
-
 local prod_annual = -`semie' * `pass_through' * `annual_kwh' * ${producer_surplus_`dollar_year'_${State}}
 
 local wtp_prod = `prod_annual' + (`prod_annual'/`discount') * (1 - (1/(1+`discount')^(`lifetime' - 1))) * `r' // Applying rebound too.
@@ -159,7 +155,6 @@ if "${value_savings}" == "yes" {
 
 if "${value_profits}" == "no" {
 	local wtp_prod = 0
-	local markup = 0
 	local wtp_install = (1 - `pass_through') * `system_capacity' * 1000  // Proportion of $1 increase in rebate captured by installers.
 	
 	if `wtp_install' < 0 {
@@ -168,22 +163,11 @@ if "${value_profits}" == "no" {
 
 }
 
-if "${solar_markups}" == "no" {
-	local markup = 0
-	local wtp_install = (1 - `pass_through') * `system_capacity' * 1000  // Proportion of $1 increase in rebate captured by installers.
-	
-	if `wtp_install' < 0 {
+local wtp_install = (1 - `pass_through') * `system_capacity' * 1000  // Proportion of $1 increase in rebate captured by installers.
+
+if `wtp_install' < 0 {
 		local wtp_install = 0
 	}
-}
-
-if "${cost_shifting}" == "yes" {
-	local wtp_prod = 0
-	 // calling it wtp_prod but actually probably ratepayers
-	local prod_annual = -`semie' * `pass_through' * `annual_kwh' * (${energy_cost} + 0.032)
-
-	local wtp_prod = `prod_annual' + (`prod_annual'/`discount') * (1 - (1/(1+`discount')^(`lifetime' - 1))) * `r' // Applying rebound too.
-}
 
 local wtp_private = `wtp_cons' + `wtp_install' - `wtp_prod'
 
@@ -195,18 +179,18 @@ local program_cost = 1 * `system_capacity' * 1000 // $1/W change in subsidy conv
 *Change elasticity for cost curve for Hughes
 local scale = 1
 if "`p_name'" == "hughes_csi" {
-	local epsilon = -1.138091 // Pless HO Epsilon
+	local epsilon = -1.138091 // Pless HO Epsilon from Pless & van Benthem (2019)
 	local scale = (`e_demand' / `epsilon')
 }
 
 
 if "${lbd}" == "yes" {
 	if "${spec_type}" != "baseline" & "`replacement'" == "marginal" & "${grid_model}" != "sta" {
-		cost_curve_masterfile,  demand_elas(`epsilon') discount_rate(`discount') farmer(`farmer_theta') curr_prod(`marg_sales') cum_prod(`cum_sales') price(`prod_cost') enviro("solar_local") markup(`markup') passthrough(-`pass_through') subsidy_max(`subsidy_max') scc(${scc_import_check}) time_path_age(`lifetime')
+		cost_curve_masterfile,  demand_elas(`epsilon') discount_rate(`discount') farmer(`farmer_theta') curr_prod(`marg_sales') cum_prod(`cum_sales') price(`prod_cost') enviro("solar_local") passthrough(-`pass_through') subsidy_max(`subsidy_max') scc(${scc_import_check}) time_path_age(`lifetime')
 		local enviro_mvpf_raw = `r(enviro_mvpf)' * `scale'
 		local env_cost_wtp_local = `enviro_mvpf_raw' * `program_cost'
 		
-		cost_curve_masterfile,  demand_elas(`epsilon') discount_rate(`discount') farmer(`farmer_theta') curr_prod(`marg_sales') cum_prod(`cum_sales') price(`prod_cost') enviro("solar_global") markup(`markup') passthrough(-`pass_through') subsidy_max(`subsidy_max') scc(${scc_import_check}) time_path_age(`lifetime')
+		cost_curve_masterfile,  demand_elas(`epsilon') discount_rate(`discount') farmer(`farmer_theta') curr_prod(`marg_sales') cum_prod(`cum_sales') price(`prod_cost') enviro("solar_global") passthrough(-`pass_through') subsidy_max(`subsidy_max') scc(${scc_import_check}) time_path_age(`lifetime')
 		local env_cost_wtp_global = (`r(enviro_mvpf)' * `scale') * `program_cost'
 		local enviro_mvpf_raw = (`r(enviro_mvpf)' * `scale') + `enviro_mvpf_raw'
 
@@ -216,7 +200,7 @@ if "${lbd}" == "yes" {
 
 
 	if "${spec_type}" == "baseline" | "`replacement'" != "marginal" | "${grid_model}" == "sta" {
-		cost_curve_masterfile,  demand_elas(`epsilon') discount_rate(`discount') farmer(`farmer_theta') curr_prod(`marg_sales') cum_prod(`cum_sales') price(`prod_cost') enviro("constant_`enviro_ext'") markup(`markup') passthrough(-`pass_through') subsidy_max(`subsidy_max') scc(${scc_import_check})
+		cost_curve_masterfile,  demand_elas(`epsilon') discount_rate(`discount') farmer(`farmer_theta') curr_prod(`marg_sales') cum_prod(`cum_sales') price(`prod_cost') enviro("constant_`enviro_ext'") passthrough(-`pass_through') subsidy_max(`subsidy_max') scc(${scc_import_check})
 		local env_cost_wtp_global = (`r(enviro_mvpf)' * `scale' * `program_cost') * `enviro_ext_global'
 		local env_cost_wtp_local = (`r(enviro_mvpf)' * `scale' * `program_cost') * (1 - `enviro_ext_global')
 		local enviro_mvpf_raw = `r(enviro_mvpf)' * `scale'
@@ -258,8 +242,8 @@ if "${lbd}" == "no" {
 	- wtp_soc, env_cost_wtp -> US Future & Rest of the World
 
 */
-
-local g_latex = ((`val_global_pollutants' - `wtp_soc_lca') * (1 - (${USShareFutureSSC} * ${USShareGovtFutureSCC}))) / 7150
+// Average system capcity of 7.15 kW for 2020 (Ramaswamy et al. 2022)
+local g_latex = ((`val_global_pollutants' - `wtp_soc_lca') * (1 - (${USShareFutureSSC} * ${USShareGovtFutureSCC}))) / 7150 // 7.15 kW converted to watts
 local l_latex = `val_local_pollutants'/7150
 local gr_latex = ((`rebound_global') * (1 - (${USShareFutureSSC} * ${USShareGovtFutureSCC}))) / 7150
 local lr_latex = `rebound_local'/7150
@@ -301,9 +285,6 @@ if "${value_profits}" == "no" {
 	local fisc_ext_t = 0
 }
 
-if "${cost_shifting}" == "yes" {
-	local fisc_ext_t = 0
-}
 
 local gov_state_spending = `avg_state_rebate' * `system_capacity' * 1000 * -`semie' * `pass_through' // each additional subsidy costs the state gov $3.43/W at a 6.972 kW capacity system and costs the federal gov 30% of total spending, when calculating in-context. 
 
@@ -335,7 +316,7 @@ local MVPF_no_cc = (`WTP_cc' - `cost_wtp' - `env_cost_wtp' - `firm_cost_wtp') / 
 ****************************************
 local energy_cost = ${energy_cost}
 
-local solar_cost = (`pre_cost_per_watt' / 25) / `annual_output'
+local solar_cost = (`pre_cost_per_watt' / 25) / `annual_output' // Assume solar panel lifetime of 25 years
 
 local resource_cost = `solar_cost' - `energy_cost'
 

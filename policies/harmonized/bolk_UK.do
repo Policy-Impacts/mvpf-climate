@@ -87,8 +87,8 @@ levelsof estimate, local(estimates)
 		local current_ptc = ${current_ptc}
 		local capacity_reduction = ${capacity_reduction}
 		local hrs = 8760 // hours per year
-		local lcoe = 0.0373 * (${cpi_2020}/${cpi_2022})
-		local capacity_factor_context = 0.29
+		local lcoe = 0.0373 * (${cpi_2020}/${cpi_2022}) // from https://emp.lbl.gov/levelized-cost-wind-energy, in 2022 dollars.
+		local capacity_factor_context = 0.29 // https://www.energy.gov/sites/default/files/2023-08/land-based-wind-market-report-2023-edition.pdf
 	restore
 	
 ***************************************
@@ -96,8 +96,8 @@ levelsof estimate, local(estimates)
 ***************************************
 
 *Learning by Doing Assumptions
-local cum_sales = 742689 / `average_size' // 742689 2020 or 93924 2007, world numbers
-local marg_sales = 92490 / `average_size' // 92490 for 2020 or 2007 is 19967, world numbers
+local cum_sales = 742689 / `average_size' // 742689 2020 or 93924 2007, world numbers. Sources are cited in way_etal.xlsx in data/6_tables/tables_data
+local marg_sales = 92490 / `average_size' // 92,490 for (2020), world numbers. Sources are cited in way_etal.xlsx in data/6_tables/tables_data
 
 local output_per_mw = (`hrs' * `capacity_factor' * 1000 * `credit_life') + (`hrs' * `capacity_factor' * (1 - `capacity_reduction') * 1000 * (`lifetime' - `credit_life'))
 
@@ -110,8 +110,8 @@ if `epsilon' > 0 {
 }
 
 *For Semie
-local capital_discount = 0.0280
-local ptc_discount_rate = 0.0280
+local capital_discount = 0.0280 // https://www.nrel.gov/docs/fy24osti/88335.pdf, Slide 50 (Real Weighted Avg Cost of Capital (%))
+local ptc_discount_rate = 0.0280 // https://www.nrel.gov/docs/fy24osti/88335.pdf, Slide 50 (Real Fixed Charge Rate (%))
 
 local lcoe_discounted = `lcoe' + ((`lcoe')/`capital_discount') * (1 - (1/(1+`capital_discount')^(`lifetime' - 1)))
 

@@ -435,7 +435,7 @@ levelsof estimate, local(estimates)
     * Averaging the SCC for 2015-2018
     local relevant_scc = ${sc_CO2_`dollar_year'}
 
-    local batt_emissions = 59.5 * `batt_cap' // for Latex
+    local batt_emissions = 59.5 * `batt_cap' // for Latex, 59.5 from Winjobi et al. (2022)
 
     local batt_damages = `batt_emissions' * 0.001 * `relevant_scc'
     local batt_damages_n = (`batt_emissions' * 0.001 * `relevant_scc') / `net_msrp'

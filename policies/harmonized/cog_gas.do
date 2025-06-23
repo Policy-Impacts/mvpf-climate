@@ -66,7 +66,7 @@ levelsof estimate, local(estimates)
 	restore 
 }
 
-local farmer_theta = -0.421
+local farmer_theta = -0.421 // Way et al. (2022)
 
 ****************************************************
 /* 3. Set local assumptions unique to this policy */

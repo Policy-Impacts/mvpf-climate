@@ -179,7 +179,7 @@ if `ext_year' < 2020 {
 
 *Get the externality for the years after 2020
 	
-local coal_to_ng_use = 0.1928/0.4047 // The 2020 grid is 19.28% coal and 40.47% natural gas // So for every one unit of natural gas there is 0.476 units of coal
+local coal_to_ng_use = 0.1928/0.4047 // The 2020 grid is 19.28% coal and 40.47% natural gas (EPA eGRID) // So for every one unit of natural gas there is 0.476 units of coal
 
 local coal_to_ng_emissions = 2181.842/898.122 // From eGRID 2020, the output emissions rate (CO2e) for coal and natural gas // So if one unit of natural gas produces one unit of emissions, one unit of coal produces 2.429 units of emissions
 

@@ -59,7 +59,6 @@ local discount = ${discount_rate}
 		local capacity_reduction = ${capacity_reduction}
 		local wind_emissions = ${wind_emissions}
 		local hrs = 8760 // hours per year
-		local corporate_disc = 0.0673
 		
 		if "`spec'" == "baseline"{
 			local capacity_factor = `capacity_factor_context' // https://www.energy.gov/sites/default/files/2021-08/Land-Based%20Wind%20Market%20Report%202021%20Edition_Full%20Report_FINAL.pdf
@@ -165,7 +164,7 @@ local program_cost = (`average_size' * `hrs'*`capacity_factor') + ((`average_siz
 	
 if "${lbd}" == "yes" { 
 	if "`replacement'" == "marginal" & "${grid_model}" != "sta" { // If the replacement is marginal and the grid is NOT static, use forecasted damage / benefit timepaths. Run twice (for global and local).
-		cost_curve_masterfile,  demand_elas(`epsilon') discount_rate(`discount') farmer(`farmer_theta') curr_prod(`marg_sales') cum_prod(`cum_sales') price(`prod_cost') enviro("wind_local") scc(${scc_import_check}) subsidy_max(`subsidy_max') time_path_age(25)
+		cost_curve_masterfile,  demand_elas(`epsilon') discount_rate(`discount') farmer(`farmer_theta') curr_prod(`marg_sales') cum_prod(`cum_sales') price(`prod_cost') enviro("wind_local") scc(${scc_import_check}) subsidy_max(`subsidy_max') time_path_age(25) // Assuming lifetime of 25 years
 		local env_cost_wtp_local = `r(enviro_mvpf)' * `program_cost'
 		local enviro_mvpf_raw = `r(enviro_mvpf)'
 

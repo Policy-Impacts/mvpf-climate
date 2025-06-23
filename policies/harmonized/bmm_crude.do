@@ -115,10 +115,10 @@ restore
 		// Converting from g/MJ to mt/barrel of crude oil. Leave in per-barrel terms. 
 		
 			gen CH4_well_to_refinery = (emissions_difference*0.34)/30
-			// 34% of Masnadi et al. emissions are methane. 
+			// 34% of Masnadi et al. (2018) emissions are methane. 
 			
 			gen N2O_well_to_refinery = (emissions_difference*0.005)/265
-			// <1% of Masnadi et al. emissions are N2O and VOC. Assuming half are N2O.
+			// <1% of Masnadi et al. (2018) emissions are N2O and VOC. Assuming half are N2O.
 			// Don't need to do anything about VOC b/c we use the method as them to value it globally. 
 
 			gen CO2_well_to_refinery = (emissions_difference*0.655)
@@ -187,7 +187,7 @@ global MVPF_`1' = `MVPF'
 
 
 local US_CO2_tons_prod = (`US_intensity'*${MJ_conversion})/1000000
-local carbon_content_barrel = 0.43 // Metric tons.
+local carbon_content_barrel = 0.43 // Metric tons. EPA (2023)
 
 	local q_CO2_per_barrel = `US_CO2_tons_prod' + `carbon_content_barrel'
 

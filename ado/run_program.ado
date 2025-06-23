@@ -12,7 +12,7 @@ syntax anything(name=program id="Program"), ///
 		vmt_adjust(real 0.61544408) ///
 		ev_grid(string) ///
 		macros(string)]
-
+// VMT is multiplied by 0.6154 following Zhao et al. (2023)'s analysis finding that BEVs accumulate fewer annual miles than ICE vehicles
 di "vmt_adjust: `vmt_adjust'"
 
 

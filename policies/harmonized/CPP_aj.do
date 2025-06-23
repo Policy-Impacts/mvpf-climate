@@ -135,7 +135,7 @@ if "`mc_assumption'" == "high" {
 	local marginal_cost = 1 // cost of the next kwh during peak times from Rob - this is somewhere betwen 0.5 and 1
 }
 
-local vll = 4.292 // $/kWh - Value of Lost Load
+local vll = 4.292 // $/kWh - Value of Lost Load, from Brown & Muechlenbachs (2024)
 
 
 *********************************

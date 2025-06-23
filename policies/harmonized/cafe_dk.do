@@ -2,7 +2,10 @@
 /* 0. Program: CAFE                        */
 *************************************************************
 /*
-
+Leard, B. & McConnell, V.
+"New Markets for Credit Trading under US Automobile Greenhouse Gas and
+Fuel Economy Standards"
+Technical report, Resources for the Future, 2017
 */
 
 *****************************

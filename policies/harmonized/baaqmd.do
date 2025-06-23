@@ -13,7 +13,7 @@ https://pubs.aeaweb.org/doi/pdfplus/10.1257/pol.4.4.253
 * Project wide globals
 local discount = ${discount_rate}
 
-global c4c_interest_rate				0.03
+global c4c_interest_rate				0.03 //Assumption about vehicle leasing rate
 
 *********************************
 /* 2. Estimates from Paper */
@@ -110,19 +110,19 @@ if "${vehicle_mar_val_chng}" == "no" | "${vehicle_mar_val_chng}" == ""  {
     /* 3c. Policy Specific Assumptions */
     ****************************************************    
     local year_num = `days_accelerated' / 365 // retire cars 3.8 years earlier
-    local age_retired 26
+    local age_retired 26 // Assume retired vehicle is 26 years old, as the Buyback Program required vehicles to be from model year 1998 or older in 2023 (BAAQMD 2023)
 	
     ****************************************************
     /* 3d. Inflation Adjusted Values */
     ****************************************************
     *Convert rebate to current dollars
-    local admin_costs = 240 * (${cpi_`dollar_year'}/${cpi_2000}) // these costs are reported in 2000 $s
+    local admin_costs = 240 * (${cpi_`dollar_year'}/${cpi_2000}) // these costs are reported in 2000 $s, Sandler (2012)
 	
 	if "${spec_type}" == "baseline" | "${spec_type}" == "baseline_gen" {
-		local transfer_payment = 500 * (${cpi_`dollar_year'}/${cpi_2000}) // these costs are reported in 2000 $s
+		local transfer_payment = 500 * (${cpi_`dollar_year'}/${cpi_2000}) // these costs are reported in 2000 $s, Sandler (2012)
 	}
 	if "${spec_type}" == "current" {
-		local transfer_payment = 650 * (${cpi_`dollar_year'}/${cpi_2000}) // these costs are reported in 2000 $s
+		local transfer_payment = 650 * (${cpi_`dollar_year'}/${cpi_2000}) // these costs are reported in 2000 $s, Sandler (2012)
 	}	
 	
 	local adj_rebate = `transfer_payment'
@@ -1221,8 +1221,8 @@ assert round((`WTP_USPres' + `WTP_USFut' + `WTP_RoW')/`total_cost', 0.1) == roun
 ****************************************
 /* 11. Cost-Effectiveness Calculations */
 ****************************************
-local used_sales_2020 = 39.3 // millions
-local new_sales_2020 = 14.2 // millions
+local used_sales_2020 = 39.3 // millions, sale numbers from Statista
+local new_sales_2020 = 14.2 // millions, sale numbers from Statista
 local used_price_2020 = 27409 // CarGurus
 local new_price_2020 = 39592 // KBB
 local car_price = (`used_price_2020' * `used_sales_2020' + `new_price_2020' * `new_sales_2020') / (`used_sales_2020' + `new_sales_2020') // average transaction cost
@@ -1231,7 +1231,7 @@ local leasing_cost = ${c4c_interest_rate} * (`days_accelerated' / 365) * `car_pr
 di in red "days accelerated is `days_accelerated'"
 di in red "leasing cost is `leasing_cost'"
 
-local lifetime_gas_savings = 0.92 * `gas_private_savings_no_rbd' - `tax_rev_loss_no_rbd' +  `profit_loss_no_rbd'
+local lifetime_gas_savings = 0.92 * `gas_private_savings_no_rbd' - `tax_rev_loss_no_rbd' +  `profit_loss_no_rbd' //economy-wide 8% markup from De Loecker et al. (2020)
 di in red "gas savings are `gas_private_savings_no_rbd'"
 di in red "tax revenue is `tax_rev_loss_no_rbd'"
 di in red "profit loss is `profit_loss_no_rbd'"

@@ -161,7 +161,7 @@ local q_carbon_mck = ((`wtp_soc_g') / ${sc_CO2_`dollar_year'}) / `semi_e_demand_
 di in red "consumer price is `consumer_price'"
 di in red "diesel markup is `diesel_markup'"
 di in red "tax rate is `tax_rate'"
-local resource_cost = 0.92 * `consumer_price' - `diesel_markup' - `tax_rate'
+local resource_cost = 0.92 * `consumer_price' - `diesel_markup' - `tax_rate' //economy-wide 8% markup from De Loecker et al. (2020)
 di in red "resource cost is `resource_cost'"
 
 local resource_ce = -`resource_cost' / `q_carbon_mck'

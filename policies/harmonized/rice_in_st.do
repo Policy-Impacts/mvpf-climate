@@ -102,7 +102,7 @@ levelsof estimate, local(estimates)
 *************************
 /* 4. WTP Calculations */
 *************************
-local prop_infra = 0.098 / (`not_burned'+0.098)
+local prop_infra = 0.098 / (`not_burned'+0.098) // 9.8% from paper
 
 local wtp_inf = (`cost_per_unburned' * `prop_infra') /`dollar_rupee'
 local wtp_marg = (`cost_per_unburned' * (1 - `prop_infra') * 0.5)/`dollar_rupee'

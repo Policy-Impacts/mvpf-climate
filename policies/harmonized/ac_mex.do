@@ -105,18 +105,13 @@ levelsof estimate, local(estimates)
 	local lifetime = 5 // Paper assumes that the program accelerates retirement by 5 years
 	local tons_per_gram = .000001
 	
-	/* Do not have reliable non-CO2 numbers for Mexico grid
-	local SO2_per_kwh = ${md_SO2_`dollar_year'_unweighted} * (${cpi_`dollar_year'}/${cpi_${md_dollar_year}}) * 9.1 * `tons_per_gram'
-	
-	local NOx_per_kwh = ${md_NOx_`dollar_year'_unweighted} * (${cpi_`dollar_year'}/${cpi_${md_dollar_year}}) * 8.5 * `tons_per_gram'
-	*/
 	local SO2_per_kwh = 0
 	local NOx_per_kwh = 0
 	
 	*431 gCO2/kWh from: https://www.climate-transparency.org/wp-content/uploads/2021/10/CT2021Mexico.pdf 
 	local CO2_per_kwh = ${sc_CO2_`dollar_year'} * (${cpi_`dollar_year'}/${cpi_2020}) * 431 * `tons_per_gram'
 		
-	local adj_subsidy = (13400000 / 98604) * (${cpi_`dollar_year'}/${cpi_2012}) // total spent on program divided by number of ac replacements
+	local adj_subsidy = (13400000 / 98604) * (${cpi_`dollar_year'}/${cpi_2012}) // total spent on program divided by number of ac replacements (Davis et al. 2014)
 		
 	rebound ${rebound}
 	local r = `r(r)'

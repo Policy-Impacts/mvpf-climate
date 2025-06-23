@@ -96,7 +96,7 @@ levelsof estimate, local(estimates)
 	restore
 }
 
-local farmer_theta = -0.421
+local farmer_theta = -0.421 // Way et al. (2022)
 
 ****************************************************
 /* 3. Set local assumptions unique to this policy */
@@ -352,7 +352,7 @@ preserve
 		qui sum subsidy_weighted_avg
 		local avg_fed_subsidy = r(mean)
 
-		local avg_state_subsidy = 604.27 // see NST-EST2023-POP spreadsheet
+		local avg_state_subsidy = 604.27 // see NST-EST2023-POP spreadsheet in data/1_assumptions/evs
 	}
 	if "${ev_fed_subsidy}" != ""{
 		if ${ev_fed_subsidy} != -1 {
@@ -678,7 +678,7 @@ else{
 	local relevant_scc = ${sc_CO2_`dollar_year'}
 }
 
-local batt_emissions = 59.5 * `batt_cap' // for Latex
+local batt_emissions = 59.5 * `batt_cap' // for Latex. 59.5 from Winjobi et al. (2022)
 
 local batt_damages = `batt_emissions' * 0.001 * `relevant_scc'
 local batt_damages_n = (`batt_emissions' * 0.001 * `relevant_scc') / `net_msrp'
@@ -831,7 +831,7 @@ local lifetime_gas_cost = ${clean_car_cf_gas_savings_2020} - ${clean_car_wtp_pro
 
 local resource_cost = `purchase_price_diff' + `lifetime_energy_cost' - `lifetime_gas_cost'
 
-local q_carbon_yes_ev_mck = -${yes_ev_carbon_content_2020} - (59.5 * `batt_cap' * 0.001) - ${yes_ev_rbd_CO2_2020} // need to remove the rebound effect
+local q_carbon_yes_ev_mck = -${yes_ev_carbon_content_2020} - (59.5 * `batt_cap' * 0.001) - ${yes_ev_rbd_CO2_2020} // need to remove the rebound effect, 59.5 from Winjobi et al. (2022)
 
 local q_carbon_no_ice_mck = ${clean_car_cf_carbon_2020}
 

@@ -186,7 +186,7 @@ if "${value_profits}" == "no" {
 	local fisc_ext_t = 0
 }
 
-local fisc_ext_s = ((99 * (0.571)) + (75 * (1 - 0.571))) * (${cpi_`dollar_year'} / ${cpi_${policy_year}}) // Need to take into account cost of audit
+local fisc_ext_s = ((99 * (0.571)) + (75 * (1 - 0.571))) * (${cpi_`dollar_year'} / ${cpi_${policy_year}}) // Numbers from Gillingham and Tsvetanov (2018)
 
 local fisc_ext_lr = -1 * (`global_pollutants' - `rebound_global') * ${USShareFutureSSC} * ${USShareGovtFutureSCC}
 local fisc_ext_lr_n = `fisc_ext_lr' / `program_cost' // for Latex
