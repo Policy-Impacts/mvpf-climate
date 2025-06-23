@@ -15,6 +15,8 @@ local farmer_theta = `farmer_theta'
 
 local discount = ${discount_rate}
 
+local share_ev_market_US = 0.1 // 10% of dynamic cost benefits flow to American firms in the future, 90% to RoW. Axios (2024)
+
 global value_local_damages = 								"yes"
 global non_marginal_constant_semi =							"no"
 global non_marginal_constant_e = 							"no"
@@ -236,11 +238,11 @@ local WTP_USPres = `wtp_cons' + `wtp_prod' + `wtp_soc_gas_local' + `dynamic_envi
 
 local WTP_USFut = ((`wtp_soc_gas_global' + `dynamic_enviro_global' + `static_enviro_global') * ///
 				  (${USShareFutureSSC} - (${USShareFutureSSC} * ${USShareGovtFutureSCC}))) + ///
-			      (`dynamic_cost')
+			      (`dynamic_cost' * (`share_ev_market_US'))
 		
 
 local WTP_RoW = ((1-(${USShareFutureSSC})) * (`wtp_soc_gas_global' + `dynamic_enviro_global' + `static_enviro_global')) + ///
-				(`dynamic_cost')
+				(`dynamic_cost' * (1 - `share_ev_market_US'))
 
 **************************
 /* 5. Fiscal Externality and MVPF Calculations */

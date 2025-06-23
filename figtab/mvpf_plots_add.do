@@ -1,41 +1,81 @@
 ************************************************************************
-/* Purpose: Produce MVPF Plots (w/ and w/o Bars) for All MVPF Types */
+/* Purpose: Produce MVPF Plot with Different Specifications */
+************************************************************************
+************************************************************************
+/* Generate datasets */
 ************************************************************************
 
+*-------------------------
+* SCC 193
+*-------------------------
+	*no LBD
+	do "${github}/wrapper/metafile.do" ///
+		"current" /// 2020
+		"193" /// SCC
+		"no" /// learning-by-doing
+		"no" /// savings
+		"yes" /// profits
+		"`all_programs'" /// programs to run
+		0 /// reps
+		"full_current_no_lbd_193" // nrun
+		
+	*no profits
+	do "${github}/wrapper/metafile.do" ///
+		"current" /// 2020
+		"193" /// SCC
+		"yes" /// learning-by-doing
+		"no" /// savings
+		"no" /// profits
+		"`all_programs'" /// programs to run
+		0 /// reps
+		"full_current_noprofits_193" // nrun
+	
+		*energy savings
+	do "${github}/wrapper/metafile.do" ///
+		"current" /// 2020
+		"193" /// SCC
+		"yes" /// learning-by-doing
+		"yes" /// savings
+		"yes" /// profits
+		"`all_programs'" /// programs to run
+		0 /// reps
+		"full_current_savings_193" // nrun
+		
+		
 . * Add category lines to the existing plot using addplot
 * Install the gr_edit package
 ssc install addplot
 
-do "${github}/figtab/mvpf_plots.do" "subsidies" "2024-11-15_09-44-45__full_current_193_nov" "Fig4_scc193" "193" "scc_193" "" "categories_only"
-do "${github}/figtab/mvpf_plots.do" "subsidies" "2024-11-15_01-31-00__full_current_no_lbd_193_nov" "Fig4_scc193" "193" "no_lbd" "" "categories_only"
-do "${github}/figtab/mvpf_plots.do" "subsidies" "2024-11-15_02-01-52__full_current_noprofits_193_nov" "Fig4_scc193" "193" "no_profit" "" "categories_only"
-do "${github}/figtab/mvpf_plots.do" "subsidies" "2024-11-15_01-32-09__full_current_savings_193_nov" "Fig4_scc193" "193" "e_savings" "" "categories_only"
-do "${github}/figtab/mvpf_plots.do" "subsidies" "2025-04-28_10-02-55__full_current_193_CA_grid" "Fig4_scc193" "193" "cali_grid" "" "categories_only"
-do "${github}/figtab/mvpf_plots.do" "subsidies" "2025-05-14_13-00-03__full_current_193_MI_grid" "Fig4_scc193" "193" "mi_grid" "" "categories_only"
-do "${github}/figtab/mvpf_plots.do" "subsidies" "2025-05-13_10-30-42__full_current_193_zero_rebound" "Fig4_scc193" "193" "zero_rebound" "" "categories_only"
-do "${github}/figtab/mvpf_plots.do" "subsidies" "2025-05-13_15-32-51__full_current_193_double_rebound" "Fig4_scc193" "193" "double_rebound" "" "categories_only"
+* Generate category averages for SCC 193 and variations
+do "${github}/figtab/mvpf_plots.do" "subsidies" "full_current_193" "Fig4_scc193" "193" "scc_193" "" "categories_only"
+do "${github}/figtab/mvpf_plots.do" "subsidies" "full_current_no_lbd_193" "Fig4_scc193" "193" "no_lbd" "" "categories_only"
+do "${github}/figtab/mvpf_plots.do" "subsidies" "full_current_noprofits_193" "Fig4_scc193" "193" "no_profit" "" "categories_only"
+do "${github}/figtab/mvpf_plots.do" "subsidies" "full_current_savings_193" "Fig4_scc193" "193" "e_savings" "" "categories_only"
+do "${github}/figtab/mvpf_plots.do" "subsidies" "full_current_193_CA_grid" "Fig4_scc193" "193" "cali_grid" "" "categories_only"
+do "${github}/figtab/mvpf_plots.do" "subsidies" "full_current_193_MI_grid" "Fig4_scc193" "193" "mi_grid" "" "categories_only"
+do "${github}/figtab/mvpf_plots.do" "subsidies" "full_current_193_zero_rebound" "Fig4_scc193" "193" "zero_rebound" "" "categories_only"
+do "${github}/figtab/mvpf_plots.do" "subsidies" "full_current_193_double_rebound" "Fig4_scc193" "193" "double_rebound" "" "categories_only"
 
 * Generate category averages for SCC 76 and variations
-do "${github}/figtab/mvpf_plots.do" "subsidies" "2024-11-16_14-43-50__full_current_76_nov" "Fig5a_scc76" "76" "scc_76" "" "categories_only"
-do "${github}/figtab/mvpf_plots.do" "subsidies" "2025-05-12_10-16-37__full_current_no_lbd_76" "Fig5a_scc76" "76" "scc_76_no_lbd" "" "categories_only"
-do "${github}/figtab/mvpf_plots.do" "subsidies" "2025-05-12_14-55-09__full_current_noprofits_76" "Fig5a_scc76" "76" "scc_76_no_profit" "" "categories_only"
-do "${github}/figtab/mvpf_plots.do" "subsidies" "2025-05-14_11-16-30__full_current_savings_76" "Fig5a_scc76" "76" "scc_76_e_savings" "" "categories_only"
-do "${github}/figtab/mvpf_plots.do" "subsidies" "2025-05-14_01-15-05__full_current_76_CA_grid" "Fig5a_scc76" "76" "scc_76_cali_grid" "" "categories_only"
-do "${github}/figtab/mvpf_plots.do" "subsidies" "2025-05-13_23-48-41__full_current_76_MI_grid" "Fig5a_scc76" "76" "scc_76_mi_grid" "" "categories_only"
-do "${github}/figtab/mvpf_plots.do" "subsidies" "2025-05-13_19-40-13__full_current_76_zero_rebound" "Fig5a_scc76" "76" "scc_76_zero_rebound" "" "categories_only"
-do "${github}/figtab/mvpf_plots.do" "subsidies" "2025-05-13_22-11-19__full_current_76_double_rebound" "Fig5a_scc76" "76" "scc_76_double_rebound" "" "categories_only"
+do "${github}/figtab/mvpf_plots.do" "subsidies" "full_current_76" "Fig5a_scc76" "76" "scc_76" "" "categories_only"
+do "${github}/figtab/mvpf_plots.do" "subsidies" "full_current_no_lbd_76" "Fig5a_scc76" "76" "scc_76_no_lbd" "" "categories_only"
+do "${github}/figtab/mvpf_plots.do" "subsidies" "full_current_noprofits_76" "Fig5a_scc76" "76" "scc_76_no_profit" "" "categories_only"
+do "${github}/figtab/mvpf_plots.do" "subsidies" "full_current_savings_76" "Fig5a_scc76" "76" "scc_76_e_savings" "" "categories_only"
+do "${github}/figtab/mvpf_plots.do" "subsidies" "full_current_76_CA_grid" "Fig5a_scc76" "76" "scc_76_cali_grid" "" "categories_only"
+do "${github}/figtab/mvpf_plots.do" "subsidies" "full_current_76_MI_grid" "Fig5a_scc76" "76" "scc_76_mi_grid" "" "categories_only"
+do "${github}/figtab/mvpf_plots.do" "subsidies" "full_current_76_zero_rebound" "Fig5a_scc76" "76" "scc_76_zero_rebound" "" "categories_only"
+do "${github}/figtab/mvpf_plots.do" "subsidies" "full_current_76_double_rebound" "Fig5a_scc76" "76" "scc_76_double_rebound" "" "categories_only"
 
 * Generate category averages for SCC 337 and variations
-do "${github}/figtab/mvpf_plots.do" "subsidies" "2024-11-16_15-20-07__full_current_337_nov" "Fig5b_scc337" "337" "scc_337" "" "categories_only"
-do "${github}/figtab/mvpf_plots.do" "subsidies" "2025-05-12_10-00-24__full_current_no_lbd_337" "Fig5b_scc337" "337" "scc_337_no_lbd" "" "categories_only"
-do "${github}/figtab/mvpf_plots.do" "subsidies" "2025-05-12_11-02-47__full_current_noprofits_337" "Fig5b_scc337" "337" "scc_337_no_profit" "" "categories_only"
-do "${github}/figtab/mvpf_plots.do" "subsidies" "2025-05-14_10-08-21__full_current_savings_337" "Fig5b_scc337" "337" "scc_337_e_savings" "" "categories_only"
-do "${github}/figtab/mvpf_plots.do" "subsidies" "2025-05-14_01-58-31__full_current_337_CA_grid" "Fig5b_scc337" "337" "scc_337_cali_grid" "" "categories_only"
-do "${github}/figtab/mvpf_plots.do" "subsidies" "2025-05-14_00-32-09__full_current_337_MI_grid" "Fig5b_scc337" "337" "scc_337_mi_grid" "" "categories_only"
-do "${github}/figtab/mvpf_plots.do" "subsidies" "2025-05-13_17-00-23__full_current_337_zero_rebound" "Fig5b_scc337" "337" "scc_337_zero_rebound" "" "categories_only"
-do "${github}/figtab/mvpf_plots.do" "subsidies" "2025-05-13_17-43-31__full_current_337_double_rebound" "Fig5b_scc337" "337" "scc_337_double_rebound" "" "categories_only"
+do "${github}/figtab/mvpf_plots.do" "subsidies" "full_current_337" "Fig5b_scc337" "337" "scc_337" "" "categories_only"
+do "${github}/figtab/mvpf_plots.do" "subsidies" "full_current_no_lbd_337" "Fig5b_scc337" "337" "scc_337_no_lbd" "" "categories_only"
+do "${github}/figtab/mvpf_plots.do" "subsidies" "full_current_noprofits_337" "Fig5b_scc337" "337" "scc_337_no_profit" "" "categories_only"
+do "${github}/figtab/mvpf_plots.do" "subsidies" "full_current_savings_337" "Fig5b_scc337" "337" "scc_337_e_savings" "" "categories_only"
+do "${github}/figtab/mvpf_plots.do" "subsidies" "full_current_337_CA_grid" "Fig5b_scc337" "337" "scc_337_cali_grid" "" "categories_only"
+do "${github}/figtab/mvpf_plots.do" "subsidies" "full_current_337_MI_grid" "Fig5b_scc337" "337" "scc_337_mi_grid" "" "categories_only"
+do "${github}/figtab/mvpf_plots.do" "subsidies" "full_current_337_zero_rebound" "Fig5b_scc337" "337" "scc_337_zero_rebound" "" "categories_only"
+do "${github}/figtab/mvpf_plots.do" "subsidies" "full_current_337_double_rebound" "Fig5b_scc337" "337" "scc_337_double_rebound" "" "categories_only"
 
-e
 ************************************************************************
 /* Step #0: Set Macros that Will NOT Change. */
 ************************************************************************

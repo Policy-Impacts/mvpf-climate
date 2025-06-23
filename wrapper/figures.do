@@ -40,31 +40,10 @@ do "${github}/figtab/waterfalls_rep.do" "pless_ho" "current" "2024-11-15_09-44-4
 do "${github}/figtab/mvpf_plots.do" "subsidies" "full_current_193" "Fig4_scc193" "193" "yes_cis"
 
 *-------------------------------------------
-* 5 -  MVPF plot for subsidies with $76 SCC
+* 5 -  MVPF plot for varying specifications
 *-------------------------------------------
-
 
 do "${github}/figtab/mvpf_plots_add.do" "subsidies" "Subsidy Robustness" "scc_193" "no_lbd" "no_profit" "e_savings" "cali_grid" "mi_grid"  "zero_rebound" "double_rebound" "scc_337" "scc_337_no_lbd" "scc_337_no_profit" "scc_337_e_savings" "scc_337_cali_grid" "scc_337_mi_grid" "scc_337_zero_rebound" "scc_337_double_rebound" "scc_76" "scc_76_no_lbd" "scc_76_no_profit" "scc_76_e_savings" "scc_76_cali_grid"  "scc_76_mi_grid" "scc_76_zero_rebound" "scc_76_double_rebound"
-
-
-*-------------------------------------------
-* 5a -  MVPF plot for subsidies with $76 SCC
-*-------------------------------------------
-
-do "${github}/figtab/mvpf_plots.do" "subsidies" "full_current_76" "Fig5a_scc76" "76" "yes_cis"
-
-*--------------------------------------------
-* 5b -  MVPF plot for subsidies with $337 SCC
-*--------------------------------------------
-
-do "${github}/figtab/mvpf_plots.do" "subsidies" "2024-11-16_15-20-07__full_current_337_nov" "Fig5b_scc337" "337" "yes_cis
-
-*----------------------------------
-* 5c -  MVPFs plot for Subsidies, multiple SCCs
-*----------------------------------
-
-do "${github}/figtab/mvpf_plots_add.do" "subsidies" "Fig_name" "2024-11-15_09-44-45__full_current_193_nov" "2024-11-16_15-20-07__full_current_337_nov" "2024-11-16_14-43-50__full_current_76_nov" "compare_scc"
-
 
 
 *--------------------
