@@ -10,7 +10,7 @@ clear all
 *------
 * Specs
 *------
-global rerun_data = "yes"
+global rerun_data = "no"
 global bootstraps = "no"
 global pub_bias = "no"
 
@@ -80,7 +80,7 @@ if "${rerun_data}" == "yes" {
 		"yes" /// learning-by-doing
 		"no" /// savings
 		"yes" /// profits
-		"ct_solar federal_ev" /// programs to run
+		"`all_programs'" /// programs to run
 		0 /// reps
 		"full_current_193" // nrun
 
@@ -194,7 +194,7 @@ if "${rerun_data}" == "no" {
 		"no" /// learning-by-doing
 		"no" /// savings
 		"yes" /// profits
-		"`all_programs'" /// programs to run
+		"ct_solar" /// programs to run
 		0 /// reps
 		"full_current_no_lbd" // nrun
 }

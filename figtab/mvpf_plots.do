@@ -33,6 +33,71 @@ else{
 
 if "`c(os)'"=="MacOSX" local suf svg
 else local suf wmf
+
+************************************************************************
+/* Step #0a: Dynamic Folder Selection Logic */
+************************************************************************
+
+local selected_data_stub 		`2'
+
+local pattern_suffix = "`selected_data_stub'"
+di in yellow "Looking for folders ending with pattern: `pattern_suffix'"
+
+* Find all folders in the results directory that end with the pattern
+local results_dir = "${code_files}/4_results"
+local folder_list = ""
+local folder_dates = ""
+
+* Get list of all subdirectories
+qui local folders : dir "`results_dir'" dirs "*"
+
+* Filter folders that end with our pattern and extract timestamps
+foreach folder of local folders {
+    if regexm("`folder'", "^([0-9]{4}-[0-9]{2}-[0-9]{2}_[0-9]{2}-[0-9]{2}-[0-9]{2})__`pattern_suffix'$") {
+        local timestamp = regexs(1)
+        local folder_list = "`folder_list' `folder'"
+        local folder_dates = "`folder_dates' `timestamp'"
+        di in green "Found matching folder: `folder' (timestamp: `timestamp')"
+    }
+}
+
+* If no matching folders found, display error and exit
+if "`folder_list'" == "" {
+    di as error "`pattern_suffix' folder has not been created, please run the masterfile first to create this folder"
+    exit 601
+}
+else {
+    * Find the most recent folder by comparing timestamps
+    local most_recent_folder = ""
+    local most_recent_timestamp = ""
+    
+    local folder_count : word count `folder_list'
+    local date_count : word count `folder_dates'
+    
+    forvalues i = 1/`folder_count' {
+        local current_folder : word `i' of `folder_list'
+        local current_timestamp : word `i' of `folder_dates'
+        
+        * Convert timestamp to comparable format (remove hyphens and underscores)
+        local current_numeric = subinstr(subinstr("`current_timestamp'", "-", "", .), "_", "", .)
+        
+        if "`most_recent_timestamp'" == "" {
+            local most_recent_folder = "`current_folder'"
+            local most_recent_timestamp = "`current_numeric'"
+        }
+        else {
+            local most_recent_numeric = subinstr(subinstr("`most_recent_timestamp'", "-", "", .), "_", "", .)
+            if `current_numeric' > `most_recent_numeric' {
+                local most_recent_folder = "`current_folder'"
+                local most_recent_timestamp = "`current_numeric'"
+            }
+        }
+    }
+    
+    local selected_data_stub = "`most_recent_folder'"
+    di in green "Selected most recent folder: `selected_data_stub'"
+}
+
 ************************************************************************
 /* Step #0: Set Macros that CAN Change. */
 ************************************************************************
@@ -72,7 +137,6 @@ local include_other_subsidies						no
 local nm_mvpf_plot									no
 
 ************************************************************************
-local selected_data_stub 		`2'
 local plot_name			 		`3'
 ************************************************************************
 
@@ -360,6 +424,28 @@ if "`run_subsidies'" == "yes" {
 		
 		// Group label positioning.
 		gen group_label_code = subinstr(group_label, " ", "", .)
+		
+		* Check that all expected categories are present
+local expected_categories "WindProductionCredits ResidentialSolar ElectricVehicles ApplianceRebates VehicleRetirement HybridVehicles Weatherization"
+if "`include_other_subsidies'" == "yes" {
+    local expected_categories "`expected_categories' OtherSubsidies"
+}
+
+local missing_categories ""
+foreach cat of local expected_categories {
+    qui count if group_label_code == "`cat'"
+    if r(N) == 0 {
+        local missing_categories "`missing_categories' `cat'"
+    }
+}
+
+if "`missing_categories'" != "" {
+    di as error "Missing programs, make sure you're running all programs in the masterfile"
+    di as error "Missing categories: `missing_categories'"
+    exit 601
+}
+
+		
 		levelsof(group_label_code), local(group_loop)
 		foreach g of local group_loop {
 			
