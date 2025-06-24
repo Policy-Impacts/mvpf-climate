@@ -5,6 +5,17 @@ if "${renewables_loop}" == "yes" {
 	local alternative_spec = "_${renewables_percent}"
 }
 
+if "${change_grid}" != "" {
+	local alternative_spec = "_${change_grid}"
+}
+
+if "${solar_output_change}" == "yes" {
+	local alternative_spec = "_output${output_scalar}"
+}
+
+if "${lifetime_change}" == "yes" {
+	local alternative_spec = "_lifetime_change${lifetime_scalar}"
+}
 
 tempname solar_enviro_ext
 postfile `solar_enviro_ext' str18 policy year enviro_ext local_ext global_ext using "${assumptions}/timepaths/solar_externalities_time_path_${scc_ind_name}_age25`alternative_spec'.dta", replace 

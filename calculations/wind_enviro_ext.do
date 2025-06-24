@@ -5,6 +5,22 @@ if "${renewables_loop}" == "yes" {
 	local alternative_spec = "_${renewables_percent}"
 }
 
+if "${change_grid}" != "" {
+	local alternative_spec = "_${change_grid}"
+}
+
+if "${wind_emissions_change}" == "yes" {
+	local alternative_spec = "_emissions_change${emissions_scalar}"
+}
+
+if "${wind_lifetime_change}" == "yes" {
+	local alternative_spec = "_lifetime_change${lifetime_scalar}"
+}
+
+if "${no_cap_reduction}" == "yes" {
+	local alternative_spec = "_capacity_reduction0"
+}
+
 tempname wind_enviro_ext
 postfile `wind_enviro_ext' str18 policy year enviro_ext local_ext global_ext using "${assumptions}/timepaths/wind_externalities_time_path_${scc_ind_name}_age25`alternative_spec'.dta", replace 
 
