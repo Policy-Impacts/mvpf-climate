@@ -1,5 +1,12 @@
+*Check if the user is running alternative specifications
+local alternative_spec = ""
+
+if "${renewables_loop}" == "yes" {
+	local alternative_spec = "_${renewables_percent}"
+}
+
 tempname wind_enviro_ext
-postfile `wind_enviro_ext' str18 policy year enviro_ext local_ext global_ext using "${assumptions}/timepaths/wind_externalities_time_path_${scc_ind_name}_age25.dta", replace 
+postfile `wind_enviro_ext' str18 policy year enviro_ext local_ext global_ext using "${assumptions}/timepaths/wind_externalities_time_path_${scc_ind_name}_age25`alternative_spec'.dta", replace 
 
 forvalues y = 2006(1)2045 {
 	local discount = 0.02
@@ -75,5 +82,5 @@ forvalues y = 2006(1)2045 {
 
 
 postclose `wind_enviro_ext'	
-use "${assumptions}/timepaths/wind_externalities_time_path_${scc_ind_name}_age25.dta", clear
-save "${assumptions}/timepaths/wind_externalities_time_path_${scc_ind_name}_age25.dta", replace
+use "${assumptions}/timepaths/wind_externalities_time_path_${scc_ind_name}_age25`alternative_spec'.dta", clear
+save "${assumptions}/timepaths/wind_externalities_time_path_${scc_ind_name}_age25`alternative_spec'.dta", replace

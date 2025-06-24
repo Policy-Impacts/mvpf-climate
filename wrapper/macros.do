@@ -815,9 +815,27 @@ if "${rerun_timepaths}" == "yes" {
 	keep year benefits*
 	
 	di in red "Resaving EV Timepaths."
-	save "${assumptions}/timepaths/ev_externalities_time_path_${scc}_age${vehicle_car_lifetime}_vmt${EV_VMT_car_adjustment_ind}_grid${ev_grid}.dta", replace
+	
+	local alternative_spec = ""
+	
+	if ${renewables_loop} == "yes" {
+		local alternative_spec = "_${renewables_percent}"
+	}
+	save "${assumptions}/timepaths/ev_externalities_time_path_${scc}_age${vehicle_car_lifetime}_vmt${EV_VMT_car_adjustment_ind}_grid${ev_grid}`alternative_spec'.dta", replace
 		
 }
+
+*-----------------------------------------------------------------------
+* 5 - Save Wind & Solar Timepaths 
+*-----------------------------------------------------------------------
+
+if "${rerun_timepaths}" == "yes" {
+	
+	qui do "${calculation_files}/solar_enviro_ext"
+	qui do "${calculation_files}/wind_enviro_ext"
+}
+
+
 
 di in red "Setting globals to no because macros has finished running"
 global rerun_timepaths "no"
