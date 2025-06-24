@@ -1,11 +1,11 @@
 ***** MVPF with Changing Elasticity Figure *****
-/*
+
 *Set toggles for figure
 local mvpf_max 				8
 local bar_dark_orange = "214 118 72"
 local bar_blue = "36 114 237"
 local bar_dark_blue = "8 51 97"
-local re_pull_data = "no" // Re-run data for the figure (if no, uses saved data from previous run)
+local re_pull_data = "yes" // Re-run data for the figure (if no, uses saved data from previous run)
 
 global renewables_loop = "yes"
 global renewables_2020 = 0.1952 // EPA eGRID renewables (including Hydro)
@@ -26,7 +26,7 @@ if "`re_pull_data'" == "yes" {
 			"yes" /// profits
 			"hitaj_ptc shirmali_ptc metcalf_ptc" /// programs to run
 			0 /// reps
-			"full_current_${renewables_percent}" // nrun
+			"full_current_${renewables_percent}_wind" // nrun
 
 	}
 }	
@@ -94,12 +94,9 @@ if "`re_pull_data'" == "yes" {
 	}
 
 }	
-global renewables_loop = "no"
-
 *--------------------------------------------------------------------------------------
 * Changing Renewable Percentages (EVs No LBD)
 *--------------------------------------------------------------------------------------
-global renewables_loop = "yes"
 local re_pull_data = "yes"
 if "`re_pull_data'" == "yes" {
 	forvalues percent = 0.9(0.05)0.95 {
@@ -119,27 +116,31 @@ if "`re_pull_data'" == "yes" {
 
 }	
 global renewables_loop = "no"
-*/
+
 *----------------------------------------------------------
 * Append Runs Together (Need to Adjust if re-running data)
 *----------------------------------------------------------
 	
-local folders_wind : dir "${github}/data/4_results/wind_grid" dirs "*_full_current_.*"
-local folders_solar : dir "${github}/data/4_results/solar_grid" dirs "*_full_current_.*"
-local folders_no_lbd : dir "${github}/data/4_results/no_lbd_grid" dirs "*_full_current_.*"
-local folders_ev: dir "${github}/data/4_results/ev_grid" dirs "*_full_current_.*"
-local folders_ev_nolbd: dir "${github}/data/4_results/ev_no_lbd_grid" dirs "*_full_current_.*"
+local folders_wind : dir "${github}/data/4_results" dirs "*full_current*wind*"
+local folders_solar : dir "${github}/data/4_results" dirs "*full_current*solar*"
+local folders_no_lbd : dir "${github}/data/4_results" dirs "*full_current*subs*"
+local folders_ev: dir "${github}/data/4_results" dirs "*full_current*evs*"
+local folders_ev_nolbd: dir "${github}/data/4_results" dirs "*full_current*ev_nolbd*"
 
 
 *Appending Wind
-use "${github}/data/4_results/wind_grid/2025-05-07_11-16-17__full_current_.01/compiled_results_all_uncorrected_vJK.dta", clear
+local matched_files : dir "${github}/data/4_results" files "*full_current_.01_wind*"
+foreach f in `matched_files' {
+	local first_file = `f'
+	use "${github}/data/4_results/`f'/compiled_results_all_uncorrected_vJK.dta", clear
+}
 gen percent = 0.01
 
 local percent = 0.02
 foreach f of local folders_wind {
-		if "`f'" != "2025-05-07_11-16-17__full_current_.01" {
+		if "`f'" != "`first_file'" {
 	
-		append using "${github}/data/4_results/wind_grid/`f'/compiled_results_all_uncorrected_vJK.dta"
+		append using "${github}/data/4_results/`f'/compiled_results_all_uncorrected_vJK.dta"
 		
 		replace percent = `percent' if percent == .
 		local percent = `percent' + 0.01	
@@ -153,7 +154,7 @@ gen category = "Wind Production Credits"
 local percent = 0.01
 foreach f of local folders_solar {
 	
-		append using "${github}/data/4_results/solar_grid/`f'/compiled_results_all_uncorrected_vJK.dta"
+		append using "${github}/data/4_results/`f'/compiled_results_all_uncorrected_vJK.dta"
 		
 		replace percent = `percent' if percent == .
 		local percent = `percent' + 0.01	
@@ -165,7 +166,7 @@ replace category = "Residential Solar" if category == ""
 local percent = 0.01
 foreach f of local folders_ev {
 	
-		append using "${github}/data/4_results/ev_grid/`f'/compiled_results_all_uncorrected_vJK.dta"
+		append using "${github}/data/4_results/`f'/compiled_results_all_uncorrected_vJK.dta"
 		
 		if `percent' == 0.09 {
 				
@@ -191,7 +192,7 @@ replace category = "Electric Vehicles" if category == ""
 local percent = 0.01
 foreach f of local folders_ev_nolbd {
 	
-		append using "${github}/data/4_results/ev_no_lbd_grid/`f'/compiled_results_all_uncorrected_vJK.dta"
+		append using "${github}/data/4_results/`f'/compiled_results_all_uncorrected_vJK.dta"
 		
 		if `percent' >= 0.05 & `percent' < 0.9 {
 			
@@ -224,7 +225,7 @@ replace category = "ev_no_lbd" if category == ""
 local percent = 0.01
 foreach f of local folders_no_lbd {
 	
-		append using "${github}/data/4_results/no_lbd_grid/`f'/compiled_results_all_uncorrected_vJK.dta"
+		append using "${github}/data/4_results/`f'/compiled_results_all_uncorrected_vJK.dta"
 		
 		replace percent = `percent' if percent == .
 		local percent = `percent' + 0.01	
@@ -235,7 +236,7 @@ replace category = "Appliance Rebates" if inlist(program, "c4a_cw", "rebate_es",
 replace category = "wind no lbd" if inlist(program, "hitaj_ptc", "metcalf_ptc", "shirmali_ptc") & category == ""
 replace category = "solar no lbd" if inlist(program, "ct_solar", "ne_solar" ,"hughes_csi", "pless_ho", "pless_tpo") & category == ""
 
-
+/*
 *----------------------------------------------------------
 * Getting CA and MI grid MVPFs
 *----------------------------------------------------------
@@ -404,7 +405,7 @@ merge 1:1 category using `category_averages_MI', nogen
 tempfile category_averages
 save "`category_averages'"
 restore
-
+*/
 *----------------------------------------------------------
 * Prep Data for Graph
 *----------------------------------------------------------
@@ -429,12 +430,12 @@ replace value_WTP_cc = value_WTP if value_WTP_cc == .
 
 gen MVPF = value_WTP_cc / value_cost
 
+/*
 *Add in CA and MI MVPFs
 merge m:1 category using "`category_averages'", nogen
-end
 replace MVPF_CA = . if abs(percent -.44) > 0.005 // eGRID 2020 CA Renewable Share is 43.64%
 replace MVPF_MI = . if abs(percent -.10) > 0.005 // eGRID 2020 CA Renewable Share is 10.30%
-
+*/
 *----------------------------------------------------------
 * Graphing
 *----------------------------------------------------------
@@ -457,8 +458,6 @@ tw ///
 	(line MVPF percent if category == "Appliance Rebates") ///
 	(line MVPF percent if category == "Electric Vehicles", lc("`bar_light_gray'")) ///
 	(line MVPF percent if category == "ev_no_lbd", lp(dash) lc("`bar_light_gray'")) ///
-	(scatter MVPF_CA percent) ///
-	(scatter MVPF_MI percent) ///
 	, ///
 	xline(`percent_today', noextend lcolor("black") lpattern(shortdash)) ///
 	graphregion(color(white)) legend(off) ///
