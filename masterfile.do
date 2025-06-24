@@ -10,8 +10,8 @@ clear all
 *------
 * Specs
 *------
-global rerun_data = "no"
-global bootstraps = "no"
+global rerun_data = "yes"
+global bootstraps = "yes"
 global pub_bias = "no"
 
 *------
@@ -71,18 +71,18 @@ restore
 * 1 - All of the different runs
 *------------------------------
 
-if "${rerun_data}" == "yes" {
-
-	*Main Run
-	do "${github}/wrapper/metafile.do" ///
-		"current" /// 2020
-		"193" /// SCC
-		"yes" /// learning-by-doing
-		"no" /// savings
-		"yes" /// profits
-		"`all_programs'" /// programs to run
-		0 /// reps
-		"full_current_193" // nrun
+// if "${rerun_data}" == "yes" {
+//
+// 	*Main Run
+// 	do "${github}/wrapper/metafile.do" ///
+// 		"current" /// 2020
+// 		"193" /// SCC
+// 		"yes" /// learning-by-doing
+// 		"no" /// savings
+// 		"yes" /// profits
+// 		"`all_programs'" /// programs to run
+// 		0 /// reps
+// 		"full_current_193" // nrun
 
 	*Run using $76 SCC
 	/*do "${github}/wrapper/metafile.do" ///
@@ -149,14 +149,14 @@ if "${rerun_data}" == "yes" {
 		"`all_programs'" /// programs to run
 		0 /// reps
 		"full_current_noprofits" */
-}
+// }
 *---------------
 * 2 - Bootstrapping
 *------------------
 
 if "${bootstraps}" == "yes" & "${rerun_data}" == "yes" {
 	
-	foreach scc in "193" {
+	foreach scc in "193" "76" "337" {
 		do "${github}/bootstrapping/bootstrapping" ///
 			"current" /// mode
 			`scc' /// scc

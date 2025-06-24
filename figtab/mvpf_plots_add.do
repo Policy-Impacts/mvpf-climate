@@ -4,190 +4,297 @@
 ************************************************************************
 /* Generate datasets */
 ************************************************************************
-
+* Create list of all programs to run.
+// filelist, pattern("*.do") dir("${github}/policies/harmonized/") save(temp_filelist.txt) replace
+// preserve
+//
+// 	use temp_filelist.txt, clear
+//	
+// 	levelsof(filename), local(file_loop)
+// 	foreach program of local file_loop {
+//		
+// 		local program_entry = substr("`program'", 1, strlen("`program'") - 3)
+// 		local all_programs "`all_programs' `program_entry'" 
+//		
+// 	}
+//	
+// 	cap erase temp_filelist.txt
+//	
+// restore 
 *-------------------------
 * SCC 193
 *-------------------------
-	*no LBD
-	do "${github}/wrapper/metafile.do" ///
-		"current" /// 2020
-		"193" /// SCC
-		"no" /// learning-by-doing
-		"no" /// savings
-		"yes" /// profits
-		"`all_programs'" /// programs to run
-		0 /// reps
-		"full_current_no_lbd_193" // nrun
+// 	*no LBD
+// 	do "${github}/wrapper/metafile.do" ///
+// 		"current" /// 2020
+// 		"193" /// SCC
+// 		"no" /// learning-by-doing
+// 		"no" /// savings
+// 		"yes" /// profits
+// 		"`all_programs'" /// programs to run
+// 		0 /// reps
+// 		"full_current_no_lbd_193" // nrun
+//		
+// 	*no profits
+// 	do "${github}/wrapper/metafile.do" ///
+// 		"current" /// 2020
+// 		"193" /// SCC
+// 		"yes" /// learning-by-doing
+// 		"no" /// savings
+// 		"no" /// profits
+// 		"`all_programs'" /// programs to run
+// 		0 /// reps
+// 		"full_current_noprofits_193" // nrun
+//	
+// 	*energy savings
+// 	do "${github}/wrapper/metafile.do" ///
+// 		"current" /// 2020
+// 		"193" /// SCC
+// 		"yes" /// learning-by-doing
+// 		"yes" /// savings
+// 		"yes" /// profits
+// 		"`all_programs'" /// programs to run
+// 		0 /// reps
+// 		"full_current_savings_193" // nrun
+//		
+// 	*CA grid
+// 	do "${github}/wrapper/metafile.do" ///
+// 		"current" /// 2020
+// 		"193" /// SCC
+// 		"yes" /// learning-by-doing
+// 		"no" /// savings
+// 		"yes" /// profits
+// 		"`all_programs'" /// programs to run
+// 		0 /// reps
+// 		"full_current_193_CA_grid" // nrun
 		
-	*no profits
-	do "${github}/wrapper/metafile.do" ///
-		"current" /// 2020
-		"193" /// SCC
-		"yes" /// learning-by-doing
-		"no" /// savings
-		"no" /// profits
-		"`all_programs'" /// programs to run
-		0 /// reps
-		"full_current_noprofits_193" // nrun
-	
-	*energy savings
-	do "${github}/wrapper/metafile.do" ///
-		"current" /// 2020
-		"193" /// SCC
-		"yes" /// learning-by-doing
-		"yes" /// savings
-		"yes" /// profits
-		"`all_programs'" /// programs to run
-		0 /// reps
-		"full_current_savings_193" // nrun
-		
-	*CA grid
-	do "${github}/wrapper/metafile.do" ///
-		"current" /// 2020
-		"193" /// SCC
-		"yes" /// learning-by-doing
-		"no" /// savings
-		"yes" /// profits
-		"`all_programs'" /// programs to run
-		0 /// reps
-		"full_current_193_CA_grid" // nrun
-		
-	*MI grid
-	do "${github}/wrapper/metafile.do" ///
-		"current" /// 2020
-		"193" /// SCC
-		"yes" /// learning-by-doing
-		"no" /// savings
-		"yes" /// profits
-		"`all_programs'" /// programs to run
-		0 /// reps
-		"full_current_193_MI_grid" // nrun
-		
-	*0 rebound
-	global rebound_change = "yes"
-	global rebound_scalar = 0
-	
-	do "${github}/wrapper/metafile.do" ///
-		"current" /// 2020
-		"193" /// SCC
-		"yes" /// learning-by-doing
-		"no" /// savings
-		"yes" /// profits
-		"`all_programs'" /// programs to run
-		0 /// reps
-		"full_current_193_zero_rebound" // nrun	
-		
-	global rebound_change = "no"
-	global rebound_scalar = 1
-
-	*2x rebound
-	global rebound_change = "yes"
-	global rebound_scalar = 2
-	
-	do "${github}/wrapper/metafile.do" ///
-		"current" /// 2020
-		"193" /// SCC
-		"yes" /// learning-by-doing
-		"no" /// savings
-		"yes" /// profits
-		"`all_programs'" /// programs to run
-		0 /// reps
-		"full_current_193_double_rebound" // nrun	
-		
-	global rebound_change = "no"
-	global rebound_scalar = 1
-		
-*-------------------------
-* SCC 76
-*-------------------------
-	*no LBD
-	do "${github}/wrapper/metafile.do" ///
-		"current" /// 2020
-		"76" /// SCC
-		"no" /// learning-by-doing
-		"no" /// savings
-		"yes" /// profits
-		"`all_programs'" /// programs to run
-		0 /// reps
-		"full_current_no_lbd_76" // nrun
-		
-	*no profits
-	do "${github}/wrapper/metafile.do" ///
-		"current" /// 2020
-		"76" /// SCC
-		"yes" /// learning-by-doing
-		"no" /// savings
-		"no" /// profits
-		"`all_programs'" /// programs to run
-		0 /// reps
-		"full_current_noprofits_76" // nrun
-	
-	*energy savings
-	do "${github}/wrapper/metafile.do" ///
-		"current" /// 2020
-		"76" /// SCC
-		"yes" /// learning-by-doing
-		"yes" /// savings
-		"yes" /// profits
-		"`all_programs'" /// programs to run
-		0 /// reps
-		"full_current_savings_76" // nrun
-		
-	*CA grid
-	do "${github}/wrapper/metafile.do" ///
-		"current" /// 2020
-		"76" /// SCC
-		"yes" /// learning-by-doing
-		"no" /// savings
-		"yes" /// profits
-		"`all_programs'" /// programs to run
-		0 /// reps
-		"full_current_76_CA_grid" // nrun
-		
-	*MI grid
-	do "${github}/wrapper/metafile.do" ///
-		"current" /// 2020
-		"76" /// SCC
-		"yes" /// learning-by-doing
-		"no" /// savings
-		"yes" /// profits
-		"`all_programs'" /// programs to run
-		0 /// reps
-		"full_current_76_MI_grid" // nrun
-		
-	*0 rebound
-	global rebound_change = "yes"
-	global rebound_scalar = 0
-	
-	do "${github}/wrapper/metafile.do" ///
-		"current" /// 2020
-		"193" /// SCC
-		"yes" /// learning-by-doing
-		"no" /// savings
-		"yes" /// profits
-		"`all_programs'" /// programs to run
-		0 /// reps
-		"full_current_193_zero_rebound" // nrun	
-		
-	global rebound_change = "no"
-	global rebound_scalar = 1
-
-	*2x rebound
-	global rebound_change = "yes"
-	global rebound_scalar = 2
-	
-	do "${github}/wrapper/metafile.do" ///
-		"current" /// 2020
-		"76" /// SCC
-		"yes" /// learning-by-doing
-		"no" /// savings
-		"yes" /// profits
-		"`all_programs'" /// programs to run
-		0 /// reps
-		"full_current_76_double_rebound" // nrun	
-		
-	global rebound_change = "no"
-	global rebound_scalar = 1
+// 	*MI grid
+// 	do "${github}/wrapper/metafile.do" ///
+// 		"current" /// 2020
+// 		"193" /// SCC
+// 		"yes" /// learning-by-doing
+// 		"no" /// savings
+// 		"yes" /// profits
+// 		"`all_programs'" /// programs to run
+// 		0 /// reps
+// 		"full_current_193_MI_grid" // nrun
+//		
+// 	*0 rebound
+// 	global rebound_change = "yes"
+// 	global rebound_scalar = 0
+//	
+// 	do "${github}/wrapper/metafile.do" ///
+// 		"current" /// 2020
+// 		"193" /// SCC
+// 		"yes" /// learning-by-doing
+// 		"no" /// savings
+// 		"yes" /// profits
+// 		"`all_programs'" /// programs to run
+// 		0 /// reps
+// 		"full_current_193_zero_rb" // nrun	
+//		
+// 	global rebound_change = "no"
+// 	global rebound_scalar = 1
+//
+// 	*2x rebound
+// 	global rebound_change = "yes"
+// 	global rebound_scalar = 2
+//	
+// 	do "${github}/wrapper/metafile.do" ///
+// 		"current" /// 2020
+// 		"193" /// SCC
+// 		"yes" /// learning-by-doing
+// 		"no" /// savings
+// 		"yes" /// profits
+// 		"`all_programs'" /// programs to run
+// 		0 /// reps
+// 		"full_current_193_2_rb" // nrun	
+//		
+// 	global rebound_change = "no"
+// 	global rebound_scalar = 1
+//		
+// *-------------------------
+// * SCC 76
+// *-------------------------
+// 	*no LBD
+// 	do "${github}/wrapper/metafile.do" ///
+// 		"current" /// 2020
+// 		"76" /// SCC
+// 		"no" /// learning-by-doing
+// 		"no" /// savings
+// 		"yes" /// profits
+// 		"`all_programs'" /// programs to run
+// 		0 /// reps
+// 		"full_current_no_lbd_76" // nrun
+//		
+// 	*no profits
+// 	do "${github}/wrapper/metafile.do" ///
+// 		"current" /// 2020
+// 		"76" /// SCC
+// 		"yes" /// learning-by-doing
+// 		"no" /// savings
+// 		"no" /// profits
+// 		"`all_programs'" /// programs to run
+// 		0 /// reps
+// 		"full_current_noprofits_76" // nrun
+//	
+// 	*energy savings
+// 	do "${github}/wrapper/metafile.do" ///
+// 		"current" /// 2020
+// 		"76" /// SCC
+// 		"yes" /// learning-by-doing
+// 		"yes" /// savings
+// 		"yes" /// profits
+// 		"`all_programs'" /// programs to run
+// 		0 /// reps
+// 		"full_current_savings_76" // nrun
+//		
+// 	*CA grid
+// 	do "${github}/wrapper/metafile.do" ///
+// 		"current" /// 2020
+// 		"76" /// SCC
+// 		"yes" /// learning-by-doing
+// 		"no" /// savings
+// 		"yes" /// profits
+// 		"`all_programs'" /// programs to run
+// 		0 /// reps
+// 		"full_current_76_CA_grid" // nrun
+//		
+// 	*MI grid
+// 	do "${github}/wrapper/metafile.do" ///
+// 		"current" /// 2020
+// 		"76" /// SCC
+// 		"yes" /// learning-by-doing
+// 		"no" /// savings
+// 		"yes" /// profits
+// 		"`all_programs'" /// programs to run
+// 		0 /// reps
+// 		"full_current_76_MI_grid" // nrun
+//		
+// 	*0 rebound
+// 	global rebound_change = "yes"
+// 	global rebound_scalar = 0
+//	
+// 	do "${github}/wrapper/metafile.do" ///
+// 		"current" /// 2020
+// 		"76" /// SCC
+// 		"yes" /// learning-by-doing
+// 		"no" /// savings
+// 		"yes" /// profits
+// 		"`all_programs'" /// programs to run
+// 		0 /// reps
+// 		"full_current_76_zero_rb" // nrun	
+//		
+// 	global rebound_change = "no"
+// 	global rebound_scalar = 1
+//
+// 	*2x rebound
+// 	global rebound_change = "yes"
+// 	global rebound_scalar = 2
+//	
+// 	do "${github}/wrapper/metafile.do" ///
+// 		"current" /// 2020
+// 		"76" /// SCC
+// 		"yes" /// learning-by-doing
+// 		"no" /// savings
+// 		"yes" /// profits
+// 		"`all_programs'" /// programs to run
+// 		0 /// reps
+// 		"full_current_76_2_rb" // nrun	
+//		
+// 	global rebound_change = "no"
+// 	global rebound_scalar = 1
+// *-------------------------
+// * SCC 337
+// *-------------------------
+// 	*no LBD
+// 	do "${github}/wrapper/metafile.do" ///
+// 		"current" /// 2020
+// 		"337" /// SCC
+// 		"no" /// learning-by-doing
+// 		"no" /// savings
+// 		"yes" /// profits
+// 		"`all_programs'" /// programs to run
+// 		0 /// reps
+// 		"full_current_no_lbd_337" // nrun
+//		
+// 	*no profits
+// 	do "${github}/wrapper/metafile.do" ///
+// 		"current" /// 2020
+// 		"337" /// SCC
+// 		"yes" /// learning-by-doing
+// 		"no" /// savings
+// 		"no" /// profits
+// 		"`all_programs'" /// programs to run
+// 		0 /// reps
+// 		"full_current_noprofits_337" // nrun
+//	
+// 	*energy savings
+// 	do "${github}/wrapper/metafile.do" ///
+// 		"current" /// 2020
+// 		"337" /// SCC
+// 		"yes" /// learning-by-doing
+// 		"yes" /// savings
+// 		"yes" /// profits
+// 		"`all_programs'" /// programs to run
+// 		0 /// reps
+// 		"full_current_savings_337" // nrun
+//		
+// 	*CA grid
+// 	do "${github}/wrapper/metafile.do" ///
+// 		"current" /// 2020
+// 		"337" /// SCC
+// 		"yes" /// learning-by-doing
+// 		"no" /// savings
+// 		"yes" /// profits
+// 		"`all_programs'" /// programs to run
+// 		0 /// reps
+// 		"full_current_337_CA_grid" // nrun
+//		
+// 	*MI grid
+// 	do "${github}/wrapper/metafile.do" ///
+// 		"current" /// 2020
+// 		"337" /// SCC
+// 		"yes" /// learning-by-doing
+// 		"no" /// savings
+// 		"yes" /// profits
+// 		"`all_programs'" /// programs to run
+// 		0 /// reps
+// 		"full_current_337_MI_grid" // nrun
+//		
+// 	*0 rebound
+// 	global rebound_change = "yes"
+// 	global rebound_scalar = 0
+//	
+// 	do "${github}/wrapper/metafile.do" ///
+// 		"current" /// 2020
+// 		"337" /// SCC
+// 		"yes" /// learning-by-doing
+// 		"no" /// savings
+// 		"yes" /// profits
+// 		"`all_programs'" /// programs to run
+// 		0 /// reps
+// 		"full_current_337_zero_rb" // nrun	
+//		
+// 	global rebound_change = "no"
+// 	global rebound_scalar = 1
+//
+// 	*2x rebound
+// 	global rebound_change = "yes"
+// 	global rebound_scalar = 2
+//	
+// 	do "${github}/wrapper/metafile.do" ///
+// 		"current" /// 2020
+// 		"337" /// SCC
+// 		"yes" /// learning-by-doing
+// 		"no" /// savings
+// 		"yes" /// profits
+// 		"`all_programs'" /// programs to run
+// 		0 /// reps
+// 		"full_current_337_2_rb" // nrun	
+//		
+// 	global rebound_change = "no"
+// 	global rebound_scalar = 1
 		
 ssc install addplot
 
@@ -196,30 +303,30 @@ do "${github}/figtab/mvpf_plots.do" "subsidies" "full_current_193" "Fig4_scc193"
 do "${github}/figtab/mvpf_plots.do" "subsidies" "full_current_no_lbd_193" "Fig4_scc193" "193" "no_lbd" "" "categories_only"
 do "${github}/figtab/mvpf_plots.do" "subsidies" "full_current_noprofits_193" "Fig4_scc193" "193" "no_profit" "" "categories_only"
 do "${github}/figtab/mvpf_plots.do" "subsidies" "full_current_savings_193" "Fig4_scc193" "193" "e_savings" "" "categories_only"
-do "${github}/figtab/mvpf_plots.do" "subsidies" "full_current_193_CA_grid" "Fig4_scc193" "193" "cali_grid" "" "categories_only"
-do "${github}/figtab/mvpf_plots.do" "subsidies" "full_current_193_MI_grid" "Fig4_scc193" "193" "mi_grid" "" "categories_only"
-do "${github}/figtab/mvpf_plots.do" "subsidies" "full_current_193_zero_rebound" "Fig4_scc193" "193" "zero_rebound" "" "categories_only"
-do "${github}/figtab/mvpf_plots.do" "subsidies" "full_current_193_double_rebound" "Fig4_scc193" "193" "double_rebound" "" "categories_only"
+do "${github}/figtab/mvpf_plots.do" "subsidies" "full_current_193_ca_grid" "Fig4_scc193" "193" "cali_grid" "" "categories_only"
+do "${github}/figtab/mvpf_plots.do" "subsidies" "full_current_193_mi_grid" "Fig4_scc193" "193" "mi_grid" "" "categories_only"
+do "${github}/figtab/mvpf_plots.do" "subsidies" "full_current_193_zero_rb" "Fig4_scc193" "193" "zero_rebound" "" "categories_only"
+do "${github}/figtab/mvpf_plots.do" "subsidies" "full_current_193_2_rb" "Fig4_scc193" "193" "double_rebound" "" "categories_only"
 
 * Generate category averages for SCC 76 and variations
 do "${github}/figtab/mvpf_plots.do" "subsidies" "full_current_76" "Fig5a_scc76" "76" "scc_76" "" "categories_only"
 do "${github}/figtab/mvpf_plots.do" "subsidies" "full_current_no_lbd_76" "Fig5a_scc76" "76" "scc_76_no_lbd" "" "categories_only"
 do "${github}/figtab/mvpf_plots.do" "subsidies" "full_current_noprofits_76" "Fig5a_scc76" "76" "scc_76_no_profit" "" "categories_only"
 do "${github}/figtab/mvpf_plots.do" "subsidies" "full_current_savings_76" "Fig5a_scc76" "76" "scc_76_e_savings" "" "categories_only"
-do "${github}/figtab/mvpf_plots.do" "subsidies" "full_current_76_CA_grid" "Fig5a_scc76" "76" "scc_76_cali_grid" "" "categories_only"
-do "${github}/figtab/mvpf_plots.do" "subsidies" "full_current_76_MI_grid" "Fig5a_scc76" "76" "scc_76_mi_grid" "" "categories_only"
-do "${github}/figtab/mvpf_plots.do" "subsidies" "full_current_76_zero_rebound" "Fig5a_scc76" "76" "scc_76_zero_rebound" "" "categories_only"
-do "${github}/figtab/mvpf_plots.do" "subsidies" "full_current_76_double_rebound" "Fig5a_scc76" "76" "scc_76_double_rebound" "" "categories_only"
+do "${github}/figtab/mvpf_plots.do" "subsidies" "full_current_76_ca_grid" "Fig5a_scc76" "76" "scc_76_cali_grid" "" "categories_only"
+do "${github}/figtab/mvpf_plots.do" "subsidies" "full_current_76_mi_grid" "Fig5a_scc76" "76" "scc_76_mi_grid" "" "categories_only"
+do "${github}/figtab/mvpf_plots.do" "subsidies" "full_current_76_zero_rb" "Fig5a_scc76" "76" "scc_76_zero_rebound" "" "categories_only"
+do "${github}/figtab/mvpf_plots.do" "subsidies" "full_current_76_2_rb" "Fig5a_scc76" "76" "scc_76_double_rebound" "" "categories_only"
 
 * Generate category averages for SCC 337 and variations
 do "${github}/figtab/mvpf_plots.do" "subsidies" "full_current_337" "Fig5b_scc337" "337" "scc_337" "" "categories_only"
 do "${github}/figtab/mvpf_plots.do" "subsidies" "full_current_no_lbd_337" "Fig5b_scc337" "337" "scc_337_no_lbd" "" "categories_only"
 do "${github}/figtab/mvpf_plots.do" "subsidies" "full_current_noprofits_337" "Fig5b_scc337" "337" "scc_337_no_profit" "" "categories_only"
 do "${github}/figtab/mvpf_plots.do" "subsidies" "full_current_savings_337" "Fig5b_scc337" "337" "scc_337_e_savings" "" "categories_only"
-do "${github}/figtab/mvpf_plots.do" "subsidies" "full_current_337_CA_grid" "Fig5b_scc337" "337" "scc_337_cali_grid" "" "categories_only"
-do "${github}/figtab/mvpf_plots.do" "subsidies" "full_current_337_MI_grid" "Fig5b_scc337" "337" "scc_337_mi_grid" "" "categories_only"
-do "${github}/figtab/mvpf_plots.do" "subsidies" "full_current_337_zero_rebound" "Fig5b_scc337" "337" "scc_337_zero_rebound" "" "categories_only"
-do "${github}/figtab/mvpf_plots.do" "subsidies" "full_current_337_double_rebound" "Fig5b_scc337" "337" "scc_337_double_rebound" "" "categories_only"
+do "${github}/figtab/mvpf_plots.do" "subsidies" "full_current_337_ca_grid" "Fig5b_scc337" "337" "scc_337_cali_grid" "" "categories_only"
+do "${github}/figtab/mvpf_plots.do" "subsidies" "full_current_337_mi_grid" "Fig5b_scc337" "337" "scc_337_mi_grid" "" "categories_only"
+do "${github}/figtab/mvpf_plots.do" "subsidies" "full_current_337_zero_rb" "Fig5b_scc337" "337" "scc_337_zero_rebound" "" "categories_only"
+do "${github}/figtab/mvpf_plots.do" "subsidies" "full_current_337_2_rb" "Fig5b_scc337" "337" "scc_337_double_rebound" "" "categories_only"
 
 ************************************************************************
 /* Step #0: Set Macros that Will NOT Change. */
@@ -241,39 +348,89 @@ if inlist("`2'", "Fig4_scc193", "Fig5a_scc76", "Fig5b_scc337", "Fig8_scc193", "F
 /* Step #0a: Define Data Paths for Scenarios */
 ************************************************************************
 
-local path_scc_193 = "${code_files}/4_results/2024-11-15_09-44-45__full_current_193_nov"
-local path_no_lbd = "${code_files}/4_results/2024-11-15_01-31-00__full_current_no_lbd_193_nov"
-local path_no_profit = "${code_files}/4_results/2024-11-15_02-01-52__full_current_noprofits_193_nov"
-local path_e_savings = "${code_files}/4_results/2024-11-15_01-32-09__full_current_savings_193_nov"
-local path_cali_grid = "${code_files}/4_results/2025-04-28_10-02-55__full_current_193_CA_grid"
-local path_mi_grid = "${code_files}/4_results/2025-05-14_13-00-03__full_current_193_MI_grid"
-local path_zero_rebound = "${code_files}/4_results/2025-05-13_10-30-42__full_current_193_zero_rebound"
-local path_double_rebound = "${code_files}/4_results/2025-05-13_15-32-51__full_current_193_double_rebound"
+local scenarios ""
+foreach arg_num in 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 {
+    if "``arg_num''" != "" {
+        local scenarios "`scenarios' ``arg_num''"
+    }
+}
 
-local path_scc_337 = "${code_files}/4_results/2024-11-16_15-20-07__full_current_337_nov" 
-local path_scc_337_no_lbd = "${code_files}/4_results/2025-05-12_10-00-24__full_current_no_lbd_337"
-local path_scc_337_no_profit = "${code_files}/4_results/2025-05-12_11-02-47__full_current_noprofits_337" 
-local path_scc_337_e_savings = "${code_files}/4_results/2025-05-14_10-08-21__full_current_savings_337" 
-local path_scc_337_cali_grid = "${code_files}/4_results/2025-05-14_01-58-31__full_current_337_CA_grid" 
-local path_scc_337_mi_grid = "${code_files}/4_results/2025-05-14_00-32-09__full_current_337_MI_grid" 
-local path_scc_337_zero_rebound = "${code_files}/4_results/2025-05-13_17-00-23__full_current_337_zero_rebound" 
-local path_scc_337_double_rebound = "${code_files}/4_results/2025-05-13_17-43-31__full_current_337_double_rebound" 
+di in yellow "Processing scenarios: `scenarios'"
 
-local path_scc_76 = "${code_files}/4_results/2024-11-16_14-43-50__full_current_76_nov"
-local path_scc_76_no_lbd = "${code_files}/4_results/2025-05-12_10-16-37__full_current_no_lbd_76"
-local path_scc_76_no_profit = "${code_files}/4_results/2025-05-12_14-55-09__full_current_noprofits_76"
-local path_scc_76_e_savings = "${code_files}/4_results/2025-05-14_11-16-30__full_current_savings_76"
-local path_scc_76_cali_grid = "${code_files}/4_results/2025-05-14_01-15-05__full_current_76_CA_grid" 
-local path_scc_76_mi_grid = "${code_files}/4_results/2025-05-13_23-48-41__full_current_76_MI_grid" 
-local path_scc_76_zero_rebound = "${code_files}/4_results/2025-05-13_19-40-13__full_current_76_zero_rebound" 
-local path_scc_76_double_rebound = "${code_files}/4_results/2025-05-13_22-11-19__full_current_76_double_rebound"
+* For each folder pattern, find the most recent folder
+foreach scenario of local scenarios {
+    di in yellow "Looking for folders ending with scenario: `scenario'"
+    
+    * Find all folders in the results directory that end with the pattern
+    local results_dir = "${code_files}/4_results"
+    local folder_list = ""
+    local folder_dates = ""
+    
+    * Get list of all subdirectories
+    qui local folders : dir "`results_dir'" dirs "*"
+    
+    * Filter folders that end with our pattern and extract timestamps
 
-* Identify primary SCC from command argument
-local primary_scenario = "`3'"
+    foreach folder of local folders {
+			* Add this right before the regexm check:
+di in red "Looking for pattern: `scenario'"
+di in red "Checking folder: `scenario'"
+di in red "Regex pattern: ^([0-9]{4}-[0-9]{2}-[0-9]{2}_[0-9]{2}-[0-9]{2}-[0-9]{2})__`scenario'$"
+
+        if regexm("`folder'", "^([0-9]{4}-[0-9]{2}-[0-9]{2}_[0-9]{2}-[0-9]{2}-[0-9]{2})__`scenario'$") {
+            local timestamp = regexs(1)
+            local folder_list = "`folder_list' `folder'"
+            local folder_dates = "`folder_dates' `timestamp'"
+            di in green "Found matching folder: `folder' (timestamp: `timestamp')"
+        }
+    }
+    
+    * If no matching folders found, display error and exit
+    if "`folder_list'" == "" {
+        di as error "`scenario' folder has not been created, please run the masterfile first to create this folder"
+        exit 601
+    }
+    else {
+        * Find the most recent folder by comparing timestamps
+        local most_recent_folder = ""
+        local most_recent_timestamp = ""
+        
+        local folder_count : word count `folder_list'
+        
+        forvalues i = 1/`folder_count' {
+            local current_folder : word `i' of `folder_list'
+            local current_timestamp : word `i' of `folder_dates'
+            
+            * Convert timestamp to comparable format (remove hyphens and underscores)
+            local current_numeric = subinstr(subinstr("`current_timestamp'", "-", "", .), "_", "", .)
+            
+            if "`most_recent_timestamp'" == "" {
+                local most_recent_folder = "`current_folder'"
+                local most_recent_timestamp = "`current_numeric'"
+            }
+            else {
+                local most_recent_numeric = subinstr(subinstr("`most_recent_timestamp'", "-", "", .), "_", "", .)
+                if `current_numeric' > `most_recent_numeric' {
+                    local most_recent_folder = "`current_folder'"
+                    local most_recent_timestamp = "`current_numeric'"
+                }
+            }
+        }
+        
+        local p_`scenario' = "${code_files}/4_results/`most_recent_folder'"
+        di in green "Selected most recent folder for `scenario': `most_recent_folder'"
+    }
+    
+    * Clear the lists for next iteration
+    local folder_list = ""
+    local folder_dates = ""
+}
+
+* Set primary scenario (first one in the list)
+local primary_scenario : word 1 of `scenarios'
+local primary_path = "`p_`primary_scenario''"
+
 di "Primary scenario: `primary_scenario'"
-
-* Set the primary data path based on the primary scenario
-local primary_path = "`path_`primary_scenario''"
 di in red "Primary data path: `primary_path'"
 
 if "`4'" == "split"{
@@ -286,7 +443,6 @@ else{
 
 if "`c(os)'"=="MacOSX" local suf svg
 else local suf wmf
-
 
 ************************************************************************
 /* Step #0b: Set Macros that CAN Change. */
@@ -327,7 +483,6 @@ local include_other_subsidies						no
 local nm_mvpf_plot									no
 
 ************************************************************************
-local primary_scenario  		`3'
 local plot_name			 		`2'
 ************************************************************************
 ************************************************************************
@@ -377,13 +532,6 @@ if "`nm_mvpf_plot'" == "yes" {
     restore
 }
 
-* Define scenarios to process based on command arguments
-local scenarios = ""
-foreach arg_num in 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 {
-    if "``arg_num''" != "" {
-        local scenarios "`scenarios' ``arg_num''"
-    }
-}
 
 * Save main dataset to tempfile before processing
 tempfile main_dataset
@@ -396,7 +544,7 @@ foreach scenario of local scenarios {
         di as text "Processing `scenario' dataset"
         
         * Determine dataset path
-        local dataset_path = "`path_`scenario''"
+        local dataset_path = "`p_`scenario''"
         
         * Check if we have a path for this scenario
         if "`dataset_path'" != "" {
@@ -431,8 +579,8 @@ foreach scenario of local scenarios {
             keep if component_type == "MVPF"
             
             * Rename to create scenario-specific MVPF column
-            rename component_value MVPF_`scenario'
-            keep program MVPF_`scenario'
+			rename component_value MVPF_`scenario'
+			keep program MVPF_`scenario'
             
             * Save to tempfile
             tempfile `scenario'_data
@@ -547,6 +695,27 @@ if "`run_subsidies'" == "yes" {
 		
 		// Group label positioning.
 		gen group_label_code = subinstr(group_label, " ", "", .)
+		
+		* Check that all expected categories are present
+	local expected_categories "WindProductionCredits ResidentialSolar ElectricVehicles ApplianceRebates VehicleRetirement HybridVehicles Weatherization"
+	if "`include_other_subsidies'" == "yes" {
+		local expected_categories "`expected_categories' OtherSubsidies"
+	}
+
+	local missing_categories ""
+	foreach cat of local expected_categories {
+		qui count if group_label_code == "`cat'"
+		if r(N) == 0 {
+			local missing_categories "`missing_categories' `cat'"
+		}
+	}
+
+	if "`missing_categories'" != "" {
+		di as error "Missing programs, make sure you're running all programs in the masterfile"
+		di as error "Missing categories: `missing_categories'"
+		exit 601
+	}
+		
 		levelsof(group_label_code), local(group_loop)
 		foreach g of local group_loop {
 			
@@ -593,14 +762,14 @@ foreach var of varlist MVPF_* {
 /* Step #3d: Produce Scatter Plot. */
 ************************************************************************
 
-local scenarios "scc_193 no_lbd no_profit e_savings cali_grid mi_grid zero_rebound double_rebound scc_337 scc_337_no_lbd scc_337_no_profit scc_337_e_savings scc_337_cali_grid scc_337_mi_grid scc_337_zero_rebound scc_337_double_rebound scc_76 scc_76_no_lbd scc_76_no_profit scc_76_e_savings scc_76_cali_grid scc_76_mi_grid scc_76_zero_rebound scc_76_double_rebound"
 local symbols "circle X square triangle diamond plus v v circle X square triangle diamond plus v v circle X square triangle diamond plus v v"
 local colors "navy navy navy navy navy navy navy navy green green green green green green green green orange orange orange orange orange orange orange orange"
 local sizes "vsmall small vsmall vsmall vsmall small small small vsmall small vsmall vsmall vsmall small small small vsmall small vsmall vsmall vsmall small small small"
 local orientations "0 0 0 0 0 0 180 0 0 0 0 0 0 0 180 0 0 0 0 0 0 0 180 0"
 
 * Build marker properties dynamically for all scenarios
-forvalues i = 1/24 {
+local scenario_count : word count `scenarios'
+forvalues i = 1/`scenario_count' {
     local scenario : word `i' of `scenarios'
     local symbol : word `i' of `symbols'
     local color : word `i' of `colors'
@@ -608,7 +777,7 @@ forvalues i = 1/24 {
 	local orient : word `i' of `orientations'
 
 
-    * Create the marker properties local for this scenario
+    * Create the marker properties using actual scenario name
     local mp_`scenario' "msize(`size') msymbol(`symbol') mcolor(`color') msangle(`orient') xaxis(1)"
 }
 
@@ -636,19 +805,19 @@ foreach scenario of local scenarios {
 
 
 * Add colored squares for the SCC values legend
-local scatter_cmd_base "`scatter_cmd_base' (scatter yaxis MVPF_scc_193 if _n < 0, msymbol(square) mcolor(navy) msize(medium))"
-local scatter_cmd_base "`scatter_cmd_base' (scatter yaxis MVPF_scc_193 if _n < 0, msymbol(square) mcolor(green) msize(medium))"
-local scatter_cmd_base "`scatter_cmd_base' (scatter yaxis MVPF_scc_193 if _n < 0, msymbol(square) mcolor(orange) msize(medium))"
+local scatter_cmd_base "`scatter_cmd_base' (scatter yaxis MVPF_`primary_scenario' if _n < 0, msymbol(square) mcolor(navy) msize(medium))"
+local scatter_cmd_base "`scatter_cmd_base' (scatter yaxis MVPF_`primary_scenario' if _n < 0, msymbol(square) mcolor(green) msize(medium))"
+local scatter_cmd_base "`scatter_cmd_base' (scatter yaxis MVPF_`primary_scenario' if _n < 0, msymbol(square) mcolor(orange) msize(medium))"
 
 * Add black shapes for specs in legend
-local scatter_cmd_base "`scatter_cmd_base' (scatter yaxis MVPF_scc_193 if _n < 0, msymbol(circle) mcolor(black) msize(medium))"
-local scatter_cmd_base "`scatter_cmd_base' (scatter yaxis MVPF_scc_193 if _n < 0, msymbol(X) mcolor(black) msize(medium))"
-local scatter_cmd_base "`scatter_cmd_base' (scatter yaxis MVPF_scc_193 if _n < 0, msymbol(square) mcolor(black) msize(medium))"
-local scatter_cmd_base "`scatter_cmd_base' (scatter yaxis MVPF_scc_193 if _n < 0, msymbol(triangle) mcolor(black) msize(medium))"
-local scatter_cmd_base "`scatter_cmd_base' (scatter yaxis MVPF_scc_193 if _n < 0, msymbol(diamond) mcolor(black) msize(medium))"
-local scatter_cmd_base "`scatter_cmd_base' (scatter yaxis MVPF_scc_193 if _n < 0, msymbol(plus) mcolor(black) msize(medium))"
-local scatter_cmd_base "`scatter_cmd_base' (scatter yaxis MVPF_scc_193 if _n < 0, msymbol(v) mcolor(black) msize(medium) msangle(180))"
-local scatter_cmd_base "`scatter_cmd_base' (scatter yaxis MVPF_scc_193 if _n < 0, msymbol(v) mcolor(black) msize(medium))"
+local scatter_cmd_base "`scatter_cmd_base' (scatter yaxis MVPF_`primary_scenario' if _n < 0, msymbol(circle) mcolor(black) msize(medium))"
+local scatter_cmd_base "`scatter_cmd_base' (scatter yaxis MVPF_`primary_scenario' if _n < 0, msymbol(X) mcolor(black) msize(medium))"
+local scatter_cmd_base "`scatter_cmd_base' (scatter yaxis MVPF_`primary_scenario' if _n < 0, msymbol(square) mcolor(black) msize(medium))"
+local scatter_cmd_base "`scatter_cmd_base' (scatter yaxis MVPF_`primary_scenario' if _n < 0, msymbol(triangle) mcolor(black) msize(medium))"
+local scatter_cmd_base "`scatter_cmd_base' (scatter yaxis MVPF_`primary_scenario' if _n < 0, msymbol(diamond) mcolor(black) msize(medium))"
+local scatter_cmd_base "`scatter_cmd_base' (scatter yaxis MVPF_`primary_scenario' if _n < 0, msymbol(plus) mcolor(black) msize(medium))"
+local scatter_cmd_base "`scatter_cmd_base' (scatter yaxis MVPF_`primary_scenario' if _n < 0, msymbol(v) mcolor(black) msize(medium) msangle(180))"
+local scatter_cmd_base "`scatter_cmd_base' (scatter yaxis MVPF_`primary_scenario' if _n < 0, msymbol(v) mcolor(black) msize(medium))"
 
 * Create legend entries
 local color_start = `legend_count' + 1
