@@ -30,7 +30,7 @@
 		0 /// reps
 		"full_current_noprofits_193" // nrun
 	
-		*energy savings
+	*energy savings
 	do "${github}/wrapper/metafile.do" ///
 		"current" /// 2020
 		"193" /// SCC
@@ -41,9 +41,154 @@
 		0 /// reps
 		"full_current_savings_193" // nrun
 		
+	*CA grid
+	do "${github}/wrapper/metafile.do" ///
+		"current" /// 2020
+		"193" /// SCC
+		"yes" /// learning-by-doing
+		"no" /// savings
+		"yes" /// profits
+		"`all_programs'" /// programs to run
+		0 /// reps
+		"full_current_193_CA_grid" // nrun
 		
-. * Add category lines to the existing plot using addplot
-* Install the gr_edit package
+	*MI grid
+	do "${github}/wrapper/metafile.do" ///
+		"current" /// 2020
+		"193" /// SCC
+		"yes" /// learning-by-doing
+		"no" /// savings
+		"yes" /// profits
+		"`all_programs'" /// programs to run
+		0 /// reps
+		"full_current_193_MI_grid" // nrun
+		
+	*0 rebound
+	global rebound_change = "yes"
+	global rebound_scalar = 0
+	
+	do "${github}/wrapper/metafile.do" ///
+		"current" /// 2020
+		"193" /// SCC
+		"yes" /// learning-by-doing
+		"no" /// savings
+		"yes" /// profits
+		"`all_programs'" /// programs to run
+		0 /// reps
+		"full_current_193_zero_rebound" // nrun	
+		
+	global rebound_change = "no"
+	global rebound_scalar = 1
+
+	*2x rebound
+	global rebound_change = "yes"
+	global rebound_scalar = 2
+	
+	do "${github}/wrapper/metafile.do" ///
+		"current" /// 2020
+		"193" /// SCC
+		"yes" /// learning-by-doing
+		"no" /// savings
+		"yes" /// profits
+		"`all_programs'" /// programs to run
+		0 /// reps
+		"full_current_193_double_rebound" // nrun	
+		
+	global rebound_change = "no"
+	global rebound_scalar = 1
+		
+*-------------------------
+* SCC 76
+*-------------------------
+	*no LBD
+	do "${github}/wrapper/metafile.do" ///
+		"current" /// 2020
+		"76" /// SCC
+		"no" /// learning-by-doing
+		"no" /// savings
+		"yes" /// profits
+		"`all_programs'" /// programs to run
+		0 /// reps
+		"full_current_no_lbd_76" // nrun
+		
+	*no profits
+	do "${github}/wrapper/metafile.do" ///
+		"current" /// 2020
+		"76" /// SCC
+		"yes" /// learning-by-doing
+		"no" /// savings
+		"no" /// profits
+		"`all_programs'" /// programs to run
+		0 /// reps
+		"full_current_noprofits_76" // nrun
+	
+	*energy savings
+	do "${github}/wrapper/metafile.do" ///
+		"current" /// 2020
+		"76" /// SCC
+		"yes" /// learning-by-doing
+		"yes" /// savings
+		"yes" /// profits
+		"`all_programs'" /// programs to run
+		0 /// reps
+		"full_current_savings_76" // nrun
+		
+	*CA grid
+	do "${github}/wrapper/metafile.do" ///
+		"current" /// 2020
+		"76" /// SCC
+		"yes" /// learning-by-doing
+		"no" /// savings
+		"yes" /// profits
+		"`all_programs'" /// programs to run
+		0 /// reps
+		"full_current_76_CA_grid" // nrun
+		
+	*MI grid
+	do "${github}/wrapper/metafile.do" ///
+		"current" /// 2020
+		"76" /// SCC
+		"yes" /// learning-by-doing
+		"no" /// savings
+		"yes" /// profits
+		"`all_programs'" /// programs to run
+		0 /// reps
+		"full_current_76_MI_grid" // nrun
+		
+	*0 rebound
+	global rebound_change = "yes"
+	global rebound_scalar = 0
+	
+	do "${github}/wrapper/metafile.do" ///
+		"current" /// 2020
+		"193" /// SCC
+		"yes" /// learning-by-doing
+		"no" /// savings
+		"yes" /// profits
+		"`all_programs'" /// programs to run
+		0 /// reps
+		"full_current_193_zero_rebound" // nrun	
+		
+	global rebound_change = "no"
+	global rebound_scalar = 1
+
+	*2x rebound
+	global rebound_change = "yes"
+	global rebound_scalar = 2
+	
+	do "${github}/wrapper/metafile.do" ///
+		"current" /// 2020
+		"76" /// SCC
+		"yes" /// learning-by-doing
+		"no" /// savings
+		"yes" /// profits
+		"`all_programs'" /// programs to run
+		0 /// reps
+		"full_current_76_double_rebound" // nrun	
+		
+	global rebound_change = "no"
+	global rebound_scalar = 1
+		
 ssc install addplot
 
 * Generate category averages for SCC 193 and variations
@@ -86,10 +231,10 @@ local bar_light_orange = "252 179 72"
 local bar_dark_orange = "214 118 72"
 local bar_light_gray = "181 184 191"
 
-local output_path "${output_fig}/figures_appendix"
+local output_path "${output_fig}/figures_main"
 
 if inlist("`2'", "Fig4_scc193", "Fig5a_scc76", "Fig5b_scc337", "Fig8_scc193", "Fig9_scc193") {
-	local output_path "${output_fig}/figures_appendix"
+	local output_path "${output_fig}/figures_main"
 }
 
 ************************************************************************
