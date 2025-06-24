@@ -247,7 +247,7 @@ foreach correction_mode of global correction_modes {
     *-----------------------------------------------------------------------
     noi di "SECTION 0: MACROS"
 	qui do "${github}/ado/check_timepaths.ado"
-    qui do "${github}/wrapper/macros.do"
+    qui do "${github}/wrapper/macros.do" "yes"
 
     *-----------------------------------------------------------------------
     * 1 - Prepare causal estimates
