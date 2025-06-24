@@ -10,7 +10,7 @@
 *-----------------------
 run_program muehl_efmp, scc(193)
 
-do "${github}/figtab/waterfalls_rep.do" "muehl_efmp" "current" "2024-11-15_09-44-45__full_current_193_nov_uncorrected_vJK"
+do "${github}/figtab/waterfalls_rep.do" "muehl_efmp" "current" "full_current_193"
 
 
 *-------------------------
@@ -18,7 +18,7 @@ do "${github}/figtab/waterfalls_rep.do" "muehl_efmp" "current" "2024-11-15_09-44
 *-------------------------
 run_program hitaj_ptc, scc(193)
 
-do "${github}/figtab/waterfalls_rep.do" "hitaj_ptc" "current" "2024-11-15_09-44-45__full_current_193_nov_uncorrected_vJK" 
+do "${github}/figtab/waterfalls_rep.do" "hitaj_ptc" "current" "full_current_193" 
 
 *-----------------------------------------------
 * 2b and 3b - Wind and Solar MVPFs by elasticity
@@ -31,7 +31,7 @@ do "${github}/figtab/wind_solar_paper.do"
 *--------------------------
 run_program pless_ho
 
-do "${github}/figtab/waterfalls_rep.do" "pless_ho" "current" "2024-11-15_09-44-45__full_current_193_nov_uncorrected_vJK"
+do "${github}/figtab/waterfalls_rep.do" "pless_ho" "current" "full_current_193"
 
 *----------------------------------
 * 4 -  Baseline MVPFs for Subsidies
@@ -57,7 +57,7 @@ do "${github}/figtab/mvpf_plots_nudges.do" "yes" "no"
 *-----------------------------
 run_program small_gas_lr
 
-do "${github}/figtab/waterfalls_rep.do" "small_gas_lr" "current" "2024-11-15_09-44-45__full_current_193_nov_uncorrected_vJK"
+do "${github}/figtab/waterfalls_rep.do" "small_gas_lr" "current" "full_current_193"
 
 *----------------------------------
 * 8 -  MVPF plot of revenue raisers

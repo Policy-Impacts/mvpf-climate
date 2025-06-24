@@ -42,16 +42,16 @@ do "${github}/figtab/mvpf_plots.do" "subsidies" "2024-11-04_16-03-35__full_curre
 * 6 - CAFE vs. Gasoline + Income Tax
 *-----------------------------------
 
-do "${github}/figtab/regulations.do" "2024-11-15_09-44-45__full_current_193_nov" "gas" "cafe_dk"
+do "${github}/figtab/regulations.do" "full_current_193" "gas" "cafe_dk"
 
 *--------------------------------------
 * 7 - Additional Regulation Comparisons
 *--------------------------------------
-do "${github}/figtab/regulations.do" "2024-11-15_09-44-45__full_current_193_nov" "gas" "cafe_as"
+do "${github}/figtab/regulations.do" "full_current_193" "gas" "cafe_as"
 
-do "${github}/figtab/regulations.do" "2024-11-15_09-44-45__full_current_193_nov" "gas" "cafe_j"
+do "${github}/figtab/regulations.do" "full_current_193" "gas" "cafe_j"
 
-do "${github}/figtab/regulations.do" "2024-11-15_09-44-45__full_current_193_nov" "gas" "rps"
+do "${github}/figtab/regulations.do" "full_current_193" "gas" "rps"
 
 *------------------------
 * 8 - Electricity Rebound

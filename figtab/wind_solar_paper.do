@@ -7,7 +7,7 @@ local bar_dark_orange = "214 118 72"
 local bar_blue = "36 114 237"
 local bar_dark_blue = "8 51 97"
 
-import excel "${output_fig}/figures_data/wind_papers.xlsx", first clear
+import excel "${output_fig}/figures_data/wind_papers.xlsx", first clear // Metadata from wind papers in sample
 tostring year_publishe, replace
 
 gen label_name = country + " " + "(" + authors + " " +  year_published + ")"
@@ -207,7 +207,7 @@ replace mvpf_cc_yes = . if elasticity > 1.71
 
 local mvpf_max_text = `solar_sensor'
 
-
+*Uses elasticities from solar papers
 
 tw ///
 	(line mvpf_cc_yes elasticity, msize(tiny) lcolor("`bar_blue'")) ///

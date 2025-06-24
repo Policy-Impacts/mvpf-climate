@@ -1,7 +1,6 @@
 *****************************************************************
 *             Export Final Datasets to Excel                    *
 *****************************************************************
-local stub_toggle 					"`1'" 
 
 local table_name					"`4'"
 
@@ -18,16 +17,57 @@ local export_excel_toggle			yes
 *****************************************************
 foreach scc in "76" "193" "337" {
 	
-	if "`scc'" == "76" {
-		local stub_toggle = "`1'" 
+	*****************************************************
+	* 1A.             Get Dataset Names                  *
+	*****************************************************
+	local selected_data_stub 		full_current_`scc'
+	local pattern_suffix = "`selected_data_stub'"
+	di in yellow "Looking for folders ending with pattern: `pattern_suffix'"
+	* Find all folders in the results directory that end with the pattern
+	local results_dir = "${code_files}/4_results"
+	local folder_list = ""
+	local folder_dates = ""
+	* Get list of all subdirectories
+	qui local folders : dir "`results_dir'" dirs "*"
+	* Filter folders that end with our pattern and extract timestamps
+	foreach folder of local folders {
+		if regexm("`folder'", "^([0-9]{4}-[0-9]{2}-[0-9]{2}_[0-9]{2}-[0-9]{2}-[0-9]{2})__`pattern_suffix'$") {
+			local timestamp = regexs(1)
+			local folder_list = "`folder_list' `folder'"
+			local folder_dates = "`folder_dates' `timestamp'"
+			di in green "Found matching folder: `folder' (timestamp: `timestamp')"
+		}
 	}
-	
-	if "`scc'" == "193" {
-		local stub_toggle = "`2'" 
+	* If no matching folders found, display error and exit
+	if "`folder_list'" == "" {
+		di as error "`pattern_suffix' folder has not been created, please run the masterfile first to create this folder"
+		exit 601
 	}
-	
-	if "`scc'" == "337" {
-		local stub_toggle = "`3'" 
+	else {
+		* Find the most recent folder by comparing timestamps
+		local most_recent_folder = ""
+		local most_recent_timestamp = ""
+		local folder_count : word count `folder_list'
+		local date_count : word count `folder_dates'
+		forvalues i = 1/`folder_count' {
+			local current_folder : word `i' of `folder_list'
+			local current_timestamp : word `i' of `folder_dates'
+			* Convert timestamp to comparable format (remove hyphens and underscores)
+			local current_numeric = subinstr(subinstr("`current_timestamp'", "-", "", .), "_", "", .)
+			if "`most_recent_timestamp'" == "" {
+				local most_recent_folder = "`current_folder'"
+				local most_recent_timestamp = "`current_numeric'"
+			}
+			else {
+				local most_recent_numeric = subinstr(subinstr("`most_recent_timestamp'", "-", "", .), "_", "", .)
+				if `current_numeric' > `most_recent_numeric' {
+					local most_recent_folder = "`current_folder'"
+					local most_recent_timestamp = "`current_numeric'"
+				}
+			}
+		}
+		local stub_toggle = "`most_recent_folder'"
+		di in green "Selected most recent folder: `selected_data_stub'"
 	}
 	
 	use "${code_files}/4_results/`stub_toggle'/compiled_results_all_uncorrected_vJK", clear

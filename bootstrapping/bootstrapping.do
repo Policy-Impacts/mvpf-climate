@@ -19,7 +19,7 @@ local reps = `6'
 *--------------------------------------------
 * 2 - No Learning by Doing Policies
 *--------------------------------------------
-/*
+
 do "${github}/bootstrapping/no_lbd_bootstraps.do" `mode' `scc' `lbd' `value_savings' `value_profits' `reps'
 
 
@@ -56,12 +56,12 @@ do "${github}/bootstrapping/hev_bootstrapping_rep.do" `mode' `scc' `lbd' `value_
 *--------------------------------------------
 
 do "${github}/bootstrapping/gas_tax_boostrapping_rep.do" `mode' `scc' `lbd' `value_savings' `value_profits' `reps'
-*/
+
 *--------------------------------------------
 * 8 - International Policies
 *--------------------------------------------
 do "${github}/bootstrapping/international_bootstrapping_rep.do" `mode' `scc' `lbd' `value_savings' `value_profits' `reps'
-/*
+
 *--------------------------------------------
 * 9 - Compile CI bounds for Policies
 *--------------------------------------------
@@ -71,7 +71,7 @@ local all_programs "wisc_rf ihwap_nb dorsey_itc hitaj_ptc solarize audit_nudge f
 
 tempname bootstraps
 
-postfile `bootstraps' str18 policy l_MVPF h_MVPF using "${output_fig}/figures_data/bts_`mode'_`scc'_`value_profits'_`value_savings'_`lbd'_v2.dta", replace
+postfile `bootstraps' str18 policy l_MVPF h_MVPF using "${output_fig}/figures_data/bts_`mode'_`scc'_`value_profits'_`value_savings'_`lbd'_v3.dta", replace
 
 
 
@@ -88,7 +88,7 @@ foreach policy in `all_programs' {
 
 postclose `bootstraps'
 
-use "${output_fig}/figures_data/bts_`mode'_`scc'_`value_profits'_`value_savings'_`lbd'_v2.dta", clear
+use "${output_fig}/figures_data/bts_`mode'_`scc'_`value_profits'_`value_savings'_`lbd'_v3.dta", clear
 
 
 *--------------------------------------------
@@ -98,7 +98,7 @@ local categories = "appliance_rebates weatherization vehicle_retirements other_s
 
 tempname bootstraps
 
-postfile `bootstraps' str18 category l_MVPF h_MVPF using "${output_fig}/figures_data/avgs_`mode'_`scc'_`value_profits'_`value_savings'_`lbd'_v2.dta", replace
+postfile `bootstraps' str18 category l_MVPF h_MVPF using "${output_fig}/figures_data/avgs_`mode'_`scc'_`value_profits'_`value_savings'_`lbd'_v3.dta", replace
 
 
 
@@ -115,6 +115,6 @@ foreach cat in `categories' {
 
 postclose `bootstraps'
 
-use "${output_fig}/figures_data/avgs_`mode'_`scc'_`value_profits'_`value_savings'_`lbd'_v2.dta", clear
+use "${output_fig}/figures_data/avgs_`mode'_`scc'_`value_profits'_`value_savings'_`lbd'_v3.dta", clear
 
 

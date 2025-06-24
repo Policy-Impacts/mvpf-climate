@@ -19,8 +19,6 @@
 
 local output_path "${output_fig}/figures_main"
 
-local selected_data_stub `3'
-
 di in red "output path is `output_path'"
 
 local weatherization_policies "wap", "ihwap", "ihwap_nb", "hancevic_rf", "retrofit_res"
@@ -38,6 +36,61 @@ local bar_light_blue = "115 175 235"
 local bar_light_orange = "252 179 72"
 local bar_dark_orange = "214 118 72"
 local bar_light_gray = "181 184 191"
+
+
+*****************************************************
+* 0.             Get Dataset Names                  *
+*****************************************************
+
+local selected_data_stub 		`3'
+local pattern_suffix = "`selected_data_stub'"
+di in yellow "Looking for folders ending with pattern: `pattern_suffix'"
+* Find all folders in the results directory that end with the pattern
+local results_dir = "${code_files}/4_results"
+local folder_list = ""
+local folder_dates = ""
+* Get list of all subdirectories
+qui local folders : dir "`results_dir'" dirs "*"
+* Filter folders that end with our pattern and extract timestamps
+foreach folder of local folders {
+    if regexm("`folder'", "^([0-9]{4}-[0-9]{2}-[0-9]{2}_[0-9]{2}-[0-9]{2}-[0-9]{2})__`pattern_suffix'$") {
+        local timestamp = regexs(1)
+        local folder_list = "`folder_list' `folder'"
+        local folder_dates = "`folder_dates' `timestamp'"
+        di in green "Found matching folder: `folder' (timestamp: `timestamp')"
+    }
+}
+* If no matching folders found, display error and exit
+if "`folder_list'" == "" {
+    di as error "`pattern_suffix' folder has not been created, please run the masterfile first to create this folder"
+    exit 601
+}
+else {
+    * Find the most recent folder by comparing timestamps
+    local most_recent_folder = ""
+    local most_recent_timestamp = ""
+    local folder_count : word count `folder_list'
+    local date_count : word count `folder_dates'
+    forvalues i = 1/`folder_count' {
+        local current_folder : word `i' of `folder_list'
+        local current_timestamp : word `i' of `folder_dates'
+        * Convert timestamp to comparable format (remove hyphens and underscores)
+        local current_numeric = subinstr(subinstr("`current_timestamp'", "-", "", .), "_", "", .)
+        if "`most_recent_timestamp'" == "" {
+            local most_recent_folder = "`current_folder'"
+            local most_recent_timestamp = "`current_numeric'"
+        }
+        else {
+            local most_recent_numeric = subinstr(subinstr("`most_recent_timestamp'", "-", "", .), "_", "", .)
+            if `current_numeric' > `most_recent_numeric' {
+                local most_recent_folder = "`current_folder'"
+                local most_recent_timestamp = "`current_numeric'"
+            }
+        }
+    }
+    local selected_data_stub = "`most_recent_folder'"
+    di in green "Selected most recent folder: `selected_data_stub'"
+}
 
 ********************************************************************************
 *					  		  	 MAIN CODE  	    						   *
@@ -86,7 +139,7 @@ if "`1'" == ""{
 	local programs "muehl_efmp"
 }
 
-global bootstrap_files = "${bootstrap_folder}/`3'"
+global bootstrap_files = "${bootstrap_folder}/`selected_data_stub'_uncorrected_vJK"
 global reps = 0
 
 di in red "`programs'"

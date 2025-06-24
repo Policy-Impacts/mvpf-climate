@@ -1,7 +1,7 @@
 
 local output_path "${output_figtab}/figures_appendix"
 
-import excel "${assumptions}/grid_pollution", first clear sheet("elec_share_2020")
+import excel "${assumptions}/grid_pollution", first clear sheet("elec_share_2020") // Electricity Mix in the US in 2020
 
 foreach var in "Coal" "Oil"	"Gas" "Nuclear"	"Hydro"	"Biomass" "Wind" "Solar" "Geothermal" "OtherFossil"	"OtherUnknown" {
 	local `var'_share = `var'[1]

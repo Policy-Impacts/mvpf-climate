@@ -21,7 +21,7 @@ local epsilon = 2.1
 local pass_through = 0.85
 
 local i = 1
-/*
+
 forvalues s = 0(100)10000{
 
     local epsilon = 2.1
@@ -547,7 +547,7 @@ levelsof estimate, local(estimates)
 
 }
 save "${output_fig}/figures_data/bevs_non_marginal_mvpfs", replace
-*/
+
 ***************************************************************************
 
 

@@ -17,7 +17,7 @@ global make_plot = "`1'"
 local discount = 0.02
 local replacement = "marginal"
 
-import excel "${output_fig}/figures_data/Nudge Estimates", first clear sheet("Compiled")
+import excel "${output_fig}/figures_data/Nudge Estimates", first clear sheet("Compiled") // Metadata from HER RCTs manually compiled
 
 *Clean Data
 keep Utility State State_name Census_Region Type Utilitytype Baseline Nudges_per_year ATE YearStart Treatedyears Valid Treated Control SE 

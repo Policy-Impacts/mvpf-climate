@@ -2,7 +2,7 @@
 
 local output_path ${output_fig}
 
-import excel using "${output_tab}/tables_data/way_etal.xlsx", clear
+import excel using "${output_tab}/tables_data/way_etal.xlsx", clear // Data downloaded from Way et al replication package
 
 local bar_dark_blue = "8 51 97"
 

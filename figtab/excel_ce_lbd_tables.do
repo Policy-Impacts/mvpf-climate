@@ -10,9 +10,9 @@ local input_path "${output_tab}/tables_data"
 local output_path ${output_tab}
 
 
-use "`input_path'/table_3_data_with_lbd.dta", clear
+use "`input_path'/table_3_data_with_lbd.dta", clear // Created in cost_per_ton.do ran in tables.do
 
-append using "`input_path'/table_3_data_no_lbd.dta", gen(LBD_tag)
+append using "`input_path'/table_3_data_no_lbd.dta", gen(LBD_tag) // Created in cost_per_ton.do ran in tables.do
 
 	
 // Category Averages w/ and w/o LBD	

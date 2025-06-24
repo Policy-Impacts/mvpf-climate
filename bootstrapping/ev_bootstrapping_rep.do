@@ -73,15 +73,6 @@ preserve
 restore
 
 preserve
-
-
-    use `bev_bootstrap_data', clear
-
-restore
-
-
-
-preserve
     use `bev_bootstrap_data', clear
 
     nl exp2: WTP_cc elasticity
