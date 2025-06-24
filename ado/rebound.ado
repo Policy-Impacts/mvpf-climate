@@ -70,6 +70,14 @@ if "${ng_rebound_robustness}" == "yes" {
 	local ng_reb = 0.8 // 20% rebound for robustness check
 }
 
+if "${rebound_change}" == "yes" {
+	local reb = 1-((1-`reb')*`rebound_scalar') // scalar should be 2 or 0 , check if just electricity 
+}
+
 return scalar r = `reb'
 return scalar r_ng = `ng_reb'
 end
+
+
+*rebound yes
+*di `r(r)'

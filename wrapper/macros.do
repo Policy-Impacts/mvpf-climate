@@ -65,7 +65,7 @@ cap mkdir "${user_specific_assumptions}/files_v${user_name}/Vehicle Lifetime Dam
 cap mkdir "${user_specific_assumptions}/files_v${user_name}/New Vehicle Externalities"
 
 if "${rerun_macros}" == ""{
-	global rerun_macros "no"
+	global rerun_macros "no" // set this to yes for rep packet
 	di in red "Rerun macros wasn't defined, so now it's set to no"
 } 
 
