@@ -71,7 +71,8 @@ if "${ng_rebound_robustness}" == "yes" {
 }
 
 if "${rebound_change}" == "yes" {
-	local reb = 1-((1-`reb')*`rebound_scalar') // scalar should be 2 or 0 , check if just electricity 
+	local reb = 1-((1-`reb') * ${rebound_scalar}) // scalar should be 2 or 0 , check if just electricity 
+	local ng_reb = 1-((1-`ng_reb') * ${rebound_scalar})
 }
 
 return scalar r = `reb'
