@@ -748,15 +748,18 @@ if "`run_subsidies'" == "yes" {
 set seed 12345
 
 * Apply jitter to individual data points that have been capped to exactly 5
+local jitter_counter = 0
 foreach var of varlist MVPF_* {
+	    local jitter_counter = `jitter_counter' + 1
+
     * Generate jitter values from N(0.1, 0.1) for capped values
-    gen j_`var' = rnormal(0.1, 0.1) if `var' == `subsidy_censor_value' & `var' != .
-    
+     gen j`jitter_counter' = rnormal(0.1, 0.1) if `var' == `subsidy_censor_value' & `var' != .
+
     * Apply jitter but ensure we don't exceed a reasonable upper bound
-    replace `var' = min(`var' + j_`var', 5.3) if `var' == `subsidy_censor_value' & `var' != .
-    
+    replace `var' = min(`var' + j`jitter_counter', 5.3) if `var' == `subsidy_censor_value' & `var' != .
+
     * Clean up
-    drop j_`var'
+    drop j`jitter_counter'
 }
 ************************************************************************
 /* Step #3d: Produce Scatter Plot. */
