@@ -77,7 +77,7 @@ do "${github}/publication_bias/cdf_plot.do" 4.9 .98
 *-----------------------------------------------------
 
 do "${github}/figtab/mvpf_plots.do" "subsidies" "2024-11-04_16-42-05__corrected_ests_for_mvpf_plot" "App_Fig_12_scc193" "193" "no_cis" "pub_bias"
-
+* find where this datafile is being created and search for name and change the name to match corrected_ests
 *----------------------------------
 * Add -  MVPFs plot for Subsidies (changing local assumptions)
 *----------------------------------

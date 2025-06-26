@@ -5,296 +5,119 @@
 /* Generate datasets */
 ************************************************************************
 * Create list of all programs to run.
-// filelist, pattern("*.do") dir("${github}/policies/harmonized/") save(temp_filelist.txt) replace
-// preserve
-//
-// 	use temp_filelist.txt, clear
-//	
-// 	levelsof(filename), local(file_loop)
-// 	foreach program of local file_loop {
-//		
-// 		local program_entry = substr("`program'", 1, strlen("`program'") - 3)
-// 		local all_programs "`all_programs' `program_entry'" 
-//		
-// 	}
-//	
-// 	cap erase temp_filelist.txt
-//	
-// restore 
+
 *-------------------------
-* SCC 193
+* For SCC values 193, 76, 337
 *-------------------------
-// 	*no LBD
-// 	do "${github}/wrapper/metafile.do" ///
-// 		"current" /// 2020
-// 		"193" /// SCC
-// 		"no" /// learning-by-doing
-// 		"no" /// savings
-// 		"yes" /// profits
-// 		"`all_programs'" /// programs to run
-// 		0 /// reps
-// 		"full_current_no_lbd_193" // nrun
-//		
-// 	*no profits
-// 	do "${github}/wrapper/metafile.do" ///
-// 		"current" /// 2020
-// 		"193" /// SCC
-// 		"yes" /// learning-by-doing
-// 		"no" /// savings
-// 		"no" /// profits
-// 		"`all_programs'" /// programs to run
-// 		0 /// reps
-// 		"full_current_noprofits_193" // nrun
-//	
-// 	*energy savings
-// 	do "${github}/wrapper/metafile.do" ///
-// 		"current" /// 2020
-// 		"193" /// SCC
-// 		"yes" /// learning-by-doing
-// 		"yes" /// savings
-// 		"yes" /// profits
-// 		"`all_programs'" /// programs to run
-// 		0 /// reps
-// 		"full_current_savings_193" // nrun
-//		
-// 	*CA grid
-// 	do "${github}/wrapper/metafile.do" ///
-// 		"current" /// 2020
-// 		"193" /// SCC
-// 		"yes" /// learning-by-doing
-// 		"no" /// savings
-// 		"yes" /// profits
-// 		"`all_programs'" /// programs to run
-// 		0 /// reps
-// 		"full_current_193_CA_grid" // nrun
+preserve
+    import excel "${code_files}/policy_details_v3.xlsx", clear first
+    
+    * Filter to subsidies only and exclude extended programs
+    keep if broad_category == "Subsidies"
+    keep if extended == ""
+    
+    * Get all program names and build the list
+    levelsof(program), local(program_loop)
+    local all_programs ""
+    foreach prog of local program_loop {
+        local all_programs "`all_programs' `prog'"
+    }
+    
+    di in yellow "All programs for subsidies: `all_programs'"
+restore
+
+foreach scc in 193 76 337 {
+
+	*no LBD
+	do "${github}/wrapper/metafile.do" ///
+		"current" /// 2020
+		"`scc'" /// SCC
+		"no" /// learning-by-doing
+		"no" /// savings
+		"yes" /// profits
+		"`all_programs'" /// programs to run
+		0 /// reps
+		"full_current_no_lbd_`scc'" // nrun
 		
-// 	*MI grid
-// 	do "${github}/wrapper/metafile.do" ///
-// 		"current" /// 2020
-// 		"193" /// SCC
-// 		"yes" /// learning-by-doing
-// 		"no" /// savings
-// 		"yes" /// profits
-// 		"`all_programs'" /// programs to run
-// 		0 /// reps
-// 		"full_current_193_MI_grid" // nrun
-//		
-// 	*0 rebound
-// 	global rebound_change = "yes"
-// 	global rebound_scalar = 0
-//	
-// 	do "${github}/wrapper/metafile.do" ///
-// 		"current" /// 2020
-// 		"193" /// SCC
-// 		"yes" /// learning-by-doing
-// 		"no" /// savings
-// 		"yes" /// profits
-// 		"`all_programs'" /// programs to run
-// 		0 /// reps
-// 		"full_current_193_zero_rb" // nrun	
-//		
-// 	global rebound_change = "no"
-// 	global rebound_scalar = 1
-//
-// 	*2x rebound
-// 	global rebound_change = "yes"
-// 	global rebound_scalar = 2
-//	
-// 	do "${github}/wrapper/metafile.do" ///
-// 		"current" /// 2020
-// 		"193" /// SCC
-// 		"yes" /// learning-by-doing
-// 		"no" /// savings
-// 		"yes" /// profits
-// 		"`all_programs'" /// programs to run
-// 		0 /// reps
-// 		"full_current_193_2_rb" // nrun	
-//		
-// 	global rebound_change = "no"
-// 	global rebound_scalar = 1
-//		
-// *-------------------------
-// * SCC 76
-// *-------------------------
-// 	*no LBD
-// 	do "${github}/wrapper/metafile.do" ///
-// 		"current" /// 2020
-// 		"76" /// SCC
-// 		"no" /// learning-by-doing
-// 		"no" /// savings
-// 		"yes" /// profits
-// 		"`all_programs'" /// programs to run
-// 		0 /// reps
-// 		"full_current_no_lbd_76" // nrun
-//		
-// 	*no profits
-// 	do "${github}/wrapper/metafile.do" ///
-// 		"current" /// 2020
-// 		"76" /// SCC
-// 		"yes" /// learning-by-doing
-// 		"no" /// savings
-// 		"no" /// profits
-// 		"`all_programs'" /// programs to run
-// 		0 /// reps
-// 		"full_current_noprofits_76" // nrun
-//	
-// 	*energy savings
-// 	do "${github}/wrapper/metafile.do" ///
-// 		"current" /// 2020
-// 		"76" /// SCC
-// 		"yes" /// learning-by-doing
-// 		"yes" /// savings
-// 		"yes" /// profits
-// 		"`all_programs'" /// programs to run
-// 		0 /// reps
-// 		"full_current_savings_76" // nrun
-//		
-// 	*CA grid
-// 	do "${github}/wrapper/metafile.do" ///
-// 		"current" /// 2020
-// 		"76" /// SCC
-// 		"yes" /// learning-by-doing
-// 		"no" /// savings
-// 		"yes" /// profits
-// 		"`all_programs'" /// programs to run
-// 		0 /// reps
-// 		"full_current_76_CA_grid" // nrun
-//		
-// 	*MI grid
-// 	do "${github}/wrapper/metafile.do" ///
-// 		"current" /// 2020
-// 		"76" /// SCC
-// 		"yes" /// learning-by-doing
-// 		"no" /// savings
-// 		"yes" /// profits
-// 		"`all_programs'" /// programs to run
-// 		0 /// reps
-// 		"full_current_76_MI_grid" // nrun
-//		
-// 	*0 rebound
-// 	global rebound_change = "yes"
-// 	global rebound_scalar = 0
-//	
-// 	do "${github}/wrapper/metafile.do" ///
-// 		"current" /// 2020
-// 		"76" /// SCC
-// 		"yes" /// learning-by-doing
-// 		"no" /// savings
-// 		"yes" /// profits
-// 		"`all_programs'" /// programs to run
-// 		0 /// reps
-// 		"full_current_76_zero_rb" // nrun	
-//		
-// 	global rebound_change = "no"
-// 	global rebound_scalar = 1
-//
-// 	*2x rebound
-// 	global rebound_change = "yes"
-// 	global rebound_scalar = 2
-//	
-// 	do "${github}/wrapper/metafile.do" ///
-// 		"current" /// 2020
-// 		"76" /// SCC
-// 		"yes" /// learning-by-doing
-// 		"no" /// savings
-// 		"yes" /// profits
-// 		"`all_programs'" /// programs to run
-// 		0 /// reps
-// 		"full_current_76_2_rb" // nrun	
-//		
-// 	global rebound_change = "no"
-// 	global rebound_scalar = 1
-// *-------------------------
-// * SCC 337
-// *-------------------------
-// 	*no LBD
-// 	do "${github}/wrapper/metafile.do" ///
-// 		"current" /// 2020
-// 		"337" /// SCC
-// 		"no" /// learning-by-doing
-// 		"no" /// savings
-// 		"yes" /// profits
-// 		"`all_programs'" /// programs to run
-// 		0 /// reps
-// 		"full_current_no_lbd_337" // nrun
-//		
-// 	*no profits
-// 	do "${github}/wrapper/metafile.do" ///
-// 		"current" /// 2020
-// 		"337" /// SCC
-// 		"yes" /// learning-by-doing
-// 		"no" /// savings
-// 		"no" /// profits
-// 		"`all_programs'" /// programs to run
-// 		0 /// reps
-// 		"full_current_noprofits_337" // nrun
-//	
-// 	*energy savings
-// 	do "${github}/wrapper/metafile.do" ///
-// 		"current" /// 2020
-// 		"337" /// SCC
-// 		"yes" /// learning-by-doing
-// 		"yes" /// savings
-// 		"yes" /// profits
-// 		"`all_programs'" /// programs to run
-// 		0 /// reps
-// 		"full_current_savings_337" // nrun
-//		
-// 	*CA grid
-// 	do "${github}/wrapper/metafile.do" ///
-// 		"current" /// 2020
-// 		"337" /// SCC
-// 		"yes" /// learning-by-doing
-// 		"no" /// savings
-// 		"yes" /// profits
-// 		"`all_programs'" /// programs to run
-// 		0 /// reps
-// 		"full_current_337_CA_grid" // nrun
-//		
-// 	*MI grid
-// 	do "${github}/wrapper/metafile.do" ///
-// 		"current" /// 2020
-// 		"337" /// SCC
-// 		"yes" /// learning-by-doing
-// 		"no" /// savings
-// 		"yes" /// profits
-// 		"`all_programs'" /// programs to run
-// 		0 /// reps
-// 		"full_current_337_MI_grid" // nrun
-//		
-// 	*0 rebound
-// 	global rebound_change = "yes"
-// 	global rebound_scalar = 0
-//	
-// 	do "${github}/wrapper/metafile.do" ///
-// 		"current" /// 2020
-// 		"337" /// SCC
-// 		"yes" /// learning-by-doing
-// 		"no" /// savings
-// 		"yes" /// profits
-// 		"`all_programs'" /// programs to run
-// 		0 /// reps
-// 		"full_current_337_zero_rb" // nrun	
-//		
-// 	global rebound_change = "no"
-// 	global rebound_scalar = 1
-//
-// 	*2x rebound
-// 	global rebound_change = "yes"
-// 	global rebound_scalar = 2
-//	
-// 	do "${github}/wrapper/metafile.do" ///
-// 		"current" /// 2020
-// 		"337" /// SCC
-// 		"yes" /// learning-by-doing
-// 		"no" /// savings
-// 		"yes" /// profits
-// 		"`all_programs'" /// programs to run
-// 		0 /// reps
-// 		"full_current_337_2_rb" // nrun	
-//		
-// 	global rebound_change = "no"
-// 	global rebound_scalar = 1
+   *no profits
+    do "${github}/wrapper/metafile.do" ///
+        "current" /// 2020
+        "`scc'" /// SCC
+        "yes" /// learning-by-doing
+        "no" /// savings
+        "no" /// profits
+        "`all_programs'" /// programs to run
+        0 /// reps
+        "full_current_noprofits_`scc'" // nrun
+    
+    *energy savings
+    do "${github}/wrapper/metafile.do" ///
+        "current" /// 2020
+        "`scc'" /// SCC
+        "yes" /// learning-by-doing
+        "yes" /// savings
+        "yes" /// profits
+        "`all_programs'" /// programs to run
+        0 /// reps
+        "full_current_savings_`scc'" // nrun
+        
+    *CA grid
+    do "${github}/wrapper/metafile.do" ///
+        "current" /// 2020
+        "`scc'" /// SCC
+        "yes" /// learning-by-doing
+        "no" /// savings
+        "yes" /// profits
+        "`all_programs'" /// programs to run
+        0 /// reps
+        "full_current_`scc'_CA_grid" // nrun
+        
+    *MI grid
+    do "${github}/wrapper/metafile.do" ///
+        "current" /// 2020
+        "`scc'" /// SCC
+        "yes" /// learning-by-doing
+        "no" /// savings
+        "yes" /// profits
+        "`all_programs'" /// programs to run
+        0 /// reps
+        "full_current_`scc'_MI_grid" // nrun
+        
+    *0 rebound
+    global rebound_change = "yes"
+    global rebound_scalar = 0
+    
+    do "${github}/wrapper/metafile.do" ///
+        "current" /// 2020
+        "`scc'" /// SCC
+        "yes" /// learning-by-doing
+        "no" /// savings
+        "yes" /// profits
+        "`all_programs'" /// programs to run
+        0 /// reps
+        "full_current_`scc'_zero_rb" // nrun	
+        
+    global rebound_change = "no"
+    global rebound_scalar = 1
+
+    *2x rebound
+    global rebound_change = "yes"
+    global rebound_scalar = 2
+    
+    do "${github}/wrapper/metafile.do" ///
+        "current" /// 2020
+        "`scc'" /// SCC
+        "yes" /// learning-by-doing
+        "no" /// savings
+        "yes" /// profits
+        "`all_programs'" /// programs to run
+        0 /// reps
+        "full_current_`scc'_2_rb" // nrun	
+        
+    global rebound_change = "no"
+    global rebound_scalar = 1
+}
+
 		
 ssc install addplot
 
