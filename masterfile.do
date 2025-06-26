@@ -11,8 +11,8 @@ clear all
 * Specs
 *------
 global rerun_data = "yes"
-global bootstraps = "yes"
-global pub_bias = "no"
+global bootstraps = "no"
+global pub_bias = "yes"
 
 *------
 * Paths
@@ -175,13 +175,13 @@ if "${pub_bias}" == "yes" & "${rerun_data}" == "yes" {
     do "${github}/wrapper/metafile.do" ///
        "current" ///
        "193" /// SCC
-       "no" /// learning-by-doing
+       "yes" /// learning-by-doing
        "no" /// savings
        "yes" /// profits
        "`all_programs'" ///
        0 ///
-       "full_current_193_no_pub_bias_no_lbd" ///
-       "no" // to run pub bias
+       "full_current_193_pub_bias_and_lbd" ///
+       "yes" // to run pub bias
 }
 
 *Create necessary globals if user did not run all the results
