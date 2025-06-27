@@ -64,19 +64,19 @@ do "${github}/figtab/contour_plot.do"
 * 9 - Evidence of Publication Bias
 *----------------------------------
 
-do "${github}/publication_bias/heuristic_graphs.do" 5 10 4.9 .98
+do "${github}/publication_bias/heuristic_graphs.do" 5 10 4.9 .98 //check for hardcoded dataset
 
 *--------------------------------------------------
 * 10 - Model Fits for Estimates of Publication Bias
 *--------------------------------------------------
 
-do "${github}/publication_bias/cdf_plot.do" 4.9 .98
+do "${github}/publication_bias/cdf_plot.do" 4.9 .98 //check for hardcoded
 
 *-----------------------------------------------------
 * 11 - MVPFs with Publication Bias–Corrected Estimates
 *-----------------------------------------------------
 
-do "${github}/figtab/mvpf_plots.do" "subsidies" "2024-11-04_16-42-05__corrected_ests_for_mvpf_plot" "App_Fig_12_scc193" "193" "no_cis" "pub_bias"
+do "${github}/figtab/mvpf_plots.do" "subsidies" "full_current_193_pub_bias_and_lbd" "App_Fig_12_scc193" "193" "no_cis" "pub_bias"
 * find where this datafile is being created and search for name and change the name to match corrected_ests
 *----------------------------------
 * Add -  MVPFs plot for Subsidies (changing local assumptions)
