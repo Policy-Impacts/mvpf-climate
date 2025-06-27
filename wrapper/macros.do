@@ -818,7 +818,7 @@ if "${rerun_timepaths}" == "yes" {
 	
 	local alternative_spec = ""
 	
-	if ${renewables_loop} == "yes" {
+	if "${renewables_loop}" == "yes" {
 		local alternative_spec = "_${renewables_percent}"
 	}
 	save "${assumptions}/timepaths/ev_externalities_time_path_${scc}_age${vehicle_car_lifetime}_vmt${EV_VMT_car_adjustment_ind}_grid${ev_grid}`alternative_spec'.dta", replace
@@ -829,7 +829,7 @@ if "${rerun_timepaths}" == "yes" {
 * 5 - Save Wind & Solar Timepaths 
 *-----------------------------------------------------------------------
 
-if "${rerun_timepaths}" == "yes" {
+if "${rerun_timepaths}" == "yes" | "${rerun_solar_wind_timepaths}" == "yes" {
 	
 	qui do "${calculation_files}/solar_enviro_ext"
 	qui do "${calculation_files}/wind_enviro_ext"

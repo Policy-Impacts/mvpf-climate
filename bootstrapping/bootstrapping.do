@@ -16,6 +16,18 @@ local value_savings = "`4'"
 local lbd = "`5'"
 local reps = `6'
 
+cap qui do "${github}/ado/run_program.ado"
+qui do "${github}/ado/gas_tax.ado"
+qui do "${github}/ado/vehicle_retirement.ado"
+qui do "${github}/ado/wind_ado.ado"
+qui do "${github}/ado/weatherization_ado.ado"
+qui do "${github}/ado/solar.ado"
+qui do "${github}/ado/dynamic_split_grid.ado"
+qui do "${github}/ado/dynamic_grid.ado"
+qui do "${github}/ado/dynamic_grid_v2.ado"
+qui do "${github}/ado/rebound.ado"
+qui do "${github}/ado/check_timepaths.ado"
+
 *--------------------------------------------
 * 2 - No Learning by Doing Policies
 *--------------------------------------------
@@ -49,7 +61,6 @@ do "${github}/bootstrapping/ev_bootstrapping_rep.do" `mode' `scc' `lbd' `value_s
 *--------------------------------------------
 
 do "${github}/bootstrapping/hev_bootstrapping_rep.do" `mode' `scc' `lbd' `value_savings' `value_profits' `reps'
-
 
 *--------------------------------------------
 * 7 - Gas Tax Policies
@@ -88,7 +99,7 @@ foreach policy in `all_programs' {
 
 postclose `bootstraps'
 
-use "${output_fig}/figures_data/bts_`mode'_`scc'_`value_profits'_`value_savings'_`lbd'_v3.dta", clear
+use "${output_fig}/figures_data/bts_`mode'_`scc'_`value_profits'_`value_savings'_`lbd'_v3.dta", clear // Make sure this name is the same as the name of the file being called in mvpf_plots
 
 
 *--------------------------------------------
@@ -115,6 +126,6 @@ foreach cat in `categories' {
 
 postclose `bootstraps'
 
-use "${output_fig}/figures_data/avgs_`mode'_`scc'_`value_profits'_`value_savings'_`lbd'_v3.dta", clear
+use "${output_fig}/figures_data/avgs_`mode'_`scc'_`value_profits'_`value_savings'_`lbd'_v3.dta", clear // Make sure this name is the same as the name of the file being called in mvpf_plots
 
 

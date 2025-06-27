@@ -80,13 +80,6 @@ restore
 
 preserve
 
-
-    use `hev_bootstrap_data', clear
-restore
-
-
-
-
     use `hev_bootstrap_data', clear
 
 

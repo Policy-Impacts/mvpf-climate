@@ -15,7 +15,7 @@ global renewables_2020 = 0.1952 // EPA eGRID renewables (including Hydro)
 *--------------------------------------------
 if "`re_pull_data'" == "yes" {
 
-	forvalues percent = 0.01(0.01)0.90 {
+	forvalues percent = 0.01(0.10)0.95 {
 		global renewables_percent = `percent'
 		
 		do "${github}/wrapper/metafile.do" ///
@@ -34,7 +34,7 @@ if "`re_pull_data'" == "yes" {
 * Changing Renewable Percentages (Solar)
 *--------------------------------------------
 if "`re_pull_data'" == "yes" {
-	forvalues percent = 0.01(0.01)0.90 {
+	forvalues percent = 0.01(0.10)0.95 {
 		global renewables_percent = `percent'
 		
 		do "${github}/wrapper/metafile.do" ///
@@ -78,7 +78,7 @@ if "`re_pull_data'" == "yes" {
 *--------------------------------------------------------------------------------------
 local re_pull_data = "yes"
 if "`re_pull_data'" == "yes" {
-	forvalues percent = 0.01(0.01)0.90 {
+	forvalues percent = 0.01(0.10)0.95 {
 		global renewables_percent = `percent'
 		
 		do "${github}/wrapper/metafile.do" ///
@@ -99,7 +99,7 @@ if "`re_pull_data'" == "yes" {
 *--------------------------------------------------------------------------------------
 local re_pull_data = "yes"
 if "`re_pull_data'" == "yes" {
-	forvalues percent = 0.9(0.05)0.95 {
+	forvalues percent = 0.01(0.10)0.95 {
 		global renewables_percent = `percent'
 		
 		do "${github}/wrapper/metafile.do" ///
@@ -136,14 +136,14 @@ foreach f in `matched_files' {
 }
 gen percent = 0.01
 
-local percent = 0.02
+local percent = 0.11
 foreach f of local folders_wind {
 		if "`f'" != "`first_file'" {
 	
 		append using "${github}/data/4_results/`f'/compiled_results_all_uncorrected_vJK.dta"
 		
 		replace percent = `percent' if percent == .
-		local percent = `percent' + 0.01	
+		local percent = `percent' + 0.10	
 		
 	}
 	
@@ -157,7 +157,7 @@ foreach f of local folders_solar {
 		append using "${github}/data/4_results/`f'/compiled_results_all_uncorrected_vJK.dta"
 		
 		replace percent = `percent' if percent == .
-		local percent = `percent' + 0.01	
+		local percent = `percent' + 0.10	
 	
 }
 replace category = "Residential Solar" if category == ""
@@ -194,32 +194,12 @@ foreach f of local folders_ev_nolbd {
 	
 		append using "${github}/data/4_results/`f'/compiled_results_all_uncorrected_vJK.dta"
 		
-		if `percent' >= 0.05 & `percent' < 0.9 {
-			
-			replace percent = `percent' if percent == .
-			local percent = `percent' + 0.25
-			
-			if `percent' == 0.8 {
-				local percent = 0.9
-			}
-			
-		}
-		
-		if `percent' <= 0.03 {
-			replace percent = `percent' if percent == .
-			local percent = `percent' + 0.01
-			
-			if `percent' == 0.04 {
-				local percent = 0.05
-			}
-		}
-		
-		if `percent' == 0.9 {
-			replace percent = `percent' if percent == .
-		}
+		replace percent = `percent' if percent == .
+		local percent = `percent' + 0.10	
 	
 }
 replace category = "ev_no_lbd" if category == ""
+
 
 *Appending No LBD policies
 local percent = 0.01
@@ -228,7 +208,7 @@ foreach f of local folders_no_lbd {
 		append using "${github}/data/4_results/`f'/compiled_results_all_uncorrected_vJK.dta"
 		
 		replace percent = `percent' if percent == .
-		local percent = `percent' + 0.01	
+		local percent = `percent' + 0.10	
 	
 }
 replace category = "Weatherization" if inlist(program, "retrofit_res", "ihwap_nb","wisc_rf", "wap", "hancevic_rf")

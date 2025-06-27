@@ -286,7 +286,7 @@ foreach scc in "76" "193" "337" {
 
 preserve 
 
-	use "${output_fig}/figures_data/avgs_current_`scc'_yes_no_yes.dta", clear
+	use "${output_fig}/figures_data/avgs_current_`scc'_yes_no_yes_v3.dta", clear
 
 	levelsof category, local(categories)
 	
@@ -302,7 +302,7 @@ preserve
 restore
 
 preserve 
-	use "${output_fig}/figures_data/bts_current_`scc'_yes_no_yes.dta", clear
+	use "${output_fig}/figures_data/bts_current_`scc'_yes_no_yes_v3.dta", clear
 	rename policy program
 	merge 1:1 program using "`policy_labels.dta'", keep(3)
 	keep program_label_short *MVPF
