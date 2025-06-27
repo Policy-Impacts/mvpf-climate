@@ -73,7 +73,6 @@ tw (line cum abs_t_stat, lcolor("`bar_blue'"))  ///
 
 graph export "${code_files}/5_graphs/figures_appendix/cdf_plot.`suf'", replace
 graph export "${code_files}/5_graphs/figures_appendix/cdf_plot.pdf", replace
-graph export "${dropbox_me}/Apps/Overleaf/MVPF Climate Policy/Figures/Publication_Bias/cdf_plot.pdf", replace
 keep abs_t_stat 
 g sample = "actual"
 preserve

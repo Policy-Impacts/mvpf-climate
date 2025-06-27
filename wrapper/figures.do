@@ -42,14 +42,11 @@ do "${github}/figtab/mvpf_plots.do" "subsidies" "full_current_193" "Fig4_scc193"
 *-------------------------------------------
 * 5 -  MVPF plot for varying specifications
 *-------------------------------------------
-//
-// do "${github}/figtab/mvpf_plots_add.do" "subsidies" "Subsidy Robustness" "scc_193" "no_lbd" "no_profit" "e_savings" "cali_grid" "mi_grid"  "zero_rebound" "double_rebound" "scc_337" "scc_337_no_lbd" "scc_337_no_profit" "scc_337_e_savings" "scc_337_cali_grid" "scc_337_mi_grid" "scc_337_zero_rebound" "scc_337_double_rebound" "scc_76" "scc_76_no_lbd" "scc_76_no_profit" "scc_76_e_savings" "scc_76_cali_grid"  "scc_76_mi_grid" "scc_76_zero_rebound" "scc_76_double_rebound"
 
 do "${github}/figtab/mvpf_plots_add.do" "subsidies" "Subsidy Robustness" "full_current_193" "full_current_no_lbd_193" "full_current_noprofits_193" "full_current_savings_193" "full_current_193_ca_grid" "full_current_193_mi_grid" "full_current_193_zero_rb" "full_current_193_2_rb" "full_current_337" "full_current_no_lbd_337" "full_current_noprofits_337" "full_current_savings_337" "full_current_337_ca_grid" "full_current_337_mi_grid" "full_current_337_zero_rb" "full_current_337_2_rb" "full_current_76" "full_current_no_lbd_76" "full_current_noprofits_76" "full_current_savings_76" "full_current_76_ca_grid" "full_current_76_mi_grid" "full_current_76_zero_rb" "full_current_76_2_rb"
 
 
 do "${github}/figtab/changing_grid.do"
-
 
 *--------------------
 * 6 -  HERs MVPF plot
@@ -68,13 +65,13 @@ do "${github}/figtab/waterfalls_rep.do" "small_gas_lr" "current" "full_current_1
 * 8 -  MVPF plot of revenue raisers
 *----------------------------------
 
-do "${github}/figtab/mvpf_plots.do" "taxes" "2024-11-15_09-44-45__full_current_193_nov" "Fig8_scc193" "193" "yes_cis"
+do "${github}/figtab/mvpf_plots.do" "taxes" "full_current_193" "Fig8_scc193" "193" "yes_cis"
 
 *-----------------------------------------
 * 9 -  MVPF plot of international policies
 *-----------------------------------------
 
-do "${github}/figtab/mvpf_plots.do" "intl" "2024-11-15_09-44-45__full_current_193_nov" "Fig9_scc193" "split" "no_cis"
+do "${github}/figtab/mvpf_plots.do" "intl" "full_current_193_nov" "Fig9_scc193" "split" "no_cis"
 
 
 
