@@ -390,8 +390,8 @@ replace l_MVPF = `solar_low' if program_label_short == "Residential Solar, with 
 replace h_MVPF = `solar_high' if program_label_short == "Residential Solar, with SEs"
 
 // EVs CIs
-replace l_MVPF = `bev_high' if program_label_short == "Electric Vehicles, with SEs"
-replace h_MVPF = `bev_low'  if program_label_short == "Electric Vehicles, with SEs"
+replace l_MVPF = `bev_low' if program_label_short == "Electric Vehicles, with SEs"
+replace h_MVPF = `bev_high'  if program_label_short == "Electric Vehicles, with SEs"
 
 // HYBRID CIs
 replace l_MVPF = `hev_low' if program_label_short == "Hybrid Vehicles, with SEs"
@@ -422,8 +422,8 @@ replace l_MVPF = `other_rev_raisers_low' if program_label_short == "Other Revenu
 replace h_MVPF = `other_rev_raisers_high' if program_label_short == "Other Revenue Raisers, with SEs"
 
 // OTHER NUDGES CIs
-replace l_MVPF = `other_subsidies_low' if program_label_short == "Other Nudges, with SEs"
-replace h_MVPF = `other_subsidies_high' if program_label_short == "Other Nudges, with SEs"
+replace l_MVPF = `other_nudges_low' if program_label_short == "Other Nudges, with SEs"
+replace h_MVPF = `other_nudges_high' if program_label_short == "Other Nudges, with SEs"
 
 // OTHER SUBSIDIES CIs
 replace l_MVPF = `other_subsidies_low' if program_label_short == "Other Subsidies, with SEs"
