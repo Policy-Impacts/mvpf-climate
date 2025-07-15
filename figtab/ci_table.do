@@ -70,6 +70,7 @@ foreach scc in "76" "193" "337" {
 		di in green "Selected most recent folder: `selected_data_stub'"
 	}
 	
+	
 	use "${code_files}/4_results/`stub_toggle'/compiled_results_all_uncorrected_vJK", clear
 
 	missings dropvars, force
@@ -94,6 +95,7 @@ foreach scc in "76" "193" "337" {
 	merge m:1 program using "`policy_labels.dta'", keep(3)
 	drop if program == "cafe_dk"
 	drop if broad_category == "Regulation"
+	
 	assert _N == 96
 
 	missings dropvars, force
