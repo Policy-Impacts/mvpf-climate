@@ -156,7 +156,7 @@ post `numbers' ("evs_ca_mvpf") ((${WTP_cc_muehl_efmp} + ${WTP_cc_federal_ev} + $
 di in red "Calculating category avg MVPF with MI grid..."
 run_program muehl_efmp, ev_grid("MI") macros("yes")
 run_program federal_ev, ev_grid("MI") macros("no")
-run_program bev_state, ev_grid("MI")macros("no")
+run_program bev_state, ev_grid("MI") macros("no")
 global ev_grid = "US" // reset EV grid back to US
 
 post `numbers' ("evs_mi_mvpf") ((${WTP_cc_muehl_efmp} + ${WTP_cc_federal_ev} + ${WTP_cc_bev_state}) / (${cost_muehl_efmp} + ${cost_federal_ev} + ${cost_bev_state})) 
