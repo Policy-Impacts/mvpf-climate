@@ -70,6 +70,7 @@ foreach scc in "76" "193" "337" {
 		di in green "Selected most recent folder: `selected_data_stub'"
 	}
 	
+	
 	use "${code_files}/4_results/`stub_toggle'/compiled_results_all_uncorrected_vJK", clear
 
 	missings dropvars, force
@@ -94,6 +95,7 @@ foreach scc in "76" "193" "337" {
 	merge m:1 program using "`policy_labels.dta'", keep(3)
 	drop if program == "cafe_dk"
 	drop if broad_category == "Regulation"
+	
 	assert _N == 96
 
 	missings dropvars, force
@@ -390,8 +392,8 @@ replace l_MVPF = `solar_low' if program_label_short == "Residential Solar, with 
 replace h_MVPF = `solar_high' if program_label_short == "Residential Solar, with SEs"
 
 // EVs CIs
-replace l_MVPF = `bev_high' if program_label_short == "Electric Vehicles, with SEs"
-replace h_MVPF = `bev_low'  if program_label_short == "Electric Vehicles, with SEs"
+replace l_MVPF = `bev_low' if program_label_short == "Electric Vehicles, with SEs"
+replace h_MVPF = `bev_high'  if program_label_short == "Electric Vehicles, with SEs"
 
 // HYBRID CIs
 replace l_MVPF = `hev_low' if program_label_short == "Hybrid Vehicles, with SEs"
@@ -422,8 +424,8 @@ replace l_MVPF = `other_rev_raisers_low' if program_label_short == "Other Revenu
 replace h_MVPF = `other_rev_raisers_high' if program_label_short == "Other Revenue Raisers, with SEs"
 
 // OTHER NUDGES CIs
-replace l_MVPF = `other_subsidies_low' if program_label_short == "Other Nudges, with SEs"
-replace h_MVPF = `other_subsidies_high' if program_label_short == "Other Nudges, with SEs"
+replace l_MVPF = `other_nudges_low' if program_label_short == "Other Nudges, with SEs"
+replace h_MVPF = `other_nudges_high' if program_label_short == "Other Nudges, with SEs"
 
 // OTHER SUBSIDIES CIs
 replace l_MVPF = `other_subsidies_low' if program_label_short == "Other Subsidies, with SEs"

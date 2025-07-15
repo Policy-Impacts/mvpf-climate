@@ -6,7 +6,67 @@ tempname numbers
 tempfile robustness_values
 postfile `numbers' str80 label value using `robustness_values', replace
 
-local main_data_set = "2024-11-15_09-44-45__full_current_193_nov"
+local pattern_suffix = "full_current_193"
+di in yellow "Looking for folders ending with pattern: `pattern_suffix'"
+
+* Find all folders in the results directory that end with the pattern
+local results_dir = "${code_files}/4_results"
+local folder_list = ""
+local folder_dates = ""
+
+* Get list of all subdirectories
+qui local folders : dir "`results_dir'" dirs "*"
+
+* Filter folders that end with our pattern and extract timestamps
+foreach folder of local folders {
+	    di in red "Checking: `folder' against pattern: __`pattern_suffix'$"
+    if regexm("`folder'", "^([0-9]{4}-[0-9]{2}-[0-9]{2}_[0-9]{2}-[0-9]{2}-[0-9]{2})__`pattern_suffix'$") {
+        local timestamp = regexs(1)
+        local folder_list = "`folder_list' `folder'"
+        local folder_dates = "`folder_dates' `timestamp'"
+        di in green "Found matching folder: `folder' (timestamp: `timestamp')"
+    }
+}
+
+* If no matching folders found, display error and exit
+if "`folder_list'" == "" {
+    di as error "`pattern_suffix' folder has not been created, please run the masterfile first to create this folder"
+    exit 601
+}
+else {
+    * Find the most recent folder by comparing timestamps
+    local most_recent_folder = ""
+    local most_recent_timestamp = ""
+    
+    local folder_count : word count `folder_list'
+    local date_count : word count `folder_dates'
+    
+    forvalues i = 1/`folder_count' {
+        local current_folder : word `i' of `folder_list'
+        local current_timestamp : word `i' of `folder_dates'
+        
+        * Convert timestamp to comparable format (remove hyphens and underscores)
+        local current_numeric = subinstr(subinstr("`current_timestamp'", "-", "", .), "_", "", .)
+        
+        if "`most_recent_timestamp'" == "" {
+            local most_recent_folder = "`current_folder'"
+            local most_recent_timestamp = "`current_numeric'"
+        }
+        else {
+            local most_recent_numeric = subinstr(subinstr("`most_recent_timestamp'", "-", "", .), "_", "", .)
+            if `current_numeric' > `most_recent_numeric' {
+                local most_recent_folder = "`current_folder'"
+                local most_recent_timestamp = "`current_numeric'"
+            }
+        }
+    }
+    
+    local main_data_set = "`most_recent_folder'"
+    di in green "Selected most recent folder: `main_data_set'"
+}
+
+
+* local main_data_set = "2024-11-15_09-44-45__full_current_193_nov"
 global lbd "yes"
 
 *----------------------
@@ -96,8 +156,7 @@ post `numbers' ("evs_ca_mvpf") ((${WTP_cc_muehl_efmp} + ${WTP_cc_federal_ev} + $
 di in red "Calculating category avg MVPF with MI grid..."
 run_program muehl_efmp, ev_grid("MI") macros("yes")
 run_program federal_ev, ev_grid("MI") macros("no")
-run_program bev_state, ev_grid("MI") macros("no")
-global ev_grid = "US" // reset EV grid back to US
+run_program bev_state, ev_grid("MI")macros("no")
 
 post `numbers' ("evs_mi_mvpf") ((${WTP_cc_muehl_efmp} + ${WTP_cc_federal_ev} + ${WTP_cc_bev_state}) / (${cost_muehl_efmp} + ${cost_federal_ev} + ${cost_bev_state})) 
 

@@ -381,9 +381,6 @@ if "`run_subsidies'" == "yes" {
     replace `var' = 0 if `var' < 0
 		}
 		
-* First, set the random number seed for reproducibility
-set seed 12345
-
 * Apply jitter to individual data points that have been capped to exactly 5
 foreach var of varlist MVPF_* {
     * Generate jitter values from N(0.1, 0.1) for capped values
