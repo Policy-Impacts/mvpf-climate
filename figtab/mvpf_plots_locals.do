@@ -382,7 +382,6 @@ if "`run_subsidies'" == "yes" {
 		}
 		
 * First, set the random number seed for reproducibility
-set seed 12345
 
 * Apply jitter to individual data points that have been capped to exactly 5
 foreach var of varlist MVPF_* {

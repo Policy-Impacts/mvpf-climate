@@ -11,7 +11,7 @@ clear all
 * Specs
 *------
 global rerun_data = "yes"
-global bootstraps = "no"
+global bootstraps = "yes"
 global pub_bias = "yes"
 
 *------
@@ -68,24 +68,28 @@ preserve
 restore 
 
 *------------------------------
+* 0 - Prepare Data Inputs
+*------------------------------
+do "${github}/wrapper/clean_data.do"
+*------------------------------
 * 1 - All of the different runs
 *------------------------------
 
-// if "${rerun_data}" == "yes" {
-//
-// 	*Main Run
-// 	do "${github}/wrapper/metafile.do" ///
-// 		"current" /// 2020
-// 		"193" /// SCC
-// 		"yes" /// learning-by-doing
-// 		"no" /// savings
-// 		"yes" /// profits
-// 		"`all_programs'" /// programs to run
-// 		0 /// reps
-// 		"full_current_193" // nrun
+if "${rerun_data}" == "yes" {
+
+	*Main Run
+	do "${github}/wrapper/metafile.do" ///
+		"current" /// 2020
+		"193" /// SCC
+		"yes" /// learning-by-doing
+		"no" /// savings
+		"yes" /// profits
+		"`all_programs'" /// programs to run
+		0 /// reps
+		"full_current_193" // nrun
 
 	*Run using $76 SCC
-	/*do "${github}/wrapper/metafile.do" ///
+	do "${github}/wrapper/metafile.do" ///
 		"current" /// 2020
 		"76" /// SCC
 		"yes" /// learning-by-doing
@@ -203,7 +207,7 @@ if "${rerun_data}" == "no" {
 * 4 - Robustness
 *---------------
 
-/*do "${github}/wrapper/robustness.do"
+do "${github}/wrapper/robustness.do"
 
 *-----------------------
 * 5 - Figures and Tables

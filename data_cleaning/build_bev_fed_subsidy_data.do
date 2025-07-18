@@ -192,7 +192,7 @@ merge 1:1 Vehicle using "${code_files}/1_assumptions/evs/processed/kbb_ev_sales2
 
 *** Adding in 2023 IRA subsidies ***
 gen subsidy2023 = .
-replace subsidy2023 = 7500 if Vehicle == "Cadillac Lyric" | Vehicle = "Chevy Bolt" | Vehicle == "Ford E-Transit" | Vehicle == "Ford F-150 Lightning" | Vehicle == "Ford Mustang Mach-E" | Vehicle == "Genesis GV70" | Vehicle == "Mercedes EQE" | Vehicle == "Nissan Leaf" | Vehicle == "Rivian R1S" | Vehicle == "Rivian R1T" | Vehicle == "Tesla Model 3" | Vehicle == "Tesla Model Y" | Vehicle == "VW ID.4"
+replace subsidy2023 = 7500 if Vehicle == "Cadillac Lyric" | Vehicle == "Chevy Bolt" | Vehicle == "Ford E-Transit" | Vehicle == "Ford F-150 Lightning" | Vehicle == "Ford Mustang Mach-E" | Vehicle == "Genesis GV70" | Vehicle == "Mercedes EQE" | Vehicle == "Nissan Leaf" | Vehicle == "Rivian R1S" | Vehicle == "Rivian R1T" | Vehicle == "Tesla Model 3" | Vehicle == "Tesla Model Y" | Vehicle == "VW ID.4"
 
 *** Adding in 2023 model battery capacities
 gen batt_cap2023 = .

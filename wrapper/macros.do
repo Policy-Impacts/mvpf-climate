@@ -26,36 +26,36 @@ global EV_VMT_car_adjustment_ind = round(${EV_VMT_car_adjustment}, .001)
 check_timepaths check // Check if timepaths for learning by doing already exist
 di in red "Rerun timepaths set to ${rerun_timepaths}
 
-// global rerun_timepaths "no"
-// if fileexists("${assumptions}/timepaths/ev_externalities_time_path_${scc}_age${vehicle_car_lifetime}_vmt${EV_VMT_car_adjustment_ind}_grid${ev_grid}.dta") != 1{
-// 	global rerun_timepaths "yes"
-//
-// 	if "${scc}" == "" | "${vehicle_car_lifetime}" == "" | "{EV_VMT_car_adjustment_ind}" == "" | "${ev_grid}" == ""{
-// 		if fileexists("${assumptions}/timepaths/ev_externalities_time_path_193_age17_vmt.615_gridUS.dta") == 1{
-// 			global rerun_timepaths "no"
-// 		}
-// 		di in red "Rerun timepaths set to ${rerun_timepaths} because the globals are blank and the default timepaths exist"
-// 	}
-// 	else{
-// 		di in red "Rerun timepaths set to ${rerun_timepaths} based on whether the file already exists"
-// 	}
-// }
-//
-// if "${rerun_timepaths}" == "yes" {
-//	
-// 	global ev_simulation_max_year 2050
-// 	global rerun_macros 	"yes" // Rerun macros if saving timepaths. 
-//
-// 	di in red "Rerun macros set to ${rerun_macros} based on what rerun timepaths is set to"
-//	
-// }
-//
-//
-// if "${rerun_timepaths}" == "no" {
-//	
-// 	global ev_simulation_max_year 2022
-//	
-// }
+global rerun_timepaths "no"
+if fileexists("${assumptions}/timepaths/ev_externalities_time_path_${scc}_age${vehicle_car_lifetime}_vmt${EV_VMT_car_adjustment_ind}_grid${ev_grid}.dta") != 1{
+	global rerun_timepaths "yes"
+
+	if "${scc}" == "" | "${vehicle_car_lifetime}" == "" | "{EV_VMT_car_adjustment_ind}" == "" | "${ev_grid}" == ""{
+		if fileexists("${assumptions}/timepaths/ev_externalities_time_path_193_age17_vmt.615_gridUS.dta") == 1{
+			global rerun_timepaths "no"
+		}
+		di in red "Rerun timepaths set to ${rerun_timepaths} because the globals are blank and the default timepaths exist"
+	}
+	else{
+		di in red "Rerun timepaths set to ${rerun_timepaths} based on whether the file already exists"
+	}
+}
+
+if "${rerun_timepaths}" == "yes" {
+	
+	global ev_simulation_max_year 2050
+	global rerun_macros 	"yes" // Rerun macros if saving timepaths. 
+
+	di in red "Rerun macros set to ${rerun_macros} based on what rerun timepaths is set to"
+	
+}
+
+
+if "${rerun_timepaths}" == "no" {
+	
+	global ev_simulation_max_year 2022
+	
+}
 
 cap mkdir "${user_specific_assumptions}/files_v${user_name}"
 cap mkdir "${user_specific_assumptions}/files_v${user_name}/Gasoline Prices, Markups, and Taxes"

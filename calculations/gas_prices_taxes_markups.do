@@ -162,7 +162,7 @@ merge 1:1 date using "`refining_production.dta'", keep(1 3) nogen
 
 	* Save monthly dataset.
 	gen month = month(date)
-		save "${user_specific_assumptions}/files_v${user_name}/Gasoline Prices, Markups, and Taxes/gas_data_monthly", replace 
+		save "${gas_price_data}/gas_data_monthly", replace 
 
 	
 	* Save annual dataset.
@@ -190,7 +190,7 @@ restore
 
 * Step #5: Save tax rates as their own dataset. 
 preserve 
-	use "${user_specific_assumptions}/files_v${user_name}/Gasoline Prices, Markups, and Taxes/gas_data_monthly", replace  
+	use "${gas_price_data}/gas_data_monthly", replace  
 	keep year date *rate
 	save "${user_specific_assumptions}/files_v${user_name}/Gasoline Prices, Markups, and Taxes/gas_tax_rates", replace 
 restore 
