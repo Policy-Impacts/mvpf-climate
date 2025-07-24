@@ -175,7 +175,7 @@ preserve
 		replace tax2013 = tax2013 * (${cpi_${dollar_year}} / ${cpi_2013})
 		replace tax2014 = tax2014 * (${cpi_${dollar_year}} / ${cpi_2014})
 		keep if state == "Colorado" | state == "Georgia" | state == "Louisiana" | state == "Maryland" | state == "Oregon" | state == "South Carolina" | state == "Utah" | state == "West Virginia"
-		merge m:1 state using "${assumptions}/evs/processed/pop_by_state", keep(match)
+		merge m:1 state using "${assumptions}/evs/processed/pop_by_state_2010_2019", keep(match)
 		gen N = pop2011 + pop2012 + pop2013 + pop2014
 		gen weighted_avg = pop2011 * tax2011 + pop2012 * tax2012 + pop2013 * tax2013 + pop2014 * tax2014
 		replace weighted_avg = weighted_avg / N

@@ -181,7 +181,7 @@ preserve
 		replace tax2017 = tax2017 * (${cpi_${dollar_year}} / ${cpi_2017})
 		replace tax2018 = tax2018 * (${cpi_${dollar_year}} / ${cpi_2018})
 		keep if state == "California"
-		merge m:1 state using "${assumptions}/evs/processed/pop_by_state", keep(match)
+		merge m:1 state using "${assumptions}/evs/processed/pop_by_state_2010_2019", keep(match)
 		gen N = pop2015 + pop2016 + pop2017 + pop2018
 		gen weighted_avg = pop2015 * tax2015 + pop2016 * tax2016 + pop2017 * tax2017 + pop2018 * tax2018
 		replace weighted_avg = weighted_avg / N

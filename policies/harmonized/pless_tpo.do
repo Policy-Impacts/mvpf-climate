@@ -99,7 +99,7 @@ levelsof estimate, local(estimates)
 		local system_capacity = ${system_capacity}
 		local annual_output = ${output} / (`system_capacity' * 1000)
 		local lifetime = ${lifetime}
-		local federal_subsidy = 0.26
+		local federal_subsidy = 0.26 // Percent of Cost Subsidized in 2020
 		local cost_per_watt_baseline = ${cost_per_watt} * (${cpi_`dollar_year'} / ${cpi_2022})
 	restore
 
@@ -117,11 +117,11 @@ levelsof estimate, local(estimates)
 	** Cost assumptions
 	local pre_cost_per_watt = ${cost_per_watt} * (${cpi_`dollar_year'} / ${cpi_2022})
 	local cost_per_watt = `pre_cost_per_watt' * (1 - `federal_subsidy')
-	local avg_state_rebate = 0
+	local avg_state_rebate = 0 // Assuming no average state rebate.
 	local avg_fed_rebate = `pre_cost_per_watt' * `federal_subsidy'
 	
 	if "${spec_type}" == "baseline" {
-		local federal_subsidy = 0.3
+		local federal_subsidy = 0.3 // Subsidy was 30% in baseline year. https://www.irs.gov/pub/irs-prior/i5695--2014.pdf
 		local system_capacity = 5.065 // W (Table B.1)
 		local annual_output = 8233 / (`system_capacity' * 1000) // Inputting California values & baseline size from https://pvwatts.nrel.gov/pvwatts.php
 		
@@ -140,7 +140,7 @@ levelsof estimate, local(estimates)
 		local avg_fed_rebate = `pre_cost_per_watt' * `federal_subsidy'
 	}
 	
-	local e_demand = ((`price' + (2 * 3.7 * `price_squared')) * 3.7)/0.518
+	local e_demand = ((`price' + (2 * 3.7 * `price_squared')) * 3.7)/0.518 // 0.518 is mean installations and 3.7 is mean price
 	local semie = `e_demand'/`cost_per_watt'
 	
 	local pass_through1 = 0.778 // From Pless Paper
@@ -156,8 +156,8 @@ local cum_sales = (713918 * 1000)/`system_capacity' // 71391800 MW, as of 2020; 
 local marg_sales = (128050.40 * 1000)/`system_capacity' // 128050.40 MW, in 2020; 39,541.25 MW, in 2014 (IRENA, 2023)
 
 if `dollar_year' == ${policy_year} {
-	local cum_sales = (40327.34 * 1000)/`system_capacity'
-	local marg_sales = (17491.10 * 1000)/`system_capacity'  
+	local cum_sales = (40327.34 * 1000)/`system_capacity' // (IRENA, 2023)
+	local marg_sales = (17491.10 * 1000)/`system_capacity' // (IRENA, 2023)
 }
 
 solar, policy_year(${policy_year}) spec(${spec_type}) semie(`semie') replacement(`replacement') p_name("pless_tpo") marg_sales(`marg_sales') cum_sales(`cum_sales') annual_output(`annual_output') system_capacity(`system_capacity') pre_cost_per_watt(`pre_cost_per_watt') avg_state_rebate(`avg_state_rebate') e_demand(`e_demand') pass_through(`pass_through') farmer_theta(`farmer_theta') federal_subsidy(`federal_subsidy')

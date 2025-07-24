@@ -4,7 +4,8 @@
 preserve
 
 local avg_profits = 0.08 // Economy-wide average markup (%).
-
+global gas_vehicle_files "${assumptions}/gas_vehicles"	
+global gas_price_data "${gas_vehicle_files}/gas_price_data"
 * Step #0: Pull refining cost assumption. 
 import excel "${policy_assumptions}", first clear sheet("driving_parameters")
 qui sum estimate if parameter == "refiner_var_cost"

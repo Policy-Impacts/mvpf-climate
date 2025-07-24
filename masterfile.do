@@ -70,7 +70,9 @@ restore
 *------------------------------
 * 0 - Prepare Data Inputs
 *------------------------------
+
 do "${github}/wrapper/clean_data.do"
+
 *------------------------------
 * 1 - All of the different runs
 *------------------------------
@@ -153,7 +155,7 @@ if "${rerun_data}" == "yes" {
 		"`all_programs'" /// programs to run
 		0 /// reps
 		"full_current_noprofits" */
-// }
+}
 *---------------
 * 2 - Bootstrapping
 *------------------
@@ -166,7 +168,7 @@ if "${bootstraps}" == "yes" & "${rerun_data}" == "yes" {
 			`scc' /// scc
 			"yes" /// value prorfits
 			"no" /// value savings
-			"no" /// lbd
+			"yes" /// lbd
 			1000 // reps
 	}
 }
