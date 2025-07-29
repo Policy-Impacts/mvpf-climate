@@ -55,7 +55,7 @@ preserve
     tempfile bev_bootstrap_data
     postfile `bev_bootstrap' elasticity MVPF cost WTP_cc using `bev_bootstrap_data', replace 
         local i = 0
-        forvalues e = 0(0.1)6.5 {
+        forvalues e = 0(0.1)5 {
             global feed_in_elas = `e'
             di in red "Running for an elasticity of -`e'"
             if `i' == 0{

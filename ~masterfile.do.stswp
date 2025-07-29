@@ -78,7 +78,7 @@ restore
 * 0 - Prepare Data Inputs
 *------------------------------
 
-do "${github}/wrapper/clean_data.do"
+*do "${github}/wrapper/clean_data.do"
 
 *------------------------------
 * 1 - All of the different runs
