@@ -4,11 +4,8 @@
 *************************************************************************************
 
 */
-
-display `"All the arguments, as typed by the user, are: `0'"'
-
-local elec_dem_elas = -0.190144
-local elec_sup_elas = 0.7806420154513118
+local elec_dem_elas = -0.190144 // DOI (2021)
+local elec_sup_elas = 0.7806420154513118 // DOI (2021)
 
 local bev_cf = "${bev_cf}"
 local veh_lifespan_type = substr("${bev_cf}", strpos("${bev_cf}", "_") + 1, .)
@@ -433,6 +430,7 @@ if `epsilon' > 0{
 
 local lbd_cf = ("`bev_cf'" == "new_car")
 ** --------------------- COST CURVE --------------------- **
+
 cost_curve_masterfile, demand_elas(`epsilon') discount_rate(`discount') farmer(`farmer_theta') fcr(`fixed_cost_frac') curr_prod(`marg_sales') cum_prod(`cum_sales') price(`net_msrp') enviro(ev_local) scc(${scc_import_check}) new_car(`lbd_cf')
 local dyn_enviro_local = `r(enviro_mvpf)'
 

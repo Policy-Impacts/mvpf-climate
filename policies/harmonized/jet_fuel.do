@@ -227,11 +227,11 @@ preserve
 			
 	}
 	
-	gen wtp_CO2 = ((9752.236 / 1000000) * `social_cost_CO2')  + `wtp_upstream_CO2'
-	gen wtp_SO2 = (((600 * 0.00305672062)/1000000) * `social_cost_SO2_uw') + `wtp_upstream_SO2' 
+	gen wtp_CO2 = ((9752.236 / 1000000) * `social_cost_CO2')  + `wtp_upstream_CO2' // XX
+	gen wtp_SO2 = (((600 * 0.00305672062)/1000000) * `social_cost_SO2_uw') + `wtp_upstream_SO2' // XX
 	
 	/* 1 ppm =  Assume 600ppm, and assume density of 807.5 kg/m^3 for jet fuel.
-	https://lae.mit.edu/2012/03/01/study-released-on-the-costs-and-benefits-of-desulfurizing-jet-fuel/ */
+	https://lae.mit.edu/2012/03/01/study-released-on-the-costs-and-benefits-of-desulfurizing-jet-fuel/ XX */
 	
 	gen wtp_N2O = `wtp_upstream_N2O'
 	gen wtp_CH4 = `wtp_upstream_CH4'

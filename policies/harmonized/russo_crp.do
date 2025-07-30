@@ -107,7 +107,7 @@ levelsof estimate, local(estimates)
 	
 	local russo_ghg = (`annual_avoided_CO2' * 43)
 	
-	local other_benefits = ((98.34 - `russo_ghg') + (255.70 - `russo_ghg') + (367.96 - `russo_ghg') + (456.04 - `russo_ghg'))/4
+	local other_benefits = ((98.34 - `russo_ghg') + (255.70 - `russo_ghg') + (367.96 - `russo_ghg') + (456.04 - `russo_ghg'))/4 // from paper
 
 	local marginal_prop = `rd_estimate'/-0.35 // Calculated using estimate & method from Table 2
 	
@@ -115,7 +115,7 @@ levelsof estimate, local(estimates)
 /* 4. WTP Calculations */
 *************************
 if "`efficient_allocation'" == "yes" {
-	local marginal_prop = 0.55
+	local marginal_prop = 0.55 // from when paper models an optimal auction market
 }
 local wtp_infr = (1 - `marginal_prop') * `bid_price'
 local wtp_marg = `marginal_prop' * 0.5 * `bid_price' // Hard to get landowner surplus so using a Harberger approximation instead

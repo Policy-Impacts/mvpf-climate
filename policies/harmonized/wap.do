@@ -82,7 +82,7 @@ levelsof estimate, local(estimates)
 /* 3. Set local assumptions unique to this policy */
 ****************************************************
 
-local subsidy_cost = 5150
+local subsidy_cost = 5150 // in 2011 dollars from paper
 local baseline_electricity_mmbtu = 2.13 * 12 // Table 4
 local baseline_electricity_kwh = `baseline_electricity_mmbtu' * 293.07107 // Converting mmbtu to kwh
 

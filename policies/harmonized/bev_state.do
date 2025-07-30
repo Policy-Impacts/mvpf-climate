@@ -919,6 +919,7 @@ if "${lbd}" == "yes"{
 		
 	}
 	else{
+		
 		cost_curve_masterfile, demand_elas(`epsilon') discount_rate(`discount') farmer(`farmer_theta') fcr(`fixed_cost_frac') ///
 							   curr_prod(`marg_sales') cum_prod(`cum_sales') price(`net_msrp') enviro(ev_local) time_path_age(`lifetime') ///
 							   scc(${scc_import_check}) new_car(`lbd_cf') vmt(${EV_VMT_car_adjustment}) ev_grid(${ev_grid})
@@ -1011,7 +1012,7 @@ di in red "lifetime energy cost is `lifetime_energy_cost'"
 local purchase_price_diff = 8166 * (${cpi_2020} / ${cpi_2023}) // from Vincentric's 2024 Electric Vehicle Cost of Ownership Analysis
 di in red "purchase price difference is `purchase_price_diff'"
 
-local lifetime_gas_cost = ${clean_car_cf_gas_savings_2020} - ${clean_car_wtp_prod_s_2020} - 0.08 * ${clean_car_cf_gas_savings_2020} - ${clean_car_cf_gas_fisc_ext_2020} ////economy-wide 8% markup from De Loecker et al. (2020)
+local lifetime_gas_cost = ${clean_car_cf_gas_savings_2020} - ${clean_car_wtp_prod_s_2020} - 0.08 * ${clean_car_cf_gas_savings_2020} - ${clean_car_cf_gas_fisc_ext_2020} //economy-wide 8% markup from De Loecker et al. (2020)
 
 di in red "lifetime gas cost is `lifetime_gas_cost'"
 

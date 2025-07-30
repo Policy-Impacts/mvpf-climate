@@ -85,8 +85,8 @@ levelsof estimate, local(estimates)
 	/* 3a. Policy Specific Assumptions */
 	****************************************************
 
-	local retrofit_cost = 9655
-	local kwhs_per_mmbtu = 293.07107
+	local retrofit_cost = 9655 // average cost per household in 2017 dollars, from paper
+	local kwhs_per_mmbtu = 293.07107 // from paper
 	
 *********************************
 /* 4. Intermediate Calculations */

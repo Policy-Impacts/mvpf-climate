@@ -196,15 +196,15 @@ replace subsidy2023 = 7500 if Vehicle == "Cadillac Lyric" | Vehicle == "Chevy Bo
 
 *** Adding in 2023 model battery capacities
 gen batt_cap2023 = .
-replace batt_cap2023 = 82 if Vehicle == "Audi Q4 e-tron"
-replace batt_cap2023 = 95 if Vehicle == "Audi e-tron"
-replace batt_cap2023 = (113 + 109 + 105 + 99 + 96) / 5 if Vehicle == "BMW i4"
-replace batt_cap2023 = 105.7 if Vehicle == "BMW i7"
-replace batt_cap2023 = (86 + 86 + 83) / 3 if Vehicle == "BMW iX"
-replace batt_cap2023 = 89 if Vehicle == "Cadillac Lyric"
-replace batt_cap2023 = (120 + 115) / 2 if Vehicle == "Chevrolet Bolt"
-replace batt_cap2023 = 92 if Vehicle == "Fisker Ocean"
-replace batt_cap2023 = (70) / 5 if Vehicle == "BMW i4"
+replace batt_cap2023 = 82 if Vehicle == "Audi Q4 e-tron" // audiusa.com
+replace batt_cap2023 = 95 if Vehicle == "Audi e-tron" // audiusa.com
+replace batt_cap2023 = (113 + 109 + 105 + 99 + 96) / 5 if Vehicle == "BMW i4" // XX
+replace batt_cap2023 = 105.7 if Vehicle == "BMW i7" // bmwoftenafly.com
+replace batt_cap2023 = (86 + 86 + 83) / 3 if Vehicle == "BMW iX" //XX
+replace batt_cap2023 = 89 if Vehicle == "Cadillac Lyric" // https://www.edmunds.com/cadillac/lyriq/2023/features-specs/ XX not seeing the 89 from the link, other sources show 102: https://en.wikipedia.org/wiki/Cadillac_Lyriq
+replace batt_cap2023 = (120 + 115) / 2 if Vehicle == "Chevrolet Bolt" // XX, I'm seeing that batt cap is around 65
+replace batt_cap2023 = 92 if Vehicle == "Fisker Ocean" // XX
+replace batt_cap2023 = (70) / 5 if Vehicle == "BMW i4" // XX error?
 
 
 
@@ -224,6 +224,7 @@ sort year
 duplicates drop year subsidy_weighted_avg, force
 drop Vehicle
 
+* Source in XX
 gen cf_mpg = .
 replace cf_mpg = 34.14553791 if year == 2011
 replace cf_mpg = 36.1435982 if year == 2012

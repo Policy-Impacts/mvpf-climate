@@ -42,7 +42,7 @@ forv i = 1999(1)2019{
 	gen mpg`i' = .
 }
 
-replace batt_cap2000 = 6.5 * 144 / 1000 if Vehicle == "Honda Insight"
+replace batt_cap2000 = 6.5 * 144 / 1000 if Vehicle == "Honda Insight" // https://electronhybridsolution.com/product/honda-insight-1999-2006-remanufactured-hybrid-battery-rebuild-kit/
 replace batt_cap2001 = 6.5 * 144 / 1000 if Vehicle == "Honda Insight"
 replace batt_cap2002 = 6.5 * 144 / 1000 if Vehicle == "Honda Insight"
 replace batt_cap2003 = 6.5 * 144 / 1000 if Vehicle == "Honda Insight"
@@ -50,27 +50,27 @@ replace batt_cap2004 = 6.5 * 144 / 1000 if Vehicle == "Honda Insight"
 replace batt_cap2005 = 6.5 * 144 / 1000 if Vehicle == "Honda Insight"
 replace batt_cap2006 = 6.5 * 144 / 1000 if Vehicle == "Honda Insight"
 
-replace batt_cap2001 = 6.5 * 273.6 / 1000 if Vehicle == "Toyota Prius"
+replace batt_cap2001 = 6.5 * 273.6 / 1000 if Vehicle == "Toyota Prius" // https://ennocar.com/product/ni-mh-273-6v-6-5ah-prismatic-hybrid-car-battery-toyota-prius-gen1-2000-2001-2002-2003/
 replace batt_cap2002 = 6.5 * 273.6 / 1000 if Vehicle == "Toyota Prius"
 replace batt_cap2003 = 6.5 * 273.6 / 1000 if Vehicle == "Toyota Prius"
-replace batt_cap2004 = 6.5 * 201.6 / 1000 if Vehicle == "Toyota Prius"
-replace batt_cap2005 = 6.5 * 201.6 / 1000 if Vehicle == "Toyota Prius"
+replace batt_cap2004 = 6.5 * 201.6 / 1000 if Vehicle == "Toyota Prius" // https://poweringautos.com/what-is-the-capacity-prius-car-battery/
+replace batt_cap2005 = 6.5 * 201.6 / 1000 if Vehicle == "Toyota Prius" 
 replace batt_cap2006 = 6.5 * 201.6 / 1000 if Vehicle == "Toyota Prius"
 
-replace batt_cap2003 = 6.5 * 144 / 1000 if Vehicle == "Honda Civic"
+replace batt_cap2003 = 6.5 * 144 / 1000 if Vehicle == "Honda Civic" // https://ihybridbattery.com/product/honda-civic-g1-hybrid-battery-2003-2005/
 replace batt_cap2004 = 6.5 * 144 / 1000 if Vehicle == "Honda Civic"
-replace batt_cap2005 = 6 * 144 / 1000 if Vehicle == "Honda Civic"
-replace batt_cap2006 = 5.5 * 158 / 1000 if Vehicle == "Honda Civic"
+replace batt_cap2005 = 6 * 144 / 1000 if Vehicle == "Honda Civic" // XX
+replace batt_cap2006 = 5.5 * 158 / 1000 if Vehicle == "Honda Civic" // XX
 
-replace batt_cap2005 = 6 * 330 / 1000 if Vehicle == "Ford Escape/Mercury Mariner"
+replace batt_cap2005 = 6 * 330 / 1000 if Vehicle == "Ford Escape/Mercury Mariner" // XX missing support for 6 Ah still https://www.cars.com/research/ford-escape-2005/
 replace batt_cap2006 = 6 * 330 / 1000 if Vehicle == "Ford Escape/Mercury Mariner"
 
-replace batt_cap2005 = 6 * 144 / 1000 if Vehicle == "Honda Accord"
+replace batt_cap2005 = 6 * 144 / 1000 if Vehicle == "Honda Accord" // https://avt.inl.gov/sites/default/files/pdf/hev/batteryaccord1096.pdf
 replace batt_cap2006 = 6 * 144 / 1000 if Vehicle == "Honda Accord"
 
-replace batt_cap2006 = 6.5 * 288 / 1000 if Vehicle == "Toyota Highlander"
+replace batt_cap2006 = 6.5 * 288 / 1000 if Vehicle == "Toyota Highlander" // https://www.besthybridbatteries.com/products/toyota-highlander-2006-2007-hybrid-battery
 
-replace batt_cap2006 = 6.5 * 288 / 1000 if Vehicle == "Lexus RX 450h"
+replace batt_cap2006 = 6.5 * 288 / 1000 if Vehicle == "Lexus RX 450h" // http://www.ae.pwr.wroc.pl/filez/20110606092430_HEV_Toyota.pdf
 
 preserve
 
@@ -126,27 +126,27 @@ drop if Vehicle == "Total"
 gen batt_cap2020 = .
 gen mpg2020 = .
 
-replace batt_cap2020 = 1.3 if Vehicle == "Acura RLX" | Vehicle == "Acura NSX" // Google
-replace batt_cap2020 = 1.1 if Vehicle == "Ford Escape/Mercury Mariner" // Google
-replace batt_cap2020 = 1.1 if Vehicle == "Ford Explorer" // Google
-replace batt_cap2020 = 1.4 if Vehicle == "Ford Fusion & Milan" // Google
-replace batt_cap2020 = 1.3 if Vehicle == "Honda Accord" // Google
-replace batt_cap2020 = 1.2 if Vehicle == "Honda Insight" // Wikipedia
-replace batt_cap2020 = 6.5 * 244.8 / 1000 if Vehicle == "Toyota RAV4" // manual
-replace batt_cap2020 = 6.5 * 288 / 1000 if Vehicle == "Toyota Highlander" // manual
-replace batt_cap2020 = ((4  * 207.2 + 6.5 * 201.6) / 1000) / 2 if Vehicle == "Toyota Prius" // manual, avg of 2WD and AWD
-replace batt_cap2020 = ((4  * 259 + 6.5 * 244.8) / 1000) / 2 if Vehicle == "Toyota Camry" // manual, avg of AXVH70 and AXVH71 models
-replace batt_cap2020 = 6.5 * 201.6 / 1000 if Vehicle == "Toyota Corolla" // manual
-replace batt_cap2020 = 6.5 * 244.8 / 1000 if Vehicle == "Toyota Avalon" // manual
-replace batt_cap2020 = 6.5 * 240 / 1000 if Vehicle == "Kia Niro" // Kia news release
-replace batt_cap2020 = 6.5 * 270 / 1000 if Vehicle == "Kia Optima" // Kia news release
-replace batt_cap2020 = 6.5 * 288 / 1000 if Vehicle == "Lexus RX 450h" // manual
-replace batt_cap2020 = 6.5 * 216 / 1000 if Vehicle == "Lexus UX" // manual
-replace batt_cap2020 = 6.5 * 244.8 / 1000 if Vehicle == "Lexus NX Hybrid" | Vehicle == "Lexus ES Hybrid" // manual
-replace batt_cap2020 = 3.6 * 310.8 / 1000 if Vehicle == "Lexus LS 500h" | Vehicle == "Lexus LC500h" // manual
-replace batt_cap2020 = 1.56 if Vehicle == "Hyundai Ioniq Hybrid" // Wikipedia
-replace batt_cap2020 = 1.62 if Vehicle == "Hyundai Sonata" // Google
-replace batt_cap2020 = 1 if Vehicle == "Lincoln MKZ" // cars.com
+replace batt_cap2020 = 1.3 if Vehicle == "Acura RLX" | Vehicle == "Acura NSX" // https://www.autoweb.com/acura/nsx/2020 and https://en.wikipedia.org/wiki/Acura_RLX
+replace batt_cap2020 = 1.1 if Vehicle == "Ford Escape/Mercury Mariner" // https://www.caranddriver.com/news/a27006951/2020-ford-escape-hybrid-plug-in-photos-info/
+replace batt_cap2020 = 1.1 if Vehicle == "Ford Explorer" // https://www.caranddriver.com/news/a27006951/2020-ford-escape-hybrid-plug-in-photos-info/
+replace batt_cap2020 = 1.4 if Vehicle == "Ford Fusion & Milan" // https://www.holzhauers.com/blog/2020/september/9/everything-you-need-to-know-about-the-ford-fusion-hybrid-battery.htm
+replace batt_cap2020 = 1.3 if Vehicle == "Honda Accord" // https://www.caranddriver.com/honda/accord/specs/2020/honda_accord_honda-accord-hybrid_2020
+replace batt_cap2020 = 1.2 if Vehicle == "Honda Insight" // https://www.topspeed.com/real-cost-replacing-honda-insight-hybrid-battery/
+replace batt_cap2020 = 6.5 * 244.8 / 1000 if Vehicle == "Toyota RAV4" // https://www.guideautoweb.com/en/articles/53908/2020-toyota-rav4-hybrid-the-best-rav4-you-can-buy/
+replace batt_cap2020 = 6.5 * 288 / 1000 if Vehicle == "Toyota Highlander" // XX unable to find a source that specifies 2020.
+replace batt_cap2020 = ((4 * 207.2 + 6.5 * 201.6) / 1000) / 2 if Vehicle == "Toyota Prius" // https://www.velocityjournal.com/journal/2020/toyota/33872/reviews/310.html, avg of 2WD and AWD XX getting Ah of 3.6 instead
+replace batt_cap2020 = ((4  * 259 + 6.5 * 244.8) / 1000) / 2 if Vehicle == "Toyota Camry" // manual, avg of AXVH70 and AXVH71 models, XX unable to find cite supporting 244.8. https://evcentral.com.au/toyota-camry-hybrid-battery-upgraded/
+replace batt_cap2020 = 6.5 * 201.6 / 1000 if Vehicle == "Toyota Corolla" // manual XX
+replace batt_cap2020 = 6.5 * 244.8 / 1000 if Vehicle == "Toyota Avalon" // manual XX
+replace batt_cap2020 = 6.5 * 240 / 1000 if Vehicle == "Kia Niro" // https://www.kniro.net/description_and_operation-724.html
+replace batt_cap2020 = 6.5 * 270 / 1000 if Vehicle == "Kia Optima" // Kia news release XX not finding source with exact match
+replace batt_cap2020 = 6.5 * 288 / 1000 if Vehicle == "Lexus RX 450h" // manual XX unable to find source for 2020 in particular
+replace batt_cap2020 = 6.5 * 216 / 1000 if Vehicle == "Lexus UX" // https://www.okacc.com/product/216v-6-5ah-nimh-hybrid-car-battery-replacement-for-lexus-ux-250h-2019/
+replace batt_cap2020 = 6.5 * 244.8 / 1000 if Vehicle == "Lexus NX Hybrid" | Vehicle == "Lexus ES Hybrid" // XX
+replace batt_cap2020 = 3.6 * 310.8 / 1000 if Vehicle == "Lexus LS 500h" | Vehicle == "Lexus LC500h" // https://www.caranddriver.com/reviews/a32132012/2020-lexus-ls500h-drive/ and https://www.caranddriver.com/lexus/lc
+replace batt_cap2020 = 1.56 if Vehicle == "Hyundai Ioniq Hybrid" // https://www.encycarpedia.com/us/hyundai/16-ioniq-hybrid-hatch
+replace batt_cap2020 = 1.62 if Vehicle == "Hyundai Sonata" // https://www.motortrend.com/reviews/2020-hyundai-sonata-hybrid-first-drive
+replace batt_cap2020 = 1 if Vehicle == "Lincoln MKZ" // cars.com XX only seeing 1.4 and not 1, from https://www.caranddriver.com/lincoln/mkz/specs/2020/lincoln_mkz_lincoln-mkz-hybrid_2020
 
 *** All msrp info is from edmunds unless otherwise noted
 
@@ -182,7 +182,7 @@ replace msrp2020 = 52530 if Vehicle == "Ford Explorer"
 replace msrp2020 = (90900 + 96150) / 2 if Vehicle == "Land Rover Range Rover"
 replace msrp2020 = 53000 if Vehicle == "Acura MDX Hybrid"
 
-replace msrp2000 = 20495 if Vehicle == "Honda Insight" // kbb
+replace msrp2000 = 20495 if Vehicle == "Honda Insight" // Kelley Blue Book
 replace msrp2001 = 18980 if Vehicle == "Honda Insight"
 replace msrp2001 = 19995 if Vehicle == "Toyota Prius"
 replace msrp2002 = 19080 if Vehicle == "Honda Insight"

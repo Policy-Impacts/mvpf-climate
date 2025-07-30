@@ -5,6 +5,7 @@ program define cost_curve_masterfile   , rclass
 version 17
 
 syntax [anything],   demand_elas(real) discount_rate(real)  farmer(real)  curr_prod(real)  cum_prod(real) price(real)   enviro(string) [fcr(real 0)  tmax(real 10000) markup(real 0) passthrough(real -1) subsidy_max(real 0) subsidy_end(real 0) graph graphfit replace nopresubsidy start_year(real 2020) scc(real 0) new_car(real 0) time_path_age(real 17) vmt(real 0.61544408) ev_grid(string) ]  
+
 if "`anything'"=="" local anything NA
 
 local randid = runiformint(0,100000)
@@ -33,6 +34,7 @@ preserve
             local cut_year 0 
         } 
         else if strpos("`enviro'","ev")>0 {
+		
 			
             if "`ev_grid'" == "" {
                 local ev_grid = "US"
@@ -44,16 +46,16 @@ preserve
 			}
 			
 			else {
-				local vmt_ind = round(`vmt', 3)
+				local vmt_ind = round(`vmt', 0.001)
 			}
 			
             
 			if "${renewables_loop}" != "yes" {
-				use "${assumptions}/timepaths/ev_externalities_time_path_scc`scc'_age`time_path_age'_vmt`vmt_ind'_grid`ev_grid'.dta", clear 
+				use "${assumptions}/timepaths/ev_externalities_time_path_`scc'_age`time_path_age'_vmt`vmt_ind'_grid`ev_grid'.dta", clear 
 			}
 			
 			if "${renewables_loop}" == "yes" {
-				use "${assumptions}/timepaths/ev_externalities_time_path_scc`scc'_age`time_path_age'_vmt`vmt_ind'_grid`ev_grid'_${renewables_percent}.dta", clear 
+				use "${assumptions}/timepaths/ev_externalities_time_path_`scc'_age`time_path_age'_vmt`vmt_ind'_grid`ev_grid'_${renewables_percent}.dta", clear 
 			}
 			
             if `start_year' <2011 di as error "Start year cannot be before 2011"
