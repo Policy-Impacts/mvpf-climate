@@ -425,3 +425,8 @@ global permit_price_`1' = `permit_price'
 global macc_`1' = (`baseline_price' / `delta_q_CO2_prod')
 
 global gov_carbon_`1' = `delta_q_CO2_prod' 
+
+if "${MVPF_type}" == "nonmarginal" {
+    global wtp_CO2_`1' = `wtp_CO2'
+    global wtp_soc_l_`1' = `wtp_soc_l'
+}

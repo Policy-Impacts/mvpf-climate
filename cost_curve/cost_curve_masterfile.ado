@@ -297,11 +297,11 @@ preserve
     if _N == 4 local dynamic_fe = r(mean)
 	
 	*Override emissions to 0 if grid is clean
-// 	if "${change_grid}" == "clean" {
-//		
-// 		local dynamic_enviro = 0
-//		
-// 	}
+	if "${change_grid}" == "clean" {
+		
+		local dynamic_enviro = 0
+		
+	}
 	
     return local cost_mvpf `dynamic_cost'
     return local enviro_mvpf `dynamic_enviro'

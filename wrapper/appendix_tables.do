@@ -66,13 +66,25 @@ do "${github}/figtab/excel_ce_lbd_tables.do" "193" "yes" // 1 is table name, 2 i
 do "${github}/figtab/excel_ce_lbd_tables.do" "scc193"
 
 *-----------------------------------------------------------
-* 11 - MVPF Versus Cost Per Ton, Excluding Learning By Doing
+* 11 - MVPF Versus Cost Per Ton, with Learning By Doing
+*-----------------------------------------------------------
+
+do "${github}/figtab/excel_ce_lbd_tables.do" "193"
+
+*-----------------------------------------------------------
+* 12 - MVPF Versus Cost Per Ton, Excluding Learning By Doing
 *-----------------------------------------------------------
 
 do "${github}/figtab/excel_ce_lbd_tables.do" "193" "no" "no" // 1 is table name, 2 is DWL, 3 is LBD
 
+*--------------------------------------------------------
+* 13 - MVPF Versus Social Cost Per Ton with MCF Adjustment
+*--------------------------------------------------------
+
+do "${github}/figtab/excel_ce_lbd_tables.do" "193" "yes" // 1 is table name, 2 is DWL, 3 is LBD
+
 *----------------------------------------------------------------
-* 12 - Average Light-duty, Gasoline-powered Vehicle Externalities
+* 14 - Average Light-duty, Gasoline-powered Vehicle Externalities
 *----------------------------------------------------------------
 do "${github}/figtab/connected_externalities_driving.do"
 

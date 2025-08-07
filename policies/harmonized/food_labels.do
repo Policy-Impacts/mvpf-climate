@@ -79,7 +79,7 @@ levelsof estimate, local(estimates)
 		}
 	restore
 
-local sales_per_day = 1000
+local sales_per_day = 1000 // assumption from paper
 local grams_per_ton = 907185
 local euro_dollar = 1.09
 local days_per_month = 30
