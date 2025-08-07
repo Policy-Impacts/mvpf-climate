@@ -198,17 +198,12 @@ replace subsidy2023 = 7500 if Vehicle == "Cadillac Lyric" | Vehicle == "Chevy Bo
 gen batt_cap2023 = .
 replace batt_cap2023 = 82 if Vehicle == "Audi Q4 e-tron" // audiusa.com
 replace batt_cap2023 = 95 if Vehicle == "Audi e-tron" // audiusa.com
-replace batt_cap2023 = (113 + 109 + 105 + 99 + 96) / 5 if Vehicle == "BMW i4" // XX
+replace batt_cap2023 = (83.9 + 70.2 + 83.9) / 3  if Vehicle == "BMW i4" // https://www.edmunds.com/bmw/i4/2023/st-401943408/features-specs/
 replace batt_cap2023 = 105.7 if Vehicle == "BMW i7" // bmwoftenafly.com
-replace batt_cap2023 = (86 + 86 + 83) / 3 if Vehicle == "BMW iX" //XX
-replace batt_cap2023 = 89 if Vehicle == "Cadillac Lyric" // https://www.edmunds.com/cadillac/lyriq/2023/features-specs/ XX not seeing the 89 from the link, other sources show 102: https://en.wikipedia.org/wiki/Cadillac_Lyriq
-replace batt_cap2023 = (120 + 115) / 2 if Vehicle == "Chevrolet Bolt" // XX, I'm seeing that batt cap is around 65
-replace batt_cap2023 = 92 if Vehicle == "Fisker Ocean" // XX
-replace batt_cap2023 = (70) / 5 if Vehicle == "BMW i4" // XX error?
-
-
-
-
+replace batt_cap2023 = 111.5 if Vehicle == "BMW iX" // https://www.edmunds.com/bmw/ix/2023/features-specs/
+replace batt_cap2023 = 102 if Vehicle == "Cadillac Lyric" // https://www.edmunds.com/cadillac/lyriq/2023/features-specs/
+replace batt_cap2023 = 65 if Vehicle == "Chevrolet Bolt" // https://www.edmunds.com/chevrolet/bolt-ev/2023/features-specs/
+replace batt_cap2023 = (73 + 113 + 113) / 3 if Vehicle == "Fisker Ocean" // https://www.edmunds.com/fisker/ocean/2023/features-specs/
 
 
 forv i = 2011(1)2022{
@@ -224,7 +219,7 @@ sort year
 duplicates drop year subsidy_weighted_avg, force
 drop Vehicle
 
-* Source in XX
+* Source and calculation in policy_category_assumptions_MASTER, tab: ev_cf_mpg_calcs
 gen cf_mpg = .
 replace cf_mpg = 34.14553791 if year == 2011
 replace cf_mpg = 36.1435982 if year == 2012

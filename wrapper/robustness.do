@@ -376,6 +376,25 @@ qui sum mvpf
 di `r(mean)'
 post `numbers' ("wind_non_marginal_avg") (`r(mean)')
 
+* Wind MVPF when grid is fully clean, no lbd
+
+global change_grid = "clean"
+
+global renewables_loop = "no"
+global renewables_percent = 0.999
+
+		do "${github}/wrapper/metafile.do" ///
+			"current" /// 2020
+			"193" /// SCC
+			"no" /// learning-by-doing
+			"no" /// savings
+			"yes" /// profits
+			"hitaj_ptc shirmali_ptc metcalf_ptc" /// programs to run
+			0 /// reps
+			"full_current_${renewables_percent}_clean_grid_no_lbd_wind" // nrun
+
+
+global change_grid = ""
 
 *--------------------------------------------
 * 7 - Solar
