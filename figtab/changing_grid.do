@@ -34,7 +34,7 @@ if "`re_pull_data'" == "yes" {
 * Changing Renewable Percentages (Solar)
 *--------------------------------------------
 if "`re_pull_data'" == "yes" {
-	forvalues percent = 0.01(0.10)0.95 {
+	forvalues percent = 0.01(0.10)0.90 {
 		global renewables_percent = `percent'
 		
 		do "${github}/wrapper/metafile.do" ///
