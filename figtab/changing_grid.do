@@ -10,12 +10,15 @@ local re_pull_data = "yes" // Re-run data for the figure (if no, uses saved data
 global renewables_loop = "yes"
 global renewables_2020 = 0.1952 // EPA eGRID renewables (including Hydro)
 
+local loop_nums 0.01 0.1 0.2 0.3 0.4 0.5 0.6 0.7 0.8 0.9
+
+
 *--------------------------------------------
 * Changing Renewable Percentages (Wind)
 *--------------------------------------------
 if "`re_pull_data'" == "yes" {
 
-	forvalues percent = 0.01(0.10)0.95 {
+	foreach percent of local loop_nums {
 		global renewables_percent = `percent'
 		
 		do "${github}/wrapper/metafile.do" ///
@@ -26,7 +29,7 @@ if "`re_pull_data'" == "yes" {
 			"yes" /// profits
 			"hitaj_ptc shirmali_ptc metcalf_ptc" /// programs to run
 			0 /// reps
-			"full_current_${renewables_percent}_wind" // nrun
+			"full_current_${renewables_percent}_wind_cg" // nrun
 
 	}
 }	
@@ -34,7 +37,7 @@ if "`re_pull_data'" == "yes" {
 * Changing Renewable Percentages (Solar)
 *--------------------------------------------
 if "`re_pull_data'" == "yes" {
-	forvalues percent = 0.01(0.10)0.90 {
+	foreach percent of local loop_nums {
 		global renewables_percent = `percent'
 		
 		do "${github}/wrapper/metafile.do" ///
@@ -45,7 +48,7 @@ if "`re_pull_data'" == "yes" {
 			"yes" /// profits
 			"ct_solar ne_solar hughes_csi pless_ho pless_tpo" /// programs to run
 			0 /// reps
-			"full_current_${renewables_percent}_solar" // nrun
+			"full_current_${renewables_percent}_solar_cg" // nrun
 
 	}
 
@@ -56,7 +59,7 @@ if "`re_pull_data'" == "yes" {
 local re_pull_data = "yes"
 
 if "`re_pull_data'" == "yes" {
-	forvalues percent = 0.10(0.10)0.90 {
+	foreach percent of local loop_nums {
 		global renewables_percent = `percent'
 		
 		do "${github}/wrapper/metafile.do" ///
@@ -67,7 +70,7 @@ if "`re_pull_data'" == "yes" {
 			"yes" /// profits
 			"federal_ev bev_state muehl_efmp" /// programs to run
 			0 /// reps
-			"full_current_${renewables_percent}_evs" // nrun
+			"full_current_${renewables_percent}_evs_cg" // nrun
 
 	}
 
@@ -78,7 +81,7 @@ if "`re_pull_data'" == "yes" {
 *--------------------------------------------------------------------------------------
 local re_pull_data = "yes"
 if "`re_pull_data'" == "yes" {
-	forvalues percent = 0.01(0.10)0.95 {
+	foreach percent of local loop_nums {
 		global renewables_percent = `percent'
 		
 		do "${github}/wrapper/metafile.do" ///
@@ -89,7 +92,7 @@ if "`re_pull_data'" == "yes" {
 			"yes" /// profits
 			"c4a_cw rebate_es cw_datta c4a_dw dw_datta c4a_fridge fridge_datta esa_fridge retrofit_res ihwap_nb wisc_rf wap hancevic_rf hitaj_ptc metcalf_ptc shirmali_ptc ct_solar ne_solar hughes_csi pless_ho pless_tpo" /// programs to run
 			0 /// reps
-			"full_current_${renewables_percent}_subs" // nrun
+			"full_current_${renewables_percent}_subs_cg" // nrun
 
 	}
 
@@ -99,7 +102,7 @@ if "`re_pull_data'" == "yes" {
 *--------------------------------------------------------------------------------------
 local re_pull_data = "yes"
 if "`re_pull_data'" == "yes" {
-	forvalues percent = 0.01(0.10)0.95 {
+	foreach percent of local loop_nums {
 		global renewables_percent = `percent'
 		
 		do "${github}/wrapper/metafile.do" ///
@@ -121,22 +124,22 @@ global renewables_loop = "no"
 * Append Runs Together (Need to Adjust if re-running data)
 *----------------------------------------------------------
 	
-local folders_wind : dir "${github}/data/4_results" dirs "*full_current*wind*"
-local folders_solar : dir "${github}/data/4_results" dirs "*full_current*solar*"
-local folders_no_lbd : dir "${github}/data/4_results" dirs "*full_current*subs*"
-local folders_ev: dir "${github}/data/4_results" dirs "*full_current*evs*"
+local folders_wind : dir "${github}/data/4_results" dirs "*full_current*wind_cg*"
+local folders_solar : dir "${github}/data/4_results" dirs "*full_current*solar_cg*"
+local folders_no_lbd : dir "${github}/data/4_results" dirs "*full_current*subs_cg*"
+local folders_ev: dir "${github}/data/4_results" dirs "*full_current*evs_cg*"
 local folders_ev_nolbd: dir "${github}/data/4_results" dirs "*full_current*ev_nolbd*"
 
 
 *Appending Wind
-local matched_files : dir "${github}/data/4_results" files "*full_current_.01_wind*"
+local matched_files : dir "${github}/data/4_results" dirs "*full_current_.01_wind_cg*"
 foreach f in `matched_files' {
 	local first_file = `f'
 	use "${github}/data/4_results/`f'/compiled_results_all_uncorrected_vJK.dta", clear
 }
 gen percent = 0.01
 
-local percent = 0.11
+local percent = 0.10
 foreach f of local folders_wind {
 		if "`f'" != "`first_file'" {
 	
@@ -157,6 +160,11 @@ foreach f of local folders_solar {
 		append using "${github}/data/4_results/`f'/compiled_results_all_uncorrected_vJK.dta"
 		
 		replace percent = `percent' if percent == .
+		
+		if `percent' == 0.01 {
+			local percent = 0
+		}
+		
 		local percent = `percent' + 0.10	
 	
 }
@@ -168,22 +176,14 @@ foreach f of local folders_ev {
 	
 		append using "${github}/data/4_results/`f'/compiled_results_all_uncorrected_vJK.dta"
 		
-		if `percent' == 0.09 {
-				
-			local percent = 0.1
+		replace percent = `percent' if percent == .
+		
+		if `percent' == 0.01 {
+			local percent = 0
 		}
 		
-		if `percent' > 0.08 {
-			
-			replace percent = `percent' if percent == .
-			local percent = `percent' + 0.1
-			
-		}
+		local percent = `percent' + 0.10	
 		
-		if `percent' <= 0.08 {
-			replace percent = `percent' if percent == .
-			local percent = `percent' + 0.01
-		}
 	
 }
 replace category = "Electric Vehicles" if category == ""
@@ -195,7 +195,12 @@ foreach f of local folders_ev_nolbd {
 		append using "${github}/data/4_results/`f'/compiled_results_all_uncorrected_vJK.dta"
 		
 		replace percent = `percent' if percent == .
-		local percent = `percent' + 0.10	
+		
+		if `percent' == 0.01 {
+			local percent = 0
+		}
+		
+		local percent = `percent' + 0.10		
 	
 }
 replace category = "ev_no_lbd" if category == ""
@@ -208,6 +213,11 @@ foreach f of local folders_no_lbd {
 		append using "${github}/data/4_results/`f'/compiled_results_all_uncorrected_vJK.dta"
 		
 		replace percent = `percent' if percent == .
+		
+		if `percent' == 0.01 {
+			local percent = 0
+		}
+		
 		local percent = `percent' + 0.10	
 	
 }
