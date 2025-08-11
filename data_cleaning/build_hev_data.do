@@ -151,120 +151,120 @@ replace batt_cap2020 = 1 if Vehicle == "Lincoln MKZ" // https://www.cars.com/res
 *** All msrp info is from edmunds unless otherwise noted
 
 gen msrp2020 = .
-replace msrp2020 = (36750 + 42500) / 2 if Vehicle == "Lincoln MKZ"
-replace msrp2020 = (24325 + 25535 + 26935 + 28375 + 29375 + 32500) / 6 if Vehicle == "Toyota Prius"
-replace msrp2020 = 52530 if Vehicle == "Ford Explorer"
-replace msrp2020 = (28265 + 33550) / 2 if Vehicle == "Ford Escape/Mercury Mariner"
-replace msrp2020 = 97510 if Vehicle == "Lexus LC500h"
-replace msrp2020 = 80010 if Vehicle == "Lexus LS 500h"
-replace msrp2020 = (22930 + 24310 + 28340) / 3 if Vehicle == "Honda Insight"
-replace msrp2020 = 157500 if Vehicle == "Acura NSX"
-replace msrp2020 = 61900 if Vehicle == "Acura RLX"
-replace msrp2020 = (25470 + 29370 + 31870 + 35140) / 4  if Vehicle == "Honda Accord"
-replace msrp2020 = 23100 if Vehicle == "Toyota Corolla"
-replace msrp2020 = (28430 + 30130 + 32730) / 3 if Vehicle == "Toyota Camry"
-replace msrp2020 = (28000 + 31630 + 34595) / 3 if Vehicle == "Ford Fusion & Milan"
-replace msrp2020 = (34500 + 36500 + 39700) / 3 if Vehicle == "Lexus UX"
-replace msrp2020 = (23200 + 25150 + 28400 + 31200) / 4 if Vehicle == "Hyundai Ioniq Hybrid"
-replace msrp2020 = (24590 + 25990 + 28290 + 30790 + 32790) / 5 if Vehicle == "Kia Niro"
-replace msrp2020 = (37000 + 39500 + 43300) / 3  if Vehicle == "Toyota Avalon"
-replace msrp2020 = (41810 + 44665 + 45660) / 3 if Vehicle == "Lexus ES Hybrid"
-replace msrp2020 = (39070 + 46160) / 2 if Vehicle == "Lexus NX Hybrid"
-replace msrp2020 = (28350 + 29645 + 34300 + 36880) / 4 if Vehicle == "Toyota RAV4"
-replace msrp2020 = (27750 + 29900 + 35300) / 3 if Vehicle == "Hyundai Sonata"
-replace msrp2020 = 29310 if Vehicle == "Kia Optima"
-replace msrp2020 = (50510 + 56510) / 2 if Vehicle == "Lexus RX 450h"
-replace msrp2020 = (38200 + 41000 + 45050 + 48250) / 4 if Vehicle == "Toyota Highlander"
-replace msrp2020 = (69000 + 73600 + 79700) / 3 if Vehicle == "Audi A7"
-replace msrp2020 = (43450 + 44465 + 46950 + 49750) / 4 if Vehicle == "Jeep Wrangler"
-replace msrp2020 = 85200 if Vehicle == "Audi A8"
-replace msrp2020 = 52530 if Vehicle == "Ford Explorer"
-replace msrp2020 = (90900 + 96150) / 2 if Vehicle == "Land Rover Range Rover"
-replace msrp2020 = 53000 if Vehicle == "Acura MDX Hybrid"
+replace msrp2020 = (36750 + 42500) / 2 if Vehicle == "Lincoln MKZ" //https://www.edmunds.com/lincoln/mkz/2020/features-specs/
+replace msrp2020 = (24325 + 25535 + 26935 + 28375 + 29375 + 32500) / 6 if Vehicle == "Toyota Prius" //https://www.edmunds.com/toyota/prius/2020/features-specs/
+replace msrp2020 = 52530 if Vehicle == "Ford Explorer" //https://www.edmunds.com/ford/explorer/2020/features-specs/
+replace msrp2020 = (28265 + 33550) / 2 if Vehicle == "Ford Escape/Mercury Mariner" //https://www.edmunds.com/ford/escape/2020/features-specs/
+replace msrp2020 = 97510 if Vehicle == "Lexus LC500h" //https://www.edmunds.com/lexus/lc500h/2020/features-specs/
+replace msrp2020 = 80010 if Vehicle == "Lexus LS 500h" //https://www.edmunds.com/lexus/ls500h/2020/features-specs/
+replace msrp2020 = (22930 + 24310 + 28340) / 3 if Vehicle == "Honda Insight" //https://www.edmunds.com/honda/insight/2020/features-specs/
+replace msrp2020 = 157500 if Vehicle == "Acura NSX" //https://www.edmunds.com/acura/nsx/2020/features-specs/
+replace msrp2020 = 61900 if Vehicle == "Acura RLX" //https://www.edmunds.com/acura/rlx/2020/features-specs/
+replace msrp2020 = (24975 + 27785 + 27785 + 28875 + 31375 + 32315 + 32315 + 33375 + 37205) / 9  if Vehicle == "Honda Accord" // https://hondanews.com/en-US/honda-automobiles/releases/release-807c080220275f828905387c4f006348-2020-honda-accord-pricing-and-epa-ratings-172020#:~:text=Included%20Divisions,Cookie%20Preferences
+replace msrp2020 = 23100 if Vehicle == "Toyota Corolla" // https://www.worldtoyota.com/2020-toyota-corolla-hybrid-research/#:~:text=ft%20@%203%2C600%20rpm-,TRANSMISSION,for%202%20years/unlimited%20miles.
+replace msrp2020 = (28430 + 30130 + 32730) / 3 if Vehicle == "Toyota Camry" //https://www.seegertoyota.com/research-camry.html
+replace msrp2020 = (28000 + 31630 + 34595) / 3 if Vehicle == "Ford Fusion & Milan" //https://www.cars.com/research/ford-fusion_hybrid-2020/
+replace msrp2020 = (34500 + 36500 + 39700) / 3 if Vehicle == "Lexus UX" //https://www.cars.com/research/lexus-ux_250h-2020/
+replace msrp2020 = (23200 + 25150 + 28400 + 31200) / 4 if Vehicle == "Hyundai Ioniq Hybrid" //https://www.edmunds.com/hyundai/ioniq-hybrid/2020/features-specs/
+replace msrp2020 = (24590 + 25990 + 28290 + 30790 + 32790) / 5 if Vehicle == "Kia Niro" //https://www.edmunds.com/kia/niro/2020/features-specs/
+replace msrp2020 = (37000 + 39500 + 43300) / 3  if Vehicle == "Toyota Avalon" //https://www.toyotaplace.com/2020-avalon-hybrid/
+replace msrp2020 = (41810 + 44665 + 45660) / 3 if Vehicle == "Lexus ES Hybrid" //https://www.cars.com/research/lexus-es_300h-2020/
+replace msrp2020 = (39070 + 46160) / 2 if Vehicle == "Lexus NX Hybrid" //https://www.edmunds.com/lexus/nx-300h/2020/features-specs/
+replace msrp2020 = (28350 + 29645 + 34300 + 36880) / 4 if Vehicle == "Toyota RAV4" //https://www.carvertoyota.com/2020-rav4-hybrid/
+replace msrp2020 = (27750 + 29900 + 35300) / 3 if Vehicle == "Hyundai Sonata" //https://www.cars.com/research/hyundai-sonata_hybrid-2020/
+replace msrp2020 = 29310 if Vehicle == "Kia Optima" //https://www.cars.com/research/kia-optima_hybrid-2020/
+replace msrp2020 = (46800 + 50600 + 52920) / 3 if Vehicle == "Lexus RX 450h" //https://www.edmunds.com/lexus/rx-450h/2020/features-specs/
+replace msrp2020 = (38200 + 41000 + 45050 + 48250) / 4 if Vehicle == "Toyota Highlander" //https://www.toyotaofsaratogasprings.com/2020-highlander-hybrid/
+replace msrp2020 = (69000 + 73600 + 79700) / 3 if Vehicle == "Audi A7" //https://www.edmunds.com/audi/a7/2020/features-specs/
+//replace msrp2020 = (43450 + 44465 + 46950 + 49750) / 4 if Vehicle == "Jeep Wrangler" XX no jeep wrangler hybrid in 2020
+replace msrp2020 = 85200 if Vehicle == "Audi A8" //https://media.audiusa.com/releases/383
+replace msrp2020 = 52530 if Vehicle == "Ford Explorer" //https://www.edmunds.com/ford/explorer/2020/features-specs/
+replace msrp2020 = (90900 + 96150) / 2 if Vehicle == "Land Rover Range Rover" //https://media.jaguarlandrover.com/en-us/news/2019/04/2020-range-rover-offers-straight-six-performance-and-efficient-mild-hybrid-refinement
+replace msrp2020 = 53000 if Vehicle == "Acura MDX Hybrid" //https://www.edmunds.com/acura/mdx/2020/st-401818478/features-specs/
 
-replace msrp2000 = 20495 if Vehicle == "Honda Insight" // Kelley Blue Book
-replace msrp2001 = 18980 if Vehicle == "Honda Insight"
-replace msrp2001 = 19995 if Vehicle == "Toyota Prius"
-replace msrp2002 = 19080 if Vehicle == "Honda Insight"
-replace msrp2002 = 19995 if Vehicle == "Toyota Prius"
-replace msrp2003 = 19080 if Vehicle == "Honda Insight"
-replace msrp2003 = 19995 if Vehicle == "Toyota Prius"
-replace msrp2004 = 19650 if Vehicle == "Honda Civic"
-replace msrp2004 = 19180 if Vehicle == "Honda Insight"
-replace msrp2004 = 20295 if Vehicle == "Toyota Prius"
-replace msrp2005 = 26830 if Vehicle == "Ford Escape/Mercury Mariner"
-replace msrp2005 = 19900 if Vehicle == "Honda Civic"
-replace msrp2005 = 19330 if Vehicle == "Honda Insight"
-replace msrp2005 = 21275 if Vehicle == "Toyota Prius"
-replace msrp2006 = 44660 if Vehicle == "Lexus RX 450h"
-replace msrp2006 = 30990 if Vehicle == "Honda Accord"
+replace msrp2000 = 20495 if Vehicle == "Honda Insight" // https://www.kbb.com/honda/insight/2000/
+replace msrp2001 = 18980 if Vehicle == "Honda Insight" //https://hondanews.com/en-US/honda-automobiles/releases/release-098c5538bed9019c638afd004c34c826-2001-honda-insight-prices-and-epa-data
+replace msrp2001 = 19995 if Vehicle == "Toyota Prius" //https://www.edmunds.com/toyota/prius/2001/review/
+replace msrp2002 = 19080 if Vehicle == "Honda Insight" //https://www.cars.com/research/honda-insight-2002/
+replace msrp2002 = 19995 if Vehicle == "Toyota Prius" //https://www.edmunds.com/toyota/prius/2002/review/
+replace msrp2003 = 19080 if Vehicle == "Honda Insight" //https://www.edmunds.com/honda/insight/2003/review/
+replace msrp2003 = 19995 if Vehicle == "Toyota Prius" //https://www.edmunds.com/toyota/prius/2003/review/
+replace msrp2004 = 19650 if Vehicle == "Honda Civic" //https://www.edmunds.com/honda/civic/2004/features-specs/
+replace msrp2004 = 19180 if Vehicle == "Honda Insight" //https://www.edmunds.com/honda/insight/2004/review/
+replace msrp2004 = 20295 if Vehicle == "Toyota Prius" //https://www.edmunds.com/toyota/prius/2004/review/
+replace msrp2005 = 26830 if Vehicle == "Ford Escape/Mercury Mariner" //https://www.edmunds.com/ford/escape/2005/features-specs/
+replace msrp2005 = 19900 if Vehicle == "Honda Civic" //https://www.edmunds.com/honda/civic/2005/review/
+replace msrp2005 = 19330 if Vehicle == "Honda Insight" //https://www.edmunds.com/honda/insight/2005/review/
+replace msrp2005 = 21275 if Vehicle == "Toyota Prius" //https://www.edmunds.com/toyota/prius/2005/review/
+replace msrp2006 = 44660 if Vehicle == "Lexus RX 450h" //https://www.edmunds.com/lexus/rx-400h/2006/review/
+replace msrp2006 = 30990 if Vehicle == "Honda Accord" //https://hondanews.com/en-US/honda-automobiles/releases/release-62d354a9c0790131b8228e004c34c067-honda-announces-pricing-for-redesigned-2006-accord-hybrid
 replace msrp2006 = 26900 if Vehicle == "Ford Escape/Mercury Mariner"
-replace msrp2006 = 19330 if Vehicle == "Honda Insight"
-replace msrp2006 = 21725 if Vehicle == "Toyota Prius"
+replace msrp2006 = 19330 if Vehicle == "Honda Insight" //https://www.edmunds.com/honda/insight/2006/review/
+replace msrp2006 = 21725 if Vehicle == "Toyota Prius" //https://www.edmunds.com/toyota/prius/2006/review/
 
-replace mpg2000 = 53 if Vehicle == "Honda Insight"
+replace mpg2000 = 53 if Vehicle == "Honda Insight" //https://www.edmunds.com/honda/insight/2000/features-specs/
 
-replace mpg2001 = (53 + 47 + 47) / 3 if Vehicle == "Honda Insight"
-replace mpg2001 = 41 if Vehicle == "Toyota Prius"
+replace mpg2001 = (53 + 47) / 3 if Vehicle == "Honda Insight" // https://www.edmunds.com/honda/insight/2001/features-specs/
+replace mpg2001 = 41 if Vehicle == "Toyota Prius" //https://www.edmunds.com/toyota/prius/2001/review/
 
-replace mpg2002 = (53 + 47) / 2 if Vehicle == "Honda Insight"
-replace mpg2002 = 41 if Vehicle == "Toyota Prius"
+replace mpg2002 = (53 + 47) / 3 if Vehicle == "Honda Insight" //https://www.edmunds.com/honda/insight/2002/features-specs/
+replace mpg2002 = 41 if Vehicle == "Toyota Prius" //https://www.edmunds.com/toyota/prius/2002/review/
 
-replace mpg2003 = (53 + 47) / 2 if Vehicle == "Honda Insight"
-replace mpg2003 = (41 + 41 + 40 + 40) / 4 if Vehicle == "Honda Civic"
-replace mpg2003 = 41 if Vehicle == "Toyota Prius"
+replace mpg2003 = (53 + 47) / 3 if Vehicle == "Honda Insight" //https://www.edmunds.com/honda/insight/2003/features-specs/
+replace mpg2003 = 41 if Vehicle == "Honda Civic" //https://www.edmunds.com/honda/civic/2003/features-specs/
+replace mpg2003 = 41 if Vehicle == "Toyota Prius" //https://www.edmunds.com/toyota/prius/2003/review/
 
-replace mpg2004 = (52 + 47) / 2 if Vehicle == "Honda Insight"
-replace mpg2004 = (41 + 41 + 40 + 40) / 4 if Vehicle == "Honda Civic"
-replace mpg2004 = 46 if Vehicle == "Toyota Prius"
+replace mpg2004 = (52 + 47) / 3 if Vehicle == "Honda Insight" //https://www.edmunds.com/honda/insight/2004/features-specs/
+replace mpg2004 = 40 if Vehicle == "Honda Civic" //https://www.edmunds.com/honda/civic/2004/features-specs/
+replace mpg2004 = 46 if Vehicle == "Toyota Prius" //https://www.edmunds.com/toyota/prius/2004/review/
 
-replace mpg2005 = (52 + 47) / 2 if Vehicle == "Honda Insight"
-replace mpg2005 = 28 if Vehicle == "Honda Accord"
-replace mpg2005 = (29 + 27) / 2 if Vehicle == "Ford Escape/Mercury Mariner"
-replace mpg2005 = (41 + 41 + 40 + 40) / 4 if Vehicle == "Honda Civic"
-replace mpg2005 = 46 if Vehicle == "Toyota Prius"
+replace mpg2005 = (52 + 47) / 2 if Vehicle == "Honda Insight" //https://www.edmunds.com/honda/insight/2005/features-specs/
+replace mpg2005 = 28 if Vehicle == "Honda Accord" // https://www.fueleconomy.gov/feg/noframes/21539.shtml
+replace mpg2005 = (29 + 27) / 2 if Vehicle == "Ford Escape/Mercury Mariner" //https://www.edmunds.com/ford/escape/2005/features-specs/
+replace mpg2005 = 40 if Vehicle == "Honda Civic" //https://www.edmunds.com/honda/civic/2005/features-specs/
+replace mpg2005 = 46 if Vehicle == "Toyota Prius" //https://www.edmunds.com/toyota/prius/2005/review/
 
-replace mpg2006 = (52 + 47) / 2 if Vehicle == "Honda Insight"
-replace mpg2006 = 25 if Vehicle == "Honda Accord"
-replace mpg2006 = (27 + 26) / 2 if Vehicle == "Lexus RX 450h"
-replace mpg2006 = (29 + 27) / 2 if Vehicle == "Ford Escape/Mercury Mariner"
-replace mpg2006 = 42 if Vehicle == "Honda Civic"
+replace mpg2006 = (52 + 47) / 2 if Vehicle == "Honda Insight" //https://www.edmunds.com/honda/insight/2006/features-specs/
+replace mpg2006 = 25 if Vehicle == "Honda Accord" //https://www.fueleconomy.gov/feg/noframes/22676.shtml
+replace mpg2006 = (27 + 25) / 2 if Vehicle == "Lexus RX 450h" //https://www.kbb.com/lexus/rx/2006/rx-400h-sport-utility-4d/
+replace mpg2006 = (29 + 27) / 2 if Vehicle == "Ford Escape/Mercury Mariner" //https://www.edmunds.com/ford/escape-hybrid/2006/mpg/?style=100531499
+replace mpg2006 = 42 if Vehicle == "Honda Civic" // https://www.edmunds.com/honda/civic/2006/review/
 replace mpg2006 = (27 + 26) / 2 if Vehicle == "Toyota Highlander"
-replace mpg2006 = 46 if Vehicle == "Toyota Prius"
+replace mpg2006 = 46 if Vehicle == "Toyota Prius" //https://www.edmunds.com/toyota/prius/2006/review/
 
 sort sales2020
 
 // All MPG numbers come from fueleconomy.gov
-replace mpg2020 = 24 if Vehicle == "Audi A7"
-replace mpg2020 = 30 if Vehicle == "Lexus LC500h"
-replace mpg2020 = (28 + 26) / 2 if Vehicle == "Lexus LS 500h"
-replace mpg2020 = (21 + 21 + 20) / 3 if Vehicle == "Jeep Wrangler"
-replace mpg2020 = (21 + 18) / 2 if Vehicle == "Audi A8"
-replace mpg2020 = 21 if Vehicle == "Acura NSX"
-replace mpg2020 = 28 if Vehicle == "Acura RLX"
-replace mpg2020 = 42 if Vehicle == "Kia Optima"
-replace mpg2020 = (21 + 21) / 2 if Vehicle == "Land Rover Range Rover"
-replace mpg2020 = 27 if Vehicle == "Acura MDX Hybrid"
-replace mpg2020 = (28 + 26) / 2 if Vehicle == "Lexus LS 500h"
-replace mpg2020 = 41 if Vehicle == "Lincoln MKZ"
-replace mpg2020 = (52 + 47) / 2 if Vehicle == "Hyundai Sonata"
-replace mpg2020 = (44 + 43) / 2 if Vehicle == "Toyota Avalon"
-replace mpg2020 = 44 if Vehicle == "Lexus ES Hybrid"
-replace mpg2020 = (28 + 25) / 2 if Vehicle == "Ford Explorer"
-replace mpg2020 = 31 if Vehicle == "Lexus NX Hybrid"
-replace mpg2020 = (42 + 39) / 2 if Vehicle == "Lexus UX"
-replace mpg2020 = (58 + 55) / 2 if Vehicle == "Hyundai Ioniq Hybrid"
-replace mpg2020 = (30 + 29) / 2 if Vehicle == "Lexus RX 450h"
-replace mpg2020 = (50 + 49 + 43) / 3 if Vehicle == "Kia Niro"
-replace mpg2020 = (52 + 48) / 2 if Vehicle == "Honda Insight"
-replace mpg2020 = 52 if Vehicle == "Toyota Corolla"
-replace mpg2020 = 48 if Vehicle == "Honda Accord"
-replace mpg2020 = (42 + 41) / 2 if Vehicle == "Ford Fusion & Milan"
-replace mpg2020 = (41 + 40) / 2 if Vehicle == "Ford Escape/Mercury Mariner"
-replace mpg2020 = (52 + 46) / 2 if Vehicle == "Toyota Camry"
-replace mpg2020 = (56 + 52 + 50 + 46) / 4 if Vehicle == "Toyota Prius"
-replace mpg2020 = (36 + 35 + 35) / 3 if Vehicle == "Toyota Highlander"
-replace mpg2020 = 40 if Vehicle == "Toyota RAV4"
+replace mpg2020 = 24 if Vehicle == "Audi A7" //https://fueleconomy.gov/feg/Find.do?action=sbs&id=42295
+replace mpg2020 = 30 if Vehicle == "Lexus LC500h" //https://www.fueleconomy.gov/feg/Find.do?action=sbs&id=41552
+replace mpg2020 = (28 + 26) / 2 if Vehicle == "Lexus LS 500h" //https://www.fueleconomy.gov/feg/Find.do?action=sbs&id=42131&id=42132
+replace mpg2020 = (21 + 21 + 20) / 3 if Vehicle == "Jeep Wrangler" //https://www.fueleconomy.gov/feg/Find.do?action=sbs&id=42906&id=42908&id=43801
+replace mpg2020 = (21 + 18) / 2 if Vehicle == "Audi A8" //https://www.fueleconomy.gov/feg/Find.do?action=sbs&id=42241&id=42306
+replace mpg2020 = 21 if Vehicle == "Acura NSX" //https://www.fueleconomy.gov/feg/Find.do?action=sbs&id=42192
+replace mpg2020 = 28 if Vehicle == "Acura RLX" //https://www.fueleconomy.gov/feg/Find.do?action=sbs&id=41718
+replace mpg2020 = 42 if Vehicle == "Kia Optima" //https://www.fueleconomy.gov/feg/Find.do?action=sbs&id=41437
+replace mpg2020 = (18 + 24) / 2 if Vehicle == "Land Rover Range Rover" // https://www.fueleconomy.gov/feg/Find.do?action=sbs&id=41636&id=41634
+replace mpg2020 = 27 if Vehicle == "Acura MDX Hybrid" //https://www.fueleconomy.gov/feg/Find.do?action=sbs&id=41665
+replace mpg2020 = (28 + 26) / 2 if Vehicle == "Lexus LS 500h" //https://www.fueleconomy.gov/feg/Find.do?action=sbs&id=42131&id=42132
+replace mpg2020 = 41 if Vehicle == "Lincoln MKZ" //https://www.fueleconomy.gov/feg/Find.do?action=sbs&id=41808
+replace mpg2020 = (52 + 47) / 2 if Vehicle == "Hyundai Sonata" //https://www.fueleconomy.gov/feg/Find.do?action=sbs&id=42475&id=42476
+replace mpg2020 = (44 + 43) / 2 if Vehicle == "Toyota Avalon" //https://www.fueleconomy.gov/feg/Find.do?action=sbs&id=41813&id=41814
+replace mpg2020 = 44 if Vehicle == "Lexus ES Hybrid" //https://www.fueleconomy.gov/feg/Find.do?action=sbs&id=41913
+replace mpg2020 = (28 + 25) / 2 if Vehicle == "Ford Explorer" //https://www.fueleconomy.gov/feg/Find.do?action=sbs&id=41939&id=41937
+replace mpg2020 = 31 if Vehicle == "Lexus NX Hybrid" //https://www.edmunds.com/lexus/nx-300h/2020/review/
+replace mpg2020 = (42 + 39) / 2 if Vehicle == "Lexus UX" //https://www.fueleconomy.gov/feg/Find.do?action=sbs&id=42222&id=42223
+replace mpg2020 = (58 + 55) / 2 if Vehicle == "Hyundai Ioniq Hybrid" //https://www.fueleconomy.gov/feg/Find.do?action=sbs&id=42243&id=42242
+replace mpg2020 = (30 + 29) / 2 if Vehicle == "Lexus RX 450h" //https://www.fueleconomy.gov/feg/Find.do?action=sbs&id=41974&id=41975
+replace mpg2020 = (50 + 49 + 43) / 3 if Vehicle == "Kia Niro" //https://www.fueleconomy.gov/feg/Find.do?action=sbs&id=42307&id=42308&id=42309
+replace mpg2020 = (52 + 48) / 2 if Vehicle == "Honda Insight" //https://www.fueleconomy.gov/feg/Find.do?action=sbs&id=41648&id=41649
+replace mpg2020 = 52 if Vehicle == "Toyota Corolla" //https://www.fueleconomy.gov/feg/Find.do?action=sbs&id=41214
+replace mpg2020 = 48 if Vehicle == "Honda Accord" //https://www.fueleconomy.gov/feg/Find.do?action=sbs&id=42135
+replace mpg2020 = (42 + 41) / 2 if Vehicle == "Ford Fusion & Milan" //https://www.fueleconomy.gov/feg/Find.do?action=sbs&id=41802&id=41803
+replace mpg2020 = (41 + 40) / 2 if Vehicle == "Ford Escape/Mercury Mariner" //https://www.fueleconomy.gov/feg/Find.do?action=sbs&id=42258&id=42253
+replace mpg2020 = (52 + 46) / 2 if Vehicle == "Toyota Camry" //https://www.fueleconomy.gov/feg/Find.do?action=sbs&id=42016&id=42017
+replace mpg2020 = (56 + 52 + 50 + 46) / 4 if Vehicle == "Toyota Prius" //https://www.fueleconomy.gov/feg/Find.do?action=sbs&id=41915&id=41917&id=41916&id=41716
+replace mpg2020 = (36 + 35 + 35) / 3 if Vehicle == "Toyota Highlander" //https://www.fueleconomy.gov/feg/Find.do?action=sbs&id=42477&id=42478&id=42479
+replace mpg2020 = 40 if Vehicle == "Toyota RAV4" //https://www.fueleconomy.gov/feg/Find.do?action=sbs&id=42187
 
 forv i = 1999(1)2020{
 	gen sales_msrp`i' = sales`i'
