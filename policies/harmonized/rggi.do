@@ -380,8 +380,12 @@ local WTP_RoW = (`wtp_soc_g') * (1 - ${USShareFutureSSC})
 	
 local fe_lr = `wtp_soc_g' * ${USShareFutureSSC} * ${USShareGovtFutureSCC} * -1
 
-local total_cost = -`permit_revenue' + `fe_permit' + `fe_lr'
-
+if "${MVPF_type}" == "marginal" {
+    local total_cost = `permit_revenue' + `fe_permit' + `fe_lr'
+}
+if "${MVPF_type}" == "nonmarginal" {
+    local total_cost = -`permit_revenue' + `fe_permit' + `fe_lr'
+}
 local MVPF = `total_WTP'/`total_cost' 
 
 di in red `social_cost_CO2' 

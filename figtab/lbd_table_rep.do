@@ -1,4 +1,5 @@
-
+ssc install estout
+ssc install outreg
 local output_path ${output_tab}
 import excel using "${output_tab}/tables_data/way_etal.xlsx", clear
 

@@ -61,13 +61,20 @@ else {
     di in green "Selected most recent folder: `main_data_set'"
 }
 
+end
 
-* local main_data_set = "2024-11-15_09-44-45__full_current_193_nov"
-global lbd "yes"
 
 tempname numbers
 tempfile robustness_values
 postfile `numbers' str80 label value using `robustness_values', replace
+
+* Find main dataset using helper program
+find_most_recent_folder "full_current_193"
+local main_data_set = "`folder'"
+di in green "Selected most recent folder: `main_data_set'"
+
+global lbd "yes"
+
 
 *----------------------
 * 1 - Electric Vehicles

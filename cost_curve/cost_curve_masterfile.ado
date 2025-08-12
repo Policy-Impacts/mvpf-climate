@@ -284,8 +284,23 @@ preserve
         }
 
     }
-    sleep 10000
-    qui import delimited using "f`filename'.csv", clear
+    local maxwait = 20000  
+local waited = 0
+local found = 0
+while `waited' < `maxwait' & `found' == 0 {
+    sleep 1000
+    local waited = `waited' + 1000
+    capture confirm file "f`filename'.csv"
+    if _rc == 0 {
+        local found = 1
+        di "File found after `waited' milliseconds"
+    }
+}
+if `found' == 0 {
+    di as error "CSV file not created after `maxwait' milliseconds"
+    exit 601
+}
+qui import delimited using "f`filename'.csv", clear
 
     qui su v1 in 1 
     local dynamic_cost = r(mean)
