@@ -23,6 +23,10 @@ foreach case in `cases' {
 	}
 }
 
+if "${change_grid}" != "" {
+	local special = 1
+}
+
 *For cases that are not special
 if `special' == 0 {
 	
@@ -41,11 +45,24 @@ if "${renewables_loop}" == "yes" {
 	
 	local wind_exists = fileexists("${assumptions}/timepaths/wind_externalities_time_path_scc${scc}_age25_${renewables_percent}.dta")
 }
-
+	
 if `special' == 1 & "${renewables_loop}" == "no" {
 	
-	local ev_exists = fileexists("${assumptions}/timepaths/ev_externalities_time_path_${scc}_age${vehicle_car_lifetime}_vmt${EV_VMT_car_adjustment_ind}_grid${ev_grid}_${renewables_percent}.dta")
-
+	if "${change_grid}" != "" {
+		local ev_exists = fileexists("${assumptions}/timepaths/ev_externalities_time_path_${scc}_age${vehicle_car_lifetime}_vmt${EV_VMT_car_adjustment_ind}_grid${change_grid}.dta")
+		local solar_exists = fileexists("${assumptions}/timepaths/solar_externalities_time_path_scc${scc}_age25_${change_grid}.dta")  
+		local wind_exists = fileexists("${assumptions}/timepaths/wind_externalities_time_path_scc${scc}_age25_${change_grid}.dta")
+		
+		di in red "EV file exists: `ev_exists'"
+		di in red "Solar file exists: `solar_exists'"
+		di in red "Wind file exists: `wind_exists'"
+	}
+	else {
+		local ev_exists = fileexists("${assumptions}/timepaths/ev_externalities_time_path_${scc}_age${vehicle_car_lifetime}_vmt${EV_VMT_car_adjustment_ind}_grid${ev_grid}_${renewables_percent}.dta")
+		local solar_exists = fileexists("${assumptions}/timepaths/solar_externalities_time_path_scc${scc}_age25_${renewables_percent}.dta")  
+		local wind_exists = fileexists("${assumptions}/timepaths/wind_externalities_time_path_scc${scc}_age25_${renewables_percent}.dta")
+	}
+	
 	if `ev_exists' == 1 {
 		global ev_simulation_max_year 2022
 		global rerun_timepaths = "no"
