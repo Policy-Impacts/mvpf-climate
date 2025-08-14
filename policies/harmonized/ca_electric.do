@@ -104,8 +104,8 @@ local rebate_cost = `rebate_cost_coastal' + `rebate_cost_inland'
 local indirect_cost = 4000000 // SCE spent ~$4M to administer and advertise program (Wirtshafter Associates 2006)
 * energy consumption 2005 (Kwh)
 
-local consump_coastal_base	= 8247457920 * (1 + (1 - exp(`LATE_coastal')))
-local consump_inland_base	= 1154292248 * (1 + (1 - exp(`LATE_inland')))
+local consump_coastal_base	= 8247457920 * (1 + (1 - exp(`LATE_coastal'))) // (Table 8 row 2)
+local consump_inland_base	= 1154292248 * (1 + (1 - exp(`LATE_inland'))) // (Table 8 row 2)
 
 ****************************************************
 /* 3d. Inflation Adjusted Values */

@@ -61,18 +61,25 @@ global share_leakage_rggi = .51136364
 if "${spec_type}" == "baseline" | "${spec_type}" == "baseline_gen" {
 	
 	local dollar_year = ${policy_year}
-	global MVPF_type = "marginal"
-	
+	if "${mvpf_approach}" == "nonmarginal" {
+		global MVPF_type = "nonmarginal"
+	}
+	else {
+		global MVPF_type = "marginal"
+	}	
 }
 if "${spec_type}" == "current"{
 	
 	local dollar_year = ${today_year}
-	global MVPF_type = "marginal"
-	
+	if "${mvpf_approach}" == "nonmarginal" {
+		global MVPF_type = "nonmarginal"
+	}
+	else {
+		global MVPF_type = "marginal"
+	}	
 }
 
 local discount = ${discount_rate}
-
 
 ****************************************************
 /* 1. Pollution Calculations */
@@ -225,6 +232,11 @@ preserve
 	
 	local semie = (`baseline_price' / `delta_q_CO2_prod') * `permit_q'
 	
+	// For non-marginal calculation, we need total permits and emissions reduction
+	
+	local total_permits_auctioned = `permit_q'  // 816.2 million permits from paper
+	local total_emissions_reduction = abs(`delta_q_CO2_prod')  // 22 million short tons from paper
+	
 ****************************************************
 /* 3. Import Social Costs and Marginal Damages */
 ****************************************************
@@ -268,6 +280,14 @@ if "${MVPF_type}" == "marginal" {
 	
 	local permit_revenue = -`semie'
 	local fe_permit = -`permit_price'
+	
+}
+
+if "${MVPF_type}" == "nonmarginal" {
+	
+	// Revenue from auctioning all permits
+	local permit_revenue = `total_permits_auctioned' * `permit_price'  // $2.6B
+	local fe_permit = 0  // No additional fiscal externality in non-marginal case
 	
 }
 
@@ -325,6 +345,31 @@ if "${MVPF_type}" == "marginal" {
 
 }
 
+if "${MVPF_type}" == "nonmarginal" {
+	
+	* Producers/Firms WTP - cost of buying permits plus abatement cost
+	local wtp_permits = -`permit_revenue'
+
+	local max_abatement_cost = `permit_price' * `total_emissions_reduction'
+	local wtp_abatement = -0.5 * `max_abatement_cost'  // Assuming linear abatement curve
+	
+	local wtp_producers = `wtp_permits' + `wtp_abatement'
+	
+	* Society WTP from environmental benefits
+	local wtp_CO2 = `social_cost_CO2' * `total_emissions_reduction' * (1 - ${share_leakage_rggi})
+	
+	// Local pollutant benefits (SO2 and NOx)
+	local wtp_SO2 = `social_cost_SO2_uw' * `total_emissions_reduction' * `delta_q_SO2_dCO2' * (1 - ${share_leakage_rggi})
+	local wtp_NOx = `social_cost_NOx_uw' * `total_emissions_reduction' * `delta_q_NOx_dCO2' * (1 - ${share_leakage_rggi})
+	
+	local wtp_soc_l = `wtp_SO2' + `wtp_NOx'
+	local wtp_soc_g = `wtp_CO2'
+	
+	local total_WTP = `wtp_producers' + `wtp_soc_l' + `wtp_soc_g' * (1 - ${USShareFutureSSC} * ${USShareGovtFutureSCC})
+	
+
+}
+
 local WTP_USPres = `wtp_producers' + `wtp_soc_l'
 local WTP_USFut = (`wtp_soc_g') * (${USShareFutureSSC} - (${USShareFutureSSC} * ${USShareGovtFutureSCC}))
 local WTP_RoW = (`wtp_soc_g') * (1 - ${USShareFutureSSC})
@@ -335,9 +380,22 @@ local WTP_RoW = (`wtp_soc_g') * (1 - ${USShareFutureSSC})
 	
 local fe_lr = `wtp_soc_g' * ${USShareFutureSSC} * ${USShareGovtFutureSCC} * -1
 
-local total_cost = `permit_revenue' + `fe_permit' + `fe_lr'
-
+if "${MVPF_type}" == "marginal" {
+    local total_cost = `permit_revenue' + `fe_permit' + `fe_lr'
+}
+if "${MVPF_type}" == "nonmarginal" {
+    local total_cost = -`permit_revenue' + `fe_permit' + `fe_lr'
+}
 local MVPF = `total_WTP'/`total_cost' 
+
+di in red `social_cost_CO2' 
+di in red `wtp_CO2'
+di in red `wtp_soc_l'
+// di in red `total_cost'
+// di in red `total_WTP'
+// di in red `max_abatement_cost' // match
+// di in red `permit_revenue' // match
+
 
 ****************************************************
 /* 8. Save Results and Waterfall Components */
@@ -371,3 +429,8 @@ global permit_price_`1' = `permit_price'
 global macc_`1' = (`baseline_price' / `delta_q_CO2_prod')
 
 global gov_carbon_`1' = `delta_q_CO2_prod' 
+
+if "${MVPF_type}" == "nonmarginal" {
+    global wtp_CO2_`1' = `wtp_CO2'
+    global wtp_soc_l_`1' = `wtp_soc_l'
+}

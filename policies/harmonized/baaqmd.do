@@ -98,13 +98,13 @@ levelsof estimate, local(estimates)
 	
 	if "${vehicle_mar_val_chng}" == "yes" {
 	
-		local marginal_valuation = 0.5
+		local marginal_valuation = 0.5 // assumption for robustness check
 		
 }
 
 if "${vehicle_mar_val_chng}" == "no" | "${vehicle_mar_val_chng}" == ""  {
 	
-		local marginal_valuation = 1
+		local marginal_valuation = 1 // assumption for robustness check
 }
     ****************************************************
     /* 3c. Policy Specific Assumptions */

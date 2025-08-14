@@ -72,7 +72,7 @@ if "${harmonized_2010}" == "yes" & "${emissions_factor}" == "baseline_gen" {
 	local dollar_year = 2010
 }
 
-local subsidy_cost = 3783.60
+local subsidy_cost = 3783.60 // in 2018 dollars, from paper
 local baseline_kwh = 9956.5 // sum from untreated in Table 4
 	
 *********************************

@@ -67,7 +67,7 @@ if "`4'" == "current"{
 *********************************
 /* 3. Run .ado File. */
 *********************************
-local mpg_diff = `mpg_diff' / (678359/6270967)
+local mpg_diff = `mpg_diff' / (678359/6270967) // from paper, Table 2 and Table 5
 run_vehicle_retirement `dollar_year', mpg_improvement(`mpg_diff')
 
 ****************************************

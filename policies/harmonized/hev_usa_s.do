@@ -91,7 +91,7 @@ levelsof estimate, local(estimates)
 	restore
 }
 
-local farmer_theta = -0.421
+local farmer_theta = -0.421 // Way et al. (2022)
 
 ****************************************************
 /* 3. Set local assumptions unique to this policy */
@@ -501,7 +501,7 @@ local producer_mc = `producer_price' - `markup'
 * intermediate rebound effect calculations for Latex
 
 local per_diff_cost_driving = ((`consumer_price' / `hev_mpg') - (`consumer_price' / `hev_cf_mpg')) / (`consumer_price' / `hev_cf_mpg')
-local hev_rebound = `per_diff_cost_driving' * -0.221
+local hev_rebound = `per_diff_cost_driving' * -0.221 // Small & Van Dender (2007)
 
 **************************
 /* 6. Cost Calculations  */
@@ -592,7 +592,7 @@ if "${value_profits}" == "yes"{
 *no utility producer surplus for HEVs
 ** take out the corporate effective tax rate
 local total_wtp_prod_s = `wtp_prod_s'
-local wtp_prod_s = `total_wtp_prod_s' * (1 - 0.21)
+local wtp_prod_s = `total_wtp_prod_s' * (1 - 0.21) // 0.21 is the corporate average tax rate
 local gas_corp_fisc_e = `total_wtp_prod_s' * 0.21
 
 if `marg_mvpf' == 1{

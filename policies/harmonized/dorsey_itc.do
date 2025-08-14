@@ -103,12 +103,12 @@ levelsof estimate, local(estimates)
 	** Cost assumptions
 	local pre_cost_per_watt = ${cost_per_watt}
 	local cost_per_watt = `pre_cost_per_watt' * (1 - `federal_subsidy')
-	local avg_state_rebate = 0
+	local avg_state_rebate = 0 // Assuming no average state rebate.
 	local avg_fed_rebate = `pre_cost_per_watt' * `federal_subsidy'
 	
 	
 	if "${spec_type}" == "baseline" | "${spec_type}" == "baseline_gen" {
-		local federal_subsidy = 0.3
+		local federal_subsidy = 0.3 // Subsidy was 30% in baseline year. https://www.irs.gov/pub/irs-prior/i5695--2014.pdf
 		local system_capacity =  7.30 // kW, Average system capacity (Table A.11)
 		local annual_output =  1.42828 // kWh/Watt, output per unit of installed capacity over 25-year lifespan (Table A.9)
 			
@@ -130,8 +130,8 @@ local cum_sales = (713918 * 1000)/`system_capacity' // 71391800 MW, as of 2020; 
 local marg_sales = (128050.40 * 1000)/`system_capacity' // 128050.40 MW, in 2020; 39,541.25 MW, in 2014 (IRENA, 2023)
 
 if `dollar_year' == ${policy_year} {
-	local cum_sales = (101645.45 * 1000)/`system_capacity'
-	local marg_sales = (29440.00 * 1000)/`system_capacity'
+	local cum_sales = (101645.45 * 1000)/`system_capacity' //(IRENA, 2023)
+	local marg_sales = (29440.00 * 1000)/`system_capacity' //(IRENA, 2023)
 }
 
 solar, policy_year(${policy_year}) spec(${spec_type}) semie(`semie') replacement(`replacement') p_name("dorsey_itc") marg_sales(`marg_sales') cum_sales(`cum_sales') annual_output(`annual_output') system_capacity(`system_capacity') pre_cost_per_watt(`pre_cost_per_watt') avg_state_rebate(`avg_state_rebate') e_demand(`e_demand') pass_through(${solar_passthrough}) farmer_theta(`farmer_theta') federal_subsidy(`federal_subsidy')

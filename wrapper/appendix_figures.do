@@ -26,6 +26,8 @@ do "${github}/figtab/stacked_elec_externalities"
 
 do "${github}/figtab/grid_externality_region.do"
 
+do "${github}/figtab/changing_grid.do" // doesn't run for solar 0.91 w lbd
+
 *---------------------------------------
 * 4 - Baseline MVPFs with a US/RoW split
 *---------------------------------------
@@ -82,7 +84,7 @@ do "${github}/figtab/mvpf_plots.do" "subsidies" "full_current_193_pub_bias_and_l
 * Add -  MVPFs plot for Subsidies (changing local assumptions)
 *----------------------------------
 
-do "${github}/figtab/mvpf_plots_locals.do" "subsidies" "Subsidy Robustness Locals" "scc_193" "wind_no_cap_factor" "wind_lifetime_increase" "wind_lifetime_reduce" "wind_emissions_half" "wind_emissions_double" "wind_lcoe_2" "wind_lcoe_05" "wind_semie" "solar_output_decrease" "solar_output_increase" "solar_lifetime_increase" "solar_lifetime_reduce" "ev_lifetime_increase" "ev_lifetime_reduce" "ev_vmt_rebound_one" "ev_new_car" "wea_lifetime_reduce" "wea_mar_val_decr" "wea_mar_per_decr" "hybrid_lifetime_reduce" "hybrid_lifetime_increase" "hybrid_new_car" "app_lifetime_reduce" "app_lifetime_increase" "vehicle_lifetime_increase" "vehicle_mar_decrease" "vehicle_no_rb"
+// do "${github}/figtab/mvpf_plots_locals.do" "subsidies" "Subsidy Robustness Locals" "scc_193" "wind_no_cap_factor" "wind_lifetime_increase" "wind_lifetime_reduce" "wind_emissions_half" "wind_emissions_double" "wind_lcoe_2" "wind_lcoe_05" "wind_semie" "solar_output_decrease" "solar_output_increase" "solar_lifetime_increase" "solar_lifetime_reduce" "ev_lifetime_increase" "ev_lifetime_reduce" "ev_vmt_rebound_one" "ev_new_car" "wea_lifetime_reduce" "wea_mar_val_decr" "wea_mar_per_decr" "hybrid_lifetime_reduce" "hybrid_lifetime_increase" "hybrid_new_car" "app_lifetime_reduce" "app_lifetime_increase" "vehicle_lifetime_increase" "vehicle_mar_decrease" "vehicle_no_rb"
 
 
 

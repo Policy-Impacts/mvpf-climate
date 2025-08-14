@@ -92,11 +92,11 @@ restore
 	
 local lifetime = ${appliance_lifetimes} // 13, 15, or 18 yrs - Footnote 10
 
-if "${incr_appliance_lifetimes}" == "yes" {
+if "${incr_appliance_lifetimes}" == "yes" { // assumption for robustness check
 	local lifetime = 25
 }
 
-if "${decr_appliance_lifetimes}" == "yes" {
+if "${decr_appliance_lifetimes}" == "yes" { // assumption for robustness check
 	local lifetime = 5
 } 
 

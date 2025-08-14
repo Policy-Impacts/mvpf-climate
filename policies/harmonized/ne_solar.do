@@ -97,7 +97,7 @@ levelsof estimate, local(estimates)
 		}
 		
 		local annual_output = ${output} / (`system_capacity' * 1000)
-		local federal_subsidy = 0.26
+		local federal_subsidy = 0.26 // Percent of Cost Subsidized in 2020
 		local cost_per_watt_baseline = ${cost_per_watt} * (${cpi_`dollar_year'} / ${cpi_2022})
 	restore
 	
@@ -128,7 +128,7 @@ levelsof estimate, local(estimates)
 
 	
 	if "${spec_type}" == "baseline" {
-		local federal_subsidy = 0.3
+		local federal_subsidy = 0.3 // Subsidy was 30% in baseline year. https://www.irs.gov/pub/irs-prior/i5695--2014.pdf
 		local system_capacity =  5 // kW, Average system capacity (pg 142)
 		local annual_output =  1200/1000 // kWh/W
 		
@@ -139,7 +139,7 @@ levelsof estimate, local(estimates)
 		local avg_fed_rebate = (`pre_cost_per_watt' + `avg_state_rebate')  * `federal_subsidy'
 		local cost_per_watt = `pre_cost_per_watt' - (`avg_fed_rebate')
 		
-		local pass_through = 1 - 0.156
+		local pass_through = 1 - 0.156 // from Gillingham & Tsvetanov (2019)
 	}
 	
 	local cost_in_context = `cost_per_watt_context' * (1-0.3) - (1.13)
@@ -151,7 +151,7 @@ levelsof estimate, local(estimates)
 		local system_capacity = ${system_capacity}
 		local annual_output =  ${output} / (`system_capacity' * 1000)
 		local pre_cost_per_watt = 5.40 * (${cpi_`dollar_year'}/${cpi_2022}) // NREL 2012
-		local avg_state_rebate = 0
+		local avg_state_rebate = 0 // Assuming no average state rebate.
 
 		local cost_per_watt = `pre_cost_per_watt' * (1-`federal_subsidy')
 		local avg_fed_rebate = `pre_cost_per_watt' * `federal_subsidy'
@@ -170,8 +170,8 @@ local cum_sales = (713918 * 1000)/`system_capacity' // 71391800 MW, as of 2020; 
 local marg_sales = (128050.40 * 1000)/`system_capacity' // 128050.40 MW, in 2020; 39,541.25 MW, in 2014 (IRENA, 2023)
 
 if `dollar_year' == ${policy_year} {
-	local cum_sales = (101645.45 * 1000)/`system_capacity'
-	local marg_sales = (29440.00 * 1000)/`system_capacity' 
+	local cum_sales = (101645.45 * 1000)/`system_capacity' //(IRENA, 2023)
+	local marg_sales = (29440.00 * 1000)/`system_capacity' //(IRENA, 2023)
 }
 
 solar, policy_year(${policy_year}) spec(${spec_type}) semie(`semie') replacement(`replacement') p_name("ne_solar") marg_sales(`marg_sales') cum_sales(`cum_sales') annual_output(`annual_output') system_capacity(`system_capacity') pre_cost_per_watt(`pre_cost_per_watt') avg_state_rebate(`avg_state_rebate') e_demand(`e_demand') pass_through(`pass_through') farmer_theta(`farmer_theta') federal_subsidy(`federal_subsidy')

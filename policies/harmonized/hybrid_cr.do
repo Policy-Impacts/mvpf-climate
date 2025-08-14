@@ -463,7 +463,7 @@ local producer_mc = `producer_price' - `markup'
 * intermediate rebound effect calculations for Latex
 
 local per_diff_cost_driving = ((`consumer_price' / `hev_mpg') - (`consumer_price' / `hev_cf_mpg')) / (`consumer_price' / `hev_cf_mpg')
-local hev_rebound = `per_diff_cost_driving' * -0.221
+local hev_rebound = `per_diff_cost_driving' * -0.221 // Small & Van Dender (2007)
 
 **************************
 /* 6. Cost Calculations  */
@@ -758,7 +758,7 @@ di in red "ice gas cost is `lifetime_ice_gas_cost'"
 
 local resource_cost = `hev_price' + `lifetime_hev_gas_cost' - `ice_price' - `lifetime_ice_gas_cost'
 di in red "resource cost is `resource_cost'"
-local q_carbon_yes_hev_mck = ${hybrid_cf_carbon_2020} + ((214 + 20) * 0.001) - ${hybrid_rbd_CO2_2020}
+local q_carbon_yes_hev_mck = ${hybrid_cf_carbon_2020} + ((214 + 20) * 0.001) - ${hybrid_rbd_CO2_2020} // from Table 9 of Pipitone et al. (2021)
 
 local q_carbon_no_ice_mck = ${muehl_cf_carbon_2020}
 

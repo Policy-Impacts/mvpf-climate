@@ -1,13 +1,10 @@
 /*-----------------------------------------------------------------------
 * Run Calculations for Different Specifications
 *-----------------------------------------------------------------------*/
+capture program drop find_most_recent_folder
+program define find_most_recent_folder
 
-tempname numbers
-tempfile robustness_values
-postfile `numbers' str80 label value using `robustness_values', replace
-
-local pattern_suffix = "full_current_193"
-di in yellow "Looking for folders ending with pattern: `pattern_suffix'"
+args pattern_suffix
 
 * Find all folders in the results directory that end with the pattern
 local results_dir = "${code_files}/4_results"
@@ -39,7 +36,6 @@ else {
     local most_recent_timestamp = ""
     
     local folder_count : word count `folder_list'
-    local date_count : word count `folder_dates'
     
     forvalues i = 1/`folder_count' {
         local current_folder : word `i' of `folder_list'
@@ -65,9 +61,20 @@ else {
     di in green "Selected most recent folder: `main_data_set'"
 }
 
+end
 
-* local main_data_set = "2024-11-15_09-44-45__full_current_193_nov"
+
+tempname numbers
+tempfile robustness_values
+postfile `numbers' str80 label value using `robustness_values', replace
+
+* Find main dataset using helper program
+find_most_recent_folder "full_current_193"
+local main_data_set = "`folder'"
+di in green "Selected most recent folder: `main_data_set'"
+
 global lbd "yes"
+
 
 *----------------------
 * 1 - Electric Vehicles
@@ -376,6 +383,25 @@ qui sum mvpf
 di `r(mean)'
 post `numbers' ("wind_non_marginal_avg") (`r(mean)')
 
+* Wind MVPF when grid is fully clean, no lbd
+
+global change_grid = "clean"
+
+global renewables_loop = "no"
+global renewables_percent = 0.999
+
+		do "${github}/wrapper/metafile.do" ///
+			"current" /// 2020
+			"193" /// SCC
+			"no" /// learning-by-doing
+			"no" /// savings
+			"yes" /// profits
+			"hitaj_ptc shirmali_ptc metcalf_ptc" /// programs to run
+			0 /// reps
+			"full_current_${renewables_percent}_clean_grid_no_lbd_wind" // nrun
+
+
+global change_grid = ""
 
 *--------------------------------------------
 * 7 - Solar
@@ -434,6 +460,42 @@ gen mvpf = WTP_cc / cost
 qui sum mvpf
 post `numbers' ("solar_non_marginal_mvpf") (`r(mean)')
 
+* Solar MVPF when grid is fully clean
+
+global change_grid = "clean"
+
+global renewables_loop = "no"
+global renewables_percent = 0.999
+		
+		do "${github}/wrapper/metafile.do" ///
+			"current" /// 2020
+			"193" /// SCC
+			"yes" /// learning-by-doing
+			"no" /// savings
+			"yes" /// profits
+			"ct_solar ne_solar hughes_csi pless_ho pless_tpo" /// programs to run
+			0 /// reps
+			"full_current_${renewables_percent}_clean_grid_solar" // nrun
+			
+local solar_policies = "ct_solar ne_solar hughes_csi pless_ho pless_tpo"
+local total_wtp_clean = 0
+local total_cost_clean = 0
+
+* Solar MVPF when grid is fully clean, no lbd
+
+		
+		do "${github}/wrapper/metafile.do" ///
+			"current" /// 2020
+			"193" /// SCC
+			"no" /// learning-by-doing
+			"no" /// savings
+			"yes" /// profits
+			"ct_solar ne_solar hughes_csi pless_ho pless_tpo" /// programs to run
+			0 /// reps
+			"full_current_${renewables_percent}_clean_grid_no_lbd_solar" // nrun
+
+
+global change_grid = ""
 
 *--------------------------------------------
 * 8 - Weatherization
@@ -744,6 +806,16 @@ run_program ets, mode(baseline)
 	post `numbers' ("ETS_BayerAklin_total_wtp_in_context") (${WTP_ets})	
 	post `numbers' ("ETS_BayerAklin_total_cost_in_context") (${cost_ets})
 
+global mvpf_approach = "nonmarginal"
+
+run_program rggi, mode(baseline)
+	post `numbers' ("CO2_benefits_rggi_nonmarg_in_context") (${wtp_CO2_rggi})
+	post `numbers' ("non_CO2_benefits_rggi_nonmarg_in_context") (${wtp_soc_l_rggi})
+	post `numbers' ("MVPF_rggi_nonmarg_in_context") (${MVPF_rggi})
+
+global mvpf_approach = ""
+
+
 
 postclose `numbers'
 
@@ -751,6 +823,8 @@ postclose `numbers'
 use `robustness_values', clear
 save "${code_files}/4_results/robustness", replace
 export excel using "${code_files}/4_results/robustness", replace
+
+
 
 *--------------------------------------------
 * 14 - Different Grids
@@ -836,4 +910,3 @@ global ng_rebound_robustness = "yes"
 		"full_current_193_gas_rebound" // nrun
 
 global ng_rebound_robustness = "no"
-

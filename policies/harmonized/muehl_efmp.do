@@ -28,8 +28,8 @@ local static_grid = 0
 
 local want_rebound = 1
 
-local elec_dem_elas = -0.190144
-local elec_sup_elas = 0.7806420154513118
+local elec_dem_elas = -0.190144 // DOI (2021)
+local elec_sup_elas = 0.7806420154513118 // DOI (2021)
 
 local bev_cf = "${bev_cf}"
 local veh_lifespan_type = substr("${bev_cf}", strpos("${bev_cf}", "_") + 1, .)
@@ -98,8 +98,8 @@ levelsof estimate, local(estimates)
 	restore 
 }
 
-local farmer_theta = -0.421
-local pass_through = 0.85
+local farmer_theta = -0.421 // // Way et al. (2022)
+local pass_through = 0.85 // Table 4
 
 ****************************************************
 /* 3. Set local assumptions unique to this policy */
@@ -181,7 +181,7 @@ preserve
 		replace tax2017 = tax2017 * (${cpi_${dollar_year}} / ${cpi_2017})
 		replace tax2018 = tax2018 * (${cpi_${dollar_year}} / ${cpi_2018})
 		keep if state == "California"
-		merge m:1 state using "${assumptions}/evs/processed/pop_by_state", keep(match)
+		merge m:1 state using "${assumptions}/evs/processed/pop_by_state_2010_2019", keep(match)
 		gen N = pop2015 + pop2016 + pop2017 + pop2018
 		gen weighted_avg = pop2015 * tax2015 + pop2016 * tax2016 + pop2017 * tax2017 + pop2018 * tax2018
 		replace weighted_avg = weighted_avg / N
@@ -569,7 +569,7 @@ if "${value_profits}" == "yes"{
 
 ** take out the corporate effective tax rate
 local total_wtp_prod_s = `wtp_prod_s'
-local wtp_prod_s = `total_wtp_prod_s' * (1 - 0.21)
+local wtp_prod_s = `total_wtp_prod_s' * (1 - 0.21) // 0.21 is the corporate average tax rate
 local gas_corp_fisc_e = `total_wtp_prod_s' * 0.21
 
 local profits_fisc_e = `gas_corp_fisc_e' - `utility_fisc_ext'

@@ -94,7 +94,7 @@ preserve
 		gen year = year(date)
 		gen month = month(date)
 	
-	merge 1:1 month year using "${user_specific_assumptions}/files_v${user_name}/Gasoline Prices, Markups, and Taxes/gas_data_monthly", keep(3) nogen	
+	merge 1:1 month year using "${gas_price_data}/gas_data_monthly", keep(3) nogen	
 		sort date
 	collapse (mean) *_price pct_markup avg_tax_rate [aw=gas_consumption], by(year)
 	

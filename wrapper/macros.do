@@ -24,7 +24,7 @@ if "`1'" != ""{
 global EV_VMT_car_adjustment_ind = round(${EV_VMT_car_adjustment}, .001)
 
 check_timepaths check // Check if timepaths for learning by doing already exist
-di in red "Rerun timepaths set to ${rerun_timepaths}
+di in red "Rerun timepaths set to ${rerun_timepaths}"
 
 // global rerun_timepaths "no"
 // if fileexists("${assumptions}/timepaths/ev_externalities_time_path_${scc}_age${vehicle_car_lifetime}_vmt${EV_VMT_car_adjustment_ind}_grid${ev_grid}.dta") != 1{
@@ -828,6 +828,8 @@ if "${rerun_timepaths}" == "yes" {
 *-----------------------------------------------------------------------
 * 5 - Save Wind & Solar Timepaths 
 *-----------------------------------------------------------------------
+
+global State "US"
 
 if "${rerun_timepaths}" == "yes" | "${rerun_solar_wind_timepaths}" == "yes" {
 	

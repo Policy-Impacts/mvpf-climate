@@ -76,7 +76,7 @@ if "`4'" == "current"{
 
 // For 2020 MVPF, we scale the paper's MVPFs by our set of externality assumptions
 	
-	*Get the weights of electricity and natural gas reduced (per mmbtu)
+	*Get the weights of electricity and natural gas reduced (per mmbtu) from paper
 	local elec_weight = -1 * (0.15 * `audit_elec' + 0.02 * `investment_elec') * 0.003412
 	local gas_weight = -1 * (0.15 * `audit_gas' + 0.02 * `investment_gas') * 0.1
 	
@@ -156,7 +156,7 @@ if "`4'" == "current"{
 	/* Cost Calculations  */
 	**************************
 	
-	local program_cost = 11.35 * ${cpi_2020}/${cpi_${policy_year}}
+	local program_cost = 11.35 * ${cpi_2020}/${cpi_${policy_year}} // 11.35 cost per household from paper
 	
 	local fisc_ext_t = (`profit_loss' * 0.72 * 0.1) + (`profit_loss' * 0.28)
 	
@@ -203,7 +203,7 @@ if "${spec_type}" == "baseline" {
 ********************************
 local energy_cost = ${energy_cost}
 local ng_cost = 3.43 * 1.038 // Convert thousand cubic feet to mmbtu, conversion factor form EIA, from ng_citygate tab in policy_category_assumptions_MASTER
-local retrofit_lifespan = 20
+local retrofit_lifespan = 20 // from paper
 local kwh_reduced = -1 * (`audit_elec' + `investment_elec') * 365
 di in red "kwh reduced is `kwh_reduced'"
 local mmbtu_reduced = -1 * (`audit_gas' + `investment_gas') * 0.1 * 365

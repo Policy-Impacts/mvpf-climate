@@ -192,23 +192,18 @@ merge 1:1 Vehicle using "${code_files}/1_assumptions/evs/processed/kbb_ev_sales2
 
 *** Adding in 2023 IRA subsidies ***
 gen subsidy2023 = .
-replace subsidy2023 = 7500 if Vehicle == "Cadillac Lyric" | Vehicle = "Chevy Bolt" | Vehicle == "Ford E-Transit" | Vehicle == "Ford F-150 Lightning" | Vehicle == "Ford Mustang Mach-E" | Vehicle == "Genesis GV70" | Vehicle == "Mercedes EQE" | Vehicle == "Nissan Leaf" | Vehicle == "Rivian R1S" | Vehicle == "Rivian R1T" | Vehicle == "Tesla Model 3" | Vehicle == "Tesla Model Y" | Vehicle == "VW ID.4"
+replace subsidy2023 = 7500 if Vehicle == "Cadillac Lyric" | Vehicle == "Chevy Bolt" | Vehicle == "Ford E-Transit" | Vehicle == "Ford F-150 Lightning" | Vehicle == "Ford Mustang Mach-E" | Vehicle == "Genesis GV70" | Vehicle == "Mercedes EQE" | Vehicle == "Nissan Leaf" | Vehicle == "Rivian R1S" | Vehicle == "Rivian R1T" | Vehicle == "Tesla Model 3" | Vehicle == "Tesla Model Y" | Vehicle == "VW ID.4"
 
 *** Adding in 2023 model battery capacities
 gen batt_cap2023 = .
-replace batt_cap2023 = 82 if Vehicle == "Audi Q4 e-tron"
-replace batt_cap2023 = 95 if Vehicle == "Audi e-tron"
-replace batt_cap2023 = (113 + 109 + 105 + 99 + 96) / 5 if Vehicle == "BMW i4"
-replace batt_cap2023 = 105.7 if Vehicle == "BMW i7"
-replace batt_cap2023 = (86 + 86 + 83) / 3 if Vehicle == "BMW iX"
-replace batt_cap2023 = 89 if Vehicle == "Cadillac Lyric"
-replace batt_cap2023 = (120 + 115) / 2 if Vehicle == "Chevrolet Bolt"
-replace batt_cap2023 = 92 if Vehicle == "Fisker Ocean"
-replace batt_cap2023 = (70) / 5 if Vehicle == "BMW i4"
-
-
-
-
+replace batt_cap2023 = 82 if Vehicle == "Audi Q4 e-tron" // audiusa.com
+replace batt_cap2023 = 95 if Vehicle == "Audi e-tron" // audiusa.com
+replace batt_cap2023 = (83.9 + 70.2 + 83.9) / 3  if Vehicle == "BMW i4" // https://www.edmunds.com/bmw/i4/2023/st-401943408/features-specs/
+replace batt_cap2023 = 105.7 if Vehicle == "BMW i7" // bmwoftenafly.com
+replace batt_cap2023 = 111.5 if Vehicle == "BMW iX" // https://www.edmunds.com/bmw/ix/2023/features-specs/
+replace batt_cap2023 = 102 if Vehicle == "Cadillac Lyric" // https://www.edmunds.com/cadillac/lyriq/2023/features-specs/
+replace batt_cap2023 = 65 if Vehicle == "Chevrolet Bolt" // https://www.edmunds.com/chevrolet/bolt-ev/2023/features-specs/
+replace batt_cap2023 = (73 + 113 + 113) / 3 if Vehicle == "Fisker Ocean" // https://www.edmunds.com/fisker/ocean/2023/features-specs/
 
 
 forv i = 2011(1)2022{
@@ -224,6 +219,7 @@ sort year
 duplicates drop year subsidy_weighted_avg, force
 drop Vehicle
 
+* Source and calculation in policy_category_assumptions_MASTER, tab: ev_cf_mpg_calcs
 gen cf_mpg = .
 replace cf_mpg = 34.14553791 if year == 2011
 replace cf_mpg = 36.1435982 if year == 2012

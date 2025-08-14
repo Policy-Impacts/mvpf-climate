@@ -175,7 +175,7 @@ preserve
 		replace tax2013 = tax2013 * (${cpi_${dollar_year}} / ${cpi_2013})
 		replace tax2014 = tax2014 * (${cpi_${dollar_year}} / ${cpi_2014})
 		keep if state == "California" | state == "Hawaii" | state == "Illinois" | state == "Massachusetts" | state == "Pennsylvania" | state == "Tennessee" | state == "Texas"
-		merge m:1 state using "${assumptions}/evs/processed/pop_by_state", keep(match)
+		merge m:1 state using "${assumptions}/evs/processed/pop_by_state_2010_2019", keep(match)
 		gen N = pop2011 + pop2012 + pop2013 + pop2014
 		gen weighted_avg = pop2011 * tax2011 + pop2012 * tax2012 + pop2013 * tax2013 + pop2014 * tax2014
 		replace weighted_avg = weighted_avg / N
@@ -919,6 +919,7 @@ if "${lbd}" == "yes"{
 		
 	}
 	else{
+		
 		cost_curve_masterfile, demand_elas(`epsilon') discount_rate(`discount') farmer(`farmer_theta') fcr(`fixed_cost_frac') ///
 							   curr_prod(`marg_sales') cum_prod(`cum_sales') price(`net_msrp') enviro(ev_local) time_path_age(`lifetime') ///
 							   scc(${scc_import_check}) new_car(`lbd_cf') vmt(${EV_VMT_car_adjustment}) ev_grid(${ev_grid})
@@ -1011,7 +1012,7 @@ di in red "lifetime energy cost is `lifetime_energy_cost'"
 local purchase_price_diff = 8166 * (${cpi_2020} / ${cpi_2023}) // from Vincentric's 2024 Electric Vehicle Cost of Ownership Analysis
 di in red "purchase price difference is `purchase_price_diff'"
 
-local lifetime_gas_cost = ${clean_car_cf_gas_savings_2020} - ${clean_car_wtp_prod_s_2020} - 0.08 * ${clean_car_cf_gas_savings_2020} - ${clean_car_cf_gas_fisc_ext_2020} ////economy-wide 8% markup from De Loecker et al. (2020)
+local lifetime_gas_cost = ${clean_car_cf_gas_savings_2020} - ${clean_car_wtp_prod_s_2020} - 0.08 * ${clean_car_cf_gas_savings_2020} - ${clean_car_cf_gas_fisc_ext_2020} //economy-wide 8% markup from De Loecker et al. (2020)
 
 di in red "lifetime gas cost is `lifetime_gas_cost'"
 

@@ -101,8 +101,8 @@ levelsof estimate, local(estimates)
 	/* 3c. Policy Specific Assumptions */
 	****************************************************
 
-	local bonus_cost = 114 * (${cpi_`dollar_year'}/${cpi_2017})
-	local contractor_surplus = 13 * (${cpi_`dollar_year'}/${cpi_2017})
+	local bonus_cost = 114 * (${cpi_`dollar_year'}/${cpi_2017}) // Table 10
+	local contractor_surplus = 13 * (${cpi_`dollar_year'}/${cpi_2017}) // Table 10
 	local retrofit_cost = 9655 * (${cpi_`dollar_year'}/${cpi_2017}) // Table 10
 	local kwhs_per_mmbtu = 293.07107 // conversion rate
 	

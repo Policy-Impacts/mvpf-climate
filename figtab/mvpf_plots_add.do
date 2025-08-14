@@ -1,135 +1,138 @@
-************************************************************************
-/* Purpose: Produce MVPF Plot with Different Specifications */
-************************************************************************
-************************************************************************
-/* Generate datasets */
-************************************************************************
-* Create list of all programs to run.
-
-*-------------------------
-* For SCC values 193, 76, 337
-*-------------------------
-preserve
-    import excel "${code_files}/policy_details_v3.xlsx", clear first
-  
-    * Filter to subsidies only and exclude extended programs
-    keep if broad_category == "Subsidies"
-    keep if extended != 1
-  
-    * Get all program names and build the list
-    levelsof(program), local(program_loop)
-    local all_subsidies ""
-    foreach prog of local program_loop {
-        local all_subsidies "`all_subsidies' `prog'"
-    }
-  
-    di in yellow "All programs for subsidies: `all_subsidies'"
-restore
-
-foreach scc in 193 76 337 {
-
-
-	*Baseline
-	do "${github}/wrapper/metafile.do" ///
-		"current" /// 2020
-		"`scc'" /// SCC
-		"yes" /// learning-by-doing
-		"no" /// savings
-		"yes" /// profits
-		"`all_subsidies'" /// programs to run
-		0 /// reps
-		"full_current_`scc'" // nrun
-
-
-	*no LBD
-	do "${github}/wrapper/metafile.do" ///
-		"current" /// 2020
-		"`scc'" /// SCC
-		"no" /// learning-by-doing
-		"no" /// savings
-		"yes" /// profits
-		"`all_subsidies'" /// programs to run
-		0 /// reps
-		"full_current_no_lbd_`scc'" // nrun
-		
-   *no profits
-    do "${github}/wrapper/metafile.do" ///
-        "current" /// 2020
-        "`scc'" /// SCC
-        "yes" /// learning-by-doing
-        "no" /// savings
-        "no" /// profits
-        "`all_subsidies'" /// programs to run
-        0 /// reps
-        "full_current_noprofits_`scc'" // nrun
-   
-    *energy savings
-    do "${github}/wrapper/metafile.do" ///
-        "current" /// 2020
-        "`scc'" /// SCC
-        "yes" /// learning-by-doing
-        "yes" /// savings
-        "yes" /// profits
-        "`all_subsidies'" /// programs to run
-        0 /// reps
-        "full_current_savings_`scc'" // nrun
-       
-    *CA grid
-    do "${github}/wrapper/metafile.do" ///
-        "current" /// 2020
-        "`scc'" /// SCC
-        "yes" /// learning-by-doing
-        "no" /// savings
-        "yes" /// profits
-        "`all_subsidies'" /// programs to run
-        0 /// reps
-        "full_current_`scc'_CA_grid" // nrun
-       
-    *MI grid
-    do "${github}/wrapper/metafile.do" ///
-        "current" /// 2020
-        "`scc'" /// SCC
-        "yes" /// learning-by-doing
-        "no" /// savings
-        "yes" /// profits
-        "`all_subsidies'" /// programs to run
-        0 /// reps
-        "full_current_`scc'_MI_grid" // nrun
-       
-    *0 rebound
-    global rebound_change = "yes"
-    global rebound_scalar = 0
-   
-    do "${github}/wrapper/metafile.do" ///
-        "current" /// 2020
-        "`scc'" /// SCC
-        "yes" /// learning-by-doing
-        "no" /// savings
-        "yes" /// profits
-        "`all_subsidies'" /// programs to run
-        0 /// reps
-        "full_current_`scc'_zero_rb" // nrun	
-       
-    global rebound_change = "no"
-    global rebound_scalar = 1
-
-    *2x rebound
-    global rebound_change = "yes"
-    global rebound_scalar = 2
-   
-    do "${github}/wrapper/metafile.do" ///
-        "current" /// 2020
-        "`scc'" /// SCC
-        "yes" /// learning-by-doing
-        "no" /// savings
-        "yes" /// profits
-        "`all_subsidies'" /// programs to run
-        0 /// reps
-        "full_current_`scc'_2_rb" // nrun	
-       
-    global rebound_change = "no"
-    global rebound_scalar = 1
-}
+// ************************************************************************
+// /* Purpose: Produce MVPF Plot with Different Specifications */
+// ************************************************************************
+// ************************************************************************
+// /* Generate datasets */
+// ************************************************************************
+// * Create list of all programs to run.
+//
+// *-------------------------
+// * For SCC values 193, 76, 337
+// *-------------------------
+// preserve
+//     import excel "${code_files}/policy_details_v3.xlsx", clear first
+// 
+//     * Filter to subsidies only and exclude extended programs
+//     keep if broad_category == "Subsidies"
+//     keep if extended != 1
+// 
+//     * Get all program names and build the list
+//     levelsof(program), local(program_loop)
+//     local all_subsidies ""
+//     foreach prog of local program_loop {
+//         local all_subsidies "`all_subsidies' `prog'"
+//     }
+// 
+//     di in yellow "All programs for subsidies: `all_subsidies'"
+// restore
+//
+// foreach scc in 193 76 337 {
+//
+//
+// 	*Baseline
+// 	do "${github}/wrapper/metafile.do" ///
+// 		"current" /// 2020
+// 		"`scc'" /// SCC
+// 		"yes" /// learning-by-doing
+// 		"no" /// savings
+// 		"yes" /// profits
+// 		"`all_subsidies'" /// programs to run
+// 		0 /// reps
+// 		"full_current_`scc'" // nrun
+//
+//
+// 	*no LBD
+// 	do "${github}/wrapper/metafile.do" ///
+// 		"current" /// 2020
+// 		"`scc'" /// SCC
+// 		"no" /// learning-by-doing
+// 		"no" /// savings
+// 		"yes" /// profits
+// 		"`all_subsidies'" /// programs to run
+// 		0 /// reps
+// 		"full_current_no_lbd_`scc'" // nrun
+//		
+//    *no profits
+//     do "${github}/wrapper/metafile.do" ///
+//         "current" /// 2020
+//         "`scc'" /// SCC
+//         "yes" /// learning-by-doing
+//         "no" /// savings
+//         "no" /// profits
+//         "`all_subsidies'" /// programs to run
+//         0 /// reps
+//         "full_current_noprofits_`scc'" // nrun
+//  
+//     *energy savings
+//     do "${github}/wrapper/metafile.do" ///
+//         "current" /// 2020
+//         "`scc'" /// SCC
+//         "yes" /// learning-by-doing
+//         "yes" /// savings
+//         "yes" /// profits
+//         "`all_subsidies'" /// programs to run
+//         0 /// reps
+//         "full_current_savings_`scc'" // nrun
+//      
+//     *CA grid
+//     do "${github}/wrapper/metafile.do" ///
+//         "current" /// 2020
+//         "`scc'" /// SCC
+//         "yes" /// learning-by-doing
+//         "no" /// savings
+//         "yes" /// profits
+//         "`all_subsidies'" /// programs to run
+//         0 /// reps
+//         "full_current_`scc'_CA_grid" // nrun
+//      
+//     *MI grid
+//     do "${github}/wrapper/metafile.do" ///
+//         "current" /// 2020
+//         "`scc'" /// SCC
+//         "yes" /// learning-by-doing
+//         "no" /// savings
+//         "yes" /// profits
+//         "`all_subsidies'" /// programs to run
+//         0 /// reps
+//         "full_current_`scc'_MI_grid" // nrun
+//		
+// 	global change_grid = ""
+// 	global ev_grid = "US"
+//      
+//     *0 rebound
+//     global rebound_change = "yes"
+//     global rebound_scalar = 0
+//  
+//     do "${github}/wrapper/metafile.do" ///
+//         "current" /// 2020
+//         "`scc'" /// SCC
+//         "yes" /// learning-by-doing
+//         "no" /// savings
+//         "yes" /// profits
+//         "`all_subsidies'" /// programs to run
+//         0 /// reps
+//         "full_current_`scc'_zero_rb" // nrun	
+//      
+//     global rebound_change = "no"
+//     global rebound_scalar = 1
+//
+//     *2x rebound
+//     global rebound_change = "yes"
+//     global rebound_scalar = 2
+//  
+//     do "${github}/wrapper/metafile.do" ///
+//         "current" /// 2020
+//         "`scc'" /// SCC
+//         "yes" /// learning-by-doing
+//         "no" /// savings
+//         "yes" /// profits
+//         "`all_subsidies'" /// programs to run
+//         0 /// reps
+//         "full_current_`scc'_2_rb" // nrun	
+//      
+//     global rebound_change = "no"
+//     global rebound_scalar = 1
+// }
 
 		
 ssc install addplot
@@ -599,7 +602,7 @@ foreach var of varlist MVPF_* {
 ************************************************************************
 
 local symbols "circle X square triangle diamond plus v v circle X square triangle diamond plus v v circle X square triangle diamond plus v v"
-local colors "navy navy navy navy navy navy navy navy green green green green green green green green orange orange orange orange orange orange orange orange"
+local colors "orange orange orange orange orange orange orange orange green green green green green green green green navy navy navy navy navy navy navy navy"
 local sizes "vsmall small vsmall vsmall vsmall small small small vsmall small vsmall vsmall vsmall small small small vsmall small vsmall vsmall vsmall small small small"
 local orientations "0 0 0 0 0 0 180 0 0 0 0 0 0 0 180 0 0 0 0 0 0 0 180 0"
 
@@ -768,16 +771,41 @@ drop j
 * Create scenario_index only once, before the loops
 gen scenario_index = .
 local i 1
-foreach s in scc_193 no_lbd no_profit e_savings cali_grid mi_grid zero_rebound double_rebound scc_337 scc_337_no_lbd scc_337_no_profit scc_337_e_savings scc_337_cali_grid scc_337_mi_grid scc_337_zero_rebound scc_337_double_rebound scc_76 scc_76_no_lbd scc_76_no_profit scc_76_e_savings scc_76_cali_grid scc_76_mi_grid scc_76_zero_rebound scc_76_double_rebound {
+foreach s in scc_76 scc_76_no_lbd scc_76_no_profit scc_76_e_savings scc_76_cali_grid scc_76_mi_grid scc_76_zero_rebound scc_76_double_rebound scc_337 scc_337_no_lbd scc_337_no_profit scc_337_e_savings scc_337_cali_grid scc_337_mi_grid scc_337_zero_rebound scc_337_double_rebound scc_193 no_lbd no_profit e_savings cali_grid mi_grid zero_rebound double_rebound {
     replace scenario_index = `i' if scenario == "`s'"
     local i = `i' + 1
 }
 
+
+
 * Build the category lines part
 local cat_lines ""
 foreach catg in WindProductionCredits ResidentialSolar ElectricVehicles ApplianceRebates VehicleRetirement HybridVehicles Weatherization {
-    levelsof scenario, local(scen_list)
-    foreach sc in `scen_list' {
+    
+    * Get scenarios in the same order as the scatter plots (76, 337, 193)
+    levelsof scenario, local(all_scen_list)
+    local ordered_scen_list ""
+    
+    * First add SCC 76 scenarios (orange - bottom layer)
+    foreach sc of local all_scen_list {
+        if strpos("`sc'", "76") > 0 {
+            local ordered_scen_list "`ordered_scen_list' `sc'"
+        }
+    }
+    * Then add SCC 337 scenarios (green - middle layer)
+    foreach sc of local all_scen_list {
+        if strpos("`sc'", "337") > 0 {
+            local ordered_scen_list "`ordered_scen_list' `sc'"
+        }
+    }
+    * Finally add SCC 193 scenarios (blue - top layer)
+    foreach sc of local all_scen_list {
+        if strpos("`sc'", "193") > 0 | (strpos("`sc'", "scc_") == 0 & strpos("`sc'", "76") == 0 & strpos("`sc'", "337") == 0) {
+            local ordered_scen_list "`ordered_scen_list' `sc'"
+        }
+    }
+    
+    foreach sc in `ordered_scen_list' {
         count if category == "`catg'" & scenario == "`sc'"
         if r(N) > 0 {
             * Get MVPF value

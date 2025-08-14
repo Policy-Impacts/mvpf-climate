@@ -28,8 +28,8 @@ local static_grid = 0
 
 local want_rebound = 1
 
-local elec_dem_elas = -0.190144
-local elec_sup_elas = 0.7806420154513118
+local elec_dem_elas = -0.190144 // DOI (2021)
+local elec_sup_elas = 0.7806420154513118 // DOI (2021)
 
 local bev_cf = "${bev_cf}"
 local veh_lifespan_type = substr("${bev_cf}", strpos("${bev_cf}", "_") + 1, .)
@@ -367,10 +367,10 @@ restore
 ** Cost assumptions:
 * Program costs - US$
 
-local ep_rebate_cost = 924200000
+local ep_rebate_cost = 924200000 // Income tax credit to EV buyers 2011-2013 (pg 124)
 
 if (`s_1' == 1 & `marg_mvpf' == 1) | (`non_marg_mvpf' == 1){
-	local rebate_cost = 924200000 // Income tax credit to EV buyers 2011-2013 (pg 124), double check the dollar years for this number
+	local rebate_cost = 924200000 // Income tax credit to EV buyers 2011-2013 (pg 124)
 }
 else if `s_0' == 1{
 	local rebate_cost = 0
@@ -522,7 +522,7 @@ if "${value_profits}" == "yes"{
 
 ** take out the corporate effective tax rate
 local total_wtp_prod_s = `wtp_prod_s'
-local wtp_prod_s = `total_wtp_prod_s' * (1 - 0.21)
+local wtp_prod_s = `total_wtp_prod_s' * (1 - 0.21) // 0.21 is the corporate average tax rate
 local gas_corp_fisc_e = `total_wtp_prod_s' * 0.21
 
 local profits_fisc_e = `gas_corp_fisc_e' - `utility_fisc_ext' 
@@ -831,7 +831,7 @@ local lifetime_gas_cost = ${clean_car_cf_gas_savings_2020} - ${clean_car_wtp_pro
 
 local resource_cost = `purchase_price_diff' + `lifetime_energy_cost' - `lifetime_gas_cost'
 
-local q_carbon_yes_ev_mck = -${yes_ev_carbon_content_2020} - (59.5 * `batt_cap' * 0.001) - ${yes_ev_rbd_CO2_2020} // need to remove the rebound effect, 59.5 from Winjobi et al. (2022)
+local q_carbon_yes_ev_mck = -${yes_ev_carbon_content_2020} - (59.5 * `batt_cap' * 0.001) - ${yes_ev_rbd_CO2_2020} // need to remove the rebound effect, 59.5 from Winjobi et al. (2022), economy-wide 8% markup from De Loecker et al. (2020)
 
 local q_carbon_no_ice_mck = ${clean_car_cf_carbon_2020}
 

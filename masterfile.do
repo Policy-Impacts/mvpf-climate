@@ -11,7 +11,7 @@ clear all
 * Specs
 *------
 global rerun_data = "yes"
-global bootstraps = "no"
+global bootstraps = "yes"
 global pub_bias = "yes"
 
 *------
@@ -68,11 +68,17 @@ preserve
 restore 
 
 *------------------------------
+* 0 - Prepare Data Inputs
+*------------------------------
+
+do "${github}/wrapper/clean_data.do"
+
+*------------------------------
 * 1 - All of the different runs
 *------------------------------
 
-// if "${rerun_data}" == "yes" {
-//
+if "${rerun_data}" == "yes" {
+
 // 	*Main Run
 // 	do "${github}/wrapper/metafile.do" ///
 // 		"current" /// 2020
@@ -83,34 +89,61 @@ restore
 // 		"`all_programs'" /// programs to run
 // 		0 /// reps
 // 		"full_current_193" // nrun
-
-	*Run using $76 SCC
-	/*do "${github}/wrapper/metafile.do" ///
-		"current" /// 2020
-		"76" /// SCC
-		"yes" /// learning-by-doing
-		"no" /// savings
-		"yes" /// profits
-		"`all_programs'" /// programs to run
-		0 /// reps
-		"full_current_76" // nrun
-			
-	*Run using $337 SCC
+//
+// 	*Run using $76 SCC
+// 	do "${github}/wrapper/metafile.do" ///
+// 		"current" /// 2020
+// 		"76" /// SCC
+// 		"yes" /// learning-by-doing
+// 		"no" /// savings
+// 		"yes" /// profits
+// 		"`all_programs'" /// programs to run
+// 		0 /// reps
+// 		"full_current_76" // nrun
+//			
+// 	*Run using $337 SCC
+// 	do "${github}/wrapper/metafile.do" ///
+// 		"current" /// 2020
+// 		"337" /// SCC
+// 		"yes" /// learning-by-doing
+// 		"no" /// savings
+// 		"yes" /// profits
+// 		"`all_programs'" /// programs to run
+// 		0 /// reps
+// 		"full_current_337" // nrun
+//
+//		
+// 		*Run using $1367 SCC
+// 	do "${github}/wrapper/metafile.do" ///
+// 		"current" /// 2020
+// 		"1367" /// SCC
+// 		"yes" /// learning-by-doing
+// 		"no" /// savings
+// 		"yes" /// profits
+// 		"`all_programs'" /// programs to run
+// 		0 /// reps
+// 		"full_current_1367" // nrun
+		
+		*Run with EU grid
 	do "${github}/wrapper/metafile.do" ///
 		"current" /// 2020
-		"337" /// SCC
+		"193" /// SCC
 		"yes" /// learning-by-doing
 		"no" /// savings
 		"yes" /// profits
 		"`all_programs'" /// programs to run
 		0 /// reps
-		"full_current_337" // nrun
+		"full_current_193_EU_grid" // nrun
+	
+	*Reset back to original
+	global change_grid = ""
+	global ev_grid = "US"
 		
 	*Run using in-context externalities
 	do "${github}/wrapper/metafile.do" ///
 		"baseline" ///
 		"193" ///
-		"no" ///
+		"yes" ///
 		"no" ///
 		"yes" ///
 		"`all_programs'" ///
@@ -149,7 +182,7 @@ restore
 		"`all_programs'" /// programs to run
 		0 /// reps
 		"full_current_noprofits" */
-// }
+}
 *---------------
 * 2 - Bootstrapping
 *------------------
@@ -162,10 +195,11 @@ if "${bootstraps}" == "yes" & "${rerun_data}" == "yes" {
 			`scc' /// scc
 			"yes" /// value prorfits
 			"no" /// value savings
-			"no" /// lbd
+			"yes" /// lbd
 			1000 // reps
 	}
 }
+
 
 *---------------------
 * 3 - Publication Bias
@@ -203,7 +237,7 @@ if "${rerun_data}" == "no" {
 * 4 - Robustness
 *---------------
 
-/*do "${github}/wrapper/robustness.do"
+do "${github}/wrapper/robustness.do"
 
 *-----------------------
 * 5 - Figures and Tables

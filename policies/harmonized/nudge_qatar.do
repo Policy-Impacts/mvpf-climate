@@ -110,7 +110,7 @@ levelsof estimate, local(estimates)
 	rebound ${rebound}
 	local r = `r(r)'
 	
-	local baseline_kwh = 2780.67 * 12
+	local baseline_kwh = 2780.67 * 12 // from paper
 	local annual_kwh_change = `baseline_kwh' * `kwh_change'
 	
 	local nudge_number = 12 // They send out 12 nudges

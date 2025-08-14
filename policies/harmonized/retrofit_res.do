@@ -82,8 +82,8 @@ levelsof estimate, local(estimates)
 ****************************************************	
 	
 local gov_subsidy = 0.60
-local retrofit_cost = 173324
-local energy_initial = 1195.8
+local retrofit_cost = 173324 // from Table 5
+local energy_initial = 1195.8 // from Figure 1
 local subsidy_cost =  `gov_subsidy' * `retrofit_cost'
 
 *********************************

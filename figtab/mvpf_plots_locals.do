@@ -31,7 +31,7 @@ local output_path "${output_fig}/figures_appendix"
 /* Step #0a: Define Data Paths for Local Scenarios */
 ************************************************************************
 
-local path_scc_193 = "${code_files}/4_results/2024-11-15_09-44-45__full_current_193_nov" // baseline
+local path_scc_193 = "${code_files}/4_results/2025-07-18_14-15-01__full_current_193" // baseline
 * Wind Locals (8)
 local path_wind_no_cap_factor = "${code_files}/4_results/local_assumption_mvpf_plot_data/2025-06-09_15-57-36__wind_current_no_cap_factor_193" 
 local path_wind_lifetime_increase = "${code_files}/4_results/local_assumption_mvpf_plot_data/2025-06-09_15-13-01__wind_current_lifetime_increase_193" 
@@ -381,6 +381,7 @@ if "`run_subsidies'" == "yes" {
     replace `var' = 0 if `var' < 0
 		}
 		
+
 * Apply jitter to individual data points that have been capped to exactly 5
 foreach var of varlist MVPF_* {
     * Generate jitter values from N(0.1, 0.1) for capped values
@@ -638,6 +639,6 @@ di "`scatter_cmd_base'"
 `full_command'
 
 * Export the graph
-graph export "`output_path'/mvpf_comparison_`plot_name'.png", replace
+graph export "`output_path'/mvpf_comparison_`plot_name'.emf", replace
 cap graph export "`output_path'/mvpf_comparison_`plot_name'.wmf", replace
 }
