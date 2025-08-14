@@ -63,7 +63,7 @@ do "${github}/figtab/excel_MVPF_tables.do" "full_current_no_lbd" "App_Table8_no_
 * 8 - Baseline MVPF Components with an EU Grid
 *---------------------------------------------------------
 
-do "${github}/figtab/excel_MVPF_tables.do" "full_current_193_eu" "App_Table8_eu_grid" "no" "no"
+do "${github}/figtab/excel_MVPF_tables.do" "full_current_193_eu_grid" "App_Table8_eu_grid" "no" "no"
 
 *--------------------------------------------------------
 * 9 - MVPF Versus Social Cost Per Ton with MCF Adjustment
