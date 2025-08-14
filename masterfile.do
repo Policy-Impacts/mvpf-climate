@@ -79,7 +79,52 @@ do "${github}/wrapper/clean_data.do"
 
 if "${rerun_data}" == "yes" {
 
-	*Main Run
+// 	*Main Run
+// 	do "${github}/wrapper/metafile.do" ///
+// 		"current" /// 2020
+// 		"193" /// SCC
+// 		"yes" /// learning-by-doing
+// 		"no" /// savings
+// 		"yes" /// profits
+// 		"`all_programs'" /// programs to run
+// 		0 /// reps
+// 		"full_current_193" // nrun
+//
+// 	*Run using $76 SCC
+// 	do "${github}/wrapper/metafile.do" ///
+// 		"current" /// 2020
+// 		"76" /// SCC
+// 		"yes" /// learning-by-doing
+// 		"no" /// savings
+// 		"yes" /// profits
+// 		"`all_programs'" /// programs to run
+// 		0 /// reps
+// 		"full_current_76" // nrun
+//			
+// 	*Run using $337 SCC
+// 	do "${github}/wrapper/metafile.do" ///
+// 		"current" /// 2020
+// 		"337" /// SCC
+// 		"yes" /// learning-by-doing
+// 		"no" /// savings
+// 		"yes" /// profits
+// 		"`all_programs'" /// programs to run
+// 		0 /// reps
+// 		"full_current_337" // nrun
+//
+//		
+// 		*Run using $1367 SCC
+// 	do "${github}/wrapper/metafile.do" ///
+// 		"current" /// 2020
+// 		"1367" /// SCC
+// 		"yes" /// learning-by-doing
+// 		"no" /// savings
+// 		"yes" /// profits
+// 		"`all_programs'" /// programs to run
+// 		0 /// reps
+// 		"full_current_1367" // nrun
+		
+		*Run with EU grid
 	do "${github}/wrapper/metafile.do" ///
 		"current" /// 2020
 		"193" /// SCC
@@ -88,35 +133,17 @@ if "${rerun_data}" == "yes" {
 		"yes" /// profits
 		"`all_programs'" /// programs to run
 		0 /// reps
-		"full_current_193" // nrun
-
-	*Run using $76 SCC
-	do "${github}/wrapper/metafile.do" ///
-		"current" /// 2020
-		"76" /// SCC
-		"yes" /// learning-by-doing
-		"no" /// savings
-		"yes" /// profits
-		"`all_programs'" /// programs to run
-		0 /// reps
-		"full_current_76" // nrun
-			
-	*Run using $337 SCC
-	do "${github}/wrapper/metafile.do" ///
-		"current" /// 2020
-		"337" /// SCC
-		"yes" /// learning-by-doing
-		"no" /// savings
-		"yes" /// profits
-		"`all_programs'" /// programs to run
-		0 /// reps
-		"full_current_337" // nrun
+		"full_current_193_EU_grid" // nrun
+	
+	*Reset back to original
+	global change_grid = ""
+	global ev_grid = "US"
 		
 	*Run using in-context externalities
 	do "${github}/wrapper/metafile.do" ///
 		"baseline" ///
 		"193" ///
-		"no" ///
+		"yes" ///
 		"no" ///
 		"yes" ///
 		"`all_programs'" ///
@@ -172,6 +199,7 @@ if "${bootstraps}" == "yes" & "${rerun_data}" == "yes" {
 			1000 // reps
 	}
 }
+
 
 *---------------------
 * 3 - Publication Bias

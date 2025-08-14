@@ -350,7 +350,7 @@ drop dup
 /* Step #3: Produce MVPF Plot for Subsidies. */
 ************************************************************************	
 preserve
-	use "${output_fig}/figures_data/avgs_current_`scc'_yes_no_yes_v3.dta", clear
+	use "${output_fig}/figures_data/avgs_current_`scc'_yes_no_yes.dta", clear
 	levels category, local(categories)
 	foreach cat in `categories' {
 		qui sum l_MVPF if category == "`cat'"

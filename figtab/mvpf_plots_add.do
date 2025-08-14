@@ -1,28 +1,28 @@
-************************************************************************
-/* Purpose: Produce MVPF Plot with Different Specifications */
-************************************************************************
-************************************************************************
-/* Generate datasets */
-************************************************************************
-* Create list of all programs to run.
-
+// ************************************************************************
+// /* Purpose: Produce MVPF Plot with Different Specifications */
+// ************************************************************************
+// ************************************************************************
+// /* Generate datasets */
+// ************************************************************************
+// * Create list of all programs to run.
+//
 // *-------------------------
 // * For SCC values 193, 76, 337
 // *-------------------------
 // preserve
 //     import excel "${code_files}/policy_details_v3.xlsx", clear first
-//  
+// 
 //     * Filter to subsidies only and exclude extended programs
 //     keep if broad_category == "Subsidies"
 //     keep if extended != 1
-//  
+// 
 //     * Get all program names and build the list
 //     levelsof(program), local(program_loop)
 //     local all_subsidies ""
 //     foreach prog of local program_loop {
 //         local all_subsidies "`all_subsidies' `prog'"
 //     }
-//  
+// 
 //     di in yellow "All programs for subsidies: `all_subsidies'"
 // restore
 //
@@ -62,7 +62,7 @@
 //         "`all_subsidies'" /// programs to run
 //         0 /// reps
 //         "full_current_noprofits_`scc'" // nrun
-//   
+//  
 //     *energy savings
 //     do "${github}/wrapper/metafile.do" ///
 //         "current" /// 2020
@@ -73,7 +73,7 @@
 //         "`all_subsidies'" /// programs to run
 //         0 /// reps
 //         "full_current_savings_`scc'" // nrun
-//       
+//      
 //     *CA grid
 //     do "${github}/wrapper/metafile.do" ///
 //         "current" /// 2020
@@ -84,7 +84,7 @@
 //         "`all_subsidies'" /// programs to run
 //         0 /// reps
 //         "full_current_`scc'_CA_grid" // nrun
-//       
+//      
 //     *MI grid
 //     do "${github}/wrapper/metafile.do" ///
 //         "current" /// 2020
@@ -95,11 +95,14 @@
 //         "`all_subsidies'" /// programs to run
 //         0 /// reps
 //         "full_current_`scc'_MI_grid" // nrun
-//       
+//		
+// 	global change_grid = ""
+// 	global ev_grid = "US"
+//      
 //     *0 rebound
 //     global rebound_change = "yes"
 //     global rebound_scalar = 0
-//   
+//  
 //     do "${github}/wrapper/metafile.do" ///
 //         "current" /// 2020
 //         "`scc'" /// SCC
@@ -109,14 +112,14 @@
 //         "`all_subsidies'" /// programs to run
 //         0 /// reps
 //         "full_current_`scc'_zero_rb" // nrun	
-//       
+//      
 //     global rebound_change = "no"
 //     global rebound_scalar = 1
 //
 //     *2x rebound
 //     global rebound_change = "yes"
 //     global rebound_scalar = 2
-//   
+//  
 //     do "${github}/wrapper/metafile.do" ///
 //         "current" /// 2020
 //         "`scc'" /// SCC
@@ -126,7 +129,7 @@
 //         "`all_subsidies'" /// programs to run
 //         0 /// reps
 //         "full_current_`scc'_2_rb" // nrun	
-//       
+//      
 //     global rebound_change = "no"
 //     global rebound_scalar = 1
 // }
