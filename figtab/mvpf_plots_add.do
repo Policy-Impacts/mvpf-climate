@@ -839,7 +839,9 @@ foreach catg in WindProductionCredits ResidentialSolar ElectricVehicles Applianc
 use "`main_data'", replace
 
 * Create a complete command with everything
-local full_command "`scatter_cmd_base' `cat_lines', `plot_options' `text_labels' `legend_options'"
+*local full_command "`scatter_cmd_base' `cat_lines', `plot_options' `text_labels' `legend_options'"
+local full_command "twoway `cat_lines', `plot_options' `text_labels' legend(off)"
+
 
 *display locals
 di "`cat_lines'"

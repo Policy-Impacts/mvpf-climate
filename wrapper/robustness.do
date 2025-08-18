@@ -2,7 +2,7 @@
 * Run Calculations for Different Specifications
 *-----------------------------------------------------------------------*/
 capture program drop find_most_recent_folder
-program define find_most_recent_folder
+program define find_most_recent_folder, rclass
 
 args pattern_suffix
 
@@ -57,12 +57,11 @@ else {
         }
     }
     
-    local main_data_set = "`most_recent_folder'"
-    di in green "Selected most recent folder: `main_data_set'"
+    return local folder = "`most_recent_folder'"
+    di in green "Selected most recent folder: `most_recent_folder'"
 }
 
 end
-
 
 tempname numbers
 tempfile robustness_values
@@ -70,7 +69,7 @@ postfile `numbers' str80 label value using `robustness_values', replace
 
 * Find main dataset using helper program
 find_most_recent_folder "full_current_193"
-local main_data_set = "`folder'"
+local main_data_set = "`r(folder)'"
 di in green "Selected most recent folder: `main_data_set'"
 
 global lbd "yes"
@@ -399,6 +398,16 @@ global renewables_percent = 0.999
 			"hitaj_ptc shirmali_ptc metcalf_ptc" /// programs to run
 			0 /// reps
 			"full_current_${renewables_percent}_clean_grid_no_lbd_wind" // nrun
+			
+find_most_recent_folder "clean_grid_no_lbd_wind"
+use "${code_files}/4_results/`folder'/compiled_results_all_uncorrected_vJK", clear 
+keep if inlist(program, "hitaj_ptc", "shirmali_ptc", "metcalf_ptc")
+qui sum component_value if component_type == "WTP_cc"
+local total_WTP = `r(sum)'
+qui sum component_value if component_type == "cost"
+local total_Cost = `r(sum)'
+post `numbers' ("wind_clean_grid_no_lbd_avg_mvpf") (`total_WTP'/`total_Cost')
+
 
 
 global change_grid = ""
@@ -463,7 +472,6 @@ post `numbers' ("solar_non_marginal_mvpf") (`r(mean)')
 * Solar MVPF when grid is fully clean
 
 global change_grid = "clean"
-
 global renewables_loop = "no"
 global renewables_percent = 0.999
 		
@@ -476,6 +484,15 @@ global renewables_percent = 0.999
 			"ct_solar ne_solar hughes_csi pless_ho pless_tpo" /// programs to run
 			0 /// reps
 			"full_current_${renewables_percent}_clean_grid_solar" // nrun
+	
+find_most_recent_folder "clean_grid_solar"
+use "${code_files}/4_results/`folder'/compiled_results_all_uncorrected_vJK", clear 
+keep if inlist(program, "ct_solar", "ne_solar", "hughes_csi", "pless_ho", "pless_tpo")
+qui sum component_value if component_type == "WTP_cc"
+local total_WTP = `r(sum)'
+qui sum component_value if component_type == "cost"
+local total_Cost = `r(sum)'
+post `numbers' ("solar_clean_grid_avg_mvpf") (`total_WTP'/`total_Cost')
 			
 local solar_policies = "ct_solar ne_solar hughes_csi pless_ho pless_tpo"
 local total_wtp_clean = 0
@@ -493,7 +510,15 @@ local total_cost_clean = 0
 			"ct_solar ne_solar hughes_csi pless_ho pless_tpo" /// programs to run
 			0 /// reps
 			"full_current_${renewables_percent}_clean_grid_no_lbd_solar" // nrun
-
+			
+find_most_recent_folder "clean_grid_no_lbd_solar"
+use "${code_files}/4_results/`folder'/compiled_results_all_uncorrected_vJK", clear 
+keep if inlist(program, "ct_solar", "ne_solar", "hughes_csi", "pless_ho", "pless_tpo")
+qui sum component_value if component_type == "WTP_cc"
+local total_WTP = `r(sum)'
+qui sum component_value if component_type == "cost"
+local total_Cost = `r(sum)'
+post `numbers' ("solar_clean_grid_no_lbd_avg_mvpf") (`total_WTP'/`total_Cost')
 
 global change_grid = ""
 
@@ -816,15 +841,11 @@ run_program rggi, mode(baseline)
 global mvpf_approach = ""
 
 
-
 postclose `numbers'
-
 
 use `robustness_values', clear
 save "${code_files}/4_results/robustness", replace
 export excel using "${code_files}/4_results/robustness", replace
-
-
 
 *--------------------------------------------
 * 14 - Different Grids

@@ -24,6 +24,11 @@ do "${github}/figtab/stacked_elec_externalities"
 * 3 - Environmental Externality per MWh of Electricity Generation in 2020
 *------------------------------------------------------------------------
 
+*-------------------------------------------
+* A -  MVPF plot for varying specifications
+*-------------------------------------------
+do "${github}/figtab/mvpf_plots_add.do" "subsidies" "Subsidy Robustness" "full_current_76" "full_current_no_lbd_76" "full_current_noprofits_76" "full_current_savings_76" "full_current_76_ca_grid" "full_current_76_mi_grid" "full_current_76_zero_rb" "full_current_76_2_rb" "full_current_337" "full_current_no_lbd_337" "full_current_noprofits_337" "full_current_savings_337" "full_current_337_ca_grid" "full_current_337_mi_grid" "full_current_337_zero_rb" "full_current_337_2_rb" "full_current_193" "full_current_no_lbd_193" "full_current_noprofits_193" "full_current_savings_193" "full_current_193_ca_grid" "full_current_193_mi_grid" "full_current_193_zero_rb" "full_current_193_2_rb"
+
 do "${github}/figtab/grid_externality_region.do"
 
 do "${github}/figtab/changing_grid.do" // doesn't run for solar 0.91 w lbd
