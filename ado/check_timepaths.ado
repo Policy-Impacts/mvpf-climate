@@ -12,6 +12,62 @@ local special = 0
 local ev_exists = 0
 local solar_exists = 0
 local wind_exists = 0
+local ev_193_exists = 0
+local solar_193_exists = 0
+local wind_193_exists = 0
+local ev_76_exists = 0
+local solar_76_exists = 0
+local wind_76_exists = 0
+local ev_337_exists = 0
+local solar_337_exists = 0
+local wind_337_exists = 0
+
+* Check if 193 timepath has been created already
+* timepaths must be created in the order of 193, 76 and then 337, as ordered in the masterfile
+
+if "${scc}" == "76" | "${scc}" == "337" | "${scc}" == "1367" {
+	* Check if required 193 timepaths exist
+	local ev_193_exists = fileexists("${assumptions}/timepaths/ev_externalities_time_path_193_age17_vmt.615_gridUS.dta")
+	
+	local solar_193_exists = fileexists("${assumptions}/timepaths/solar_externalities_time_path_scc193_age25.dta")
+	
+	local wind_193_exists = fileexists("${assumptions}/timepaths/wind_externalities_time_path_scc193_age25.dta")
+	
+	if (`ev_193_exists' + `solar_193_exists' + `wind_193_exists' < 3) {
+		di as error "Please run the analysis with SCC = 193 first, timepaths must be created in this order: 193, 76, 337, and then 1367."
+		exit 198 
+	}
+}
+	
+
+if "${scc}" == "337" | "${scc}" == "1367" {
+	* Check if required 76 timepaths exist
+	local ev_76_exists = fileexists("${assumptions}/timepaths/ev_externalities_time_path_76_age17_vmt.615_gridUS.dta")
+	
+	local solar_76_exists = fileexists("${assumptions}/timepaths/solar_externalities_time_path_scc76_age25.dta")
+	
+	local wind_76_exists = fileexists("${assumptions}/timepaths/wind_externalities_time_path_scc76_age25.dta")
+	
+	if (`ev_76_exists' + `solar_76_exists' + `wind_76_exists' < 3) {
+		di as error "Please run the analysis with SCC = 76 first, timepaths must be created in this order: 193, 76, 337, and then 1367."
+		exit 198 
+}
+}
+
+if "${scc}" == "1367" {
+	* Check if required 337 timepaths exist
+	local ev_337_exists = fileexists("${assumptions}/timepaths/ev_externalities_time_path_337_age17_vmt.615_gridUS.dta")
+	
+	local solar_337_exists = fileexists("${assumptions}/timepaths/solar_externalities_time_path_scc337_age25.dta")
+	
+	local wind_337_exists = fileexists("${assumptions}/timepaths/wind_externalities_time_path_scc337_age25.dta")
+	
+	if (`ev_337_exists' + `solar_337_exists' + `wind_337_exists' < 3) {
+		di as error "Please run the analysis with SCC = 337 first, timepaths must be created in this order: 193, 76, 337, and then 1367."
+		exit 198 
+}
+}
+	
 
 local cases "renewables_loop" "change_grid" "solar_output_change" "wind_emissions_change" "lifetime_change" "no_cap_reduction" "wind_lifetime_change"
 

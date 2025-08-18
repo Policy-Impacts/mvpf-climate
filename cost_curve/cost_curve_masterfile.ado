@@ -267,7 +267,7 @@ preserve
 
     if `subsidy_end'==0 & `fcr'==0 {
         if  "`c(os)'" == "MacOSX" {
-            qui shell  /usr/local/bin/wolframscript -file  ./cost_curve_simple_mac.wls `price' `demand_elas' `farmer' `cum_prod' `discount_rate' `curr_prod'    `enviro_cons_early' `enviro_cons_late' `enviro_slope_early' `enviro_slope_late'  `enviro_extra' `enviro_end' `enviro_cap' `subsidy_max' `markup' `passthrough'  `graphcmd' `tmax' `start_year_offset'   `cut_year' `anything' f`filename'
+            qui shell  ${mac_wolfram_path}/wolframscript -file  ./cost_curve_simple_mac.wls `price' `demand_elas' `farmer' `cum_prod' `discount_rate' `curr_prod'    `enviro_cons_early' `enviro_cons_late' `enviro_slope_early' `enviro_slope_late'  `enviro_extra' `enviro_end' `enviro_cap' `subsidy_max' `markup' `passthrough'  `graphcmd' `tmax' `start_year_offset'   `cut_year' `anything' f`filename'
         }
         else {
             qui shell  cost_curve_simple.wls `price' `demand_elas' `farmer' `cum_prod' `discount_rate' `curr_prod'    `enviro_cons_early' `enviro_cons_late' `enviro_slope_early' `enviro_slope_late'  `enviro_extra' `enviro_end' `enviro_cap' `subsidy_max' `markup' `passthrough'  `graphcmd' `tmax' `start_year_offset'   `cut_year' `anything' f`filename'
@@ -277,7 +277,7 @@ preserve
     else {
         if "`c(os)'" == "MacOSX" {
             * the MacOS has an issue where the version of terminal that runs inside applications doesn't by default have the path to the wolframscript. If wolframscript  is located elsewhere in your desktop this might require a different prefix than /usr/local/bin. Type "which wolframscript" in Terminal to get its location.  Note also that you typically need to use chmod to change permissions to allow reading .wls files. 
-            qui shell   /usr/local/bin/wolframscript -file  ./cost_curve_masterfile_mac.wls `price' `fcr' `demand_elas' `farmer' `cum_prod' `discount_rate' `curr_prod' `tmax' `enviro_cons_early' `enviro_cons_late' `enviro_slope_early' `enviro_slope_late'  `enviro_extra'  `enviro_end' `enviro_cap'   `subsidy_max'  `subsidy_end' `markup' `passthrough'  `graphcmd'  `start_year_offset' `cut_year' `anything'  f`filename' 
+            qui shell   ${mac_wolfram_path}/wolframscript -file  ./cost_curve_masterfile_mac.wls `price' `fcr' `demand_elas' `farmer' `cum_prod' `discount_rate' `curr_prod' `tmax' `enviro_cons_early' `enviro_cons_late' `enviro_slope_early' `enviro_slope_late'  `enviro_extra'  `enviro_end' `enviro_cap'   `subsidy_max'  `subsidy_end' `markup' `passthrough'  `graphcmd'  `start_year_offset' `cut_year' `anything'  f`filename' 
         }
         else {
             qui shell  cost_curve_masterfile.wls `price' `fcr' `demand_elas' `farmer' `cum_prod' `discount_rate' `curr_prod' `tmax' `enviro_cons_early' `enviro_cons_late' `enviro_slope_early' `enviro_slope_late'  `enviro_extra'  `enviro_end' `enviro_cap'   `subsidy_max'  `subsidy_end' `markup' `passthrough'  `graphcmd'  `start_year_offset' `cut_year' `anything'  f`filename' 
