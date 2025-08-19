@@ -58,7 +58,7 @@ preserve
     // Only run once
     tempname hev_bootstrap
     tempfile hev_bootstrap_data
-    postfile `hev_bootstrap' elasticity MVPF cost WTP_cc using `hev_bootstrap_data', replace 
+    postfile `hev_bootstrap' elasticity MVPF cost wtp_cc using `hev_bootstrap_data', replace 
         local i = 0
         forvalues e = -0.2(0.2)9.6 {
             global feed_in_elas = `e'
@@ -83,7 +83,7 @@ preserve
     use `hev_bootstrap_data', clear
 
 
-    nl exp2: WTP_cc elasticity
+    nl exp2: wtp_cc elasticity
     cap drop wtp_predicted
     gen wtp_predicted = _b[/b1]*(_b[/b2]^elasticity)
 
