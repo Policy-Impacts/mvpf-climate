@@ -15,63 +15,63 @@ local value_profits = "`3'"
 local value_savings = "`4'"
 local lbd = "`5'"
 local reps = `6'
-//
-// cap qui do "${github}/ado/run_program.ado"
-// qui do "${github}/ado/gas_tax.ado"
-// qui do "${github}/ado/vehicle_retirement.ado"
-// qui do "${github}/ado/wind_ado.ado"
-// qui do "${github}/ado/weatherization_ado.ado"
-// qui do "${github}/ado/solar.ado"
-// qui do "${github}/ado/dynamic_split_grid.ado"
-// qui do "${github}/ado/dynamic_grid.ado"
-// qui do "${github}/ado/dynamic_grid_v2.ado"
-// qui do "${github}/ado/rebound.ado"
-// qui do "${github}/ado/check_timepaths.ado"
-//
-// *--------------------------------------------
-// * 2 - No Learning by Doing Policies
-// *--------------------------------------------
-//
-// do "${github}/bootstrapping/no_lbd_bootstraps.do" `mode' `scc' `lbd' `value_savings' `value_profits' `reps'
-//
-//
-// *--------------------------------------------
-// * 3 - Wind PTC Policies
-// *--------------------------------------------
-//
-// do "${github}/bootstrapping/wind_bootstrapping_rep.do" `mode' `scc' `lbd' `value_savings' `value_profits' `reps' 
-//
-//
-// *--------------------------------------------
-// * 4 - Solar ITC Policies
-// *--------------------------------------------
-//
-// do "${github}/bootstrapping/solar_bootstrapping_rep.do" `mode' `scc' `lbd' `value_savings' `value_profits' `reps' 
-//
-//
-// *--------------------------------------------
-// * 5 - Electric Vehicle Policies
-// *--------------------------------------------
-//
-// do "${github}/bootstrapping/ev_bootstrapping_rep.do" `mode' `scc' `lbd' `value_savings' `value_profits' `reps'
-//
-//
-// *--------------------------------------------
-// * 6 - Hybrid Vehicle Policies
-// *--------------------------------------------
-//
-// do "${github}/bootstrapping/hev_bootstrapping_rep.do" `mode' `scc' `lbd' `value_savings' `value_profits' `reps'
-//
-// *--------------------------------------------
-// * 7 - Gas Tax Policies
-// *--------------------------------------------
-//
-// do "${github}/bootstrapping/gas_tax_boostrapping_rep.do" `mode' `scc' `lbd' `value_savings' `value_profits' `reps'
-//
-// *--------------------------------------------
-// * 8 - International Policies
-// *--------------------------------------------
-// do "${github}/bootstrapping/international_bootstrapping_rep.do" `mode' `scc' `lbd' `value_savings' `value_profits' `reps'
+
+cap qui do "${github}/ado/run_program.ado"
+qui do "${github}/ado/gas_tax.ado"
+qui do "${github}/ado/vehicle_retirement.ado"
+qui do "${github}/ado/wind_ado.ado"
+qui do "${github}/ado/weatherization_ado.ado"
+qui do "${github}/ado/solar.ado"
+qui do "${github}/ado/dynamic_split_grid.ado"
+qui do "${github}/ado/dynamic_grid.ado"
+qui do "${github}/ado/dynamic_grid_v2.ado"
+qui do "${github}/ado/rebound.ado"
+qui do "${github}/ado/check_timepaths.ado"
+
+*--------------------------------------------
+* 2 - No Learning by Doing Policies
+*--------------------------------------------
+
+do "${github}/bootstrapping/no_lbd_bootstraps.do" `mode' `scc' `lbd' `value_savings' `value_profits' `reps'
+
+
+*--------------------------------------------
+* 3 - Wind PTC Policies
+*--------------------------------------------
+
+do "${github}/bootstrapping/wind_bootstrapping_rep.do" `mode' `scc' `lbd' `value_savings' `value_profits' `reps' 
+
+
+*--------------------------------------------
+* 4 - Solar ITC Policies
+*--------------------------------------------
+
+do "${github}/bootstrapping/solar_bootstrapping_rep.do" `mode' `scc' `lbd' `value_savings' `value_profits' `reps' 
+
+
+*--------------------------------------------
+* 5 - Electric Vehicle Policies
+*--------------------------------------------
+
+do "${github}/bootstrapping/ev_bootstrapping_rep.do" `mode' `scc' `lbd' `value_savings' `value_profits' `reps'
+
+
+*--------------------------------------------
+* 6 - Hybrid Vehicle Policies
+*--------------------------------------------
+
+do "${github}/bootstrapping/hev_bootstrapping_rep.do" `mode' `scc' `lbd' `value_savings' `value_profits' `reps'
+
+*--------------------------------------------
+* 7 - Gas Tax Policies
+*--------------------------------------------
+
+do "${github}/bootstrapping/gas_tax_boostrapping_rep.do" `mode' `scc' `lbd' `value_savings' `value_profits' `reps'
+
+*--------------------------------------------
+* 8 - International Policies
+*--------------------------------------------
+do "${github}/bootstrapping/international_bootstrapping_rep.do" `mode' `scc' `lbd' `value_savings' `value_profits' `reps'
 
 *--------------------------------------------
 * 9 - Compile CI bounds for Policies
@@ -87,7 +87,10 @@ postfile `bootstraps' str18 policy l_MVPF h_MVPF using "${output_fig}/figures_da
 
 
 foreach policy in `all_programs' {
-	if "${`policy'_m_low}" != "" {
+	if "${`policy'_m_low_`scc'}" != "" {
+		post `bootstraps' ("`policy'") (${`policy'_m_low_`scc'}) (${`policy'_m_high_`scc'})
+	}
+	else if "${`policy'_m_low}" != "" {
 		post `bootstraps' ("`policy'") (${`policy'_m_low}) (${`policy'_m_high})
 	}
 	

@@ -6,7 +6,7 @@ local table_name					"`4'"
 
 local savings						"`5'"
 
-local with_international			no
+local with_international			yes
 
 local export_excel_toggle			yes
 
@@ -301,6 +301,8 @@ preserve
 
 	}
 	
+	
+	
 restore
 
 preserve 
@@ -313,7 +315,7 @@ preserve
 	save "`MVPF_bootstraps'", replace	
 restore
 
-drop if inlist(group_label, "Cookstoves", "Deforestation", "Rice Burning", "Wind Offset", "International Rebates", "International Nudges")
+drop if inlist(group_label, "Deforestation", "Wind Offset", "International Nudges")
 drop if substr(program_label_short, -1, 1) == "*"
 replace table_order = _n
 
@@ -334,7 +336,7 @@ replace group_label = group_label[_n - 1] if group_label == ""
 preserve
 
 	use "`all_policy_save'", clear
-	drop if international == 1 | extended == 1 | no_SE == 1
+	drop if extended == 1 | no_SE == 1
 	
 	assert WTP_cc == WTP if WTP_cc != 0
 	sort table_order
@@ -360,7 +362,9 @@ preserve
 	rename group_label program_label_short
 	
 	tempfile category_averages_no_SE
-	save "`category_averages_no_SE'", replace		
+	save "`category_averages_no_SE'", replace	
+	
+end
 		
 restore
 
@@ -430,6 +434,18 @@ replace h_MVPF = `other_nudges_high' if program_label_short == "Other Nudges, wi
 // OTHER SUBSIDIES CIs
 replace l_MVPF = `other_subsidies_low' if program_label_short == "Other Subsidies, with SEs"
 replace h_MVPF = `other_subsidies_high' if program_label_short == "Other Subsidies, with SEs"
+
+// COOKSTOVES CIs
+replace l_MVPF = `cookstoves_low' if program_label_short == "Cookstoves, with SEs"
+replace h_MVPF = `cookstoves_high' if program_label_short == "Cookstoves, with SEs"
+
+// RICE BURNING CIs
+replace l_MVPF = `rice_burning_low' if program_label_short == "Rice Burning, with SEs"
+replace h_MVPF = `rice_burning_high' if program_label_short == "Rice Burning, with SEs"
+
+// INTERNATIONAL_REBATES CIs
+replace l_MVPF = `international_reba_low' if program_label_short == "International Rebates, with SEs"
+replace h_MVPF = `international_reba_high' if program_label_short == "International Rebates, with SEs"
 
 replace program_label_short = "(Sub)sample with SEs" if substr(program_label_short, -8, .) == "with SEs"
 
