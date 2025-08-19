@@ -53,7 +53,7 @@ preserve
     // Only run once
     tempname bev_bootstrap
     tempfile bev_bootstrap_data
-    postfile `bev_bootstrap' elasticity MVPF cost WTP_cc using `bev_bootstrap_data', replace 
+    postfile `bev_bootstrap' elasticity MVPF cost wtp_cc using `bev_bootstrap_data', replace 
         local i = 0
         forvalues e = 0(0.1)6.5 {
             global feed_in_elas = `e'
@@ -75,7 +75,7 @@ restore
 preserve
     use `bev_bootstrap_data', clear
 
-    nl exp2: WTP_cc elasticity
+    nl exp2: wtp_cc elasticity
     cap drop wtp_predicted
 
 

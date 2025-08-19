@@ -471,7 +471,7 @@ local total_cost = `total_cost' + `fisc_ext_lr' + `gas_corp_fisc_e'
 
 * Total WTP
 local WTP = `wtp_private' + `wtp_soc' + `wtp_soc_rbd' // not including learning-by-doing
-local WTP_cc = `WTP' + `cost_wtp' + `env_cost_wtp'
+local wtp_cc = `WTP' + `cost_wtp' + `env_cost_wtp'
 
 local WTP_USPres = `wtp_private' + `wtp_yes_ev_local' + `wtp_no_ice_local' + `env_cost_wtp_l' + `wtp_soc_rbd_l'
 local WTP_USFut = (${USShareFutureSSC} * (1 - ${USShareGovtFutureSCC})) * (`wtp_yes_ev_global_tot' + `wtp_no_ice_global_tot' + `env_cost_wtp_global_tot' + `wtp_soc_rbd_global_tot') + 0.1 * `cost_wtp'
@@ -481,9 +481,9 @@ local WTP_RoW = (1 - ${USShareFutureSSC}) * (`wtp_yes_ev_global_tot' + `wtp_no_i
 /* 8. MVPF Calculations */
 **************************
 
-local MVPF = `WTP_cc' / `total_cost'
+local MVPF = `wtp_cc' / `total_cost'
 local MVPF_no_cc = `WTP' / `total_cost'
 
 global MVPF_bev_testing `MVPF' 
 global cost_bev_testing `total_cost' 
-global WTP_cc_bev_testing `WTP_cc'
+global WTP_cc_bev_testing `wtp_cc'

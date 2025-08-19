@@ -1,10 +1,11 @@
 cap log close
 clear all
 
-// ssc install filelist
-// ssc install maptile
-// ssc install spmap 
-// ssc install gtools
+ssc install filelist
+ssc install missings
+ssc install maptile
+ssc install spmap 
+ssc install gtools
 
 
 *------
@@ -37,8 +38,8 @@ User-specific paths are:
 */
 
 *Replace the XX, YY, and XX with the relevant directories
-if ("`c(username)'" == "bcchen") {
-	global user = "C:/Users/bcchen"
+if ("`c(username)'" == "beatrice") {
+	global user = "/Users/beatrice"
 	global dropbox = "${user}/Documents/GitHub/mvpf-climate/data"
 	global github = "${user}/Documents/GitHub/mvpf-climate"
 	global user_name = "Beatrice"
@@ -79,50 +80,50 @@ do "${github}/wrapper/clean_data.do"
 
 if "${rerun_data}" == "yes" {
 
-// 	*Main Run
-// 	do "${github}/wrapper/metafile.do" ///
-// 		"current" /// 2020
-// 		"193" /// SCC
-// 		"yes" /// learning-by-doing
-// 		"no" /// savings
-// 		"yes" /// profits
-// 		"`all_programs'" /// programs to run
-// 		0 /// reps
-// 		"full_current_193" // nrun
-//
-// 	*Run using $76 SCC
-// 	do "${github}/wrapper/metafile.do" ///
-// 		"current" /// 2020
-// 		"76" /// SCC
-// 		"yes" /// learning-by-doing
-// 		"no" /// savings
-// 		"yes" /// profits
-// 		"`all_programs'" /// programs to run
-// 		0 /// reps
-// 		"full_current_76" // nrun
-//			
-// 	*Run using $337 SCC
-// 	do "${github}/wrapper/metafile.do" ///
-// 		"current" /// 2020
-// 		"337" /// SCC
-// 		"yes" /// learning-by-doing
-// 		"no" /// savings
-// 		"yes" /// profits
-// 		"`all_programs'" /// programs to run
-// 		0 /// reps
-// 		"full_current_337" // nrun
-//
-//		
-// 		*Run using $1367 SCC
-// 	do "${github}/wrapper/metafile.do" ///
-// 		"current" /// 2020
-// 		"1367" /// SCC
-// 		"yes" /// learning-by-doing
-// 		"no" /// savings
-// 		"yes" /// profits
-// 		"`all_programs'" /// programs to run
-// 		0 /// reps
-// 		"full_current_1367" // nrun
+	*Main Run
+	do "${github}/wrapper/metafile.do" ///
+		"current" /// 2020
+		"193" /// SCC
+		"yes" /// learning-by-doing
+		"no" /// savings
+		"yes" /// profits
+		"`all_programs'" /// programs to run
+		0 /// reps
+		"full_current_193" // nrun
+
+	*Run using $76 SCC
+	do "${github}/wrapper/metafile.do" ///
+		"current" /// 2020
+		"76" /// SCC
+		"yes" /// learning-by-doing
+		"no" /// savings
+		"yes" /// profits
+		"`all_programs'" /// programs to run
+		0 /// reps
+		"full_current_76" // nrun
+			
+	*Run using $337 SCC
+	do "${github}/wrapper/metafile.do" ///
+		"current" /// 2020
+		"337" /// SCC
+		"yes" /// learning-by-doing
+		"no" /// savings
+		"yes" /// profits
+		"`all_programs'" /// programs to run
+		0 /// reps
+		"full_current_337" // nrun
+
+		
+		*Run using $1367 SCC
+	do "${github}/wrapper/metafile.do" ///
+		"current" /// 2020
+		"1367" /// SCC
+		"yes" /// learning-by-doing
+		"no" /// savings
+		"yes" /// profits
+		"`all_programs'" /// programs to run
+		0 /// reps
+		"full_current_1367" // nrun
 		
 		*Run with EU grid
 	do "${github}/wrapper/metafile.do" ///
