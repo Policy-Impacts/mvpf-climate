@@ -42,6 +42,8 @@ if ("`c(username)'" == "bcchen") {
 	global dropbox = "${user}/Documents/GitHub/mvpf-climate/data"
 	global github = "${user}/Documents/GitHub/mvpf-climate"
 	global user_name = "Beatrice"
+	global mac_wolfram_path = "" // Only set this if running on a Mac. Type "which wolframscript" in Terminal to get its location.
+	
 }
 
 noi di "Set user path to: ${user}"
@@ -79,16 +81,17 @@ do "${github}/wrapper/clean_data.do"
 
 if "${rerun_data}" == "yes" {
 
-// 	*Main Run
-// 	do "${github}/wrapper/metafile.do" ///
-// 		"current" /// 2020
-// 		"193" /// SCC
-// 		"yes" /// learning-by-doing
-// 		"no" /// savings
-// 		"yes" /// profits
-// 		"`all_programs'" /// programs to run
-// 		0 /// reps
-// 		"full_current_193" // nrun
+	*Main Run
+	do "${github}/wrapper/metafile.do" ///
+		"current" /// 2020
+		"337" /// SCC
+		"yes" /// learning-by-doing
+		"no" /// savings
+		"yes" /// profits
+		"ct_solar" /// programs to run
+		0 /// reps
+		"full_current_337_test" // nrun
+}
 //
 // 	*Run using $76 SCC
 // 	do "${github}/wrapper/metafile.do" ///
@@ -122,66 +125,66 @@ if "${rerun_data}" == "yes" {
 // 		"yes" /// profits
 // 		"`all_programs'" /// programs to run
 // 		0 /// reps
-// 		"full_current_1367" // nrun
-		
-		*Run with EU grid
-	do "${github}/wrapper/metafile.do" ///
-		"current" /// 2020
-		"193" /// SCC
-		"yes" /// learning-by-doing
-		"no" /// savings
-		"yes" /// profits
-		"`all_programs'" /// programs to run
-		0 /// reps
-		"full_current_193_EU_grid" // nrun
-	
-	*Reset back to original
-	global change_grid = ""
-	global ev_grid = "US"
-		
-	*Run using in-context externalities
-	do "${github}/wrapper/metafile.do" ///
-		"baseline" ///
-		"193" ///
-		"yes" ///
-		"no" ///
-		"yes" ///
-		"`all_programs'" ///
-		0 /// reps
-		"full_incontext"
-
-	*Run without learning-by-doing
-	do "${github}/wrapper/metafile.do" ///
-		"current" /// 2020
-		"193" /// SCC
-		"no" /// learning-by-doing
-		"no" /// savings
-		"yes" /// profits
-		"`all_programs'" /// programs to run
-		0 /// reps
-		"full_current_no_lbd" // nrun
-		
-	*Run including energy savings
-	do "${github}/wrapper/metafile.do" ///
-		"current" ///
-		"193" ///
-		"yes" ///
-		"yes" ///
-		"yes" ///
-		"`all_programs'" /// programs to run
-		0 /// reps    
-		"full_current_savings"
-
-	*Run without including profits
-	do "${github}/wrapper/metafile.do" ///
-		"current" ///
-		"193" ///
-		"yes" ///
-		"no" ///
-		"no" ///
-		"`all_programs'" /// programs to run
-		0 /// reps
-		"full_current_noprofits" */
+// // 		"full_current_1367" // nrun
+//		
+// 		*Run with EU grid
+// 	do "${github}/wrapper/metafile.do" ///
+// 		"current" /// 2020
+// 		"193" /// SCC
+// 		"yes" /// learning-by-doing
+// 		"no" /// savings
+// 		"yes" /// profits
+// 		"`all_programs'" /// programs to run
+// 		0 /// reps
+// 		"full_current_193_EU_grid" // nrun
+//	
+// 	*Reset back to original
+// 	global change_grid = ""
+// 	global ev_grid = "US"
+//		
+// 	*Run using in-context externalities
+// 	do "${github}/wrapper/metafile.do" ///
+// 		"baseline" ///
+// 		"193" ///
+// 		"yes" ///
+// 		"no" ///
+// 		"yes" ///
+// 		"`all_programs'" ///
+// 		0 /// reps
+// 		"full_incontext"
+//
+// 	*Run without learning-by-doing
+// 	do "${github}/wrapper/metafile.do" ///
+// 		"current" /// 2020
+// 		"193" /// SCC
+// 		"no" /// learning-by-doing
+// 		"no" /// savings
+// 		"yes" /// profits
+// 		"`all_programs'" /// programs to run
+// 		0 /// reps
+// 		"full_current_no_lbd" // nrun
+//		
+// 	*Run including energy savings
+// 	do "${github}/wrapper/metafile.do" ///
+// 		"current" ///
+// 		"193" ///
+// 		"yes" ///
+// 		"yes" ///
+// 		"yes" ///
+// 		"`all_programs'" /// programs to run
+// 		0 /// reps    
+// 		"full_current_savings"
+//
+// 	*Run without including profits
+// 	do "${github}/wrapper/metafile.do" ///
+// 		"current" ///
+// 		"193" ///
+// 		"yes" ///
+// 		"no" ///
+// 		"no" ///
+// 		"`all_programs'" /// programs to run
+// 		0 /// reps
+// 		"full_current_noprofits" */
 }
 *---------------
 * 2 - Bootstrapping
