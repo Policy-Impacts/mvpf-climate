@@ -87,7 +87,10 @@ postfile `bootstraps' str18 policy l_MVPF h_MVPF using "${output_fig}/figures_da
 
 
 foreach policy in `all_programs' {
-	if "${`policy'_m_low}" != "" {
+	if "${`policy'_m_low_`scc'}" != "" {
+		post `bootstraps' ("`policy'") (${`policy'_m_low_`scc'}) (${`policy'_m_high_`scc'})
+	}
+	else if "${`policy'_m_low}" != "" {
 		post `bootstraps' ("`policy'") (${`policy'_m_low}) (${`policy'_m_high})
 	}
 	
@@ -105,23 +108,23 @@ use "${output_fig}/figures_data/bts_`mode'_`scc'_`value_profits'_`value_savings'
 *--------------------------------------------
 * 6 - Compile CI bounds for Category Averages
 *--------------------------------------------
-local categories = "appliance_rebates weatherization vehicle_retirements other_subsidies hers other_nudges other_fuel_taxes other_rev_raisers cap_and_trade gas_tax wind solar bev hev"
+local categories = "appliance_rebates weatherization vehicle_retirements other_subsidies hers other_nudges other_fuel_taxes other_rev_raisers cap_and_trade gas_tax wind solar bev hev cookstoves rice_burning international_rebates"
 
 tempname bootstraps
 
 postfile `bootstraps' str18 category l_MVPF h_MVPF using "${output_fig}/figures_data/avgs_`mode'_`scc'_`value_profits'_`value_savings'_`lbd'_v3.dta", replace
 
 
-
 foreach cat in `categories' {
-	if "${`cat'_m_low}" != "" {
+	if "${`cat'_m_low_`scc'}" != "" {
+		post `bootstraps' ("`cat'") (${`cat'_m_low_`scc'}) (${`cat'_m_high_`scc'})
+	}
+	else if "${`cat'_m_low}" != "" {
 		post `bootstraps' ("`cat'") (${`cat'_m_low}) (${`cat'_m_high})
 	}
-	
 	else {
 		post `bootstraps' ("`cat'") (.) (.)
 	}
-	
 }
 
 postclose `bootstraps'
