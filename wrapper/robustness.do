@@ -142,9 +142,15 @@ post `numbers' ("evs_avg_new_car_mvpf") ((${WTP_cc_muehl_efmp} + ${WTP_cc_federa
 * need new time paths for VMT adjustment
 
 di in red "Calculating category avg MVPF with average new car counterfactual and VMT = 1..."
+
+global VMT_change_robustness = "yes"
+
 run_program muehl_efmp, bev_cf_value(new_car) vmt_adjust(1) macros("yes")
 run_program federal_ev, bev_cf_value(new_car) vmt_adjust(1) macros("no")
 run_program bev_state, bev_cf_value(new_car) vmt_adjust(1) macros("no")
+
+global VMT_change_robustness = "no"
+
 
 post `numbers' ("evs_VMT_1_mvpf") ((${WTP_cc_muehl_efmp} + ${WTP_cc_federal_ev} + ${WTP_cc_bev_state}) / (${cost_muehl_efmp} + ${cost_federal_ev} + ${cost_bev_state}))
 

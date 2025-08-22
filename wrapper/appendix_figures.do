@@ -20,16 +20,17 @@ do "${github}/figtab/connected_externalities_driving.do"
 
 do "${github}/figtab/stacked_elec_externalities"
 
+do "${github}/figtab/grid_externality_region.do"
+
 *------------------------------------------------------------------------
 * 3 - Environmental Externality per MWh of Electricity Generation in 2020
 *------------------------------------------------------------------------
 
-*-------------------------------------------
-* A -  MVPF plot for varying specifications
-*-------------------------------------------
-do "${github}/figtab/mvpf_plots_add.do" "subsidies" "Subsidy Robustness" "full_current_76" "full_current_no_lbd_76" "full_current_noprofits_76" "full_current_savings_76" "full_current_76_ca_grid" "full_current_76_mi_grid" "full_current_76_zero_rb" "full_current_76_2_rb" "full_current_337" "full_current_no_lbd_337" "full_current_noprofits_337" "full_current_savings_337" "full_current_337_ca_grid" "full_current_337_mi_grid" "full_current_337_zero_rb" "full_current_337_2_rb" "full_current_193" "full_current_no_lbd_193" "full_current_noprofits_193" "full_current_savings_193" "full_current_193_ca_grid" "full_current_193_mi_grid" "full_current_193_zero_rb" "full_current_193_2_rb"
 
-do "${github}/figtab/grid_externality_region.do"
+* A -  MVPF plot for varying specifications
+do "${github}/figtab/mvpf_plots_add.do" "subsidies" "Subsidy Robustness" "full_current_76_s" "full_current_no_lbd_76_s" "full_current_noprof_76_s" "full_current_savings_76_s" "full_current_76_CA_grid_s" "full_current_76_MI_grid_s" "full_current_76_zero_rb_s" "full_current_76_2_rb_s" "full_current_337_s" "full_current_no_lbd_337_s" "full_current_noprof_337_s" "full_current_savings_337_s" "full_current_337_CA_grid_s" "full_current_337_MI_grid_s" "full_current_337_zero_rb_s" "full_current_337_2_rb_s" "full_current_193_s" "full_current_no_lbd_193_s" "full_current_noprof_193_s" "full_current_savings_193_s" "full_current_193_CA_grid_s" "full_current_193_MI_grid_s" "full_current_193_zero_rb_s" "full_current_193_2_rb_s"
+
+* B -  MVPFs with a Changing Grid
 
 do "${github}/figtab/changing_grid.do" // doesn't run for solar 0.91 w lbd
 
@@ -37,7 +38,7 @@ do "${github}/figtab/changing_grid.do" // doesn't run for solar 0.91 w lbd
 * 4 - Baseline MVPFs with a US/RoW split
 *---------------------------------------
 
-do "${github}/figtab/mvpf_plots.do" "subsidies" "full_current_193" "Ap_Fig5_split" "split" "no_cis"
+do "${github}/figtab/mvpf_plots.do" "subsidies" "full_current_193" "Ap_Fig4_split" "split" "no_cis"
 
 *------------------------------------------------------------------------
 * 5 - Non-Marginal EV MVPF Plot

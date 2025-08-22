@@ -69,7 +69,7 @@ if "${scc}" == "1367" {
 }
 	
 
-local cases "renewables_loop" "change_grid" "solar_output_change" "wind_emissions_change" "lifetime_change" "no_cap_reduction" "wind_lifetime_change"
+local cases "renewables_loop" "change_grid" "solar_output_change" "wind_emissions_change" "lifetime_change" "no_cap_reduction" "wind_lifetime_change" "VMT_change_robustness"
 
 foreach case in `cases' {
 	
@@ -82,6 +82,7 @@ foreach case in `cases' {
 if "${change_grid}" != "" {
 	local special = 1
 }
+
 
 *For cases that are not special
 if `special' == 0 {
