@@ -173,6 +173,34 @@ global ev_grid = "US" // reset EV grid back to US
 
 post `numbers' ("evs_mi_mvpf") ((${WTP_cc_muehl_efmp} + ${WTP_cc_federal_ev} + ${WTP_cc_bev_state}) / (${cost_muehl_efmp} + ${cost_federal_ev} + ${cost_bev_state})) 
 
+* get p-value of wind vs EV MVPFs using bootstraps
+* Need to run bootstraps first in order to have the necessary dta files
+foreach cat in "wind" "ev" {
+	use "${code_files}/3_bootstrap_draws/`cat'_bootstraps_193", clear
+	collapse (mean) predicted_cost predicted_WTP_cc, by(draw)
+	gen MVPF_`cat' = predicted_WTP_cc/predicted_cost
+	replace MVPF_`cat' = 99999 if MVPF < 0
+	keep MVPF_`cat'
+	tempfile `cat'_draws
+	save ``cat'_draws'
+}
+
+* Create all combinations (cross join)
+use `ev_draws', clear
+cross using `wind_draws'
+
+* Now you have all 1,000 × 1,000 = 1,000,000 pairs
+gen compare = (MVPF_ev > MVPF_wind)   // =1 if A's MVPF > B's MVPF
+summarize compare
+local totals = `r(N)'
+
+* Count how many pairs satisfy A > B
+count if compare == 1
+local counts = `r(N)'
+di `counts'/ `totals'
+
+post `numbers' ("evs_wind_pvalue") (`counts'/ `totals') 
+
 
 *--------------------
 * 2 - Hybrid Vehicles

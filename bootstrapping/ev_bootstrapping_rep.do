@@ -153,7 +153,7 @@ foreach policy in `policies' {
 	restore
 }
 
-save "${code_files}/3_bootstrap_draws/ev_bootstraps", replace
+save "${code_files}/3_bootstrap_draws/ev_bootstraps_${scc}", replace
 
 
 *************************

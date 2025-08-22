@@ -276,7 +276,7 @@ foreach policy in `policies' {
 	global `policy'_m_high = `r(r2)'
 	restore
 }
-save "${code_files}/3_bootstrap_draws/wind_bootstraps", replace
+save "${code_files}/3_bootstrap_draws/wind_bootstraps_${scc}", replace
 
 *************************
 *Category CIs
@@ -286,5 +286,7 @@ gen MVPF = predicted_WTP_cc/predicted_cost
 
 replace MVPF = 99999 if MVPF < 0
 _pctile MVPF, p(2.5, 97.5)
+di `r(r1)'
+di `r(r2)'
 global wind_m_low = `r(r1)'
 global wind_m_high = `r(r2)'
