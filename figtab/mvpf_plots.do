@@ -666,7 +666,7 @@ if "`7'" == "categories_only" {
 		replace ci_ub = `bev_h' if group_label == "Electric Vehicles" 
 		replace ci_ub = `hev_h' if group_label == "Hybrid Vehicles" 
 		replace ci_ub = `appliance_rebates_h' if group_label == "Appliance Rebates" 
-		replace ci_ub = `vehicle_retirement_l' if group_label == "Vehicle Retirement" 
+		replace ci_ub = `vehicle_retirement_h' if group_label == "Vehicle Retirement" 
 		replace ci_ub = `weatherization_h' if group_label == "Weatherization"
 
 		
