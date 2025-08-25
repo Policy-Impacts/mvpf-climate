@@ -173,34 +173,6 @@ global ev_grid = "US" // reset EV grid back to US
 
 post `numbers' ("evs_mi_mvpf") ((${WTP_cc_muehl_efmp} + ${WTP_cc_federal_ev} + ${WTP_cc_bev_state}) / (${cost_muehl_efmp} + ${cost_federal_ev} + ${cost_bev_state})) 
 
-* get p-value of wind vs EV MVPFs using bootstraps
-* Need to run bootstraps first in order to have the necessary dta files
-foreach cat in "wind" "ev" {
-	use "${code_files}/3_bootstrap_draws/`cat'_bootstraps_193", clear
-	collapse (mean) predicted_cost predicted_WTP_cc, by(draw)
-	gen MVPF_`cat' = predicted_WTP_cc/predicted_cost
-	replace MVPF_`cat' = 99999 if MVPF < 0
-	keep MVPF_`cat'
-	tempfile `cat'_draws
-	save ``cat'_draws'
-}
-
-* Create all combinations (cross join)
-use `ev_draws', clear
-cross using `wind_draws'
-
-* Now you have all 1,000 × 1,000 = 1,000,000 pairs
-gen compare = (MVPF_ev > MVPF_wind)   // =1 if A's MVPF > B's MVPF
-summarize compare
-local totals = `r(N)'
-
-* Count how many pairs satisfy A > B
-count if compare == 1
-local counts = `r(N)'
-di `counts'/ `totals'
-
-post `numbers' ("evs_wind_pvalue") (`counts'/ `totals') 
-
 
 *--------------------
 * 2 - Hybrid Vehicles
@@ -419,32 +391,21 @@ post `numbers' ("wind_non_marginal_avg") (`r(mean)')
 * Wind MVPF when grid is fully clean, no lbd
 
 global change_grid = "clean"
-
 global renewables_loop = "no"
 global renewables_percent = 0.999
+global lbd = "no"
 
-		do "${github}/wrapper/metafile.do" ///
-			"current" /// 2020
-			"193" /// SCC
-			"no" /// learning-by-doing
-			"no" /// savings
-			"yes" /// profits
-			"hitaj_ptc shirmali_ptc metcalf_ptc" /// programs to run
-			0 /// reps
-			"full_current_${renewables_percent}_clean_grid_no_lbd_wind" // nrun
-			
-find_most_recent_folder "clean_grid_no_lbd_wind"
-use "${code_files}/4_results/`folder'/compiled_results_all_uncorrected_vJK", clear 
-keep if inlist(program, "hitaj_ptc", "shirmali_ptc", "metcalf_ptc")
-qui sum component_value if component_type == "WTP_cc"
-local total_WTP = `r(sum)'
-qui sum component_value if component_type == "cost"
-local total_Cost = `r(sum)'
-post `numbers' ("wind_clean_grid_no_lbd_avg_mvpf") (`total_WTP'/`total_Cost')
+run_program hitaj_ptc, macros("yes")
+run_program metcalf_ptc, macros("no")
+run_program shirmali_ptc, macros("no")
 
+post `numbers' ("wind_clean_grid_no_lbd_avg_mvpf") ((${WTP_cc_hitaj_ptc} + ${WTP_cc_metcalf_ptc} + ${WTP_cc_shirmali_ptc}) / (${cost_hitaj_ptc} + ${cost_metcalf_ptc} + ${cost_shirmali_ptc}))
 
+di "wind_clean_grid_no_lbd_avg_mvpf = " ((${WTP_cc_hitaj_ptc} + ${WTP_cc_metcalf_ptc} + ${WTP_cc_shirmali_ptc}) / (${cost_hitaj_ptc} + ${cost_metcalf_ptc} + ${cost_shirmali_ptc}))
 
 global change_grid = ""
+global renewables_percent = ""
+global lbd = "yes"
 
 *--------------------------------------------
 * 7 - Solar
@@ -503,58 +464,39 @@ gen mvpf = WTP_cc / cost
 qui sum mvpf
 post `numbers' ("solar_non_marginal_mvpf") (`r(mean)')
 
-* Solar MVPF when grid is fully clean
+* Solar MVPF when grid is fully clean, no lbd
 
 global change_grid = "clean"
 global renewables_loop = "no"
 global renewables_percent = 0.999
-		
-		do "${github}/wrapper/metafile.do" ///
-			"current" /// 2020
-			"193" /// SCC
-			"yes" /// learning-by-doing
-			"no" /// savings
-			"yes" /// profits
-			"ct_solar ne_solar hughes_csi pless_ho pless_tpo" /// programs to run
-			0 /// reps
-			"full_current_${renewables_percent}_clean_grid_solar" // nrun
-	
-find_most_recent_folder "clean_grid_solar"
-use "${code_files}/4_results/`folder'/compiled_results_all_uncorrected_vJK", clear 
-keep if inlist(program, "ct_solar", "ne_solar", "hughes_csi", "pless_ho", "pless_tpo")
-qui sum component_value if component_type == "WTP_cc"
-local total_WTP = `r(sum)'
-qui sum component_value if component_type == "cost"
-local total_Cost = `r(sum)'
-post `numbers' ("solar_clean_grid_avg_mvpf") (`total_WTP'/`total_Cost')
-			
-local solar_policies = "ct_solar ne_solar hughes_csi pless_ho pless_tpo"
-local total_wtp_clean = 0
-local total_cost_clean = 0
+global lbd = "no"
 
-* Solar MVPF when grid is fully clean, no lbd
+run_program ct_solar, macros("yes")
+run_program ne_solar, macros("no")
+run_program hughes_csi, macros("no")
+run_program pless_ho, macros("no")
+run_program pless_tpo, macros("no")
 
+post `numbers' ("solar_clean_grid_no_lbd_avg_mvpf") ((${WTP_cc_ct_solar} + ${WTP_cc_ne_solar} + ${WTP_cc_hughes_csi} + ${WTP_cc_pless_ho} + ${WTP_cc_pless_tpo}) / (${cost_ct_solar} + ${cost_ne_solar} + ${cost_hughes_csi} + ${cost_pless_ho} + ${cost_pless_tpo}))
+
+di "solar_clean_grid_no_lbd_avg_mvpf = "((${WTP_cc_ct_solar} + ${WTP_cc_ne_solar} + ${WTP_cc_hughes_csi} + ${WTP_cc_pless_ho} + ${WTP_cc_pless_tpo}) / (${cost_ct_solar} + ${cost_ne_solar} + ${cost_hughes_csi} + ${cost_pless_ho} + ${cost_pless_tpo}))
 		
-		do "${github}/wrapper/metafile.do" ///
-			"current" /// 2020
-			"193" /// SCC
-			"no" /// learning-by-doing
-			"no" /// savings
-			"yes" /// profits
-			"ct_solar ne_solar hughes_csi pless_ho pless_tpo" /// programs to run
-			0 /// reps
-			"full_current_${renewables_percent}_clean_grid_no_lbd_solar" // nrun
-			
-find_most_recent_folder "clean_grid_no_lbd_solar"
-use "${code_files}/4_results/`folder'/compiled_results_all_uncorrected_vJK", clear 
-keep if inlist(program, "ct_solar", "ne_solar", "hughes_csi", "pless_ho", "pless_tpo")
-qui sum component_value if component_type == "WTP_cc"
-local total_WTP = `r(sum)'
-qui sum component_value if component_type == "cost"
-local total_Cost = `r(sum)'
-post `numbers' ("solar_clean_grid_no_lbd_avg_mvpf") (`total_WTP'/`total_Cost')
+* Solar MVPF when grid is fully clean
+
+global lbd = "yes"
+
+run_program ct_solar, macros("yes")
+run_program ne_solar, macros("no")
+run_program hughes_csi, macros("no")
+run_program pless_ho, macros("no")
+run_program pless_tpo, macros("no")
+
+post `numbers' ("solar_clean_grid_avg_mvpf") ((${WTP_cc_ct_solar} + ${WTP_cc_ne_solar} + ${WTP_cc_hughes_csi} + ${WTP_cc_pless_ho} + ${WTP_cc_pless_tpo}) / (${cost_ct_solar} + ${cost_ne_solar} + ${cost_hughes_csi} + ${cost_pless_ho} + ${cost_pless_tpo}))
+
+di "solar_clean_grid_avg_mvpf = " ((${WTP_cc_ct_solar} + ${WTP_cc_ne_solar} + ${WTP_cc_hughes_csi} + ${WTP_cc_pless_ho} + ${WTP_cc_pless_tpo}) / (${cost_ct_solar} + ${cost_ne_solar} + ${cost_hughes_csi} + ${cost_pless_ho} + ${cost_pless_tpo}))
 
 global change_grid = ""
+global renewables_percent = ""
 
 *--------------------------------------------
 * 8 - Weatherization
@@ -901,7 +843,7 @@ preserve
 	cap erase temp_filelist.txt
 	
 restore 
-/*
+
 *Run with CA grid
 	do "${github}/wrapper/metafile.do" ///
 		"current" /// 2020
@@ -912,21 +854,6 @@ restore
 		"`all_programs'" /// programs to run
 		0 /// reps
 		"full_current_193_CA_grid" // nrun
-	
-	*Reset back to original
-	global change_grid = ""
-	global ev_grid = "US"
-*/
-*Run with EU grid
-	do "${github}/wrapper/metafile.do" ///
-		"current" /// 2020
-		"193" /// SCC
-		"yes" /// learning-by-doing
-		"no" /// savings
-		"yes" /// profits
-		"`all_programs'" /// programs to run
-		0 /// reps
-		"full_current_193_EU_grid" // nrun
 	
 	*Reset back to original
 	global change_grid = ""
