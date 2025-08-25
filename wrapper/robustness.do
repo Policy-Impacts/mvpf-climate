@@ -144,17 +144,23 @@ post `numbers' ("evs_avg_new_car_mvpf") ((${WTP_cc_muehl_efmp} + ${WTP_cc_federa
 di in red "Calculating category avg MVPF with average new car counterfactual and VMT = 1..."
 
 global VMT_change_robustness = "yes"
+global EV_VMT_car_adjustment_ind = 1
+global EV_VMT_car_adjustment = 1
+
 
 run_program muehl_efmp, bev_cf_value(new_car) vmt_adjust(1) macros("yes")
 run_program federal_ev, bev_cf_value(new_car) vmt_adjust(1) macros("no")
 run_program bev_state, bev_cf_value(new_car) vmt_adjust(1) macros("no")
 
 global VMT_change_robustness = "no"
-
+global EV_VMT_car_adjustment_ind = 0.615
+global EV_VMT_car_adjustment = 0.61544408
 
 post `numbers' ("evs_VMT_1_mvpf") ((${WTP_cc_muehl_efmp} + ${WTP_cc_federal_ev} + ${WTP_cc_bev_state}) / (${cost_muehl_efmp} + ${cost_federal_ev} + ${cost_bev_state}))
 
 * category avg MVPF with CA grid
+
+global change_grid = "CA"
 
 di in red "Calculating category avg MVPF with CA grid..."
 run_program muehl_efmp, ev_grid("CA") macros("yes")
@@ -164,6 +170,7 @@ run_program bev_state, ev_grid("CA") macros("no")
 post `numbers' ("evs_ca_mvpf") ((${WTP_cc_muehl_efmp} + ${WTP_cc_federal_ev} + ${WTP_cc_bev_state}) / (${cost_muehl_efmp} + ${cost_federal_ev} + ${cost_bev_state}))
 
 * category avg MVPF with MI grid
+global change_grid = "MI"
 
 di in red "Calculating category avg MVPF with MI grid..."
 run_program muehl_efmp, ev_grid("MI") macros("yes")
@@ -171,32 +178,34 @@ run_program federal_ev, ev_grid("MI") macros("no")
 run_program bev_state, ev_grid("MI") macros("no")
 global ev_grid = "US" // reset EV grid back to US
 
+global change_grid = ""
+
 post `numbers' ("evs_mi_mvpf") ((${WTP_cc_muehl_efmp} + ${WTP_cc_federal_ev} + ${WTP_cc_bev_state}) / (${cost_muehl_efmp} + ${cost_federal_ev} + ${cost_bev_state})) 
 
 
-// *--------------------
-// * 2 - Hybrid Vehicles
-// *--------------------
-//
-// * category avg MVPF with average new car counterfactual
-//
-// run_program hev_usa_s, hev_cf_value(new_car)
-// run_program hev_usa_i, hev_cf_value(new_car)
-// run_program hybrid_cr, hev_cf_value(new_car)
-//
-// post `numbers' ("hevs_avg_new_car_mvpf") ((${WTP_cc_hev_usa_s} + ${WTP_cc_hev_usa_i} + ${WTP_cc_hybrid_cr}) / (${cost_hev_usa_s} + ${cost_hev_usa_i} + ${cost_hybrid_cr})) 
-//
-// * hybrid_cr MVPF with avg new car cf
-//
-// run_program hybrid_cr, hev_cf_value(new_car)
-//
-// post `numbers' ("hybrid_cr_new_car_mvpf") (${MVPF_hybrid_cr})
-//
-// * hev_usa_s MVPF with avg new car cf
-//
-// run_program hev_usa_s, hev_cf_value(new_car)
-//
-// post `numbers' ("hev_usa_s_new_car_mvpf") (${MVPF_hev_usa_s}) 
+*--------------------
+* 2 - Hybrid Vehicles
+*--------------------
+
+* category avg MVPF with average new car counterfactual
+
+run_program hev_usa_s, hev_cf_value(new_car)
+run_program hev_usa_i, hev_cf_value(new_car)
+run_program hybrid_cr, hev_cf_value(new_car)
+
+post `numbers' ("hevs_avg_new_car_mvpf") ((${WTP_cc_hev_usa_s} + ${WTP_cc_hev_usa_i} + ${WTP_cc_hybrid_cr}) / (${cost_hev_usa_s} + ${cost_hev_usa_i} + ${cost_hybrid_cr})) 
+
+* hybrid_cr MVPF with avg new car cf
+
+run_program hybrid_cr, hev_cf_value(new_car)
+
+post `numbers' ("hybrid_cr_new_car_mvpf") (${MVPF_hybrid_cr})
+
+* hev_usa_s MVPF with avg new car cf
+
+run_program hev_usa_s, hev_cf_value(new_car)
+
+post `numbers' ("hev_usa_s_new_car_mvpf") (${MVPF_hev_usa_s}) 
 
 *-----------
 * 3 - Nudges
@@ -204,189 +213,189 @@ post `numbers' ("evs_mi_mvpf") ((${WTP_cc_muehl_efmp} + ${WTP_cc_federal_ev} + $
 
 * her_compiled global rebound
 
-// run_program her_compiled
-//
-// post `numbers' ("her_compiled_rbd_glob") (${wtp_r_glob_her_compiled} / ${program_cost_her_compiled})
-//
-// * her_compiled local rebound
-//
-// post `numbers' ("her_compiled_rbd_loc") (${wtp_r_loc_her_compiled} / ${program_cost_her_compiled}) 
-//
-// *----------------------
-// * 4 - International
-// *----------------------
-//
-// * US-only cookstoves MVPF
-//
-//
-// * Cost components of 2020 cookstove policy.
-// run_program cookstoves
-//
-// post `numbers' ("cookstoves_subsidy_2020_dollars") (${cookstove_subsidy} * (${cpi_2020} / ${cpi_2019}))
-// post `numbers' ("climate_FE_per_ton") (${sc_CO2_2020} - (${sc_CO2_2020} * (1 - (${USShareFutureSSC} * ${USShareGovtFutureSCC}))))
-// post `numbers' ("cookstoves_us_mvpf") (${WTP_USFut_cookstoves} / ${cost_cookstoves})
-//
-// * net cost of cookstoves assuming 100% of SCC is from economic productivity
-//
-// post `numbers' ("cookstoves_cost_scc_econ") (${alt_cost_cookstoves})
-//
-// * US-only MVPF for cookstoves assuming 100% of SCC is economic productivity
-//
-// post `numbers' ("cookstoves_us_mvpf_scc_econ") (${alt_US_MVPF_cookstoves})
-//
-// * US-only MVPF for cookstoves assuming 0% of SCC is economic productivity
-// post `numbers' ("cookstoves_us_mvpf_scc_no_econ") ((${WTP_USFut_cookstoves} + ${WTP_USPres_cookstoves} + ${fisc_ext_lr_cookstoves}) / ${program_cost_cookstoves})
-//
-// post `numbers' ("cookstoves_mvpf_scc_no_econ") ((${WTP_USFut_cookstoves} + ${WTP_USPres_cookstoves} + ${WTP_RoW_cookstoves} + ${fisc_ext_lr_cookstoves}) / ${program_cost_cookstoves})
-//
-//
-// * sl_offset US-only MVPF
-//
-// run_program sl_offset
-//
-// post `numbers' ("sl_offset_us_mvpf") (${WTP_USFut_sl_offset} / ${cost_sl_offset})
-//
-// * ug_deforest US-only MVPF
-//
-// run_program ug_deforest
-//
-// post `numbers' ("ug_deforest_us_mvpf") (${WTP_USFut_ug_deforest} / ${cost_ug_deforest})
-//
-// * mx_deforest US-only MVPF
-//
-// run_program mx_deforest
-//
-// post `numbers' ("mx_deforest_us_mvpf") (${WTP_USFut_mx_deforest} / ${cost_mx_deforest})
-//
-// * rice_in_st US-only MVPF
-//
-// run_program rice_in_st
-//
-// post `numbers' ("rice_in_st_us_mvpf") (${WTP_USFut_rice_in_st} / ${cost_rice_in_st})
-//
-// * rice_in_up US-only MVPF
-//
-// run_program rice_in_up
-//
-// post `numbers' ("rice_in_up_us_mvpf") (${WTP_USFut_rice_in_up} / ${cost_rice_in_up})
-//
-// * india_offset US-only MVPF
-//
-// run_program india_offset
-//
-// post `numbers' ("india_offset_us_mvpf") (${WTP_USFut_india_offset} / ${cost_india_offset})
-//
-// * india_offset elasticity
-//
-// post `numbers' ("india_offset_elasticity") (${elas_india_offset})
-//
-// * cookstoves global enviro before normalizing by program cost
-//
-// run_program cookstoves
-// post `numbers' ("wtp_soc_g_cookstoves") (${wtp_soc_g_cookstoves})
-//
-//
-// *--------------------------------------------
-// * 5 - Electricity
-// *--------------------------------------------
-// *Electric Utility Markups
-// post `numbers' ("electricity_markup") (1 - ${cost_price_US_2020}) // Created in gas_electricity_externalities.do
-//
-// *--------------------------------------------
-// * 6 - Wind
-// *--------------------------------------------
-//
-// *1.13% increase in wind production for a 1% decrease in prices
-// run_program hitaj_ptc
-// post `numbers' ("hitaj_wind_response") (${epsilon_hitaj_ptc}) // Created in hitaj_ptc.do policy file
-//
-// *Wind category average MVPF w/ constant semie
-// global constant_semie = "yes"
-// run_program hitaj_ptc
-// run_program metcalf_ptc
-// run_program shirmali_ptc
-//
-// di ((${WTP_cc_hitaj_ptc} + ${WTP_cc_metcalf_ptc} + ${WTP_cc_shirmali_ptc}) / (${cost_hitaj_ptc} + ${cost_metcalf_ptc} + ${cost_shirmali_ptc}))
-//
-// post `numbers' ("wind_average_constant_semie") ((${WTP_cc_hitaj_ptc} + ${WTP_cc_metcalf_ptc} + ${WTP_cc_shirmali_ptc}) / (${cost_hitaj_ptc} + ${cost_metcalf_ptc} + ${cost_shirmali_ptc}))
-// global constant_semie = "no"
-//
-// *Wind average with European wind subsidies
-// use "${code_files}/4_results/`main_data_set'/compiled_results_all_uncorrected_vJK", clear 
-//
-// keep if inlist(program, "hitaj_ptc", "metcalf_ptc", "shirmali_ptc", "nicolini_eu", "hitaj_ger", "bolk_UK", "bolk_Spain", "bolk_France", "bolk_Germany")
-//
-// qui sum component_value if component_type == "WTP_cc"
-// local total_WTP = `r(sum)'
-//
-// qui sum component_value if component_type == "cost"
-// local total_Cost = `r(sum)'
-//
-// post `numbers' ("wind_average_european") (`total_WTP'/`total_Cost')
-//
-//
-// *Scale LCOE by 50%
-// global lcoe_scaling = "yes"
-// global scalar = 1.5
-//
-// run_program hitaj_ptc
-// run_program metcalf_ptc
-// run_program shirmali_ptc
-//
-// post `numbers' ("wind_lcoe_150_percent") ((${WTP_cc_hitaj_ptc} + ${WTP_cc_metcalf_ptc} + ${WTP_cc_shirmali_ptc}) / (${cost_hitaj_ptc} + ${cost_metcalf_ptc} + ${cost_shirmali_ptc}))
-//
-//
-// *Scale LCOE by 200%
-// global scalar = 2
-//
-// run_program hitaj_ptc
-// run_program metcalf_ptc
-// run_program shirmali_ptc
-//
-// post `numbers' ("wind_lcoe_200_percent") ((${WTP_cc_hitaj_ptc} + ${WTP_cc_metcalf_ptc} + ${WTP_cc_shirmali_ptc}) / (${cost_hitaj_ptc} + ${cost_metcalf_ptc} + ${cost_shirmali_ptc}))
-//
-// global lcoe_scaling = "no"
-//
-// *US-Only wind average
-// use "${code_files}/4_results/`main_data_set'/compiled_results_all_uncorrected_vJK", clear 
-// keep if program == "hitaj_ptc" | program == "metcalf_ptc" | program == "shirmali_ptc"
-//
-// qui sum component_value if component_type == "WTP_USPres" | component_type == "WTP_USFut" 
-// local total_us_wtp = `r(sum)'
-//
-// qui sum component_value if component_type == "cost"
-// local total_cost = `r(sum)'
-// post `numbers' ("wind_avg_us_only") (`total_us_wtp' / `total_cost')
-//
-//
-// *Wind Non-Marginal Category Average
-// global subsidy_loop = "yes"
-//
-// tempname wind_mvpfs_nma
-// tempfile wind_mvpfs_nma_data
-// postfile `wind_mvpfs_nma' str18 policy elasticity sub_level mvpf WTP_cc cost using `wind_mvpfs_nma_data', replace 
-//
-// local policies = "hitaj_ptc metcalf_ptc shirmali_ptc"
-// foreach policy in `policies' {
-//	
-// 	forvalues sub = 0(0.001)0.027 {
-//		
-// 		global fed_sub_loop = `sub'		
-// 		qui run_program `policy'
-//		
-// 		post `wind_mvpfs_nma' ("`policy'") (${`policy'_ep}) (`sub') (${MVPF_`policy'}) (${WTP_cc_`policy'}) (${cost_`policy'})
-// 	}
-// }
-//
-// postclose `wind_mvpfs_nma'	
-// global subsidy_loop = "no"
-// use `wind_mvpfs_nma_data', clear
-//
-// collapse (mean) WTP_cc cost, by(sub)
-// gen mvpf = WTP_cc / cost
-// qui sum mvpf
-// di `r(mean)'
-// post `numbers' ("wind_non_marginal_avg") (`r(mean)')
+run_program her_compiled
+
+post `numbers' ("her_compiled_rbd_glob") (${wtp_r_glob_her_compiled} / ${program_cost_her_compiled})
+
+* her_compiled local rebound
+
+post `numbers' ("her_compiled_rbd_loc") (${wtp_r_loc_her_compiled} / ${program_cost_her_compiled}) 
+
+*----------------------
+* 4 - International
+*----------------------
+
+* US-only cookstoves MVPF
+
+
+* Cost components of 2020 cookstove policy.
+run_program cookstoves
+
+post `numbers' ("cookstoves_subsidy_2020_dollars") (${cookstove_subsidy} * (${cpi_2020} / ${cpi_2019}))
+post `numbers' ("climate_FE_per_ton") (${sc_CO2_2020} - (${sc_CO2_2020} * (1 - (${USShareFutureSSC} * ${USShareGovtFutureSCC}))))
+post `numbers' ("cookstoves_us_mvpf") (${WTP_USFut_cookstoves} / ${cost_cookstoves})
+
+* net cost of cookstoves assuming 100% of SCC is from economic productivity
+
+post `numbers' ("cookstoves_cost_scc_econ") (${alt_cost_cookstoves})
+
+* US-only MVPF for cookstoves assuming 100% of SCC is economic productivity
+
+post `numbers' ("cookstoves_us_mvpf_scc_econ") (${alt_US_MVPF_cookstoves})
+
+* US-only MVPF for cookstoves assuming 0% of SCC is economic productivity
+post `numbers' ("cookstoves_us_mvpf_scc_no_econ") ((${WTP_USFut_cookstoves} + ${WTP_USPres_cookstoves} + ${fisc_ext_lr_cookstoves}) / ${program_cost_cookstoves})
+
+post `numbers' ("cookstoves_mvpf_scc_no_econ") ((${WTP_USFut_cookstoves} + ${WTP_USPres_cookstoves} + ${WTP_RoW_cookstoves} + ${fisc_ext_lr_cookstoves}) / ${program_cost_cookstoves})
+
+
+* sl_offset US-only MVPF
+
+run_program sl_offset
+
+post `numbers' ("sl_offset_us_mvpf") (${WTP_USFut_sl_offset} / ${cost_sl_offset})
+
+* ug_deforest US-only MVPF
+
+run_program ug_deforest
+
+post `numbers' ("ug_deforest_us_mvpf") (${WTP_USFut_ug_deforest} / ${cost_ug_deforest})
+
+* mx_deforest US-only MVPF
+
+run_program mx_deforest
+
+post `numbers' ("mx_deforest_us_mvpf") (${WTP_USFut_mx_deforest} / ${cost_mx_deforest})
+
+* rice_in_st US-only MVPF
+
+run_program rice_in_st
+
+post `numbers' ("rice_in_st_us_mvpf") (${WTP_USFut_rice_in_st} / ${cost_rice_in_st})
+
+* rice_in_up US-only MVPF
+
+run_program rice_in_up
+
+post `numbers' ("rice_in_up_us_mvpf") (${WTP_USFut_rice_in_up} / ${cost_rice_in_up})
+
+* india_offset US-only MVPF
+
+run_program india_offset
+
+post `numbers' ("india_offset_us_mvpf") (${WTP_USFut_india_offset} / ${cost_india_offset})
+
+* india_offset elasticity
+
+post `numbers' ("india_offset_elasticity") (${elas_india_offset})
+
+* cookstoves global enviro before normalizing by program cost
+
+run_program cookstoves
+post `numbers' ("wtp_soc_g_cookstoves") (${wtp_soc_g_cookstoves})
+
+
+*--------------------------------------------
+* 5 - Electricity
+*--------------------------------------------
+*Electric Utility Markups
+post `numbers' ("electricity_markup") (1 - ${cost_price_US_2020}) // Created in gas_electricity_externalities.do
+
+*--------------------------------------------
+* 6 - Wind
+*--------------------------------------------
+
+*1.13% increase in wind production for a 1% decrease in prices
+run_program hitaj_ptc
+post `numbers' ("hitaj_wind_response") (${epsilon_hitaj_ptc}) // Created in hitaj_ptc.do policy file
+
+*Wind category average MVPF w/ constant semie
+global constant_semie = "yes"
+run_program hitaj_ptc
+run_program metcalf_ptc
+run_program shirmali_ptc
+
+di ((${WTP_cc_hitaj_ptc} + ${WTP_cc_metcalf_ptc} + ${WTP_cc_shirmali_ptc}) / (${cost_hitaj_ptc} + ${cost_metcalf_ptc} + ${cost_shirmali_ptc}))
+
+post `numbers' ("wind_average_constant_semie") ((${WTP_cc_hitaj_ptc} + ${WTP_cc_metcalf_ptc} + ${WTP_cc_shirmali_ptc}) / (${cost_hitaj_ptc} + ${cost_metcalf_ptc} + ${cost_shirmali_ptc}))
+global constant_semie = "no"
+
+*Wind average with European wind subsidies
+use "${code_files}/4_results/`main_data_set'/compiled_results_all_uncorrected_vJK", clear 
+
+keep if inlist(program, "hitaj_ptc", "metcalf_ptc", "shirmali_ptc", "nicolini_eu", "hitaj_ger", "bolk_UK", "bolk_Spain", "bolk_France", "bolk_Germany")
+
+qui sum component_value if component_type == "WTP_cc"
+local total_WTP = `r(sum)'
+
+qui sum component_value if component_type == "cost"
+local total_Cost = `r(sum)'
+
+post `numbers' ("wind_average_european") (`total_WTP'/`total_Cost')
+
+
+*Scale LCOE by 50%
+global lcoe_scaling = "yes"
+global scalar = 1.5
+
+run_program hitaj_ptc
+run_program metcalf_ptc
+run_program shirmali_ptc
+
+post `numbers' ("wind_lcoe_150_percent") ((${WTP_cc_hitaj_ptc} + ${WTP_cc_metcalf_ptc} + ${WTP_cc_shirmali_ptc}) / (${cost_hitaj_ptc} + ${cost_metcalf_ptc} + ${cost_shirmali_ptc}))
+
+
+*Scale LCOE by 200%
+global scalar = 2
+
+run_program hitaj_ptc
+run_program metcalf_ptc
+run_program shirmali_ptc
+
+post `numbers' ("wind_lcoe_200_percent") ((${WTP_cc_hitaj_ptc} + ${WTP_cc_metcalf_ptc} + ${WTP_cc_shirmali_ptc}) / (${cost_hitaj_ptc} + ${cost_metcalf_ptc} + ${cost_shirmali_ptc}))
+
+global lcoe_scaling = "no"
+
+*US-Only wind average
+use "${code_files}/4_results/`main_data_set'/compiled_results_all_uncorrected_vJK", clear 
+keep if program == "hitaj_ptc" | program == "metcalf_ptc" | program == "shirmali_ptc"
+
+qui sum component_value if component_type == "WTP_USPres" | component_type == "WTP_USFut" 
+local total_us_wtp = `r(sum)'
+
+qui sum component_value if component_type == "cost"
+local total_cost = `r(sum)'
+post `numbers' ("wind_avg_us_only") (`total_us_wtp' / `total_cost')
+
+
+*Wind Non-Marginal Category Average
+global subsidy_loop = "yes"
+
+tempname wind_mvpfs_nma
+tempfile wind_mvpfs_nma_data
+postfile `wind_mvpfs_nma' str18 policy elasticity sub_level mvpf WTP_cc cost using `wind_mvpfs_nma_data', replace 
+
+local policies = "hitaj_ptc metcalf_ptc shirmali_ptc"
+foreach policy in `policies' {
+	
+	forvalues sub = 0(0.001)0.027 {
+		
+		global fed_sub_loop = `sub'		
+		qui run_program `policy'
+		
+		post `wind_mvpfs_nma' ("`policy'") (${`policy'_ep}) (`sub') (${MVPF_`policy'}) (${WTP_cc_`policy'}) (${cost_`policy'})
+	}
+}
+
+postclose `wind_mvpfs_nma'	
+global subsidy_loop = "no"
+use `wind_mvpfs_nma_data', clear
+
+collapse (mean) WTP_cc cost, by(sub)
+gen mvpf = WTP_cc / cost
+qui sum mvpf
+di `r(mean)'
+post `numbers' ("wind_non_marginal_avg") (`r(mean)')
 
 * Wind MVPF when grid is fully clean, no lbd
 
