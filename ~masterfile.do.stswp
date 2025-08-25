@@ -13,7 +13,7 @@ ssc install missings
 *------
 global rerun_data = "yes"
 global bootstraps = "yes"
-global run_pub_bias = "yes"
+global pub_bias = "yes"
 
 *------
 * Paths
@@ -185,7 +185,7 @@ if "${rerun_data}" == "yes" {
 		"no" ///
 		"`all_programs'" /// programs to run
 		0 /// reps
-		"full_current_noprofits"
+		"full_current_noprofits" */
 } 
 *---------------
 * 2 - Bootstrapping
@@ -209,7 +209,7 @@ if "${bootstraps}" == "yes" & "${rerun_data}" == "yes" {
 * 3 - Publication Bias
 *---------------------
 
-if "${run_pub_bias}" == "yes" & "${rerun_data}" == "yes" {
+if "${pub_bias}" == "yes" & "${rerun_data}" == "yes" {
     do "${github}/wrapper/metafile.do" ///
        "current" ///
        "193" /// SCC
