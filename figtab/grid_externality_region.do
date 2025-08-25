@@ -49,7 +49,7 @@ maptile environment_ext, ///
 		mapif(region == 1) ///
 		cutvalues(100 140 160 190) ///
 		twopt(legend(order(6 "190 - 200" 5 "160 - 190" 4 "140 - 160" 3 "100 - 140" 2 "90 - 100") size(9pt) title("Externality ($/MWh)", size(small) margin(small))))
-graph export "`output_path'/Ap_Fig_3_map.png", replace
-cap graph export "`output_path'/Ap_Fig_3_map.wmf", replace
+graph export "`output_path'/Ap_Fig_2_map.png", replace
+cap graph export "`output_path'/Ap_Fig_2_map.wmf", replace
 
 

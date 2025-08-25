@@ -61,7 +61,7 @@ do "${github}/figtab/mvpf_plots.do" "taxes" "full_current_193" "Fig7_scc193" "19
 * 8 -  MVPF plot of international policies
 *-----------------------------------------
 
-do "${github}/figtab/mvpf_plots.do" "intl" "full_current_193_nov" "Fig8_scc193" "split" "no_cis"
+do "${github}/figtab/mvpf_plots.do" "intl" "full_current_193" "Fig8_scc193" "split" "no_cis"
 
 
 

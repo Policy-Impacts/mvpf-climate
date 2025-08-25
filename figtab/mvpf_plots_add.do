@@ -179,11 +179,7 @@ local bar_light_orange = "252 179 72"
 local bar_dark_orange = "214 118 72"
 local bar_light_gray = "181 184 191"
 
-local output_path "${output_fig}/figures_main"
-
-if inlist("`2'", "Fig4_scc193", "Fig5a_scc76", "Fig5b_scc337", "Fig8_scc193", "Fig9_scc193") {
-	local output_path "${output_fig}/figures_main"
-}
+local output_path "${output_fig}/figures_appendix"
 
 ************************************************************************
 /* Step #0a: Define Data Paths for Scenarios */
