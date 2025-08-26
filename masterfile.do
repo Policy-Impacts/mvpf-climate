@@ -76,6 +76,10 @@ restore
 
 do "${github}/wrapper/clean_data.do"
 
+// Reset Globals
+qui do "${github}/ado/reset_globals.ado"
+
+
 *------------------------------
 * 1 - All of the different runs
 *------------------------------
@@ -237,15 +241,11 @@ if "${rerun_data}" == "no" {
 		"full_current_no_lbd" // nrun
 }
 
-*---------------
-* 4 - Robustness
-*---------------
-
-do "${github}/wrapper/robustness.do"
-
 *-----------------------
-* 5 - Figures and Tables
+* 4 - Figures and Tables
 *-----------------------
+
+reset_globals
 
 do "${github}/wrapper/figures.do"
 
@@ -254,3 +254,11 @@ do "${github}/wrapper/tables.do"
 do "${github}/wrapper/appendix_figures.do"
 
 do "${github}/wrapper/appendix_tables.do"
+
+*---------------
+* 5 - Robustness
+*---------------
+
+reset_globals
+
+do "${github}/wrapper/robustness.do"
