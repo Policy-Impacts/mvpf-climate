@@ -419,9 +419,12 @@ global lbd = "yes"
 *--------------------------------------------
 * 7 - Solar
 *--------------------------------------------
+
 *Fiscal externality if the ITC is 30%
+qui do "${github}/calculations/gas_electricity_externalities"
+
 global subsidy_change = "yes"
-run_program pless_ho
+run_program pless_ho, macros("yes")
 di (${fisc_ext_s_pless_ho} / ${program_cost_pless_ho})
 post `numbers' ("solar_fe_itc30") (${fisc_ext_s_pless_ho} / ${program_cost_pless_ho})
 global subsidy_change = "no"
@@ -510,6 +513,7 @@ global renewables_percent = ""
 *--------------------------------------------
 * 8 - Weatherization
 *--------------------------------------------
+qui do "${github}/calculations/gas_electricity_externalities"
 
 *Category average with 100% marginal
 global marginal_change = "yes"
