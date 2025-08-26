@@ -103,9 +103,6 @@ qui do "${github}/ado/solar.ado"
 // Learning-by-Doing
 qui do "${github}/cost_curve/cost_curve_masterfile.ado"
 
-// Reset Globals
-qui do "${github}/ado/reset_globals.ado"
-
 ***************************************************************************************************************
 /*           1 - Save Parameters That Do NOT Depend on SCC or Discount Rate, nor Creates New Files.          */
 ***************************************************************************************************************

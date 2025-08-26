@@ -14,7 +14,7 @@ local bar_light_gray = "181 184 191"
 
 local output_path "${output_fig}/figures_appendix"
 
-if inlist("`3'", "Fig4_scc193", "Fig5a_scc76", "Fig5b_scc337", "Fig8_scc193", "Fig9_scc193") {
+if inlist("`3'", "Fig4_scc193", "Fig8_scc193", "Fig7_scc193") {
 	local output_path "${output_fig}/figures_main"
 }
 

@@ -364,7 +364,6 @@ preserve
 	tempfile category_averages_no_SE
 	save "`category_averages_no_SE'", replace	
 	
-end
 		
 restore
 

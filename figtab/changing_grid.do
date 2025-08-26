@@ -283,5 +283,6 @@ tw ///
 	ylab(0(2.0)8, nogrid  format(%9.1f))
 	
 cap graph export "${output_fig}/figures_appendix/changing_grid_with_scatter.wmf", replace
+graph export "${output_fig}/figures_appendix/changing_grid_with_scatter.png", replace
 
 	

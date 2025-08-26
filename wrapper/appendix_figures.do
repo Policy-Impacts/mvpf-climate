@@ -20,7 +20,7 @@ do "${github}/figtab/connected_externalities_driving.do"
 
 do "${github}/figtab/stacked_elec_externalities"
 
-do "${github}/figtab/grid_externality_region.do"
+*do "${github}/figtab/grid_externality_region.do" // map directory isn't installing
 
 *------------------------------------------------------------------------
 * 3 - Environmental Externality per MWh of Electricity Generation in 2020
