@@ -9,132 +9,131 @@
 *-------------------------
 * For SCC values 193, 76, 337
 *-------------------------
-ssc install labutil
-preserve
-    import excel "${code_files}/policy_details_v3.xlsx", clear first
-
-    * Filter to subsidies only and exclude extended programs
-    keep if broad_category == "Subsidies"
-    keep if extended != 1
-
-    * Get all program names and build the list
-    levelsof(program), local(program_loop)
-    local all_subsidies ""
-    foreach prog of local program_loop {
-        local all_subsidies "`all_subsidies' `prog'"
-    }
-
-    di in yellow "All programs for subsidies: `all_subsidies'"
-restore
-
-foreach scc in 193 76 337 {
-
-
-	*Baseline
-	do "${github}/wrapper/metafile.do" ///
-		"current" /// 2020
-		"`scc'" /// SCC
-		"yes" /// learning-by-doing
-		"no" /// savings
-		"yes" /// profits
-		"`all_subsidies'" /// programs to run
-		0 /// reps
-		"full_current_`scc'_s" // nrun
-
-
-
-	*no LBD
-	do "${github}/wrapper/metafile.do" ///
-		"current" /// 2020
-		"`scc'" /// SCC
-		"no" /// learning-by-doing
-		"no" /// savings
-		"yes" /// profits
-		"`all_subsidies'" /// programs to run
-		0 /// reps
-		"full_current_no_lbd_`scc'_s" // nrun
-		
-   *no profits
-    do "${github}/wrapper/metafile.do" ///
-        "current" /// 2020
-        "`scc'" /// SCC
-        "yes" /// learning-by-doing
-        "no" /// savings
-        "no" /// profits
-        "`all_subsidies'" /// programs to run
-        0 /// reps
-        "full_current_noprof_`scc'_s" // nrun
-
-    *energy savings
-    do "${github}/wrapper/metafile.do" ///
-        "current" /// 2020
-        "`scc'" /// SCC
-        "yes" /// learning-by-doing
-        "yes" /// savings
-        "yes" /// profits
-        "`all_subsidies'" /// programs to run
-        0 /// reps
-        "full_current_savings_`scc'_s" // nrun
-    
-    *CA grid
-    do "${github}/wrapper/metafile.do" ///
-        "current" /// 2020
-        "`scc'" /// SCC
-        "yes" /// learning-by-doing
-        "no" /// savings
-        "yes" /// profits
-        "`all_subsidies'" /// programs to run
-        0 /// reps
-        "full_current_`scc'_CA_grid_s" // nrun
-    
-    *MI grid
-    do "${github}/wrapper/metafile.do" ///
-        "current" /// 2020
-        "`scc'" /// SCC
-        "yes" /// learning-by-doing
-        "no" /// savings
-        "yes" /// profits
-        "`all_subsidies'" /// programs to run
-        0 /// reps
-        "full_current_`scc'_MI_grid_s" // nrun
-		
-	global change_grid = ""
-	global ev_grid = "US"
-    
-    *0 rebound
-    global rebound_change = "yes"
-    global rebound_scalar = 0
-
-    do "${github}/wrapper/metafile.do" ///
-        "current" /// 2020
-        "`scc'" /// SCC
-        "yes" /// learning-by-doing
-        "no" /// savings
-        "yes" /// profits
-        "`all_subsidies'" /// programs to run
-        0 /// reps
-        "full_current_`scc'_zero_rb_s" // nrun	
-    
-    global rebound_change = "no"
-    global rebound_scalar = 1
-
-    *2x rebound
-    global rebound_change = "yes"
-    global rebound_scalar = 2
-
-    do "${github}/wrapper/metafile.do" ///
-        "current" /// 2020
-        "`scc'" /// SCC
-        "yes" /// learning-by-doing
-        "no" /// savings
-        "yes" /// profits
-        "`all_subsidies'" /// programs to run
-        0 /// reps
-        "full_current_`scc'_2_rb_s" // nrun	
-    
-    global rebound_change = "no"
-    global rebound_scalar = 1
-}
+// preserve
+//     import excel "${code_files}/policy_details_v3.xlsx", clear first
+//
+//     * Filter to subsidies only and exclude extended programs
+//     keep if broad_category == "Subsidies"
+//     keep if extended != 1
+//
+//     * Get all program names and build the list
+//     levelsof(program), local(program_loop)
+//     local all_subsidies ""
+//     foreach prog of local program_loop {
+//         local all_subsidies "`all_subsidies' `prog'"
+//     }
+//
+//     di in yellow "All programs for subsidies: `all_subsidies'"
+// restore
+//
+// foreach scc in 193 76 337 {
+//
+//
+// 	*Baseline
+// 	do "${github}/wrapper/metafile.do" ///
+// 		"current" /// 2020
+// 		"`scc'" /// SCC
+// 		"yes" /// learning-by-doing
+// 		"no" /// savings
+// 		"yes" /// profits
+// 		"`all_subsidies'" /// programs to run
+// 		0 /// reps
+// 		"full_current_`scc'_s" // nrun
+//
+//
+//
+// 	*no LBD
+// 	do "${github}/wrapper/metafile.do" ///
+// 		"current" /// 2020
+// 		"`scc'" /// SCC
+// 		"no" /// learning-by-doing
+// 		"no" /// savings
+// 		"yes" /// profits
+// 		"`all_subsidies'" /// programs to run
+// 		0 /// reps
+// 		"full_current_no_lbd_`scc'_s" // nrun
+//		
+//    *no profits
+//     do "${github}/wrapper/metafile.do" ///
+//         "current" /// 2020
+//         "`scc'" /// SCC
+//         "yes" /// learning-by-doing
+//         "no" /// savings
+//         "no" /// profits
+//         "`all_subsidies'" /// programs to run
+//         0 /// reps
+//         "full_current_noprof_`scc'_s" // nrun
+//
+//     *energy savings
+//     do "${github}/wrapper/metafile.do" ///
+//         "current" /// 2020
+//         "`scc'" /// SCC
+//         "yes" /// learning-by-doing
+//         "yes" /// savings
+//         "yes" /// profits
+//         "`all_subsidies'" /// programs to run
+//         0 /// reps
+//         "full_current_savings_`scc'_s" // nrun
+//    
+//     *CA grid
+//     do "${github}/wrapper/metafile.do" ///
+//         "current" /// 2020
+//         "`scc'" /// SCC
+//         "yes" /// learning-by-doing
+//         "no" /// savings
+//         "yes" /// profits
+//         "`all_subsidies'" /// programs to run
+//         0 /// reps
+//         "full_current_`scc'_CA_grid_s" // nrun
+//    
+//     *MI grid
+//     do "${github}/wrapper/metafile.do" ///
+//         "current" /// 2020
+//         "`scc'" /// SCC
+//         "yes" /// learning-by-doing
+//         "no" /// savings
+//         "yes" /// profits
+//         "`all_subsidies'" /// programs to run
+//         0 /// reps
+//         "full_current_`scc'_MI_grid_s" // nrun
+//		
+// 	global change_grid = ""
+// 	global ev_grid = "US"
+//    
+//     *0 rebound
+//     global rebound_change = "yes"
+//     global rebound_scalar = 0
+//
+//     do "${github}/wrapper/metafile.do" ///
+//         "current" /// 2020
+//         "`scc'" /// SCC
+//         "yes" /// learning-by-doing
+//         "no" /// savings
+//         "yes" /// profits
+//         "`all_subsidies'" /// programs to run
+//         0 /// reps
+//         "full_current_`scc'_zero_rb_s" // nrun	
+//    
+//     global rebound_change = "no"
+//     global rebound_scalar = 1
+//
+//     *2x rebound
+//     global rebound_change = "yes"
+//     global rebound_scalar = 2
+//
+//     do "${github}/wrapper/metafile.do" ///
+//         "current" /// 2020
+//         "`scc'" /// SCC
+//         "yes" /// learning-by-doing
+//         "no" /// savings
+//         "yes" /// profits
+//         "`all_subsidies'" /// programs to run
+//         0 /// reps
+//         "full_current_`scc'_2_rb_s" // nrun	
+//    
+//     global rebound_change = "no"
+//     global rebound_scalar = 1
+// }
 
 		
 ssc install addplot
@@ -214,7 +213,7 @@ di in red "Looking for pattern: `scenario'"
 di in red "Checking folder: `scenario'"
 di in red "Regex pattern: ^([0-9]{4}-[0-9]{2}-[0-9]{2}_[0-9]{2}-[0-9]{2}-[0-9]{2})__`scenario'$"
 
-        if regexm("`folder'", "^([0-9]{4}-[0-9]{2}-[0-9]{2}_[0-9]{2}-[0-9]{2}-[0-9]{2})__`scenario'$") {
+        if regexm("`folder'", lower("^([0-9]{4}-[0-9]{2}-[0-9]{2}_[0-9]{2}-[0-9]{2}-[0-9]{2})__`scenario'$")) {
             local timestamp = regexs(1)
             local folder_list = "`folder_list' `folder'"
             local folder_dates = "`folder_dates' `timestamp'"
