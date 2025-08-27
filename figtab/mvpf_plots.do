@@ -25,7 +25,7 @@ if "`4'" != "" & "`4'" != "split" & "`4'" != "nosplit" {
 
 if "`4'" == "split"{
 	local RoW_color = "`bar_dark_orange'"
-	local output_path "${output_fig}/figures_appendix"
+	local output_path "${output_fig}/figures_main"
 }
 else{
 	local RoW_color = "`bar_blue'"

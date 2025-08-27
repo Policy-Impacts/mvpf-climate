@@ -1,3 +1,6 @@
+ssc install maptile
+ssc install spmap
+maptile_install using "http://files.michaelstepner.com/geo_state.zip"
 	
 local output_path "${output_fig}/figures_appendix"
 
