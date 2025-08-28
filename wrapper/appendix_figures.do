@@ -27,11 +27,11 @@ do "${github}/figtab/grid_externality_region.do"
 *------------------------------------------------------------------------
 
 * A -  MVPF plot for varying specifications
-do "${github}/figtab/mvpf_plots_add.do" "subsidies" "Subsidy Robustness" "full_current_76_s" "full_current_no_lbd_76_s" "full_current_noprof_76_s" "full_current_savings_76_s" "full_current_76_ca_grid_s" "full_current_76_mi_grid_s" "full_current_76_zero_rb_s" "full_current_76_2_rb_s" "full_current_337_s" "full_current_no_lbd_337_s" "full_current_noprof_337_s" "full_current_savings_337_s" "full_current_337_ca_grid_s" "full_current_337_mi_grid_s" "full_current_337_zero_rb_s" "full_current_337_2_rb_s" "full_current_193_s" "full_current_no_lbd_193_s" "full_current_noprof_193_s" "full_current_savings_193_s" "full_current_193_ca_grid_s" "full_current_193_mi_grid_s" "full_current_193_zero_rb_s" "full_current_193_2_rb_s"
-
-* B -  MVPFs with a Changing Grid
-
-do "${github}/figtab/changing_grid.do" //
+// do "${github}/figtab/mvpf_plots_add.do" "subsidies" "Subsidy Robustness" "full_current_76_s" "full_current_no_lbd_76_s" "full_current_noprof_76_s" "full_current_savings_76_s" "full_current_76_ca_grid_s" "full_current_76_mi_grid_s" "full_current_76_zero_rb_s" "full_current_76_2_rb_s" "full_current_337_s" "full_current_no_lbd_337_s" "full_current_noprof_337_s" "full_current_savings_337_s" "full_current_337_ca_grid_s" "full_current_337_mi_grid_s" "full_current_337_zero_rb_s" "full_current_337_2_rb_s" "full_current_193_s" "full_current_no_lbd_193_s" "full_current_noprof_193_s" "full_current_savings_193_s" "full_current_193_ca_grid_s" "full_current_193_mi_grid_s" "full_current_193_zero_rb_s" "full_current_193_2_rb_s"
+//
+// * B -  MVPFs with a Changing Grid
+//
+// do "${github}/figtab/changing_grid.do" //
 
 *---------------------------------------
 * 4 - Baseline MVPFs with a US/RoW split
@@ -83,7 +83,7 @@ do "${github}/figtab/regulations.do" "full_current_193" "gas" "cafe_as"
 
 do "${github}/figtab/regulations.do" "full_current_193" "gas" "cafe_j"
 
-do "${github}/figtab/regulations.do" "full_current_193" "gas" "rps"
+do "${github}/figtab/regulations.do" "full_current_193" "wind" "rps"
 
 
 
