@@ -37,13 +37,13 @@ do "${github}/figtab/grid_externality_region.do"
 * 4 - Baseline MVPFs with a US/RoW split
 *---------------------------------------
 
-do "${github}/figtab/mvpf_plots.do" "subsidies" "full_current_193" "Ap_Fig4_split" "split" "no_cis"
+do "${github}/figtab/mvpf_plots.do" "subsidies" "full_current_193_s" "Ap_Fig4_split" "split" "no_cis"
 
 *------------------------------------------------------------------------
 * 5 - Non-Marginal EV MVPF Plot
 *------------------------------------------------------------------------
 
-do "${github}/calculations/bevs_non_marginal.do"
+do "${github}/calculations/bevs_non_marginal.do" "bev_state"
 
 *------------------------
 * 6 - Electricity Rebound
