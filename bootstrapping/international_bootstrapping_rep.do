@@ -2,7 +2,7 @@
  *           No Learning by Doing Policies Bootstraps                   *
  ************************************************************************/
   
-local cookstoves = "india_cs"
+local cookstoves = "cookstoves india_cs"
 local deforestation = "ug_deforest"
 local rice_burning = "rice_in_st rice_in_up"
 local international_rebates = "wap_mexico ac_mex fridge_mex"
