@@ -131,96 +131,75 @@ local folders_ev: dir "${github}/data/4_results" dirs "*full_current*evs_cg*"
 local folders_ev_nolbd: dir "${github}/data/4_results" dirs "*full_current*ev_nolbd*"
 
 *Appending Wind
-local matched_files : dir "${github}/data/4_results" dirs "*full_current_.01_wind_cg*"
-foreach f of local matched_files {
-    local first_file = "`f'"
-    use "${github}/data/4_results/`f'/compiled_results_all_uncorrected_vJK.dta", clear
-}
-
-gen percent = 0.01
-
-local percent = 0.10
+*Appending Wind
+local first_run = 1
 foreach f of local folders_wind {
-		if "`f'" != "`first_file'" {
-	
-		append using "${github}/data/4_results/`f'/compiled_results_all_uncorrected_vJK.dta"
-		
-		replace percent = `percent' if percent == .
-		local percent = `percent' + 0.10	
-		
-	}
-	
+    if `first_run' == 1 {
+        use "${github}/data/4_results/`f'/compiled_results_all_uncorrected_vJK.dta", clear
+        gen percent = .  // Create the percent variable
+        local first_run = 0
+    }
+    else {
+        append using "${github}/data/4_results/`f'/compiled_results_all_uncorrected_vJK.dta"
+    }
+    
+    if regexm("`f'", "full_current_([0-9\.]+)_wind_cg") {
+        local extracted_percent = regexs(1)
+        replace percent = `extracted_percent' if percent == .
+    }
 }
 gen category = "Wind Production Credits"
 
 *Appending Solar
-local percent = 0.01
+
 foreach f of local folders_solar {
-	
-		append using "${github}/data/4_results/`f'/compiled_results_all_uncorrected_vJK.dta"
-		
-		replace percent = `percent' if percent == .
-		
-		if `percent' == 0.01 {
-			local percent = 0
-		}
-		
-		local percent = `percent' + 0.10	
-	
+    append using "${github}/data/4_results/`f'/compiled_results_all_uncorrected_vJK.dta"
+        if regexm("`f'", "full_current_([0-9\.]+)_solar_cg") {
+        local extracted_percent = regexs(1)
+        replace percent = `extracted_percent' if percent == .
+    }
 }
+
+
 replace category = "Residential Solar" if category == ""
 
 *Appending EVs
-local percent = 0.01
+
 foreach f of local folders_ev {
-	
-		append using "${github}/data/4_results/`f'/compiled_results_all_uncorrected_vJK.dta"
-		
-		replace percent = `percent' if percent == .
-		
-		if `percent' == 0.01 {
-			local percent = 0
-		}
-		
-		local percent = `percent' + 0.10	
-		
-	
+    append using "${github}/data/4_results/`f'/compiled_results_all_uncorrected_vJK.dta"
+    
+    if regexm("`f'", "full_current_([0-9\.]+)_evs_cg") {
+        local extracted_percent = regexs(1)
+        replace percent = `extracted_percent' if percent == .
+    }
 }
+
 replace category = "Electric Vehicles" if category == ""
 
 *Appending EVs (No LBD)
-local percent = 0.01
+
 foreach f of local folders_ev_nolbd {
-	
-		append using "${github}/data/4_results/`f'/compiled_results_all_uncorrected_vJK.dta"
-		
-		replace percent = `percent' if percent == .
-		
-		if `percent' == 0.01 {
-			local percent = 0
-		}
-		
-		local percent = `percent' + 0.10		
-	
+    append using "${github}/data/4_results/`f'/compiled_results_all_uncorrected_vJK.dta"
+    
+    if regexm("`f'", "full_current_([0-9\.]+)_ev_nolbd") {
+        local extracted_percent = regexs(1)
+        replace percent = `extracted_percent' if percent == .
+    }
 }
 replace category = "ev_no_lbd" if category == ""
 
 
 *Appending No LBD policies
-local percent = 0.01
+
 foreach f of local folders_no_lbd {
-	
-		append using "${github}/data/4_results/`f'/compiled_results_all_uncorrected_vJK.dta"
-		
-		replace percent = `percent' if percent == .
-		
-		if `percent' == 0.01 {
-			local percent = 0
-		}
-		
-		local percent = `percent' + 0.10	
-	
+    append using "${github}/data/4_results/`f'/compiled_results_all_uncorrected_vJK.dta"
+    
+    if regexm("`f'", "full_current_([0-9\.]+)_subs_cg") {
+        local extracted_percent = regexs(1)
+        replace percent = `extracted_percent' if percent == .
+    }
 }
+
 replace category = "Weatherization" if inlist(program, "retrofit_res", "ihwap_nb","wisc_rf", "wap", "hancevic_rf")
 replace category = "Appliance Rebates" if inlist(program, "c4a_cw", "rebate_es", "cw_datta", "c4a_dw", "dw_datta", "c4a_fridge", "fridge_datta", "esa_fridge")
 replace category = "wind no lbd" if inlist(program, "hitaj_ptc", "metcalf_ptc", "shirmali_ptc") & category == ""
