@@ -1,124 +1,124 @@
-***** MVPF with Changing Elasticity Figure *****
-
-*Set toggles for figure
-local mvpf_max 				8
-local bar_dark_orange = "214 118 72"
-local bar_blue = "36 114 237"
-local bar_dark_blue = "8 51 97"
-local re_pull_data = "yes" // Re-run data for the figure (if no, uses saved data from previous run)
-
-global renewables_loop = "yes"
-global renewables_2020 = 0.1952 // EPA eGRID renewables (including Hydro)
-
-local loop_nums 0.01 0.1 0.2 0.3 0.4 0.5 0.6 0.7 0.8 0.9
-
-
-*--------------------------------------------
-* Changing Renewable Percentages (Wind)
-*--------------------------------------------
-if "`re_pull_data'" == "yes" {
-
-	foreach percent of local loop_nums {
-		global renewables_percent = `percent'
-		
-		do "${github}/wrapper/metafile.do" ///
-			"current" /// 2020
-			"193" /// SCC
-			"yes" /// learning-by-doing
-			"no" /// savings
-			"yes" /// profits
-			"hitaj_ptc shirmali_ptc metcalf_ptc" /// programs to run
-			0 /// reps
-			"full_current_${renewables_percent}_wind_cg" // nrun
-
-	}
-}	
-*--------------------------------------------
-* Changing Renewable Percentages (Solar)
-*--------------------------------------------
-if "`re_pull_data'" == "yes" {
-	foreach percent of local loop_nums {
-		global renewables_percent = `percent'
-		
-		do "${github}/wrapper/metafile.do" ///
-			"current" /// 2020
-			"193" /// SCC
-			"yes" /// learning-by-doing
-			"no" /// savings
-			"yes" /// profits
-			"ct_solar ne_solar hughes_csi pless_ho pless_tpo" /// programs to run
-			0 /// reps
-			"full_current_${renewables_percent}_solar_cg" // nrun
-
-	}
-
-}
-*--------------------------------------------
-* Changing Renewable Percentages (EVs)
-*--------------------------------------------
-local re_pull_data = "yes"
-
-if "`re_pull_data'" == "yes" {
-	foreach percent of local loop_nums {
-		global renewables_percent = `percent'
-		
-		do "${github}/wrapper/metafile.do" ///
-			"current" /// 2020
-			"193" /// SCC
-			"yes" /// learning-by-doing
-			"no" /// savings
-			"yes" /// profits
-			"federal_ev bev_state muehl_efmp" /// programs to run
-			0 /// reps
-			"full_current_${renewables_percent}_evs_cg" // nrun
-
-	}
-
-}	
-
-*--------------------------------------------------------------------------------------
-* Changing Renewable Percentages (Weatherization, Appliance Rebates, Wind No LBD, Solar No LBD)
-*--------------------------------------------------------------------------------------
-local re_pull_data = "yes"
-if "`re_pull_data'" == "yes" {
-	foreach percent of local loop_nums {
-		global renewables_percent = `percent'
-		
-		do "${github}/wrapper/metafile.do" ///
-			"current" /// 2020
-			"193" /// SCC
-			"no" /// learning-by-doing
-			"no" /// savings
-			"yes" /// profits
-			"c4a_cw rebate_es cw_datta c4a_dw dw_datta c4a_fridge fridge_datta esa_fridge retrofit_res ihwap_nb wisc_rf wap hancevic_rf hitaj_ptc metcalf_ptc shirmali_ptc ct_solar ne_solar hughes_csi pless_ho pless_tpo" /// programs to run
-			0 /// reps
-			"full_current_${renewables_percent}_subs_cg" // nrun
-
-	}
-
-}	
-*--------------------------------------------------------------------------------------
-* Changing Renewable Percentages (EVs No LBD)
-*--------------------------------------------------------------------------------------
-local re_pull_data = "yes"
-if "`re_pull_data'" == "yes" {
-	foreach percent of local loop_nums {
-		global renewables_percent = `percent'
-		
-		do "${github}/wrapper/metafile.do" ///
-			"current" /// 2020
-			"193" /// SCC
-			"no" /// learning-by-doing
-			"no" /// savings
-			"yes" /// profits
-			"federal_ev bev_state muehl_efmp" /// programs to run
-			0 /// reps
-			"full_current_${renewables_percent}_ev_nolbd" // nrun
-
-	}
-
-}	
-global renewables_loop = "no"
+// ***** MVPF with Changing Elasticity Figure *****
+//
+// *Set toggles for figure
+// local mvpf_max 				8
+// local bar_dark_orange = "214 118 72"
+// local bar_blue = "36 114 237"
+// local bar_dark_blue = "8 51 97"
+// local re_pull_data = "yes" // Re-run data for the figure (if no, uses saved data from previous run)
+//
+// global renewables_loop = "yes"
+// global renewables_2020 = 0.1952 // EPA eGRID renewables (including Hydro)
+//
+// local loop_nums 0.01 0.1 0.2 0.3 0.4 0.5 0.6 0.7 0.8 0.9
+//
+//
+// *--------------------------------------------
+// * Changing Renewable Percentages (Wind)
+// *--------------------------------------------
+// if "`re_pull_data'" == "yes" {
+//
+// 	foreach percent of local loop_nums {
+// 		global renewables_percent = `percent'
+//		
+// 		do "${github}/wrapper/metafile.do" ///
+// 			"current" /// 2020
+// 			"193" /// SCC
+// 			"yes" /// learning-by-doing
+// 			"no" /// savings
+// 			"yes" /// profits
+// 			"hitaj_ptc shirmali_ptc metcalf_ptc" /// programs to run
+// 			0 /// reps
+// 			"full_current_${renewables_percent}_wind_cg" // nrun
+//
+// 	}
+// }	
+// *--------------------------------------------
+// * Changing Renewable Percentages (Solar)
+// *--------------------------------------------
+// if "`re_pull_data'" == "yes" {
+// 	foreach percent of local loop_nums {
+// 		global renewables_percent = `percent'
+//		
+// 		do "${github}/wrapper/metafile.do" ///
+// 			"current" /// 2020
+// 			"193" /// SCC
+// 			"yes" /// learning-by-doing
+// 			"no" /// savings
+// 			"yes" /// profits
+// 			"ct_solar ne_solar hughes_csi pless_ho pless_tpo" /// programs to run
+// 			0 /// reps
+// 			"full_current_${renewables_percent}_solar_cg" // nrun
+//
+// 	}
+//
+// }
+// *--------------------------------------------
+// * Changing Renewable Percentages (EVs)
+// *--------------------------------------------
+// local re_pull_data = "yes"
+//
+// if "`re_pull_data'" == "yes" {
+// 	foreach percent of local loop_nums {
+// 		global renewables_percent = `percent'
+//		
+// 		do "${github}/wrapper/metafile.do" ///
+// 			"current" /// 2020
+// 			"193" /// SCC
+// 			"yes" /// learning-by-doing
+// 			"no" /// savings
+// 			"yes" /// profits
+// 			"federal_ev bev_state muehl_efmp" /// programs to run
+// 			0 /// reps
+// 			"full_current_${renewables_percent}_evs_cg" // nrun
+//
+// 	}
+//
+// }	
+//
+// *--------------------------------------------------------------------------------------
+// * Changing Renewable Percentages (Weatherization, Appliance Rebates, Wind No LBD, Solar No LBD)
+// *--------------------------------------------------------------------------------------
+// local re_pull_data = "yes"
+// if "`re_pull_data'" == "yes" {
+// 	foreach percent of local loop_nums {
+// 		global renewables_percent = `percent'
+//		
+// 		do "${github}/wrapper/metafile.do" ///
+// 			"current" /// 2020
+// 			"193" /// SCC
+// 			"no" /// learning-by-doing
+// 			"no" /// savings
+// 			"yes" /// profits
+// 			"c4a_cw rebate_es cw_datta c4a_dw dw_datta c4a_fridge fridge_datta esa_fridge retrofit_res ihwap_nb wisc_rf wap hancevic_rf hitaj_ptc metcalf_ptc shirmali_ptc ct_solar ne_solar hughes_csi pless_ho pless_tpo" /// programs to run
+// 			0 /// reps
+// 			"full_current_${renewables_percent}_subs_cg" // nrun
+//
+// 	}
+//
+// }	
+// *--------------------------------------------------------------------------------------
+// * Changing Renewable Percentages (EVs No LBD)
+// *--------------------------------------------------------------------------------------
+// local re_pull_data = "yes"
+// if "`re_pull_data'" == "yes" {
+// 	foreach percent of local loop_nums {
+// 		global renewables_percent = `percent'
+//		
+// 		do "${github}/wrapper/metafile.do" ///
+// 			"current" /// 2020
+// 			"193" /// SCC
+// 			"no" /// learning-by-doing
+// 			"no" /// savings
+// 			"yes" /// profits
+// 			"federal_ev bev_state muehl_efmp" /// programs to run
+// 			0 /// reps
+// 			"full_current_${renewables_percent}_ev_nolbd" // nrun
+//
+// 	}
+//
+// }	
+// global renewables_loop = "no"
 
 *----------------------------------------------------------
 * Append Runs Together (Need to Adjust if re-running data)
@@ -283,6 +283,5 @@ tw ///
 	ylab(0(2.0)8, nogrid  format(%9.1f))
 	
 cap graph export "${output_fig}/figures_appendix/changing_grid_with_scatter.wmf", replace
-graph export "${output_fig}/figures_appendix/changing_grid_with_scatter.png", replace
 
 	
