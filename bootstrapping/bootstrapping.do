@@ -32,41 +32,41 @@ qui do "${github}/ado/check_timepaths.ado"
 * 2 - No Learning by Doing Policies
 *--------------------------------------------
 
-do "${github}/bootstrapping/no_lbd_bootstraps.do" `mode' `scc' `lbd' `value_savings' `value_profits' `reps'
-
-
-*--------------------------------------------
-* 3 - Wind PTC Policies
-*--------------------------------------------
-
-do "${github}/bootstrapping/wind_bootstrapping_rep.do" `mode' `scc' `lbd' `value_savings' `value_profits' `reps' 
-
-
-*--------------------------------------------
-* 4 - Solar ITC Policies
-*--------------------------------------------
-
-do "${github}/bootstrapping/solar_bootstrapping_rep.do" `mode' `scc' `lbd' `value_savings' `value_profits' `reps' 
-
-
-*--------------------------------------------
-* 5 - Electric Vehicle Policies
-*--------------------------------------------
-
-do "${github}/bootstrapping/ev_bootstrapping_rep.do" `mode' `scc' `lbd' `value_savings' `value_profits' `reps'
-
-
-*--------------------------------------------
-* 6 - Hybrid Vehicle Policies
-*--------------------------------------------
-
-do "${github}/bootstrapping/hev_bootstrapping_rep.do" `mode' `scc' `lbd' `value_savings' `value_profits' `reps'
-
-*--------------------------------------------
-* 7 - Gas Tax Policies
-*--------------------------------------------
-
-do "${github}/bootstrapping/gas_tax_boostrapping_rep.do" `mode' `scc' `lbd' `value_savings' `value_profits' `reps'
+// do "${github}/bootstrapping/no_lbd_bootstraps.do" `mode' `scc' `lbd' `value_savings' `value_profits' `reps'
+//
+//
+// *--------------------------------------------
+// * 3 - Wind PTC Policies
+// *--------------------------------------------
+//
+// do "${github}/bootstrapping/wind_bootstrapping_rep.do" `mode' `scc' `lbd' `value_savings' `value_profits' `reps' 
+//
+//
+// *--------------------------------------------
+// * 4 - Solar ITC Policies
+// *--------------------------------------------
+//
+// do "${github}/bootstrapping/solar_bootstrapping_rep.do" `mode' `scc' `lbd' `value_savings' `value_profits' `reps' 
+//
+//
+// *--------------------------------------------
+// * 5 - Electric Vehicle Policies
+// *--------------------------------------------
+//
+// do "${github}/bootstrapping/ev_bootstrapping_rep.do" `mode' `scc' `lbd' `value_savings' `value_profits' `reps'
+//
+//
+// *--------------------------------------------
+// * 6 - Hybrid Vehicle Policies
+// *--------------------------------------------
+//
+// do "${github}/bootstrapping/hev_bootstrapping_rep.do" `mode' `scc' `lbd' `value_savings' `value_profits' `reps'
+//
+// *--------------------------------------------
+// * 7 - Gas Tax Policies
+// *--------------------------------------------
+//
+// do "${github}/bootstrapping/gas_tax_boostrapping_rep.do" `mode' `scc' `lbd' `value_savings' `value_profits' `reps'
 
 *--------------------------------------------
 * 8 - International Policies
@@ -108,7 +108,7 @@ use "${output_fig}/figures_data/bts_`mode'_`scc'_`value_profits'_`value_savings'
 *--------------------------------------------
 * 6 - Compile CI bounds for Category Averages
 *--------------------------------------------
-local categories = "appliance_rebates weatherization vehicle_retirements other_subsidies hers other_nudges other_fuel_taxes other_rev_raisers cap_and_trade gas_tax wind solar bev hev cookstoves rice_burning international_rebates"
+local categories = "appliance_rebates weatherization vehicle_retirements other_subsidies hers other_nudges other_fuel_taxes other_rev_raisers cap_and_trade gas_tax wind solar bev hev stoves rice_burning international_rebates"
 
 tempname bootstraps
 

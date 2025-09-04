@@ -304,5 +304,7 @@ if "${make_plot}" == "yes" {
 			 legend(off)
 			 graph display, scale(0.9) ysize(30)
 			 cap graph export "${output_fig}/figures_main/corr_plot_nudges.wmf", replace
+			 graph export "${output_fig}/figures_main/corr_plot_nudges.png", replace
+
 }
 

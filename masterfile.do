@@ -1,10 +1,11 @@
 cap log close
 clear all
 
-// ssc install filelist
-// ssc install maptile
-// ssc install spmap 
-// ssc install gtools
+ssc install filelist
+ssc install maptile
+ssc install spmap 
+ssc install gtools
+ssc install missings
 
 
 *------
@@ -12,7 +13,7 @@ clear all
 *------
 global rerun_data = "yes"
 global bootstraps = "yes"
-global pub_bias = "yes"
+global run_pub_bias = "yes"
 
 *------
 * Paths
@@ -43,7 +44,7 @@ if ("`c(username)'" == "bcchen") {
 	global github = "${user}/Documents/GitHub/mvpf-climate"
 	global user_name = "Beatrice"
 	global mac_wolfram_path = "" // Only set this if running on a Mac. Type "which wolframscript" in Terminal to get its location.
-	
+	*global mac_wolfram_path = "/Applications/Wolfram.app/Contents/MacOS" 
 }
 
 noi di "Set user path to: ${user}"
@@ -75,6 +76,10 @@ restore
 
 do "${github}/wrapper/clean_data.do"
 
+// Reset Globals
+qui do "${github}/ado/reset_globals.ado"
+
+
 *------------------------------
 * 1 - All of the different runs
 *------------------------------
@@ -84,108 +89,108 @@ if "${rerun_data}" == "yes" {
 	*Main Run
 	do "${github}/wrapper/metafile.do" ///
 		"current" /// 2020
+		"193" /// SCC
+		"yes" /// learning-by-doing
+		"no" /// savings
+		"yes" /// profits
+		"`all_programs'" /// programs to run
+		0 /// reps
+		"full_current_193" // nrun
+
+
+	*Run using $76 SCC
+	do "${github}/wrapper/metafile.do" ///
+		"current" /// 2020
+		"76" /// SCC
+		"yes" /// learning-by-doing
+		"no" /// savings
+		"yes" /// profits
+		"`all_programs'" /// programs to run
+		0 /// reps
+		"full_current_76" // nrun
+			
+	*Run using $337 SCC
+	do "${github}/wrapper/metafile.do" ///
+		"current" /// 2020
 		"337" /// SCC
 		"yes" /// learning-by-doing
 		"no" /// savings
 		"yes" /// profits
-		"ct_solar" /// programs to run
+		"`all_programs'" /// programs to run
 		0 /// reps
-		"full_current_337_test" // nrun
-}
-//
-// 	*Run using $76 SCC
-// 	do "${github}/wrapper/metafile.do" ///
-// 		"current" /// 2020
-// 		"76" /// SCC
-// 		"yes" /// learning-by-doing
-// 		"no" /// savings
-// 		"yes" /// profits
-// 		"`all_programs'" /// programs to run
-// 		0 /// reps
-// 		"full_current_76" // nrun
-//			
-// 	*Run using $337 SCC
-// 	do "${github}/wrapper/metafile.do" ///
-// 		"current" /// 2020
-// 		"337" /// SCC
-// 		"yes" /// learning-by-doing
-// 		"no" /// savings
-// 		"yes" /// profits
-// 		"`all_programs'" /// programs to run
-// 		0 /// reps
-// 		"full_current_337" // nrun
-//
-//		
-// 		*Run using $1367 SCC
-// 	do "${github}/wrapper/metafile.do" ///
-// 		"current" /// 2020
-// 		"1367" /// SCC
-// 		"yes" /// learning-by-doing
-// 		"no" /// savings
-// 		"yes" /// profits
-// 		"`all_programs'" /// programs to run
-// 		0 /// reps
-// // 		"full_current_1367" // nrun
-//		
-// 		*Run with EU grid
-// 	do "${github}/wrapper/metafile.do" ///
-// 		"current" /// 2020
-// 		"193" /// SCC
-// 		"yes" /// learning-by-doing
-// 		"no" /// savings
-// 		"yes" /// profits
-// 		"`all_programs'" /// programs to run
-// 		0 /// reps
-// 		"full_current_193_EU_grid" // nrun
-//	
-// 	*Reset back to original
-// 	global change_grid = ""
-// 	global ev_grid = "US"
-//		
-// 	*Run using in-context externalities
-// 	do "${github}/wrapper/metafile.do" ///
-// 		"baseline" ///
-// 		"193" ///
-// 		"yes" ///
-// 		"no" ///
-// 		"yes" ///
-// 		"`all_programs'" ///
-// 		0 /// reps
-// 		"full_incontext"
-//
-// 	*Run without learning-by-doing
-// 	do "${github}/wrapper/metafile.do" ///
-// 		"current" /// 2020
-// 		"193" /// SCC
-// 		"no" /// learning-by-doing
-// 		"no" /// savings
-// 		"yes" /// profits
-// 		"`all_programs'" /// programs to run
-// 		0 /// reps
-// 		"full_current_no_lbd" // nrun
-//		
-// 	*Run including energy savings
-// 	do "${github}/wrapper/metafile.do" ///
-// 		"current" ///
-// 		"193" ///
-// 		"yes" ///
-// 		"yes" ///
-// 		"yes" ///
-// 		"`all_programs'" /// programs to run
-// 		0 /// reps    
-// 		"full_current_savings"
-//
-// 	*Run without including profits
-// 	do "${github}/wrapper/metafile.do" ///
-// 		"current" ///
-// 		"193" ///
-// 		"yes" ///
-// 		"no" ///
-// 		"no" ///
-// 		"`all_programs'" /// programs to run
-// 		0 /// reps
-// 		"full_current_noprofits" */
-}
+		"full_current_337" // nrun
+
+		
+		*Run using $1367 SCC
+	do "${github}/wrapper/metafile.do" ///
+		"current" /// 2020
+		"1367" /// SCC
+		"yes" /// learning-by-doing
+		"no" /// savings
+		"yes" /// profits
+		"`all_programs'" /// programs to run
+		0 /// reps
+ 		"full_current_1367" // nrun
+		
+		*Run with EU grid
+	do "${github}/wrapper/metafile.do" ///
+		"current" /// 2020
+		"193" /// SCC
+		"yes" /// learning-by-doing
+		"no" /// savings
+		"yes" /// profits
+		"`all_programs'" /// programs to run
+		0 /// reps
+		"full_current_193_EU_grid" // nrun
+	
+	*Reset back to original
+	global change_grid = ""
+	global ev_grid = "US"
+		
+	*Run using in-context externalities
+	do "${github}/wrapper/metafile.do" ///
+		"baseline" ///
+		"193" ///
+		"yes" ///
+		"no" ///
+		"yes" ///
+		"`all_programs'" ///
+		0 /// reps
+		"full_incontext"
+
+	*Run without learning-by-doing
+	do "${github}/wrapper/metafile.do" ///
+		"current" /// 2020
+		"193" /// SCC
+		"no" /// learning-by-doing
+		"no" /// savings
+		"yes" /// profits
+		"`all_programs'" /// programs to run
+		0 /// reps
+		"full_current_no_lbd" // nrun
+		
+	*Run including energy savings
+	do "${github}/wrapper/metafile.do" ///
+		"current" ///
+		"193" ///
+		"yes" ///
+		"yes" ///
+		"yes" ///
+		"`all_programs'" /// programs to run
+		0 /// reps    
+		"full_current_savings"
+
+	*Run without including profits
+	do "${github}/wrapper/metafile.do" ///
+		"current" ///
+		"193" ///
+		"yes" ///
+		"no" ///
+		"no" ///
+		"`all_programs'" /// programs to run
+		0 /// reps
+		"full_current_noprofits"
+} 
 *---------------
 * 2 - Bootstrapping
 *------------------
@@ -208,7 +213,7 @@ if "${bootstraps}" == "yes" & "${rerun_data}" == "yes" {
 * 3 - Publication Bias
 *---------------------
 
-if "${pub_bias}" == "yes" & "${rerun_data}" == "yes" {
+if "${run_pub_bias}" == "yes" & "${rerun_data}" == "yes" {
     do "${github}/wrapper/metafile.do" ///
        "current" ///
        "193" /// SCC
@@ -236,15 +241,11 @@ if "${rerun_data}" == "no" {
 		"full_current_no_lbd" // nrun
 }
 
-*---------------
-* 4 - Robustness
-*---------------
-
-do "${github}/wrapper/robustness.do"
-
 *-----------------------
-* 5 - Figures and Tables
+* 4 - Figures and Tables
 *-----------------------
+
+reset_globals
 
 do "${github}/wrapper/figures.do"
 
@@ -253,3 +254,11 @@ do "${github}/wrapper/tables.do"
 do "${github}/wrapper/appendix_figures.do"
 
 do "${github}/wrapper/appendix_tables.do"
+
+*---------------
+* 5 - Robustness
+*---------------
+
+reset_globals
+
+do "${github}/wrapper/robustness.do"

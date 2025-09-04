@@ -14,7 +14,7 @@ local bar_light_gray = "181 184 191"
 
 local output_path "${output_fig}/figures_appendix"
 
-if inlist("`3'", "Fig4_scc193", "Fig5a_scc76", "Fig5b_scc337", "Fig8_scc193", "Fig9_scc193") {
+if inlist("`3'", "Fig4_scc193", "Fig8_scc193", "Fig7_scc193") {
 	local output_path "${output_fig}/figures_main"
 }
 
@@ -25,7 +25,7 @@ if "`4'" != "" & "`4'" != "split" & "`4'" != "nosplit" {
 
 if "`4'" == "split"{
 	local RoW_color = "`bar_dark_orange'"
-	local output_path "${output_fig}/figures_appendix"
+	local output_path "${output_fig}/figures_main"
 }
 else{
 	local RoW_color = "`bar_blue'"
@@ -54,7 +54,7 @@ qui local folders : dir "`results_dir'" dirs "*"
 * Filter folders that end with our pattern and extract timestamps
 foreach folder of local folders {
 	    di in red "Checking: `folder' against pattern: __`pattern_suffix'$"
-    if regexm("`folder'", "^([0-9]{4}-[0-9]{2}-[0-9]{2}_[0-9]{2}-[0-9]{2}-[0-9]{2})__`pattern_suffix'$") {
+    if regexm("`folder'", lower("^([0-9]{4}-[0-9]{2}-[0-9]{2}_[0-9]{2}-[0-9]{2}-[0-9]{2})__`pattern_suffix'$")) {
         local timestamp = regexs(1)
         local folder_list = "`folder_list' `folder'"
         local folder_dates = "`folder_dates' `timestamp'"
@@ -350,7 +350,7 @@ drop dup
 /* Step #3: Produce MVPF Plot for Subsidies. */
 ************************************************************************	
 preserve
-	use "${output_fig}/figures_data/avgs_current_`scc'_yes_no_yes.dta", clear
+	use "${output_fig}/figures_data/avgs_current_`scc'_yes_no_yes_v3.dta", clear
 	levels category, local(categories)
 	foreach cat in `categories' {
 		qui sum l_MVPF if category == "`cat'"

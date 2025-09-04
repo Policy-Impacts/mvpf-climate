@@ -117,9 +117,4 @@ if "`bootstrap'" == "no" {
 local cum_sales = (713918 * 1000)/`system_capacity' // 71391800 MW, as of 2020; 176,113.39 MW, as of 2014 (IRENA, 2023)
 local marg_sales = (128050.40 * 1000)/`system_capacity' // 128050.40 MW, in 2020; 39,541.25 MW, in 2014 (IRENA, 2023)
 
-if `dollar_year' == ${policy_year} {
-	local cum_sales = (136572.14 * 1000)/`system_capacity'
-	local marg_sales = (34926.70 * 1000)/`system_capacity'  
-}
-
 solar, policy_year(${policy_year}) spec(${spec_type}) semie(`semie') replacement(`replacement') p_name("solar_testing") marg_sales(`marg_sales') cum_sales(`cum_sales') annual_output(`annual_output') system_capacity(`system_capacity') pre_cost_per_watt(`pre_cost_per_watt') avg_state_rebate(`avg_state_rebate') e_demand(`e_demand') pass_through(`pass_through') farmer_theta(`farmer_theta') federal_subsidy(`federal_subsidy')

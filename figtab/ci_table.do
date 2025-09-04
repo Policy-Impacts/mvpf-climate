@@ -288,7 +288,7 @@ foreach scc in "76" "193" "337" {
 
 preserve 
 
-	use "${output_fig}/figures_data/avgs_current_`scc'_yes_no_yes_v3.dta", clear
+	use "${output_fig}/figures_data/avgs_current_`scc'_yes_no_yes_v4.dta", clear
 
 	levelsof category, local(categories)
 	
@@ -306,7 +306,7 @@ preserve
 restore
 
 preserve 
-	use "${output_fig}/figures_data/bts_current_`scc'_yes_no_yes_v3.dta", clear
+	use "${output_fig}/figures_data/bts_current_`scc'_yes_no_yes_v4.dta", clear
 	rename policy program
 	merge 1:1 program using "`policy_labels.dta'", keep(3)
 	keep program_label_short *MVPF
@@ -364,7 +364,6 @@ preserve
 	tempfile category_averages_no_SE
 	save "`category_averages_no_SE'", replace	
 	
-end
 		
 restore
 
@@ -435,9 +434,9 @@ replace h_MVPF = `other_nudges_high' if program_label_short == "Other Nudges, wi
 replace l_MVPF = `other_subsidies_low' if program_label_short == "Other Subsidies, with SEs"
 replace h_MVPF = `other_subsidies_high' if program_label_short == "Other Subsidies, with SEs"
 
-// COOKSTOVES CIs
-replace l_MVPF = `cookstoves_low' if program_label_short == "Cookstoves, with SEs"
-replace h_MVPF = `cookstoves_high' if program_label_short == "Cookstoves, with SEs"
+// STOVES CIs
+replace l_MVPF = `stoves_low' if program_label_short == "Cookstoves, with SEs"
+replace h_MVPF = `stoves_high' if program_label_short == "Cookstoves, with SEs"
 
 // RICE BURNING CIs
 replace l_MVPF = `rice_burning_low' if program_label_short == "Rice Burning, with SEs"
@@ -470,5 +469,5 @@ sort id
 drop id
 order program_label_short *193 *76 *337
 	
-copy "${output_tab}/tables_templates/TEMPLATE_with_CIs.xlsx" "`output_path'/`table_name'_with_cis.xlsx", replace	
-export excel "`output_path'/`table_name'_with_cis.xlsx", first(var) sheet("data_export", replace) keepcellfmt
+copy "${output_tab}/tables_templates/TEMPLATE_with_CIs.xlsx" "`output_path'/`table_name'_with_cis_new.xlsx", replace	
+export excel "`output_path'/`table_name'_with_cis_new.xlsx", first(var) sheet("data_export", replace) keepcellfmt
