@@ -585,7 +585,7 @@ twoway (line mvpf subsidy, color("`bar_light_blue'")), ///
        xscale(range(0 10000)) ///
        plotregion(margin(0))
 
-graph export "${output_fig}/figures_appendix/Ap_Fig_4_non_marginal.png", replace
-cap graph export "${output_fig}/figures_appendix/Ap_Fig_4_non_marginal.wmf", replace
+graph export "${output_fig}/figures_appendix/Ap_Fig_5_non_marginal.png", replace
+cap graph export "${output_fig}/figures_appendix/Ap_Fig_5_non_marginal.wmf", replace
 
 

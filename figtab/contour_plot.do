@@ -27,5 +27,5 @@ gen Rebound = 1 - (1/(1 - ((demand * -1)/supply)))
 
 twoway (contour Rebound demand supply, ccolors("8 51 97*0.2" "8 51 97*0.4" "36 114 237*0.4" "115 175 235*0.8" "36 114 237*0.6" "36 114 237*0.8" "36 114 237" "8 51 97*0.9" "8 51 97") ylabel( , nogrid) ccuts(0.1 0.2 0.3 0.4 0.5 0.6 0.7 0.8) xline(`elec_supply_ms', lc(black)) yline(`elec_demand_eia' `elec_demand_ms' `elec_demand_tatyana', lc(black)) xtitle("Supply Elasticity") ytitle("Demand Elasticity")) 
 
-graph export "`output_path'/Ap_Fig8_rebound.png", replace
-cap graph export "`output_path'/Ap_Fig8_rebound.wmf", replace
+graph export "`output_path'/Ap_Fig6_rebound.png", replace
+cap graph export "`output_path'/Ap_Fig6_rebound.wmf", replace

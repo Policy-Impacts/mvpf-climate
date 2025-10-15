@@ -55,20 +55,19 @@ do "${github}/figtab/contour_plot.do"
 * 7 - Evidence of Publication Bias
 *----------------------------------
 
-do "${github}/publication_bias/heuristic_graphs.do" 5 10 4.9 .98 //check for hardcoded dataset
+do "${github}/publication_bias/heuristic_graphs.do" 5 10 4.9 .98
 
 *--------------------------------------------------
 * 8 - Model Fits for Estimates of Publication Bias
 *--------------------------------------------------
 
-do "${github}/publication_bias/cdf_plot.do" 4.9 .98 //check for hardcoded
+do "${github}/publication_bias/cdf_plot.do" 4.9 .98
 
 *-----------------------------------------------------
 * 9 - MVPFs with Publication Bias–Corrected Estimates
 *-----------------------------------------------------
 
 do "${github}/figtab/mvpf_plots.do" "subsidies" "full_current_193_pub_bias_and_lbd" "App_Fig_9_scc193" "193" "no_cis" "pub_bias"
-* find where this datafile is being created and search for name and change the name to match corrected_ests
 
 *-----------------------------------
 * 10 - CAFE vs. Gasoline + Income Tax 
