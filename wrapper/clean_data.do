@@ -51,3 +51,6 @@ do "${github}/data_cleaning/clean_state_pop.do"
 
 do "${github}/data_cleaning/build_hev_data.do"
 
+do "${github}/data_cleaning/build_scc_epa_data.do"
+
+

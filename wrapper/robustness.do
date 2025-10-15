@@ -177,12 +177,37 @@ run_program muehl_efmp, ev_grid("MI") macros("yes")
 run_program federal_ev, ev_grid("MI") macros("no")
 run_program bev_state, ev_grid("MI") macros("no")
 global ev_grid = "US" // reset EV grid back to US
-
 global change_grid = ""
-
+qui do "${github}/calculations/gas_electricity_externalities"
 post `numbers' ("evs_mi_mvpf") ((${WTP_cc_muehl_efmp} + ${WTP_cc_federal_ev} + ${WTP_cc_bev_state}) / (${cost_muehl_efmp} + ${cost_federal_ev} + ${cost_bev_state})) 
 
 
+
+* MVPF of charging stations
+
+// Load the Cole et al. I4 scenario data
+use "${code_files}/1_assumptions/evs/processed/LDV_out_17ihs_I4.dta", clear
+
+// Clean data
+
+keep if !missing(year) & year >= 2021 & year <= 2060
+keep year emtot_sd_K1
+
+// Merge with EPA SCC data
+merge 1:1 year using "${code_files}/1_assumptions/evs/processed/epa_scc.dta"
+
+// Calculate discounted benefits for each year
+gen discount_factor = 1 / (1.03)^(year - 2020)
+gen annual_benefits = epa_scc * abs(emtot_sd_K1) * discount_factor
+egen total_benefits = total(annual_benefits)
+
+sum total_benefits
+local total_benefits_value = r(mean)
+local fiscal_cost = 10000  // Or calculate from data
+local mvpf = (`total_benefits_value') / `fiscal_cost'
+di "MVPF: " `mvpf'
+
+post `numbers' ("cole_charging_mvpf") (`mvpf')
 *--------------------
 * 2 - Hybrid Vehicles
 *--------------------
