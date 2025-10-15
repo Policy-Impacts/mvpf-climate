@@ -77,7 +77,7 @@ restore
 do "${github}/wrapper/clean_data.do"
 
 // Reset Globals
-qui do "${github}/ado/reset_globals.ado"
+do "${github}/ado/reset_globals.ado"
 
 
 *------------------------------
@@ -244,7 +244,7 @@ if "${rerun_data}" == "no" {
 *-----------------------
 * 4 - Figures and Tables
 *-----------------------
-
+do "${github}/ado/reset_globals.ado"
 reset_globals
 
 do "${github}/wrapper/figures.do"
@@ -258,7 +258,7 @@ do "${github}/wrapper/appendix_tables.do"
 *---------------
 * 5 - Robustness
 *---------------
-
+do "${github}/ado/reset_globals.ado"
 reset_globals
 
 do "${github}/wrapper/robustness.do"
