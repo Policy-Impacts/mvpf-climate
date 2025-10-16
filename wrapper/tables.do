@@ -6,14 +6,14 @@
 ****************************************************************************/
 
 *-----------------------------
-* 2 - Baseline MVPF Components
+* 1 - Baseline MVPF Components
 *-----------------------------
 
-do "${github}/figtab/excel_MVPF_tables.do" "full_current_193" "Table2_scc193_main" "no" "yes"
+do "${github}/figtab/excel_MVPF_tables.do" "full_current_193" "Table1_scc193_main" "no" "yes"
 
 
 *----------------------------------------------------
-* 3 - MVPF Versus Cost Per Ton (with and without LBD)
+* 2 - MVPF Versus Cost Per Ton (with and without LBD)
 *----------------------------------------------------
 
 do "${github}/figtab/cost_per_ton.do" "full_current_193" "yes"

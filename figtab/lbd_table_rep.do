@@ -92,7 +92,7 @@ mat results = (`wind_cum_1', `wind_cum_2', `wind_cum_3', `solar_cum_1', `solar_c
 mat li results
 
 
-frmttable using "${output_tab}/tables_appendix/Appendix_Table1.tex", ///
+frmttable using "${output_tab}/tables_appendix/Appendix_Table2.tex", ///
 			replay(results) ///
 			statmat(results) /// 
 			store(results) /// 

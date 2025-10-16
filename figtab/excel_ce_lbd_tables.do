@@ -41,8 +41,8 @@ preserve
 
 	keep group_label mvpf *_table
 		
-	copy "${output_tab}/tables_templates/TEMPLATE_ce_averages.xlsx" "`output_path'/tables_main/Table3_CE_Table_Avg_`ce_table_name'.xlsx", replace	
-	export excel "`output_path'/tables_main/Table3_CE_Table_Avg_`ce_table_name'.xlsx", first(var) sheet("data_export", replace) keepcellfmt
+	copy "${output_tab}/tables_templates/TEMPLATE_ce_averages.xlsx" "`output_path'/tables_main/Table2_CE_Table_Avg_`ce_table_name'.xlsx", replace	
+	export excel "`output_path'/tables_main/Table2_CE_Table_Avg_`ce_table_name'.xlsx", first(var) sheet("data_export", replace) keepcellfmt
 
 restore
 
@@ -53,8 +53,8 @@ preserve
 	keep program_label_short mvpf resource_ce_yes_lbd gov_ce_yes_lbd net_social_ce_yes_lbd
 	order program_label_short mvpf resource* gov* net_social*
 	
-	copy "${output_tab}/tables_templates/TEMPLATE_ce.xlsx" "`output_path'/tables_appendix/Table10_CE_Table_All_Policies_with_LBD_`ce_table_name'.xlsx", replace	
-	export excel "`output_path'/tables_appendix/Table10_CE_Table_All_Policies_with_LBD_`ce_table_name'.xlsx", first(var) sheet("data_export", replace) keepcellfmt	
+	copy "${output_tab}/tables_templates/TEMPLATE_ce.xlsx" "`output_path'/tables_appendix/Table12_CE_Table_All_Policies_with_LBD_`ce_table_name'.xlsx", replace	
+	export excel "`output_path'/tables_appendix/Table12_CE_Table_All_Policies_with_LBD_`ce_table_name'.xlsx", first(var) sheet("data_export", replace) keepcellfmt	
 	
 restore
 
@@ -67,8 +67,8 @@ if "`lbd'" == "no"{
 		keep program_label_short mvpf resource_ce_no_lbd gov_ce_no_lbd net_social_ce_no_lbd
 		order program_label_short mvpf resource* gov* net_social*
 		
-		copy "${output_tab}/tables_templates/TEMPLATE_ce.xlsx" "`output_path'/tables_appendix/Table11_CE_Table_All_Policies_no_LBD_`ce_table_name'.xlsx", replace	
-		export excel "`output_path'/tables_appendix/Table11_CE_Table_All_Policies_no_LBD_`ce_table_name'.xlsx", first(var) sheet("data_export", replace) keepcellfmt	
+		copy "${output_tab}/tables_templates/TEMPLATE_ce.xlsx" "`output_path'/tables_appendix/Table13_CE_Table_All_Policies_no_LBD_`ce_table_name'.xlsx", replace	
+		export excel "`output_path'/tables_appendix/Table13_CE_Table_All_Policies_no_LBD_`ce_table_name'.xlsx", first(var) sheet("data_export", replace) keepcellfmt	
 		
 	restore
 }
@@ -101,8 +101,8 @@ if "`dwl'" == "yes"{
 
 		keep group_label mvpf *_table
 					
-		copy "${output_tab}/tables_templates/TEMPLATE_ce_averages_DWL.xlsx" "`output_path'/tables_appendix/Table9_CE_Table_DWL_`ce_table_name'.xlsx", replace	
-		export excel "`output_path'/tables_appendix/Table9_CE_Table_DWL_`ce_table_name'.xlsx", first(var) sheet("data_export", replace) keepcellfmt
+		copy "${output_tab}/tables_templates/TEMPLATE_ce_averages_DWL.xlsx" "`output_path'/tables_appendix/Table14_CE_Table_DWL_`ce_table_name'.xlsx", replace	
+		export excel "`output_path'/tables_appendix/Table14_CE_Table_DWL_`ce_table_name'.xlsx", first(var) sheet("data_export", replace) keepcellfmt
 
 	restore
 }
