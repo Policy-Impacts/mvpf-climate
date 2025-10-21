@@ -38,12 +38,12 @@ User-specific paths are:
 */
 
 *Replace the XX, YY, and XX with the relevant directories
-if ("`c(username)'" == "XX") {
-	global user = "C:/Users/XX"
+if ("`c(username)'" == "beatrice") {
+	global user = "C:/Users/beatrice"
 	global dropbox = "${user}/Documents/GitHub/mvpf-climate/data"
 	global github = "${user}/Documents/GitHub/mvpf-climate"
-	global user_name = "XX"
-	global mac_wolfram_path = "" // Only set this if running on a Mac. Type "which wolframscript" in Terminal to get its location.
+	global user_name = "beatrice"
+	global mac_wolfram_path = "/Applications/Wolfram.app/Contents/MacOS" // Only set this if running on a Mac. Type "which wolframscript" in Terminal to get its location.
 	*global mac_wolfram_path = "/Applications/Wolfram.app/Contents/MacOS" 
 }
 
