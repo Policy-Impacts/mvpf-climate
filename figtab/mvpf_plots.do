@@ -395,7 +395,7 @@ if "`run_subsidies'" == "yes" {
 				
 			if `g' != `max_group_number' {
 				insobs 1, before(r(min)) 
-				replace program_label_long = "— — — — — — — — — — — — — — —" if program_label_long == ""
+				replace program_label_short = "— — — — — — — — — — — — — — —" if program_label_short == ""
 			}
 				
 			replace yaxis = _n 
@@ -403,12 +403,12 @@ if "`run_subsidies'" == "yes" {
 		}
 		insobs 1, before(1)
 		replace yaxis = _n
-		replace program_label_long = "— — — — — — — — — — — — — — —" if _n == 1
+		replace program_label_short = "— — — — — — — — — — — — — — —" if _n == 1
 
 		************************************************************************
 		/* Step #3b: Labeling. */
 		************************************************************************
-		labmask(yaxis), value(program_label_long)
+		labmask(yaxis), value(program_label_short)
 		qui sum yaxis
 
 		local ylabel_min = r(min)
@@ -418,7 +418,7 @@ if "`run_subsidies'" == "yes" {
 		levelsof(yaxis), local(yloop)
 		foreach y of local yloop {
 			
-			qui sum yaxis if program_label_long == "— — — — — — — — — — — — — — —" & yaxis == `y' & _n != 1
+			qui sum yaxis if program_label_short == "— — — — — — — — — — — — — — —" & yaxis == `y' & _n != 1
 			local yline_list  `"`yline_list' `r(mean)'"'
 			
 		}		
@@ -447,7 +447,7 @@ if "`missing_categories'" != "" {
 }
 
 		
-		levelsof(group_label_code), local(group_loop)
+		levelsof(group_label_code) if !missing(group_label_code), local(group_loop)
 		foreach g of local group_loop {
 			
 			qui sum yaxis if group_label_code == "`g'"
@@ -464,6 +464,8 @@ if "`missing_categories'" != "" {
 			}
 
 		}
+		
+		
 	 
 if "`7'" == "categories_only" {
     di "Stopping after category calculations - locals are available"
@@ -569,7 +571,7 @@ if "`7'" == "categories_only" {
 			graphregion(color(white) margin(l=8)) ///
 			title(" ") ///
 			ytitle(" ") ///
-				ylabel(`ylabel_min'(1)`ylabel_max', value labsize(tiny) angle(0) nogrid tlw(0.15) tlength(0)) ///
+				ylabel(`ylabel_min'(1)`ylabel_max', value labsize(vsmall) angle(0) nogrid tlw(0.15) tlength(0)) ///
 				yline(`yline_list', lcolor(black%30) lw(0.05) lpattern(dash)) ///
 				yscale(range(`ylabel_min' `ylabel_max')) ///
 			xtitle("MVPF", axis(1) size(small)) ///
@@ -625,7 +627,7 @@ if "`7'" == "categories_only" {
 				graphregion(color(white) margin(l=8)) ///
 				title(" ") ///
 				ytitle(" ") ///
-					ylabel(`ylabel_min'(1)`ylabel_max', value labsize(tiny) angle(0) nogrid tlw(0.15) tlength(0)) ///
+					ylabel(`ylabel_min'(1)`ylabel_max', value labsize(vsmall) angle(0) nogrid tlw(0.15) tlength(0)) ///
 					yline(`yline_list', lcolor(black%30) lw(0.05) lpattern(dash)) ///
 					yscale(range(`ylabel_min' `ylabel_max')) ///
 				xtitle("MVPF", axis(1) size(small)) ///
@@ -707,20 +709,20 @@ if "`7'" == "categories_only" {
 				plotregion(margin(l=0 b=0 t=0)) ///
 				graphregion(color(white) margin(l=8)) ///
 				ytitle(" ") ///
-					ylabel(`ylabel_min'(1)`ylabel_max', value labsize(tiny) angle(0) nogrid tlw(0.15) tlength(0)) ///
+					ylabel(`ylabel_min'(1)`ylabel_max', value labsize(6.5pt) angle(0) nogrid tlw(0.15) tlength(0)) ///
 					yline(`yline_list', lcolor(black%30) lw(0.05) lpattern(dash)) ///
 					yscale(range(`ylabel_min' `ylabel_max')) ///
 				xtitle("MVPF", axis(1) size(small)) ///
-					xscale(range(0 `subsidy_censor_value') axis(1) titlegap(+1.5)) ///
+					xscale(range(0 `subsidy_censor_value') axis(1.3) titlegap(+1.5)) ///
 					xlab(0(1)`subsidy_censor_value', axis(1)) ///
-				text(`OtherSubsidies_xpos' -3 "{bf:Other Subsidies}", size(vsmall)) ///
-				text(`Weatherization_xpos' -3 "{bf:Weatherization}", size(vsmall)) ///
-				text(`HybridVehicles_xpos' -3 "{bf:Hybrid Vehicles}", size(vsmall)) ///
-				text(`VehicleRetirement_xpos' -3 "{bf:Vehicle Retirement}", size(vsmall)) ///
-				text(`ApplianceRebates_xpos' -3 "{bf:Appliance Rebates}", size(vsmall)) ///
-				text(`ElectricVehicles_xpos' -3 "{bf:Electric Vehicles}", size(vsmall)) ///
-				text(`ResidentialSolar_xpos' -3 "{bf:Residential Solar}", size(vsmall)) ///
-				text(`WindProductionCredits_xpos' -3 "{bf:Wind Production Credits}", size(vsmall)) ///
+				text(`OtherSubsidies_xpos' -1.5 "{bf:Other Subsidies}", size(vsmall)) ///
+				text(`Weatherization_xpos' -1.5 "{bf:Weatherization}", size(vsmall)) ///
+				text(`HybridVehicles_xpos' -1.5 "{bf:Hybrid Vehicles}", size(vsmall)) ///
+				text(`VehicleRetirement_xpos' -1.5 "{bf:Vehicle Retirement}", size(vsmall)) ///
+				text(`ApplianceRebates_xpos' -1.5 "{bf:Appliance Rebates}", size(vsmall)) ///
+				text(`ElectricVehicles_xpos' -1.5 "{bf:Electric Vehicles}", size(vsmall)) ///
+				text(`ResidentialSolar_xpos' -1.5 "{bf:Residential Solar}", size(vsmall)) ///
+				text(`WindProductionCredits_xpos' -1.7 "{bf:Wind Production Credits}", size(vsmall)) ///
 				legend(off)
 			
 			graph export "`output_path'/`plot_name'_mvpf_subsidies_with_CIs.png", replace
@@ -759,7 +761,7 @@ if "`run_international'" == "yes" {
 				
 			if `g' != `max_group_number' {
 				insobs 1, before(r(min)) 
-				replace program_label_long = "— — — — — — — — — — — — — — —" if program_label_long == ""
+				replace program_label_short = "— — — — — — — — — — — — — — —" if program_label_short == ""
 			}
 				
 			replace yaxis = _n 
@@ -767,12 +769,12 @@ if "`run_international'" == "yes" {
 		}
 		insobs 1, before(1)
 		replace yaxis = _n
-		replace program_label_long = "— — — — — — — — — — — — — — —" if _n == 1
+		replace program_label_short = "— — — — — — — — — — — — — — —" if _n == 1
 		
 		************************************************************************
 		/*                         Step #4b: Labeling.                        */
 		************************************************************************
-		labmask(yaxis), value(program_label_long)
+		labmask(yaxis), value(program_label_short)
 		qui sum yaxis
 		local ylabel_min = r(min)
 		local ylabel_max = r(max)
@@ -781,7 +783,7 @@ if "`run_international'" == "yes" {
 		levelsof(yaxis), local(yloop)
 		foreach y of local yloop {
 			
-			qui sum yaxis if program_label_long == "— — — — — — — — — — — — — — —" & yaxis == `y' & _n != 1
+			qui sum yaxis if program_label_short == "— — — — — — — — — — — — — — —" & yaxis == `y' & _n != 1
 			local yline_list  `"`yline_list' `r(mean)'"'
 			
 		}		
@@ -857,17 +859,17 @@ if "`run_international'" == "yes" {
 			title(" ") ///
 				subtitle(" ") ///			
 			ytitle(" ") ///
-				ylabel(`ylabel_min'(1)`ylabel_max', value labsize(tiny) angle(0) nogrid tlw(0.15) tlength(0)) ///
+				ylabel(`ylabel_min'(1)`ylabel_max', value labsize(6.5pt) angle(0) nogrid tlw(0.15) tlength(0)) ///
 				yline(`yline_list', lcolor(black%30) lw(0.05) lpattern(dash)) ///
 				yscale(range(`ylabel_min' `ylabel_max')) ///
 			xtitle("MVPF", axis(1) size(small)) ///
 				xscale(range(0 `subsidy_censor_value') axis(1) titlegap(+1.5)) ///
 				xlab(0 "0" 1 "1" 2 "2" 3 "3" 4 "4" 5 "5", axis(1)) ///
-			text(`Cookstoves_xpos' -2.5 "{bf:Cookstoves}", size(vsmall)) ///
-			text(`Deforestation_xpos' -2.5 "{bf:Deforestation}", size(vsmall)) ///
-			text(`RiceBurning_xpos' -2.5 "{bf:Rice Burning}", size(vsmall)) ///
-			text(`WindOffset_xpos' -2.5 "{bf:Wind Offsets}", size(vsmall)) ///
-			text(`InternationalRebates_xpos' -2.5 "{bf:Rebates}", size(vsmall)) ///				
+			text(`Cookstoves_xpos' -1.5 "{bf:Cookstoves}", size(vsmall)) ///
+			text(`Deforestation_xpos' -1.5 "{bf:Deforestation}", size(vsmall)) ///
+			text(`RiceBurning_xpos' -1.5 "{bf:Rice Burning}", size(vsmall)) ///
+			text(`WindOffset_xpos' -1.5 "{bf:Wind Offsets}", size(vsmall)) ///
+			text(`InternationalRebates_xpos' -1.5 "{bf:Rebates}", size(vsmall)) ///				
 			legend(off)
 
 		graph export "`output_path'/mvpf_intl_`plot_name'_with_CIs.png", replace
@@ -900,15 +902,15 @@ if "`run_revenue_raisers'" == "yes" {
 	foreach p of local ref_policies {
 			
 		insobs 1, before(1)
-		replace program_label_long = "`p'" if _n == 1
+		replace program_label_short = "`p'" if _n == 1
 		
-		replace MVPF = 1.16 if program_label_long == "Taxes (Top Earners, 2013)"
+		replace MVPF = 1.16 if program_label_short == "Taxes (Top Earners, 2013)" // (Hendren and Sprung-Keyser, 2020)
 		
-		replace MVPF = 1.85 if program_label_long == "Taxes (Top Earners, 1993)"
+		replace MVPF = 1.85 if program_label_short == "Taxes (Top Earners, 1993)" // (Hendren and Sprung-Keyser, 2020)
 		
-		replace MVPF = 1.12 if program_label_long == "Taxes (Low-Income EITC, 1993)"
+		replace MVPF = 1.12 if program_label_short == "Taxes (Low-Income EITC, 1993)" // (Hendren and Sprung-Keyser, 2020)
 			
-		replace MVPF = 1 if program_label_long == "Taxes (Low-Income Paycheck+, 2013)"
+		replace MVPF = 1 if program_label_short == "Taxes (Low-Income Paycheck+, 2013)" // (Hendren and Sprung-Keyser, 2020)
 			
 		replace group_label = "Comparisons" if _n == 1
 		replace across_group_ordering = `comparison_ordering' if _n == 1
@@ -931,7 +933,7 @@ if "`run_revenue_raisers'" == "yes" {
 			
 		if `g' != `max_group_number' {
 			insobs 1, after(r(max)) 
-			replace program_label_long = "— — — — — — — — — — — — — — —" if program_label_long == ""
+			replace program_label_short = "— — — — — — — — — — — — — — —" if program_label_short == ""
 		}
 			
 		replace yaxis = _n 
@@ -940,15 +942,15 @@ if "`run_revenue_raisers'" == "yes" {
 	
 	insobs 1, before(1)
 	replace yaxis = _n
-	replace program_label_long = "— — — — — — — — — — — — — — —" if _n == 1
+	replace program_label_short = "— — — — — — — — — — — — — — —" if _n == 1
 	
 	qui sum yaxis
-	drop if yaxis == r(max) & program_label_long == "— — — — — — — — — — — — — — —"
+	drop if yaxis == r(max) & program_label_short == "— — — — — — — — — — — — — — —"
 		
 	************************************************************************
 	/* Step #5c: Labeling. */
 	************************************************************************
-	labmask(yaxis), value(program_label_long)
+	labmask(yaxis), value(program_label_short)
 	qui sum yaxis
 
 	local ylabel_min = r(min)
@@ -958,7 +960,7 @@ if "`run_revenue_raisers'" == "yes" {
 	levelsof(yaxis), local(yloop)
 	foreach y of local yloop {
 		
-		qui sum yaxis if program_label_long == "— — — — — — — — — — — — — — —" & yaxis == `y' & _n != 1
+		qui sum yaxis if program_label_short == "— — — — — — — — — — — — — — —" & yaxis == `y' & _n != 1
 		local yline_list  `"`yline_list' `r(mean)'"'
 		
 	}		
@@ -1022,17 +1024,17 @@ if "`run_revenue_raisers'" == "yes" {
 		plotregion(margin(l=0 b=0 t=0)) ///
 		graphregion(color(white) margin(l=8)) ///
 		ytitle(" ") ///
-			ylabel(`ylabel_min'(1)`ylabel_max', value labsize(tiny) angle(0) nogrid tlw(0.15) tlength(0)) ///
+			ylabel(`ylabel_min'(1)`ylabel_max', value labsize(6.5pt) angle(0) nogrid tlw(0.15) tlength(0)) ///
 			yline(`yline_list', lcolor(black%30) lw(0.05) lpattern(dash)) ///
 			yscale(range(`ylabel_min' `ylabel_max')) ///
 		xtitle("MVPF", axis(1) size(small)) ///
 			xscale(range(0 `tax_censor_value') axis(1) titlegap(+1.5)) ///
 			xlab(0(.5)`tax_censor_value', axis(1)) ///
 			xline(1, lcolor(black)) ///
-		text(`GasolineTaxes_xpos' -1 "{bf:Gasoline Taxes}", size(vsmall)) ///
-		text(`OtherFuelTaxes_xpos' -1 "{bf:Other Fuel Taxes}", size(vsmall)) ///
-		text(`OtherRevenueRaisers_xpos' -1 "{bf:Other Revenue Raisers}", size(vsmall)) ///
-		text(`Comparisons_xpos' -1 "{bf:Reference Taxes}", size(vsmall)) ///		
+		text(`GasolineTaxes_xpos' -0.7 "{bf:Gasoline Taxes}", size(vsmall)) ///
+		text(`OtherFuelTaxes_xpos' -0.7 "{bf:Other Fuel Taxes}", size(vsmall)) ///
+		text(`OtherRevenueRaisers_xpos' -0.65 "{bf:Other Revenue Raisers}", size(vsmall)) ///
+		text(`Comparisons_xpos' -0.7 "{bf:Reference Taxes}", size(vsmall)) ///		
 		legend(off)
 
 	graph export "`output_path'/mvpf_taxes_`plot_name'_with_CIs.png", replace
