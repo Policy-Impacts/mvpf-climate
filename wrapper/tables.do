@@ -5,12 +5,11 @@
     Policies Impacting Climate Change.
 ****************************************************************************/
 
-*-----------------------------
-* 1 - Baseline MVPF Components
-*-----------------------------
+*----------------------------------------
+* 1 - Baseline MVPF Components Condensed
+*----------------------------------------
 
-do "${github}/figtab/excel_MVPF_tables.do" "full_current_193" "Table1_scc193_main" "no" "yes"
-
+do "${github}/figtab/excel_MVPF_tables_condensed.do" "full_current_193" "Table1_scc193_main" "no" "yes"
 
 *----------------------------------------------------
 * 2 - MVPF Versus Cost Per Ton (with and without LBD)
