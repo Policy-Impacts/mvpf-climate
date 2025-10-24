@@ -9,7 +9,7 @@
 * 1 - Baseline MVPF Components
 *-----------------------------
 
-do "${github}/figtab/excel_MVPF_tables.do" "full_current_193" "Table1_scc193_main" "no" "yes"
+do "${github}/figtab/excel_MVPF_tables_condensed.do" "full_current_193" "Table1_scc193_main" "no" "yes"
 
 
 *----------------------------------------------------

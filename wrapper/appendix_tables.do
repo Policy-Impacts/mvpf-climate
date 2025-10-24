@@ -5,7 +5,11 @@
     This file produces all of the appendix tables for A Welfare Analysis 
     of Policies Impacting Climate Change.
 ****************************************************************************/
+*----------------------------------------
+* 1 - Baseline MVPF Components in Full
+*----------------------------------------
 
+do "${github}/figtab/excel_MVPF_tables.do" "full_current_193" "Table1_scc193_app" "no" "yes"
 *---------------------------------------------------------------------
 * 2 - Evidence of Learning By Doing, Using Data from Way et al. (2022)
 *---------------------------------------------------------------------
