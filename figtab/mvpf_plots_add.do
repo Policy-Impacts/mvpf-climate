@@ -74,7 +74,7 @@ foreach scc in 193 76 337 {
         "`all_subsidies'" /// programs to run
         0 /// reps
         "full_current_savings_`scc'_s" // nrun
-   
+  
     *CA grid
     do "${github}/wrapper/metafile.do" ///
         "current" /// 2020
@@ -85,7 +85,7 @@ foreach scc in 193 76 337 {
         "`all_subsidies'" /// programs to run
         0 /// reps
         "full_current_`scc'_CA_grid_s" // nrun
-   
+  
     *MI grid
     do "${github}/wrapper/metafile.do" ///
         "current" /// 2020
@@ -99,7 +99,7 @@ foreach scc in 193 76 337 {
 		
 	global change_grid = ""
 	global ev_grid = "US"
-   
+  
     *0 rebound
     global rebound_change = "yes"
     global rebound_scalar = 0
@@ -113,7 +113,7 @@ foreach scc in 193 76 337 {
         "`all_subsidies'" /// programs to run
         0 /// reps
         "full_current_`scc'_zero_rb_s" // nrun	
-   
+  
     global rebound_change = "no"
     global rebound_scalar = 1
 
@@ -130,7 +130,7 @@ foreach scc in 193 76 337 {
         "`all_subsidies'" /// programs to run
         0 /// reps
         "full_current_`scc'_2_rb_s" // nrun	
-   
+  
     global rebound_change = "no"
     global rebound_scalar = 1
 }
@@ -213,13 +213,25 @@ di in red "Looking for pattern: `scenario'"
 di in red "Checking folder: `scenario'"
 di in red "Regex pattern: ^([0-9]{4}-[0-9]{2}-[0-9]{2}_[0-9]{2}-[0-9]{2}-[0-9]{2})__`scenario'$"
 
-        if regexm("`folder'", lower("^([0-9]{4}-[0-9]{2}-[0-9]{2}_[0-9]{2}-[0-9]{2}-[0-9]{2})__`scenario'$")) {
-            local timestamp = regexs(1)
-            local folder_list = "`folder_list' `folder'"
-            local folder_dates = "`folder_dates' `timestamp'"
-            di in green "Found matching folder: `folder' (timestamp: `timestamp')"
-        }
-    }
+foreach folder of local folders {
+    local lower_scenario = lower("`scenario'")
+			
+	if "`c(os)'" == "MacOSX" {
+		if regexm("`folder'", "^([0-9]{4}-[0-9]{2}-[0-9]{2}_[0-9]{2}-[0-9]{2}-[0-9]{2})__`scenario'$") {
+			local timestamp = regexs(1)
+			local folder_list = "`folder_list' `folder'"
+			local folder_dates = "`folder_dates' `timestamp'"
+		}
+	}
+	else {
+		if regexm(lower("`folder'"), "^([0-9]{4}-[0-9]{2}-[0-9]{2}_[0-9]{2}-[0-9]{2}-[0-9]{2})__`lower_scenario'$") {
+			local timestamp = regexs(1)
+			local folder_list = "`folder_list' `folder'"
+			local folder_dates = "`folder_dates' `timestamp'"
+		}
+	}
+  }
+}
     
     * If no matching folders found, display error and exit
     if "`folder_list'" == "" {
