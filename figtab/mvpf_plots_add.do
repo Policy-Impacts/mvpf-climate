@@ -213,7 +213,7 @@ di in red "Looking for pattern: `scenario'"
 di in red "Checking folder: `scenario'"
 di in red "Regex pattern: ^([0-9]{4}-[0-9]{2}-[0-9]{2}_[0-9]{2}-[0-9]{2}-[0-9]{2})__`scenario'$"
 
-        if regexm("`folder'", lower("^([0-9]{4}-[0-9]{2}-[0-9]{2}_[0-9]{2}-[0-9]{2}-[0-9]{2})__`scenario'$")) {
+        if regexm(lower("`folder'"), lower("^([0-9]{4}-[0-9]{2}-[0-9]{2}_[0-9]{2}-[0-9]{2}-[0-9]{2})__`scenario'$")) {
             local timestamp = regexs(1)
             local folder_list = "`folder_list' `folder'"
             local folder_dates = "`folder_dates' `timestamp'"

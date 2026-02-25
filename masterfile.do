@@ -43,8 +43,10 @@ if ("`c(username)'" == "XX") {
 	global dropbox = "${user}/Documents/GitHub/mvpf-climate/data"
 	global github = "${user}/Documents/GitHub/mvpf-climate"
 	global user_name = "XX"
-	global mac_wolfram_path = "" // Only set this if running on a Mac. Type "which wolframscript" in Terminal to get its location.
-	*global mac_wolfram_path = "/Applications/Wolfram.app/Contents/MacOS" 
+	global mac_wolfram_path = "" // Only set this if running on a Mac. On a PCs the default path is already set but needs to be specified on a Mac. Type "which wolframscript" in Terminal to get its location.
+
+* Mathematica is required for all calculations using learning-by-doing. The 9 main runs, stating on line 88, all require mathematica to be installed with the exception of run 7. Run 7 is the no learning-by-doing specification. Learning-by-doing can be turned off for all runs by changing the third metafile argument to "no".
+
 }
 
 noi di "Set user path to: ${user}"
